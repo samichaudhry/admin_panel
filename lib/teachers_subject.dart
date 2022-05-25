@@ -1,3 +1,4 @@
+import 'package:admin_panel/subject_info.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/add_subject.dart';
 // import 'package:admin_panel/add_teacher.dart';
@@ -170,7 +171,7 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
                           borderRadius: BorderRadius.circular(15)),
                       tileColor: Colors.grey[800],
                       onTap: () {
-                        Get.to(() => const TeacherInfo());
+                        Get.to(() => const SubjectInfo());
                       },
                       leading: CircleAvatar(
                         backgroundColor: Colors.teal,
