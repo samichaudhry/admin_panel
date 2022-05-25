@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:admin_panel/add_teacher.dart';
 import 'package:admin_panel/teachers_subject.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
-import 'package:admin_panel/custom widgets/utils.dart';
+import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
 
 class TeacherInfo extends StatefulWidget {
@@ -62,7 +62,7 @@ class _TeacherInfoState extends State<TeacherInfo> {
               ),
               child: Column(
                 children: [
-                  customSizedBox(height: 1),
+                  customSizedBox(height: 0.5),
                   CircleAvatar(
                     radius: 50.0,
                     foregroundImage: NetworkImage(imgUrl),

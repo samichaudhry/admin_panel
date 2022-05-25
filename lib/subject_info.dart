@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:admin_panel/add_subject.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
-import 'package:admin_panel/custom widgets/utils.dart';
+import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
 
 class SubjectInfo extends StatefulWidget {

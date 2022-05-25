@@ -44,6 +44,7 @@ dependencies:
   font_awesome_flutter: any
   cached_network_image: any
   fluttertoast: any
+  flutter_arc_speed_dial: any
 
 
 dev_dependencies:

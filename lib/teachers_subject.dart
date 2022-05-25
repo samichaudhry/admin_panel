@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:admin_panel/add_subject.dart';
-import 'package:admin_panel/subject_info.dart';
-import 'package:admin_panel/custom widgets/utils.dart';
+// import 'package:admin_panel/add_teacher.dart';
+import 'package:admin_panel/teacher_info.dart';
+import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
 
 class TeacherSubjects extends StatefulWidget {
@@ -107,14 +109,18 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(() => const AddSubject(), arguments: [
-            {"pageTitle": "Add Subject", "buttonText": "Submit"}
-          ]);
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: customFAB(
+          clr: Colors.teal,
+          ontap: () {
+            Get.to(() => const AddSubject(), arguments: [
+              {"pageTitle": "Add Subject", "buttonText": "Submit"}
+            ]);
+          },
+          icon: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          text: customText(txt: 'Subject', clr: Colors.white)),
       body: CustomScrollView(slivers: [
         SliverAppBar(
           title: const Text(
@@ -154,17 +160,17 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
             delegate: SliverChildBuilderDelegate(
           (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 19, right: 19, top: 13),
               child: Column(
                 children: ListTile.divideTiles(
                   context: context,
                   tiles: [
                     ListTile(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(15)),
                       tileColor: Colors.grey[800],
                       onTap: () {
-                        Get.to(() => const SubjectInfo());
+                        Get.to(() => const TeacherInfo());
                       },
                       leading: CircleAvatar(
                         backgroundColor: Colors.teal,

@@ -1,9 +1,14 @@
-import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
-import 'package:admin_panel/custom%20widgets/utils.dart';
-import 'package:admin_panel/sessions_page.dart';
-import 'package:admin_panel/teachers_page.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:admin_panel/attendance_record.dart';
+import 'package:admin_panel/sessions_page.dart';
+import 'package:admin_panel/teachers_page.dart';
+// import 'package:font_awesome_flutter/src/fa_icon.dart';
+import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+// import 'package:admin_panel/subjects_page.dart';
+import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
 
 class AdminMainPage extends StatefulWidget {
@@ -27,22 +32,22 @@ class _AdminMainPageState extends State<AdminMainPage> {
       'route': () => const sessionpage(),
       'color': const Color(0xff2A5E75)
     },
-    {
-      'title': "Today's Attendance Report",
-      'icon': FontAwesomeIcons.fileContract,
-      'route': const TeachersPage(),
-      'color': const Color(0xff314554)
-    },
+    // {
+    //   'title': "Today's Attendance Report",
+    //   'icon': FontAwesomeIcons.fileContract,
+    //   'route': const SubjectsPage(),
+    //   'color': const Color(0xff314554)
+    // },
     {
       'title': "Attendance Record",
       'icon': FontAwesomeIcons.filePrescription,
-      'route': const TeachersPage(),
+      'route': const AttendanceRecord(),
       'color': const Color(0xff263E52)
     },
     {
       'title': "Change Password",
       'icon': FontAwesomeIcons.key,
-      'route': const TeachersPage(),
+      'route': () {},
       'color': const Color(0xff0F2030)
     },
   ];

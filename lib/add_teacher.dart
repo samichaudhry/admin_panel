@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
-import 'package:admin_panel/custom widgets/custom_formfield.dart';
-import 'package:admin_panel/custom widgets/utils.dart';
+import 'package:admin_panel/custom_formfield.dart';
+import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
 
 class AddTeacher extends StatefulWidget {
@@ -90,7 +91,8 @@ class _AddTeacherState extends State<AddTeacher> {
                     customSizedBox(height: 1),
                     GestureDetector(
                         onTap: () {
-                          filepicker().then((selectedpath) {
+                          filepicker(filetype: FileType.image)
+                              .then((selectedpath) {
                             if (selectedpath.toString().isNotEmpty) {
                               setState(() {
                                 imgPath = selectedpath;

@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:admin_panel/custom%20widgets/custom_formfield.dart';
-import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
-import 'package:admin_panel/custom%20widgets/utils.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+import 'package:admin_panel/custom_formfield.dart';
+import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
 
 class AddSubject extends StatefulWidget {
@@ -226,7 +227,8 @@ class _AddSubjectState extends State<AddSubject> {
                     customSizedBox(height: 1),
                     GestureDetector(
                         onTap: () {
-                          filepicker().then((selectedpath) {
+                          filepicker(filetype: FileType.image)
+                              .then((selectedpath) {
                             if (selectedpath.toString().isNotEmpty) {
                               setState(() {
                                 imgPath = selectedpath;
