@@ -1,9 +1,11 @@
+import 'package:admin_panel/upload_file.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:flutter_arc_speed_dial/flutter_speed_dial_menu_button.dart';
 import 'package:flutter_arc_speed_dial/main_menu_floating_action_button.dart';
+import 'package:get/get.dart';
 
 class SessionStudent extends StatefulWidget {
   const SessionStudent({Key? key}) : super(key: key);
@@ -156,6 +158,9 @@ class _SessionStudentState extends State<SessionStudent> {
             icon: const Icon(FontAwesomeIcons.upload),
             onPressed: () {
               // filepicker();
+              Get.to(
+                () => const UploadFile(),
+              );
             },
             backgroundColor: Colors.teal,
             foregroundColor: Colors.white,
