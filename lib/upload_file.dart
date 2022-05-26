@@ -30,7 +30,7 @@ class _UploadFileState extends State<UploadFile> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
             primary: Colors.teal,
             minimumSize: const Size.fromHeight(50),
           ),
@@ -55,6 +55,7 @@ class _UploadFileState extends State<UploadFile> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: customText(txt: 'Upload File', fsize: 20.0),
         centerTitle: true,
       ),
