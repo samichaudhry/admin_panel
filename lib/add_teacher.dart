@@ -69,7 +69,7 @@ class _AddTeacherState extends State<AddTeacher> {
               floating: true,
               elevation: 0.0,
               title: customText(
-                txt: editProfileArgument[0]["pageTitle"].toString(),
+                txt: editProfileArgument[0]["pageTitlle"].toString(),
                 clr: Colors.white,
                 fsize: 20.0,
                 fweight: FontWeight.w500,
