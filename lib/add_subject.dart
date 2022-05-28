@@ -268,24 +268,27 @@ class _AddSubjectState extends State<AddSubject> {
             SliverList(
                 delegate: SliverChildListDelegate([
               customTextField(
-                  "Subject Name", Icons.edit, false, null, _subjName, (value) {
+                  "Subject Name",  false, null, _subjName, (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Subject Name";
                 }
               }, (value) {
                 _subjName.text = value!;
               }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100)),
+                  responsiveHW(context, ht: 100), OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ), filled: true,fillColor: Colors.grey[800],pIcon:Icons.edit, ),
               customSizedBox(),
               customTextField(
-                  "Subject Code", Icons.code, false, null, _subjCode, (value) {
+                  "Subject Code",  false, null, _subjCode, (value) {
                 if (value!.isEmpty) {
                   return "Subject Code Required*";
-                }
-              }, (value) {
+                } }, (value) {
                 _subjCode.text = value!;
               }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100)),
+                  responsiveHW(context, ht: 100), OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ), filled: true,fillColor: Colors.grey[800],pIcon:Icons.code,),
               customSizedBox(),
               Padding(
                 padding: EdgeInsets.symmetric(

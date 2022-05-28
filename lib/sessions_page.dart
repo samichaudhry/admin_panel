@@ -407,18 +407,19 @@ class _sessionpageState extends State<sessionpage> {
                         Icons.cancel,
                       );
                       customSearchBar = SizedBox(
-                        // decoration: BoxDecoration(
-                        //     // color: Colors.grey[800],
-                        //     borderRadius: BorderRadius.circular(14.0)),
-                        height: MediaQuery.of(context).size.height * 0.045,
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 10.0, top: 2),
-                          child: TextField(
-                              cursorColor: Colors.teal,
-                              decoration: InputDecoration(
-                                hintText: 'Search Session',
-                                border: InputBorder.none,
-                              )),
+                         height: MediaQuery.of(context).size.height * 0.04,
+                        child: Material(
+                              color: Colors.grey[600],
+                              borderRadius: BorderRadius.circular(14.0),
+                              child: const Padding(
+                            padding: EdgeInsets.only(left: 10.0, top: 2),
+                            child: TextField(
+                                cursorColor: Colors.teal,
+                                decoration: InputDecoration(
+                                  hintText: 'Search Session',
+                                  border: InputBorder.none,
+                                )),
+                          ),
                         ),
                       );
                     } else {

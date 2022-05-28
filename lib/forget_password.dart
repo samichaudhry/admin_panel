@@ -58,7 +58,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               SizedBox(
                 height: responsiveHW(context, ht: 2),
               ),
-              customTextField("Email", Icons.email, false, null, _email,
+              customTextField("Email",  false, null, _email,
                   (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Your Email";
@@ -71,7 +71,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               }, (value) {
                 _email.text = value!;
               }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100)),
+                  responsiveHW(context, ht: 100),InputBorder.none,pIcon:Icons.email, ),
               SizedBox(
                 height: responsiveHW(context, ht: 3),
               ),

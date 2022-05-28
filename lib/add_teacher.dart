@@ -129,7 +129,7 @@ class _AddTeacherState extends State<AddTeacher> {
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              customTextField("Name", Icons.edit, false, null, _name, (value) {
+              customTextField("Name", false, null, _name, (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Teacher Name ";
                 }
@@ -139,9 +139,9 @@ class _AddTeacherState extends State<AddTeacher> {
               }, (value) {
                 _name.text = value!;
               }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100)),
+                  responsiveHW(context, ht: 100),InputBorder.none,pIcon: Icons.edit, ),
               customSizedBox(),
-              customTextField("Designation", Icons.workspace_premium_outlined,
+              customTextField("Designation", 
                   false, null, _designation, (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Teacher's Designation";
@@ -152,9 +152,9 @@ class _AddTeacherState extends State<AddTeacher> {
               }, (value) {
                 _designation.text = value!;
               }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100)),
+                  responsiveHW(context, ht: 100),InputBorder.none,pIcon:Icons.workspace_premium_outlined, ),
               customSizedBox(),
-              customTextField("Department", FontAwesomeIcons.building, false,
+              customTextField("Department", false,
                   null, _department, (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Teacher's Department";
@@ -165,9 +165,9 @@ class _AddTeacherState extends State<AddTeacher> {
               }, (value) {
                 _department.text = value!;
               }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100)),
+                  responsiveHW(context, ht: 100),InputBorder.none,pIcon:FontAwesomeIcons.building, ),
               customSizedBox(),
-              customTextField("Email", Icons.email, false, null, _email,
+              customTextField("Email", false, null, _email,
                   (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Your Email";
@@ -180,13 +180,11 @@ class _AddTeacherState extends State<AddTeacher> {
               }, (value) {
                 _email.text = value!;
               }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100)),
+                  responsiveHW(context, ht: 100),InputBorder.none,pIcon:Icons.email, ),
               customSizedBox(),
               editProfileArgument[0]["pageTitle"].toString() == "Add Teacher"
                   ? customTextField(
-                      "Password",
-                      Icons.lock,
-                      passwordVisible,
+                      "Password", passwordVisible,
                       IconButton(
                         icon: Icon(
                           //choose the icon on based of passwordVisibility
@@ -207,7 +205,7 @@ class _AddTeacherState extends State<AddTeacher> {
                     }, (value) {
                       _password.text = value!;
                     }, responsiveHW(context, wd: 100),
-                      responsiveHW(context, ht: 100))
+                      responsiveHW(context, ht: 100),InputBorder.none,pIcon:Icons.lock,)
                   : customSizedBox(height: 0),
               editProfileArgument[0]["pageTitle"].toString() == "Add Teacher"
                   ? customSizedBox()
@@ -215,8 +213,7 @@ class _AddTeacherState extends State<AddTeacher> {
               editProfileArgument[0]["pageTitle"].toString() == "Add Teacher"
                   ? customTextField(
                       "Confirm Password",
-                      Icons.lock,
-                      confirmPasswordVisible,
+                       confirmPasswordVisible,
                       IconButton(
                         icon: Icon(
                           //choose the icon on based of passwordVisibility
@@ -237,7 +234,7 @@ class _AddTeacherState extends State<AddTeacher> {
                     }, (value) {
                       _confirmpass.text = value!;
                     }, responsiveHW(context, wd: 100),
-                      responsiveHW(context, ht: 100))
+                      responsiveHW(context, ht: 100),InputBorder.none,pIcon: Icons.lock,)
                   : customSizedBox(height: 0),
               customSizedBox(height: 3),
               Padding(

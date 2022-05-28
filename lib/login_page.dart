@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: responsiveHW(context, ht: 4)),
             Expanded(
               child: ListView(children: [
-                customTextField("Email", Icons.email, false, null, _email,
+                customTextField("Email", false, null, _email,
                     (value) {
                   if (value!.isEmpty) {
                     return "Please Enter Your Email";
@@ -128,13 +128,13 @@ class _LoginPageState extends State<LoginPage> {
                 }, (value) {
                   _email.text = value!;
                 }, responsiveHW(context, wd: 100),
-                    responsiveHW(context, ht: 100)),
+                    responsiveHW(context, ht: 100),InputBorder.none , pIcon:Icons.email, ),
                 SizedBox(
                   height: responsiveHW(context, ht: 2),
                 ),
                 customTextField(
                     "Password",
-                    Icons.lock,
+                    
                     passwordVisible,
                     IconButton(
                       icon: Icon(
@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                 }, (value) {
                   _password.text = value!;
                 }, responsiveHW(context, wd: 100),
-                    responsiveHW(context, ht: 100)),
+                    responsiveHW(context, ht: 100),InputBorder.none,pIcon:Icons.lock, ),
                 SizedBox(
                   height: responsiveHW(context, ht: 3),
                 ),
