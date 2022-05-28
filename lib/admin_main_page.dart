@@ -1,5 +1,7 @@
 import 'package:admin_panel/edit_profile.dart';
+import 'package:admin_panel/login_page.dart';
 import 'package:admin_panel/profile_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/attendance_record.dart';
@@ -19,6 +21,7 @@ class AdminMainPage extends StatefulWidget {
 }
 
 class _AdminMainPageState extends State<AdminMainPage> {
+  bool isloggedin = false;
   List OptionsList = [
     {
       'title': "Teachers",
@@ -51,6 +54,35 @@ class _AdminMainPageState extends State<AdminMainPage> {
       'color': const Color(0xff0F2030)
     },
   ];
+
+  Future<void> logoutfunc() async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('you want to logout?'),
+        actions: <Widget>[
+          MaterialButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('No'),
+          ),
+          MaterialButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              setState(() {
+                isloggedin = false;
+              });
+              Get.to(
+                () => const LoginPage(),
+              );
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +104,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
             ),
             actions: [
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: logoutfunc,
                 icon: const Icon(Icons.logout_sharp),
                 label: customText(txt: 'Logout', clr: Colors.white),
                 style: ElevatedButton.styleFrom(
@@ -100,8 +132,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   ProfileWidget(
-                    imagePath:
-                        'https://e7.pngegg.com/pngimages/8/232/png-clipart-computer-icons-man-avatar-male-login-man-people-monochrome-thumbnail.png',
+                    imagePath: '${FirebaseAuth.instance.currentUser!.photoURL}',
                     onClicked: () async {
                       Get.to(
                         () => const edit_profile(),
@@ -119,7 +150,9 @@ class _AdminMainPageState extends State<AdminMainPage> {
                         fweight: FontWeight.w500),
                   ),
                   Center(
-                    child: customText(txt: 'admin@gmail.com', fsize: 18.0),
+                    child: customText(
+                        txt: '${FirebaseAuth.instance.currentUser!.email}',
+                        fsize: 18.0),
                   ),
                 ],
               ),

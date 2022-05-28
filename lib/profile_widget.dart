@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-
 class ProfileWidget extends StatelessWidget {
   final String imagePath;
   final VoidCallback onClicked;
@@ -32,23 +31,23 @@ class ProfileWidget extends StatelessWidget {
 
     return ClipOval(
       child: Material(
-        color: Colors.transparent,
-        child:  CircleAvatar(
-                          radius: 50.0,
-                          foregroundImage: FileImage(File(imagePath)),
-                          child: const Icon(
-                            Icons.person,
-                            size: 80.0,
-                            color: Colors.white,
-                          ),
-                        )
-        // child: Ink.image(
-        //   image: image,
-        //   fit: BoxFit.cover,
-        //   width: 128,
-        //   height: 128,
-        // ),
-      ),
+          color: Colors.transparent,
+          child: CircleAvatar(
+            radius: 50.0,
+            foregroundImage: image,
+            child: const Icon(
+              Icons.person,
+              size: 80.0,
+              color: Colors.white,
+            ),
+          )
+          // child: Ink.image(
+          //   image: image,
+          //   fit: BoxFit.cover,
+          //   width: 128,
+          //   height: 128,
+          // ),
+          ),
     );
   }
 

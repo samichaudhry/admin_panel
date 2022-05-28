@@ -1,7 +1,11 @@
 // import 'package:admin_panel/custom%20widgets/custom_formfield.dart';
+import 'dart:html';
+
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:admin_panel/custom%20widgets/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -79,7 +83,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 padding: EdgeInsets.symmetric(
                   horizontal: responsiveHW(context, wd: 6)!.toDouble(),
                 ),
-                child: customButton("Verify Email", () {}, context, 200),
+                child: customButton("Verify Email", () {
+                  FirebaseAuth.instance
+                      .sendPasswordResetEmail(email: _email.text.trim());
+                  customtoast('Reset link sent successfully');
+                  Navigator.pop(context);
+                }, context, 200),
               ),
               SizedBox(
                 height: responsiveHW(context, ht: 3),
