@@ -79,12 +79,12 @@ class _SessionStudentState extends State<SessionStudent> {
     },
   ];
 
-  Widget customdailog(title, label1, label2, picon, picon2, button) {
+  Widget customdailog(title, picon, picon2, button,{label1, label2,initialvalue1,initialvalue2}) {
     return AlertDialog(
       title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
       actions: [
-        customtextformfield(label1, false, picon),
-        customtextformfield(label2, false, picon2),
+        customtextformfield(false, picon,label1,initialvalue1),
+        customtextformfield( false, picon2,label2,initialvalue2),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -92,7 +92,7 @@ class _SessionStudentState extends State<SessionStudent> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('CANCLE')),
+                child: const Text('CANCEL')),
             MaterialButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -104,12 +104,12 @@ class _SessionStudentState extends State<SessionStudent> {
     );
   }
 
-  Widget customtextformfield(lbltext, isreadonly, icon) {
+  Widget customtextformfield( isreadonly, icon,initialvalue,lbltext) {
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
       child: TextFormField(
           readOnly: isreadonly,
-          initialValue: lbltext,
+          initialValue: initialvalue,
           cursorColor: Colors.teal,
           style: const TextStyle(
             fontSize: 15.0,
@@ -173,8 +173,8 @@ class _SessionStudentState extends State<SessionStudent> {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return customdailog('Add Student', 'Name', 'Roll No',
-                        Icons.edit, FontAwesomeIcons.graduationCap, 'ADD');
+                    return customdailog('Add Student', Icons.edit, FontAwesomeIcons.graduationCap,
+                     'ADD',initialvalue1:'Name',initialvalue2: 'Roll No' );
                   });
             },
             backgroundColor: Colors.teal,
@@ -238,11 +238,10 @@ class _SessionStudentState extends State<SessionStudent> {
                             builder: (BuildContext context) {
                               return customdailog(
                                   'Edit Student',
-                                  student[index]['studentName'],
-                                  student[index]['rollno'],
-                                  Icons.edit,
-                                  FontAwesomeIcons.graduationCap,
-                                  'UPDATE');
+                                   Icons.edit,
+                                  FontAwesomeIcons.graduationCap, 'UPDATE',
+                                 label1:student[index]['studentName'],
+                                  label2: student[index]['rollno'], );
                             });
                       },
                       leading: const Icon(
