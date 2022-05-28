@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<dynamic> loginFunc(useremail, userpassword) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: useremail.toString(), password: userpassword.toString());
       setState(() {
         isauthenticating = false;
@@ -40,18 +40,18 @@ class _LoginPageState extends State<LoginPage> {
       Get.to(
         () => const AdminMainPage(),
       );
-      customtoast('Login Successful');
+      customtoast('Signup Successful');
     } on FirebaseAuthException catch (e) {
       setState(() {
         isauthenticating = false;
       });
-      if (e.code == 'user-not-found') {
-        Get.snackbar('Invalid user', 'No user found for that email');
-        // print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        Get.snackbar('Warning!', 'Wrong password provided for that user');
-        // print('Wrong password provided for that user.');
-      }
+      // if (e.code == 'user-not-found') {
+      //   Get.snackbar('Invalid user', 'No user found for that email');
+      //   // print('No user found for that email.');
+      // } else if (e.code == 'wrong-password') {
+      //   Get.snackbar('Warning!', 'Wrong password provided for that user');
+      //   // print('Wrong password provided for that user.');
+      // }
     }
   }
 
@@ -137,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                     Icons.lock,
                     passwordVisible,
                     IconButton(
+                      splashColor: Colors.transparent,
                       icon: Icon(
                         //choose the icon on based of passwordVisibility
                         passwordVisible
@@ -166,6 +167,12 @@ class _LoginPageState extends State<LoginPage> {
                           color: Color(0xff009688)),
                       height: responsiveHW(context, ht: 6),
                       child: TextButton(
+                        style: ButtonStyle(
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          // shadowColor:
+                          //     MaterialStateProperty.all(Colors.transparent),
+                        ),
                         child: isauthenticating
                             ? const CircularProgressIndicator(
                                 // backgroundColor: Colors.white,
@@ -181,14 +188,14 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: isauthenticating
                             ? null
                             : () async {
-                                // if (_formKey.currentState!.validate()) {
-                                //   setState(() {
-                                //     isauthenticating = true;
-                                //   });
-                                //   loginFunc(_email.text.trim(),
-                                //       _password.text.trim());
-                                // }
-                                Get.to(() => const AdminMainPage());
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    isauthenticating = true;
+                                  });
+                                  loginFunc(_email.text.trim(),
+                                      _password.text.trim());
+                                }
+                                // Get.to(() => const AdminMainPage());
                               },
                       ),
                     )),
