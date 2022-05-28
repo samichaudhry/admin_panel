@@ -1,5 +1,5 @@
-import 'dart:math';
-
+import 'package:admin_panel/edit_profile.dart';
+import 'package:admin_panel/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/attendance_record.dart';
@@ -87,7 +87,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
             child: Container(
               // padding: EdgeInsets.all(5.0),
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height * 0.24,
               decoration: const BoxDecoration(
                 color: Colors.teal,
                 borderRadius: BorderRadius.only(
@@ -96,20 +96,21 @@ class _AdminMainPageState extends State<AdminMainPage> {
               ),
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                  const Center(
-                    child: CircleAvatar(
-                      radius: 40.0,
-                      // backgroundColor: Colors.white,
-                      child: Icon(
-                        FontAwesomeIcons.userGear,
-                        size: 30.0,
-                        // color: Colors.white,
-                      ),
-                      foregroundImage: NetworkImage('url here'),
-                    ),
+                  ProfileWidget(
+                    imagePath:
+                        'https://e7.pngegg.com/pngimages/8/232/png-clipart-computer-icons-man-avatar-male-login-man-people-monochrome-thumbnail.png',
+                    onClicked: () async {
+                      Get.to(
+                        () => const edit_profile(),
+                      );
+                    },
+                    icon: Icons.edit,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.019,
                   ),
                   Center(
                     child: customText(

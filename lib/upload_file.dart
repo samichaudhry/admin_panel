@@ -92,7 +92,7 @@ class _UploadFileState extends State<UploadFile> {
                       ),
                     ],
                   )
-                : SizedBox()
+                : const SizedBox()
           ]),
     );
   }
