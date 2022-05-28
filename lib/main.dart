@@ -1,4 +1,4 @@
-import 'package:admin_panel/login_page.dart';
+import 'package:admin_panel/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Attendance Sheet',
       theme: ThemeData.dark(),
-      home: const LoginPage(),
+      home: const SplashScreen(),
     );
   }
 }

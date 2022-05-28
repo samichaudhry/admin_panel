@@ -47,6 +47,7 @@ dependencies:
   fluttertoast: any
   flutter_arc_speed_dial: any
   percent_indicator: any
+  connectivity_plus: any
 
 dev_dependencies:
   flutter_test:
