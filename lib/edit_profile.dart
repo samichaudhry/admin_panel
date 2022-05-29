@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:admin_panel/custom%20widgets/custom_toast.dart';
+import 'package:admin_panel/custom_formfield.dart';
+import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +26,8 @@ class _edit_profileState extends State<edit_profile> {
   final TextEditingController _fullname = TextEditingController();
   // final TextEditingController _about = TextEditingController();
   final TextEditingController _email = TextEditingController();
+  final TextEditingController _oldemail = TextEditingController();
+  final TextEditingController _oldpassword = TextEditingController();
   // final TextEditingController _department = TextEditingController();
   String path = '';
   bool IsSelected = false;
@@ -32,6 +36,7 @@ class _edit_profileState extends State<edit_profile> {
   var args = Get.arguments;
   var currentuserid;
   bool inprogress = false;
+  bool isworking = false;
   String? imagelink;
   @override
   void initState() {
@@ -119,20 +124,15 @@ class _edit_profileState extends State<edit_profile> {
                     child: CircularProgressIndicator(),
                   )
                 : IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         inprogress = true;
                       });
-
                       if (IsSelected) {
                         uploadFile(imagePath).then((value) {
-                          // print('value is: $value');
-                          // print(imagelink);
                           downloadURLfunc(currentuserid).then((value) {
                             FirebaseAuth.instance.currentUser!
                                 .updatePhotoURL(imagelink.toString());
-                            FirebaseAuth.instance.currentUser!
-                                .updateEmail(_email.text.trim());
                             FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(currentuserid)
@@ -188,12 +188,15 @@ class _edit_profileState extends State<edit_profile> {
                     setState(() {
                       imagePath = selectedpath;
                       IsSelected = true;
-                      print(imagePath);
+                      // print(imagePath);
                     });
                   }
                 });
               },
               icon: Icons.camera_enhance),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.019,
+          ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.03,
           ),
@@ -208,14 +211,6 @@ class _edit_profileState extends State<edit_profile> {
                   Icons.edit,
                   false,
                 ),
-                customtextformfield(
-                    'Email', _email, Icons.email_outlined, false),
-                // customtextformfield('Department', _department,
-                //     FontAwesomeIcons.building, false),
-                // SizedBox(
-                //     height: maxlength * 30.0,
-                //     child: customtextformfield(
-                //         'About', _about, FontAwesomeIcons.circleInfo, false)),
               ],
             ),
           ),
