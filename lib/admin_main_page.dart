@@ -1,6 +1,9 @@
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
+import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/edit_profile.dart';
 import 'package:admin_panel/login_page.dart';
 import 'package:admin_panel/profile_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,18 +25,42 @@ class AdminMainPage extends StatefulWidget {
 
 class _AdminMainPageState extends State<AdminMainPage> {
   bool isloggedin = false;
+  bool isworking = false;
+
+  var users = FirebaseFirestore.instance.collection('users');
+  var currentuserid = FirebaseAuth.instance.currentUser!.uid;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _oldpassword = TextEditingController();
+  final TextEditingController _newpassword = TextEditingController();
+  var adminname;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future getadminname() async {
+    await users.doc(currentuserid).get().then((DocumentSnapshot doc) {
+      setState(() {
+        adminname = doc['name'];
+      });
+    });
+  }
+
   List OptionsList = [
     {
       'title': "Teachers",
       'icon': FontAwesomeIcons.personChalkboard,
       'route': const TeachersPage(),
-      'color': const Color(0xff245469)
+      'color': const Color(0xff245469),
+      'ispassword': false,
     },
     {
       'title': "Students",
       'icon': FontAwesomeIcons.userGraduate,
       'route': () => const sessionpage(),
-      'color': const Color(0xff2A5E75)
+      'color': const Color(0xff2A5E75),
+      'ispassword': false,
     },
     // {
     //   'title': "Today's Attendance Report",
@@ -45,18 +72,160 @@ class _AdminMainPageState extends State<AdminMainPage> {
       'title': "Attendance Record",
       'icon': FontAwesomeIcons.filePrescription,
       'route': const AttendanceRecord(),
-      'color': const Color(0xff263E52)
+      'color': const Color(0xff263E52),
+      'ispassword': false,
     },
     {
       'title': "Change Password",
       'icon': FontAwesomeIcons.key,
       'route': () {},
-      'color': const Color(0xff0F2030)
+      'color': const Color(0xff0F2030),
+      'ispassword': true,
     },
   ];
 
+  Future changepassword() async {
+    isworking = false;
+    // _email.clear();
+    // _oldpassword.clear();
+    // _newpassword.clear();
+
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Change Password'),
+        content: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              customTextField(
+                "Email",
+                false,
+                null,
+                _email,
+                (value) {
+                  if (value!.isEmpty) {
+                    return "Please Enter Your Email";
+                  }
+                  if (!RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(value)) {
+                    return "Please Enter Valid Email Address";
+                  }
+                  if (_email.text.trim() !=
+                      FirebaseAuth.instance.currentUser!.email.toString()) {
+                    return 'No user found with this email';
+                  }
+                },
+                (value) {
+                  _email.text = value!;
+                },
+                responsiveHW(context, wd: 100),
+                responsiveHW(context, ht: 100),
+                InputBorder.none,
+                pIcon: Icons.email,
+              ),
+              SizedBox(
+                height: responsiveHW(context, ht: 2),
+              ),
+              customTextField(
+                "old Password",
+                true,
+                null,
+                _oldpassword,
+                (value) {
+                  if (value!.isEmpty) {
+                    return "Please Enter Your Password";
+                  }
+                },
+                (value) {
+                  _oldpassword.text = value!;
+                },
+                responsiveHW(context, wd: 100),
+                responsiveHW(context, ht: 100),
+                InputBorder.none,
+                pIcon: Icons.lock,
+              ),
+              customTextField(
+                "New Password",
+                true,
+                null,
+                _newpassword,
+                (value) {
+                  if (value!.isEmpty) {
+                    return "Please Enter Your Password";
+                  }
+                },
+                (value) {
+                  _newpassword.text = value!;
+                },
+                responsiveHW(context, wd: 100),
+                responsiveHW(context, ht: 100),
+                InputBorder.none,
+                pIcon: Icons.lock,
+              ),
+              SizedBox(
+                height: responsiveHW(context, ht: 3),
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          MaterialButton(
+            onPressed: () async {
+              if (_formKey.currentState!.validate()) {
+                setState(() {
+                  isworking = true;
+                });
+                try {
+                  await FirebaseAuth.instance.currentUser!
+                      .reauthenticateWithCredential(
+                          EmailAuthProvider.credential(
+                              email: _email.text.trim(),
+                              password: _oldpassword.text.trim()));
+                  try {
+                    await FirebaseAuth.instance.currentUser!
+                        .updatePassword(_newpassword.text);
+                    setState(() {
+                      isworking = false;
+                    });
+                    customtoast('Password changed successfully');
+                    Navigator.pop(context);
+                  } on FirebaseAuthException catch (e) {
+                    setState(() {
+                      isworking = false;
+                    });
+                    if (e.code == 'weak-password') {
+                      rawsnackbar('Weak New Password Provided');
+                    }
+                  }
+                } on FirebaseAuthException catch (e) {
+                  setState(() {
+                    isworking = false;
+                  });
+                  if (e.code == 'wrong-password') {
+                    rawsnackbar('Wrong Old Password');
+                    // print('Wrong password provided for that user.');
+                  }
+                }
+              }
+            },
+            child: isworking
+                ? const CircularProgressIndicator()
+                : const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> logoutfunc() async {
-    return await showDialog(
+    return showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Are you sure?'),
@@ -85,6 +254,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
 
   @override
   Widget build(BuildContext context) {
+    getadminname();
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -136,6 +306,10 @@ class _AdminMainPageState extends State<AdminMainPage> {
                     onClicked: () async {
                       Get.to(
                         () => const edit_profile(),
+                        arguments: {
+                          'name': adminname ?? '',
+                          'email': FirebaseAuth.instance.currentUser!.email,
+                        },
                       );
                     },
                     icon: Icons.edit,
@@ -145,7 +319,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                   ),
                   Center(
                     child: customText(
-                        txt: 'Admin Name',
+                        txt: adminname ?? '',
                         fsize: 19.0,
                         fweight: FontWeight.w500),
                   ),
@@ -173,11 +347,13 @@ class _AdminMainPageState extends State<AdminMainPage> {
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: () {
-                    Get.to(
-                      OptionsList[index]['route'],
-                    );
-                  },
+                  onTap: OptionsList[index]['ispassword']
+                      ? changepassword
+                      : () {
+                          Get.to(
+                            OptionsList[index]['route'],
+                          );
+                        },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15.0),
