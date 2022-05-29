@@ -313,7 +313,6 @@ class _sessionpageState extends State<sessionpage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14.0),
-                              borderSide: const BorderSide(color: Colors.teal),
                             ),
                             labelText: 'Program',
                             prefixIcon:

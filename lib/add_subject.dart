@@ -172,9 +172,9 @@ class _AddSubjectState extends State<AddSubject> {
             Icons.arrow_drop_down,
             color: Colors.grey,
           ),
-          hint: Text(
-            'Select $fieldTitle',
-          ),
+          // hint: Text(
+          //   'Select $fieldTitle',
+          // ),
           value: dropDownValue,
           items: listOfItems.map((String value) {
             return DropdownMenuItem<String>(value: value, child: Text(value));
@@ -277,7 +277,7 @@ class _AddSubjectState extends State<AddSubject> {
               }, responsiveHW(context, wd: 100),
                   responsiveHW(context, ht: 100), OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
-            ), filled: true,fillColor: Colors.grey[800],pIcon:Icons.edit, ),
+            ), filled: true,fillColor: Colors.grey[800],pIcon:Icons.edit, labeltext: 'Subject Name '),
               customSizedBox(),
               customTextField(
                   "Subject Code",  false, null, _subjCode, (value) {
@@ -288,7 +288,7 @@ class _AddSubjectState extends State<AddSubject> {
               }, responsiveHW(context, wd: 100),
                   responsiveHW(context, ht: 100), OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
-            ), filled: true,fillColor: Colors.grey[800],pIcon:Icons.code,),
+            ), filled: true,fillColor: Colors.grey[800],pIcon:Icons.code,labeltext: "Subject Code"),
               customSizedBox(),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -312,10 +312,12 @@ class _AddSubjectState extends State<AddSubject> {
                   }),
                   readOnly: true,
                   decoration: InputDecoration(
+                    prefixIcon:const Icon(Icons.timelapse_sharp),
+                    labelText:"Subject Duration",
                       filled: true,
                       fillColor: Colors.grey[800],
                       hintText: subjectDuration == null
-                          ? "Select Subject Duration"
+                          ? "Subject Duration"
                           : "${subjectDuration!.startTime.format(context)}-${subjectDuration!.endTime.format(context)}",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30)),
