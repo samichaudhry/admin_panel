@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+import 'package:get/get.dart';
 
 class AttendanceData extends StatefulWidget {
   const AttendanceData({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class AttendanceData extends StatefulWidget {
 }
 
 class _AttendanceDataState extends State<AttendanceData> {
+  var args = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +18,7 @@ class _AttendanceDataState extends State<AttendanceData> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: customText(txt: 'Report', fsize: 20.0),
+        title: customText(txt: '${args['session']}', fsize: 20.0),
       ),
       body: ListView.builder(
         itemCount: 3,
@@ -31,9 +33,9 @@ class _AttendanceDataState extends State<AttendanceData> {
               Table(
                 defaultColumnWidth: const FlexColumnWidth(4.0),
                 columnWidths: const {
-                  0: FlexColumnWidth(7.0),
-                  1: FlexColumnWidth(8.0),
-                  2: FlexColumnWidth(6.0),
+                  0: FlexColumnWidth(9.0),
+                  1: FlexColumnWidth(9.0),
+                  2: FlexColumnWidth(7.0),
                 },
                 children: [
                   TableRow(

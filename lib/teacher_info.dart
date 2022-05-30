@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/add_teacher.dart';
 import 'package:admin_panel/teachers_subject.dart';
@@ -15,7 +16,6 @@ class TeacherInfo extends StatefulWidget {
 class _TeacherInfoState extends State<TeacherInfo> {
   var imgUrl =
       "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png";
-
   // Custom Sized Box
   SizedBox customSizedBox({height = 2}) => SizedBox(
         height: responsiveHW(context, ht: height),
