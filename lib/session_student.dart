@@ -212,7 +212,7 @@ class _SessionStudentState extends State<SessionStudent> {
           collapsedHeight: responsiveHW(context, ht: 11),
           flexibleSpace: FlexibleSpaceBar(
               title: Text(
-            "\n\n\nTotal Student: ${student.length}",
+            "\n\n\nTotal Students: ${student.length}",
             style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 12,
