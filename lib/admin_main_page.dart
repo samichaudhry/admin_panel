@@ -95,7 +95,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
       context: context,
       builder: (context) => StatefulBuilder(builder: (context, innerstate) {
         return AlertDialog(
-          title: const Text('Change Password'),
+          title: const Center(child: Text('Change Password')),
           content: Form(
             key: _formKey,
             child: Column(
@@ -266,7 +266,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
       context: context,
       builder: (context) => StatefulBuilder(builder: (context, innerstate) {
         return AlertDialog(
-          title: const Text('Re-Authenticate your identity'),
+          title: const Center(child: Text('Change Email')),
           content: Form(
             key: _formKey,
             child: Column(

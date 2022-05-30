@@ -44,6 +44,13 @@ class _edit_profileState extends State<edit_profile> {
     _fullname.text = args['name'];
     _email.text = args['email'];
     currentuserid = FirebaseAuth.instance.currentUser!.uid;
+    // FirebaseFirestore.instance.collection('sessions').doc().set({
+    //   'dapartment_name': 'CSIT',
+    //   'program': 'BS Computer Science',
+    //   'session': '2018-2022'
+    // }, SetOptions(merge: true)).then((value) {
+    //   print('task completed');
+    // });
   }
 
   Future<void> uploadFile(String filePath) async {

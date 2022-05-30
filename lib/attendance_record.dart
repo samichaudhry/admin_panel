@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:admin_panel/attendance_sessions.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/attendance_data.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
@@ -82,9 +82,9 @@ class _AttendanceRecordState extends State<AttendanceRecord> {
                 (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      Get.to(
-                        () => const AttendanceData(),
-                      );
+                      Get.to(() => const AttendanceSession(), arguments: {
+                        'session_name': semesters[index]['name'],
+                      });
                     },
                     child: Container(
                       decoration: BoxDecoration(
