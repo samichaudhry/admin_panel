@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget customTextField(hintTitle, isPassword, sIcon, controllerName,
-    validationFunc, onSavedFunc, wSize, hSize,border ,{ pIcon,filled ,fillColor}) {
+    validationFunc, onSavedFunc, wSize, hSize,border ,{ pIcon,filled ,fillColor,labeltext}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: wSize * 6 / 100),
     child: Stack(children: [
@@ -29,6 +29,7 @@ Widget customTextField(hintTitle, isPassword, sIcon, controllerName,
         decoration: InputDecoration(
            filled: filled,
            fillColor:fillColor,
+           labelText: labeltext,
             hintText: hintTitle,
             suffixIcon: sIcon,
             prefixIcon: Icon(

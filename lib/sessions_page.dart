@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/session_student.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:get/get.dart';
-
+import 'package:get_storage/get_storage.dart';
 import '../utils.dart';
 
 class sessionpage extends StatefulWidget {
@@ -16,6 +17,7 @@ class sessionpage extends StatefulWidget {
 class _sessionpageState extends State<sessionpage> {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('Session');
+   final sessioninfo = GetStorage('Session');
 
   List sessiondata = [
     {
@@ -313,7 +315,6 @@ class _sessionpageState extends State<sessionpage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14.0),
-                              borderSide: const BorderSide(color: Colors.teal),
                             ),
                             labelText: 'Program',
                             prefixIcon:
@@ -452,42 +453,48 @@ class _sessionpageState extends State<sessionpage> {
                   color: Colors.grey[400]),
             )),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 19, right: 19, top: 13),
-                child: Column(
-                  children: ListTile.divideTiles(
-                    context: context,
-                    tiles: [
-                      ListTile(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        tileColor: Colors.grey[800],
-                        onTap: () {
-                          Get.to(() => const SessionStudent());
-                        },
-                        title: customText(
-                          txt: sessiondata[index]['title'],
-                          fsize: 17.0,
-                          fweight: FontWeight.w700,
-                        ),
-                        subtitle: customText(
-                          txt: sessiondata[index]['subtitle'],
-                          fsize: 16.0,
-                          fweight: FontWeight.w600,
-                        ),
-                        trailing: Icon(
-                          sessiondata[index]['icon'],
-                          color: Colors.teal,
-                          size: 33,
-                        ),
-                      ),
-                    ],
-                  ).toList(),
-                ),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection('Session').snapshots(),
+            builder: (context, snapshot) {
+              if(snapshot.hasData){return Text('loading data');}
+              return SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 19, right: 19, top: 13),
+                    child: Column(
+                      children: ListTile.divideTiles(
+                        context: context,
+                        tiles: [
+                          ListTile(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            tileColor: Colors.grey[800],
+                            onTap: () {
+                              Get.to(() => const SessionStudent());
+                            },
+                            title: customText(
+                              txt: sessiondata[index]['title'],
+                              fsize: 17.0,
+                              fweight: FontWeight.w700,
+                            ),
+                            subtitle: customText(
+                              txt: sessiondata[index]['subtitle'],
+                              fsize: 16.0,
+                              fweight: FontWeight.w600,
+                            ),
+                            trailing: Icon(
+                              sessiondata[index]['icon'],
+                              color: Colors.teal,
+                              size: 33,
+                            ),
+                          ),
+                        ],
+                      ).toList(),
+                    ),
+                  );
+                }, childCount: sessiondata.length),
               );
-            }, childCount: sessiondata.length),
+            }
           )
         ],
       ),

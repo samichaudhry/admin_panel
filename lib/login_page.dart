@@ -31,6 +31,9 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+// collection('sessions').doc('BSCS-R-2018-2022')
+// collection('students').doc('BSCS-R-2018-2022').set({
+// }, setoption(merge:true);
   Future<dynamic> loginFunc(useremail, userpassword) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -41,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
       Get.to(
         () => const AdminMainPage(),
       );
+
       customtoast('Login Successful');
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -139,45 +143,60 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: responsiveHW(context, ht: 4)),
               Expanded(
                 child: ListView(children: [
-                  customTextField("Email", false, null, _email,
-                      (value) {
-                    if (value!.isEmpty) {
-                      return "Please Enter Your Email";
-                    }
-                    if (!RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return "Please Enter Valid Email Address";
-                    }
-                  }, (value) {
-                    _email.text = value!;
-                  }, responsiveHW(context, wd: 100),
-                      responsiveHW(context, ht: 100),InputBorder.none,pIcon: Icons.email, ),
+                  customTextField(
+                    "Email",
+                    false,
+                    null,
+                    _email,
+                    (value) {
+                      if (value!.isEmpty) {
+                        return "Please Enter Your Email";
+                      }
+                      if (!RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                        return "Please Enter Valid Email Address";
+                      }
+                    },
+                    (value) {
+                      _email.text = value!;
+                    },
+                    responsiveHW(context, wd: 100),
+                    responsiveHW(context, ht: 100),
+                    InputBorder.none,
+                    pIcon: Icons.email,
+                  ),
                   SizedBox(
                     height: responsiveHW(context, ht: 2),
                   ),
                   customTextField(
-                      "Password",
-                      passwordVisible,
-                      IconButton(
-                        splashColor: Colors.transparent,
-                        icon: Icon(
-                          //choose the icon on based of passwordVisibility
-                          passwordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.grey,
-                        ),
-                        onPressed: _passwordVisibility,
+                    "Password",
+                    passwordVisible,
+                    IconButton(
+                      splashColor: Colors.transparent,
+                      icon: Icon(
+                        //choose the icon on based of passwordVisibility
+                        passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey,
                       ),
-                      _password, (value) {
-                    if (value!.isEmpty) {
-                      return "Please Enter Your Password";
-                    }
-                  }, (value) {
-                    _password.text = value!;
-                  }, responsiveHW(context, wd: 100),
-                      responsiveHW(context, ht: 100),InputBorder.none,pIcon: Icons.lock,),
+                      onPressed: _passwordVisibility,
+                    ),
+                    _password,
+                    (value) {
+                      if (value!.isEmpty) {
+                        return "Please Enter Your Password";
+                      }
+                    },
+                    (value) {
+                      _password.text = value!;
+                    },
+                    responsiveHW(context, wd: 100),
+                    responsiveHW(context, ht: 100),
+                    InputBorder.none,
+                    pIcon: Icons.lock,
+                  ),
                   SizedBox(
                     height: responsiveHW(context, ht: 3),
                   ),

@@ -48,6 +48,7 @@ dependencies:
   flutter_arc_speed_dial: any
   percent_indicator: any
   connectivity_plus: any
+  get_storage: ^2.0.3
 
 dev_dependencies:
   flutter_test:

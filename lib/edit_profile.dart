@@ -1,9 +1,18 @@
+import 'dart:io';
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
+import 'package:admin_panel/custom_formfield.dart';
+import 'package:admin_panel/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/profile_widget.dart';
-
+import 'package:get/get.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import '../custom widgets/custom_widgets.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class edit_profile extends StatefulWidget {
   const edit_profile({Key? key}) : super(key: key);
@@ -15,13 +24,47 @@ class edit_profile extends StatefulWidget {
 class _edit_profileState extends State<edit_profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullname = TextEditingController();
-  final TextEditingController _about = TextEditingController();
-  final TextEditingController _designation = TextEditingController();
-  final TextEditingController _department = TextEditingController();
+  // final TextEditingController _about = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _oldemail = TextEditingController();
+  final TextEditingController _oldpassword = TextEditingController();
+  // final TextEditingController _department = TextEditingController();
   String path = '';
   bool IsSelected = false;
   final maxlength = 5;
   var imagePath = '';
+  var args = Get.arguments;
+  var currentuserid;
+  bool inprogress = false;
+  bool isworking = false;
+  String? imagelink;
+  @override
+  void initState() {
+    super.initState();
+    _fullname.text = args['name'];
+    _email.text = args['email'];
+    currentuserid = FirebaseAuth.instance.currentUser!.uid;
+  }
+
+  Future<void> uploadFile(String filePath) async {
+    File file = File(filePath);
+    try {
+      await FirebaseStorage.instance
+          .ref('images/profile_pictures/$currentuserid.png')
+          .putFile(file);
+    } on firebase_core.FirebaseException catch (e) {
+      Get.snackbar('Error occured.', '');
+    }
+  }
+
+  Future<void> downloadURLfunc(cuserid) async {
+    String imgurl = await FirebaseStorage.instance
+        .ref('images/profile_pictures/$cuserid.png')
+        .getDownloadURL();
+    setState(() {
+      imagelink = imgurl;
+    });
+  }
 
   Widget customtextformfield(lbltext, _controller, icon, isreadonly,
       {maxlength}) {
@@ -75,12 +118,60 @@ class _edit_profileState extends State<edit_profile> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.check,
-              ),
-            )
+            inprogress
+                ? const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: CircularProgressIndicator(),
+                  )
+                : IconButton(
+                    onPressed: () async {
+                      setState(() {
+                        inprogress = true;
+                      });
+                      if (IsSelected) {
+                        uploadFile(imagePath).then((value) {
+                          downloadURLfunc(currentuserid).then((value) {
+                            FirebaseAuth.instance.currentUser!
+                                .updatePhotoURL(imagelink.toString());
+                            FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(currentuserid)
+                                .set({
+                              'isteacher': false,
+                              'name': _fullname.text.trim(),
+                              'email': _email.text.trim()
+                            }, SetOptions(merge: true)).then((value) {
+                              setState(() {
+                                inprogress = false;
+                              });
+                              customtoast('Data Submitted');
+                              Navigator.pop(context);
+                            });
+                          });
+                        });
+                      } else {
+                        FirebaseAuth.instance.currentUser!
+                            .updateEmail(_email.text.trim());
+                        FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(currentuserid)
+                            .set({
+                          'isteacher': false,
+                          'name': _fullname.text.trim(),
+                          'email': _email.text.trim()
+                        }, SetOptions(merge: true)).then((value) {
+                          setState(() {
+                            inprogress = false;
+                          });
+                          customtoast('Data Submitted');
+                          Navigator.pop(context);
+                        });
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.check,
+                    ),
+                  )
           ],
         ),
         body: ListView(children: [
@@ -88,18 +179,24 @@ class _edit_profileState extends State<edit_profile> {
             height: MediaQuery.of(context).size.height * 0.07,
           ),
           ProfileWidget(
-              imagePath:
-                  'https://e7.pngegg.com/pngimages/8/232/png-clipart-computer-icons-man-avatar-male-login-man-people-monochrome-thumbnail.png',
+              imagePath: imagePath.isEmpty
+                  ? '${FirebaseAuth.instance.currentUser!.photoURL}'
+                  : imagePath,
               onClicked: () {
                 filepicker(filetype: FileType.image).then((selectedpath) {
                   if (selectedpath.toString().isNotEmpty) {
                     setState(() {
                       imagePath = selectedpath;
+                      IsSelected = true;
+                      // print(imagePath);
                     });
                   }
                 });
               },
               icon: Icons.camera_enhance),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.019,
+          ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.03,
           ),
@@ -114,14 +211,6 @@ class _edit_profileState extends State<edit_profile> {
                   Icons.edit,
                   false,
                 ),
-                customtextformfield(
-                    'Email', _designation, Icons.email_outlined, false),
-                // customtextformfield('Department', _department,
-                //     FontAwesomeIcons.building, false),
-                // SizedBox(
-                //     height: maxlength * 30.0,
-                //     child: customtextformfield(
-                //         'About', _about, FontAwesomeIcons.circleInfo, false)),
               ],
             ),
           ),
