@@ -455,8 +455,8 @@ class _AdminMainPageState extends State<AdminMainPage> {
             SliverToBoxAdapter(
               child: Container(
                 // padding: EdgeInsets.all(5.0),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.25,
+                width: responsiveHW(context, wd: 100),
+                height: responsiveHW(context, ht: 28),
                 decoration: const BoxDecoration(
                   color: Colors.teal,
                   borderRadius: BorderRadius.only(
