@@ -101,6 +101,7 @@ class _sessionpageState extends State<sessionpage> {
   String? selectedprogram;
   String selectedprogramname = 'Msc';
   String? selectedsession;
+  String? selectedprogramtype;
   List<String> department = [
     'Computer Science and IT',
     'Biological Science',
@@ -215,9 +216,10 @@ class _sessionpageState extends State<sessionpage> {
 
   var sessioninfo = [];
   Future setsessiondata() {
-    return FirebaseFirestore.instance.collection('Session').doc().set({
-      'Department': selecteddepartment,
+    return FirebaseFirestore.instance.collection('session').doc().set({
+      'department': selecteddepartment,
       'program': selectedprogram,
+      'program_type': selectedprogramtype,
       'session': selectedsession,
     }, SetOptions(merge: true)).then((value) {});
   }
@@ -225,7 +227,7 @@ class _sessionpageState extends State<sessionpage> {
   Future deletedialog(docid) async {
     dialog_func(
         const Text('Are you sure?'),
-        const Text('Do you want to delete this Match?'),
+        const Text('Do you want to delete this Session?'),
         () => Navigator.pop(context), () async {
       Navigator.pop(context);
       Get.dialog(
@@ -246,7 +248,7 @@ class _sessionpageState extends State<sessionpage> {
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 18.0,
-                      color: Colors.black,
+                      // color: Colors.white,
                     ),
                   ),
                 ),
@@ -256,7 +258,7 @@ class _sessionpageState extends State<sessionpage> {
         ),
       );
       await FirebaseFirestore.instance
-          .collection('Session')
+          .collection('session')
           .doc(docid)
           .delete()
           .then((value) {
@@ -276,6 +278,10 @@ class _sessionpageState extends State<sessionpage> {
           color: Colors.white,
         ),
         ontap: () {
+          selecteddepartment = null;
+          selectedprogram = null;
+          selectedprogramtype = null;
+          selectedsession = null;
           showDialog(
               useSafeArea: true,
               context: context,
@@ -309,6 +315,7 @@ class _sessionpageState extends State<sessionpage> {
                             statesetter(() {
                               selecteddepartment = newValue!;
                               selectedprogram = null;
+                              selectedprogramtype = null;
                               selectedsession = null;
                             });
                           },
@@ -335,8 +342,36 @@ class _sessionpageState extends State<sessionpage> {
                             statesetter(() {
                               selectedsession = null;
                               selectedprogram = null;
+                              selectedprogramtype = null;
                               selectedprogram = newValue!;
                               selectedprogramname = newValue;
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 19, right: 19, bottom: 10),
+                        child: DropdownButtonFormField(
+                          value: selectedprogramtype,
+                          items: ['Regular', 'Self Support']
+                              .map((value) => DropdownMenuItem<String>(
+                                  value: value, child: Text(value)))
+                              .toList(),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            labelText: 'Program Type',
+                            prefixIcon:
+                                const Icon(FontAwesomeIcons.barsProgress),
+                          ),
+                          onChanged: (String? newValue) {
+                            statesetter(() {
+                              selectedsession = null;
+                              // selectedprogram = null;
+                              selectedprogramtype = newValue!;
+                              // selectedprogramname = newValue;
                             });
                           },
                         ),
@@ -384,11 +419,15 @@ class _sessionpageState extends State<sessionpage> {
                               onPressed: () {
                                 if (selecteddepartment != null) {
                                   if (selectedprogram != null) {
-                                    if (selectedsession != null) {
-                                      setsessiondata();
-                                      Navigator.pop(context);
+                                    if (selectedprogramtype != null) {
+                                      if (selectedsession != null) {
+                                        setsessiondata();
+                                        Navigator.pop(context);
+                                      } else {
+                                        customtoast('Select session');
+                                      }
                                     } else {
-                                      customtoast('Select session');
+                                      customtoast('Select program type');
                                     }
                                   } else {
                                     customtoast('Select program');
@@ -412,19 +451,14 @@ class _sessionpageState extends State<sessionpage> {
         // ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('Session').snapshots(),
+          stream: FirebaseFirestore.instance.collection('session').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            // var data = snapshot.data?.docs;
-            if (!snapshot.hasData) {
-              return const Center(
-                child: Text('Something Went Wrong'),
-              );
-            }
-            var documents = snapshot.data!.docs;
+            var data = snapshot.data?.docs;
+            var documents = snapshot.data?.docs;
             //todo Documents list added to filterTitle
             if (_searchcontroller.text.isNotEmpty) {
-              documents = documents.where((element) {
+              documents = documents?.where((element) {
                 return element
                     .get('program')
                     .toString()
@@ -432,128 +466,164 @@ class _sessionpageState extends State<sessionpage> {
                     .contains(_searchcontroller.text.toLowerCase());
               }).toList();
             }
-            return CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (data!.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.hourglass_empty,
+                      size: 50.0,
                     ),
-                  ),
-                  title: customSearchBar,
-                  actions: [
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          if (customIcon.icon == Icons.search) {
-                            customIcon = const Icon(
-                              Icons.cancel,
-                            );
-                            customSearchBar = SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.04,
-                              child: Material(
-                                color: Colors.grey[600],
-                                borderRadius: BorderRadius.circular(14.0),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10.0, top: 2),
-                                  child: TextField(
-                                      onChanged: (value) {
-                                        setState(() {});
-                                      },
-                                      controller: _searchcontroller,
-                                      cursorColor: Colors.teal,
-                                      decoration: const InputDecoration(
-                                        hintText: 'Search by program',
-                                        border: InputBorder.none,
-                                      )),
-                                ),
-                              ),
-                            );
-                          } else {
-                            customIcon = const Icon(Icons.search);
-                            customSearchBar = const Text('Sessions');
-                          }
-                        });
-                      },
-                      icon: customIcon,
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      'No Session',
+                      style: TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
+                        // color: Colors.white,
+                      ),
                     ),
                   ],
-                  automaticallyImplyLeading: false,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                  ),
-                  pinned: true,
-                  floating: true,
-                  snap: true,
-                  expandedHeight: responsiveHW(context, ht: 12),
-                  collapsedHeight: responsiveHW(context, ht: 11),
-                  flexibleSpace: FlexibleSpaceBar(
-                      title: Text(
-                    "\n\n\nTotal Sessions: ${documents.length}",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        color: Colors.grey[400]),
-                  )),
                 ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                    var icon;
-                    DocumentSnapshot ds = documents[index];
-                    for (var element in sessiondata) {
-                      if (element['subtitle'] == ds['Department']) {
-                        icon = element['icon'];
-                      }
-                    }
-                    return Padding(
-                      padding:
-                          const EdgeInsets.only(left: 19, right: 19, top: 13),
-                      child: Column(
-                        children: ListTile.divideTiles(
-                          context: context,
-                          tiles: [
-                            ListTile(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0)),
-                              tileColor: Colors.grey[800],
-                              onTap: () {
-                                Get.to(() => const SessionStudent());
-                              },
-                              onLongPress: () {
-                                deletedialog(ds.id);
-                              },
-                              title: customText(
-                                txt: ds['program'] + ' ' + ds['session'],
-                                fsize: 17.0,
-                                fweight: FontWeight.w700,
-                              ),
-                              subtitle: customText(
-                                txt: ds['Department'],
-                                fsize: 16.0,
-                                fweight: FontWeight.w600,
-                              ),
-                              trailing: Icon(
-                                icon,
-                                color: Colors.teal,
-                                size: 33,
-                              ),
-                            ),
-                          ],
-                        ).toList(),
+              );
+            } else {
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    leading: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
                       ),
-                    );
-                  }, childCount: documents.length),
-                ),
-              ],
-            );
+                    ),
+                    title: customSearchBar,
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (customIcon.icon == Icons.search) {
+                              customIcon = const Icon(
+                                Icons.cancel,
+                              );
+                              customSearchBar = SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.04,
+                                child: Material(
+                                  color: Colors.grey[600],
+                                  borderRadius: BorderRadius.circular(14.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10.0, top: 2),
+                                    child: TextField(
+                                        autofocus: true,
+                                        onChanged: (value) {
+                                          setState(() {});
+                                        },
+                                        controller: _searchcontroller,
+                                        cursorColor: Colors.teal,
+                                        decoration: const InputDecoration(
+                                          hintText: 'Search by program',
+                                          border: InputBorder.none,
+                                        )),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              customIcon = const Icon(Icons.search);
+                              customSearchBar = const Text('Sessions');
+                            }
+                          });
+                        },
+                        icon: customIcon,
+                      ),
+                    ],
+                    automaticallyImplyLeading: false,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                    ),
+                    pinned: true,
+                    floating: true,
+                    snap: true,
+                    expandedHeight: responsiveHW(context, ht: 12),
+                    collapsedHeight: responsiveHW(context, ht: 11),
+                    flexibleSpace: FlexibleSpaceBar(
+                        title: Text(
+                      "\n\n\nTotal Sessions: ${documents?.length}",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: Colors.grey[400]),
+                    )),
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                      var icon;
+                      DocumentSnapshot ds = documents![index];
+                      for (var element in sessiondata) {
+                        if (element['subtitle'] == ds['department']) {
+                          icon = element['icon'];
+                        }
+                      }
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(left: 19, right: 19, top: 13),
+                        child: Column(
+                          children: ListTile.divideTiles(
+                            context: context,
+                            tiles: [
+                              ListTile(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                tileColor: Colors.grey[800],
+                                onTap: () {
+                                  Get.to(() => const SessionStudent());
+                                },
+                                onLongPress: () {
+                                  deletedialog(ds.id);
+                                },
+                                title: customText(
+                                  txt: ds['program'] +
+                                      (ds['program_type'] == 'Regular'
+                                          ? '-R-'
+                                          : '-SS-') +
+                                      ds['session'],
+                                  fsize: 17.0,
+                                  fweight: FontWeight.w700,
+                                ),
+                                subtitle: customText(
+                                  txt: ds['department'],
+                                  fsize: 16.0,
+                                  fweight: FontWeight.w600,
+                                ),
+                                trailing: Icon(
+                                  icon,
+                                  color: Colors.teal,
+                                  size: 33,
+                                ),
+                              ),
+                            ],
+                          ).toList(),
+                        ),
+                      );
+                    }, childCount: documents?.length),
+                  ),
+                ],
+              );
+            }
           }),
     );
   }
