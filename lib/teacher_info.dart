@@ -14,8 +14,8 @@ class TeacherInfo extends StatefulWidget {
 }
 
 class _TeacherInfoState extends State<TeacherInfo> {
-  var imgUrl =
-      "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png";
+  var teacherInfoArguments = Get.arguments;
+
   // Custom Sized Box
   SizedBox customSizedBox({height = 2}) => SizedBox(
         height: responsiveHW(context, ht: height),
@@ -65,7 +65,8 @@ class _TeacherInfoState extends State<TeacherInfo> {
                   customSizedBox(height: 0.5),
                   CircleAvatar(
                     radius: 50.0,
-                    foregroundImage: NetworkImage(imgUrl),
+                    foregroundImage:
+                        NetworkImage(teacherInfoArguments[0]['imgUrl']),
                     child: const Icon(
                       Icons.person,
                       size: 80.0,
@@ -76,7 +77,7 @@ class _TeacherInfoState extends State<TeacherInfo> {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                        text: "Teacher Name",
+                        text: teacherInfoArguments[0]['teacher_name'],
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -84,7 +85,7 @@ class _TeacherInfoState extends State<TeacherInfo> {
                         ),
                         children: [
                           TextSpan(
-                            text: "\nabc123@gmail.com",
+                            text: "\n${teacherInfoArguments[0]['email']}",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -118,8 +119,13 @@ class _TeacherInfoState extends State<TeacherInfo> {
               child: customButton("Edit Profile", () {
                 Get.to(() => const AddTeacher(), arguments: [
                   {
+                    "teacherId": teacherInfoArguments[0]['teacherId'],
                     "pageTitle": "Edit Teacher's Profile",
-                    "buttonText": "Update"
+                    "buttonText": "Update",
+                    'teacher_name': teacherInfoArguments[0]['teacher_name'],
+                    'designation': teacherInfoArguments[0]['designation'],
+                    'department': teacherInfoArguments[0]['department'],
+                    'imgUrl': teacherInfoArguments[0]["imgUrl"],
                   }
                 ]);
               }, context, 100),

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:admin_panel/teachers_page.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +10,7 @@ import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 import 'custom widgets/custom_toast.dart';
@@ -39,6 +38,18 @@ class _AddTeacherState extends State<AddTeacher> {
   bool isImageSelected = false;
 
   var editProfileArgument = Get.arguments;
+  String? teacherId;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _name.text = editProfileArgument[0]['teacher_name'];
+    _department.text = editProfileArgument[0]['department'];
+    _designation.text = editProfileArgument[0]['designation'];
+    teacherId = editProfileArgument[0]['teacherId'];
+  }
+
   // Custom Sized Box
   SizedBox customSizedBox({height = 2}) => SizedBox(
         height: responsiveHW(context, ht: height),
@@ -61,22 +72,21 @@ class _AddTeacherState extends State<AddTeacher> {
 
   CollectionReference teachers =
       FirebaseFirestore.instance.collection('teachers');
-  var teacherId = FirebaseAuth.instance.currentUser!.uid;
-  Future<void> uploadFile(String filePath, teacherName) async {
-    File file = File(filePath);
 
+  Future<void> uploadFile(String filePath) async {
+    File file = File(filePath);
     try {
-      await firebase_storage.FirebaseStorage.instance
-          .ref('images/teacher_photos/$teacherName.png')
+      await FirebaseStorage.instance
+          .ref('images/profile_pictures/${_name.text}.png')
           .putFile(file);
     } on firebase_core.FirebaseException catch (e) {
-      Get.snackbar('Error occured', '$e');
+      Get.snackbar('Error occured.', '$e');
     }
   }
 
-  Future<void> downloadURLfunc(cuserid, teacherName) async {
-    String imgurl = await firebase_storage.FirebaseStorage.instance
-        .ref('images/player_photos/$teacherName.png')
+  Future<void> downloadURLfunc(teacherName) async {
+    String imgurl = await FirebaseStorage.instance
+        .ref('images/profile_pictures/$teacherName.png')
         .getDownloadURL();
     setState(() {
       downloadImgUrl = imgurl;
@@ -84,25 +94,40 @@ class _AddTeacherState extends State<AddTeacher> {
   }
 
   Future _addTeacherQuery() async {
-    return teachers.doc(teacherId).set({
-      'isTeacher': true,
-      'teacher_name': _name.text,
-      'designation': _designation.text,
-      'department': _department.text,
-      'email': _email.text,
-    }, SetOptions(merge: true));
+    return editProfileArgument[0]["pageTitle"].toString() == "Add Teacher"
+        ? teachers.doc().set({
+            'isTeacher': true,
+            'teacher_name': _name.text.trim(),
+            'designation': _designation.text.trim(),
+            'department': _department.text.trim(),
+            'email': _email.text.trim(),
+            'imgUrl': downloadImgUrl,
+          }, SetOptions(merge: true))
+        : teachers.doc(teacherId).set({
+            'isTeacher': true,
+            'teacher_name': _name.text.trim(),
+            'designation': _designation.text.trim(),
+            'department': _department.text.trim(),
+            'imgUrl': (isImageSelected)
+                ? downloadImgUrl
+                : editProfileArgument[0]['imgUrl'],
+          }, SetOptions(merge: true));
   }
 
-  Future<void> addTeacherData() async {
+  Future<void> saveTeacherData() async {
     return _addTeacherQuery().then((value) {
-      setState(() {
-        // inprogress = false;
-        _name.clear();
-        _designation.clear();
-        _department.clear();
-        _email.clear();
-        _password.clear();
-      });
+      editProfileArgument[0]['pageTitle'] == "Edit Teacher's Profile"
+          ? null
+          : _name.clear();
+      editProfileArgument[0]['pageTitle'] == "Edit Teacher's Profile"
+          ? null
+          : _designation.clear();
+      editProfileArgument[0]['pageTitle'] == "Edit Teacher's Profile"
+          ? null
+          : _department.clear();
+      _email.clear();
+      _password.clear();
+      _confirmpass.clear();
       editProfileArgument[0]['pageTitle'] == "Edit Teacher's Profile"
           ? customtoast("Teacher's Data Updated")
           : customtoast('Teacher Added');
@@ -113,47 +138,41 @@ class _AddTeacherState extends State<AddTeacher> {
     });
   }
 
-  // Future<void> addTeacher() async {
-  //   if (imgPath.isNotEmpty) {
-  //     uploadFile(imgPath, _name.text).then((value) {
-  //       downloadURLfunc(teachers.id, _name.text).then((value) {
-  //         savedata();
-  //       });
-  //     });
-  //   } else {
-  //     savedata();
-  //   }
-  // }
+  Future<void> addTeacherData() async {
+    if (isImageSelected) {
+      uploadFile(imgPath).then((value) {
+        downloadURLfunc(_name.text).then((value) {
+          saveTeacherData();
+        });
+      });
+    } else {
+      saveTeacherData();
+    }
+  }
 
   // signup for teachers
 
-  Future _createuserwithemail(_useremail, _userpassword) async {
+  Future _createuserwithemail(useremail, userpassword) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: _useremail, password: _userpassword);
-      _email.clear();
-      _password.clear();
-      _confirmpass.clear();
+              email: useremail, password: userpassword);
+      addTeacherData();
+
       setState(() {
         isauthenticating = false;
       });
-      FirebaseAuth.instance.currentUser!.updatePhotoURL(imgPath);
-      addTeacherData();
-      Get.rawSnackbar(
-        messageText: const Text(
-          'Teachers Data Added successfully.. verify his/her email',
-          style: TextStyle(
-            fontSize: 17.0,
-            fontWeight: FontWeight.w400,
-            color: Colors.white,
-          ),
-        ),
-      );
-      Get.to(
-        () => const TeachersPage(),
-        transition: Transition.leftToRight,
-      );
+      // Get.rawSnackbar(
+      //   messageText: const Text(
+      //     'Ask Teachers To verify his/her email',
+      //     style: TextStyle(
+      //       fontSize: 17.0,
+      //       fontWeight: FontWeight.w400,
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // );
+
     } on FirebaseAuthException catch (e) {
       setState(() {
         isauthenticating = false;
@@ -239,15 +258,14 @@ class _AddTeacherState extends State<AddTeacher> {
                             )
                           : CircleAvatar(
                               radius: 50.0,
-                              foregroundImage: CachedNetworkImageProvider(
-                                  FirebaseAuth.instance.currentUser!.photoURL
-                                      .toString()),
+                              foregroundImage: NetworkImage(
+                                  editProfileArgument[0]['imgUrl'].toString()),
+                              backgroundColor: Colors.black26,
                               child: const Icon(
                                 Icons.person,
                                 size: 80.0,
                                 color: Colors.white,
                               ),
-                              backgroundColor: Colors.black26,
                             ),
                     ),
                     customSizedBox(height: 1),
@@ -336,29 +354,31 @@ class _AddTeacherState extends State<AddTeacher> {
                 pIcon: FontAwesomeIcons.building,
               ),
               customSizedBox(),
-              customTextField(
-                "Email",
-                false,
-                null,
-                _email,
-                (value) {
-                  if (value!.isEmpty) {
-                    return "Please Enter Your Email";
-                  }
-                  if (!RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                      .hasMatch(value)) {
-                    return "Please Enter Valid Email Address";
-                  }
-                },
-                (value) {
-                  _email.text = value!;
-                },
-                responsiveHW(context, wd: 100),
-                responsiveHW(context, ht: 100),
-                InputBorder.none,
-                pIcon: Icons.email,
-              ),
+              editProfileArgument[0]["pageTitle"].toString() == "Add Teacher"
+                  ? customTextField(
+                      "Email",
+                      false,
+                      null,
+                      _email,
+                      (value) {
+                        if (value!.isEmpty) {
+                          return "Please Enter Your Email";
+                        }
+                        if (!RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value)) {
+                          return "Please Enter Valid Email Address";
+                        }
+                      },
+                      (value) {
+                        _email.text = value!;
+                      },
+                      responsiveHW(context, wd: 100),
+                      responsiveHW(context, ht: 100),
+                      InputBorder.none,
+                      pIcon: Icons.email,
+                    )
+                  : customSizedBox(height: 0),
               customSizedBox(),
               editProfileArgument[0]["pageTitle"].toString() == "Add Teacher"
                   ? customTextField(
@@ -437,6 +457,21 @@ class _AddTeacherState extends State<AddTeacher> {
                         color: Color(0xff009688)),
                     height: responsiveHW(context, ht: 6),
                     child: TextButton(
+                      onPressed: isauthenticating
+                          ? null
+                          : () async {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  isauthenticating = true;
+                                });
+                                editProfileArgument[0]["pageTitle"]
+                                            .toString() ==
+                                        "Add Teacher"
+                                    ? _createuserwithemail(_email.text.trim(),
+                                        _password.text.trim())
+                                    : addTeacherData();
+                              }
+                            },
                       child: isauthenticating
                           ? const CircularProgressIndicator(
                               color: Colors.white,
@@ -448,17 +483,6 @@ class _AddTeacherState extends State<AddTeacher> {
                                   fontWeight: FontWeight.w700,
                                   fontSize: responsiveHW(context, ht: 3)),
                             ),
-                      onPressed: isauthenticating
-                          ? null
-                          : () async {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  isauthenticating = true;
-                                });
-                                _createuserwithemail(
-                                    _email.text.trim(), _password.text.trim());
-                              }
-                            },
                     ),
                   ))
             ]))
