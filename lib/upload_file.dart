@@ -1,11 +1,12 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:path/path.dart';
+import 'package:path/path.dart';
+import 'package:excel/excel.dart';
 
 class UploadFile extends StatefulWidget {
   const UploadFile({Key? key}) : super(key: key);
@@ -16,13 +17,57 @@ class UploadFile extends StatefulWidget {
 
 class _UploadFileState extends State<UploadFile> {
   bool visibilityObs = false;
-
+  UploadTask? task;
+  File? file;
+  List studentsdata = [];
   void _changed(bool visibility, String field) {
     setState(() {
       if (field == "obs") {
         visibilityObs = visibility;
       }
     });
+  }
+
+  Future readfile(filepath) async {
+    var bytes = File(filepath).readAsBytesSync();
+    var excel = Excel.decodeBytes(bytes);
+    // print('Sheet1'); //sheet Name
+    // print(excel.tables['Sheet1']?.maxCols);
+    // print(excel.tables['Sheet1']?.maxRows);
+    // var thisrow = excel['Sheet1']
+    //     .cell(CellIndex.indexByColumnRow(rowIndex: 1, columnIndex: 0))
+    //     .value;
+    // print(thisrow);
+    for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
+      studentsdata.add({
+        'roll_no': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 0))
+            .value,
+        'name': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 1))
+            .value,
+        'session': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 2))
+            .value,
+        'department': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 3))
+            .value,
+        'type': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 4))
+            .value,
+      });
+    }
+    print(studentsdata);
+    // for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
+    //   for (var item in thisrow[row]) {
+    //     print(thisrow[1][1]);
+    //     // studentsdata.add();
+    //   }
+    //   print(row);
+    // }
+    // for (var rowindex = 1;
+    //     rowindex < excel['Sheet1'].rows.length;
+    //     rowindex++) {}
   }
 
   Widget custombutton(title, icon, onclick) {
@@ -45,9 +90,6 @@ class _UploadFileState extends State<UploadFile> {
           onPressed: onclick),
     );
   }
-
-  UploadTask? task;
-  File? file;
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +120,10 @@ class _UploadFileState extends State<UploadFile> {
             visibilityObs
                 ? Column(
                     children: [
-                      custombutton(
-                          'Upload File', Icons.cloud_upload_outlined, () {}),
+                      custombutton('Upload File', Icons.cloud_upload_outlined,
+                          () {
+                        readfile(file!.path);
+                      }),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
@@ -98,7 +142,10 @@ class _UploadFileState extends State<UploadFile> {
   }
 
   Future<void> selectFile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    final result = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+        allowedExtensions: ['xlsx'],
+        type: FileType.custom);
 
     if (result == null) return;
     final path = result.files.single.path!;
