@@ -16,6 +16,7 @@ class SessionStudent extends StatefulWidget {
 
 class _SessionStudentState extends State<SessionStudent> {
   bool _isShowDial = false;
+  var args = Get.arguments;
   List student = [
     {
       "studentName": "Rustum shakeel",
@@ -79,12 +80,13 @@ class _SessionStudentState extends State<SessionStudent> {
     },
   ];
 
-  Widget customdailog(title, picon, picon2, button,{label1, label2,initialvalue1,initialvalue2}) {
+  Widget customdailog(title, picon, picon2, button,
+      {label1, label2, initialvalue1, initialvalue2}) {
     return AlertDialog(
       title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
       actions: [
-        customtextformfield(false, picon,label1,initialvalue1),
-        customtextformfield( false, picon2,label2,initialvalue2),
+        customtextformfield(false, picon, label1, initialvalue1),
+        customtextformfield(false, picon2, label2, initialvalue2),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -104,7 +106,7 @@ class _SessionStudentState extends State<SessionStudent> {
     );
   }
 
-  Widget customtextformfield( isreadonly, icon,initialvalue,lbltext) {
+  Widget customtextformfield(isreadonly, icon, initialvalue, lbltext) {
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
       child: TextFormField(
@@ -173,8 +175,9 @@ class _SessionStudentState extends State<SessionStudent> {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return customdailog('Add Student', Icons.edit, FontAwesomeIcons.graduationCap,
-                     'ADD',initialvalue1:'Name',initialvalue2: 'Roll No' );
+                    return customdailog('Add Student', Icons.edit,
+                        FontAwesomeIcons.graduationCap, 'ADD',
+                        initialvalue1: 'Name', initialvalue2: 'Roll No');
                   });
             },
             backgroundColor: Colors.teal,
@@ -186,9 +189,11 @@ class _SessionStudentState extends State<SessionStudent> {
       ),
       body: CustomScrollView(slivers: [
         SliverAppBar(
-          title: const Text(
-            "Students",
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+          title: Text(
+            "${args['session_name']}",
+            softWrap: true,
+            overflow: TextOverflow.visible,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
           ),
           leading: IconButton(
             icon: const Icon(
@@ -237,11 +242,13 @@ class _SessionStudentState extends State<SessionStudent> {
                             context: context,
                             builder: (BuildContext context) {
                               return customdailog(
-                                  'Edit Student',
-                                   Icons.edit,
-                                  FontAwesomeIcons.graduationCap, 'UPDATE',
-                                 label1:student[index]['studentName'],
-                                  label2: student[index]['rollno'], );
+                                'Edit Student',
+                                Icons.edit,
+                                FontAwesomeIcons.graduationCap,
+                                'UPDATE',
+                                label1: student[index]['studentName'],
+                                label2: student[index]['rollno'],
+                              );
                             });
                       },
                       leading: const Icon(
