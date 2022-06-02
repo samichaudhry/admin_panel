@@ -18,6 +18,7 @@ class SessionStudent extends StatefulWidget {
 }
 
 class _SessionStudentState extends State<SessionStudent> {
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController _addname = TextEditingController();
   final TextEditingController _addrollno = TextEditingController();
   final TextEditingController _editname = TextEditingController();
@@ -109,8 +110,14 @@ class _SessionStudentState extends State<SessionStudent> {
     return AlertDialog(
       title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
       actions: [
-        customfeild1,
-        customfeild2,
+        Form(
+            key: _formkey,
+            child: Column(
+              children: [
+                customfeild1,
+                customfeild2,
+              ],
+            )),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -253,8 +260,10 @@ class _SessionStudentState extends State<SessionStudent> {
                         'Add Student',
                         'ADD',
                         () {
-                          addstudent();
-                          Navigator.pop(context);
+                          if (_formkey.currentState!.validate()) {
+                            addstudent();
+                            Navigator.pop(context);
+                          }
                         },
                         customtextformfield(Icons.edit, controller: _addname,
                             validator: (value) {
