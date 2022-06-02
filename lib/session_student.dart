@@ -1,3 +1,4 @@
+
 import 'package:admin_panel/upload_file.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,6 +7,9 @@ import 'package:admin_panel/utils.dart';
 import 'package:flutter_arc_speed_dial/flutter_speed_dial_menu_button.dart';
 import 'package:flutter_arc_speed_dial/main_menu_floating_action_button.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'custom widgets/custom_toast.dart';
 
 class SessionStudent extends StatefulWidget {
   const SessionStudent({Key? key}) : super(key: key);
@@ -15,8 +19,11 @@ class SessionStudent extends StatefulWidget {
 }
 
 class _SessionStudentState extends State<SessionStudent> {
+  final TextEditingController _addname = TextEditingController();
+  final TextEditingController _addrollno = TextEditingController();
+   final TextEditingController _editname = TextEditingController();
+  final TextEditingController _editrollno = TextEditingController();
   bool _isShowDial = false;
-  var args = Get.arguments;
   List student = [
     {
       "studentName": "Rustum shakeel",
@@ -80,13 +87,18 @@ class _SessionStudentState extends State<SessionStudent> {
     },
   ];
 
-  Widget customdailog(title, picon, picon2, button,
-      {label1, label2, initialvalue1, initialvalue2}) {
+  Future addstudent() async{
+    return FirebaseFirestore.instance.collection('sessionstudents').doc().set({
+      'studentname': _addname.text,
+      'studentrollno': _addrollno.text,
+    }, SetOptions(merge: true)).then((value) {});
+  }
+
+  Widget customdailog(title, button,onpressed, customfeild1, customfeild2, ) {
     return AlertDialog(
       title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
       actions: [
-        customtextformfield(false, picon, label1, initialvalue1),
-        customtextformfield(false, picon2, label2, initialvalue2),
+        customfeild1, customfeild2,
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -96,9 +108,7 @@ class _SessionStudentState extends State<SessionStudent> {
                 },
                 child: const Text('CANCEL')),
             MaterialButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: onpressed,
                 child: Text(button)),
           ],
         ),
@@ -106,11 +116,60 @@ class _SessionStudentState extends State<SessionStudent> {
     );
   }
 
-  Widget customtextformfield(isreadonly, icon, initialvalue, lbltext) {
+   Future deletedialog(docid) async {
+    dialog_func(
+        const Text('Are you sure?'),
+        const Text('Do you want to delete this student?'),
+        () => Navigator.pop(context), () async {
+      Navigator.pop(context);
+      Get.dialog(
+        AlertDialog(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
+              Center(
+                child: CircularProgressIndicator(
+                  color: Colors.teal,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    'Deleting',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18.0,
+                      // color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+      await FirebaseFirestore.instance
+          .collection('sessionstudents')
+          .doc(docid)
+          .delete()
+          .then((value) {
+        Navigator.pop(context);
+        customtoast('student Deleted');
+      });
+    });
+  }
+
+
+  Widget customtextformfield(icon,{ initialvalue, hinttext,controller, validator, onsaved,}){
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
       child: TextFormField(
-          readOnly: isreadonly,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller,
+          validator: validator,
+          onSaved: onsaved,
+          readOnly: false,
           initialValue: initialvalue,
           cursorColor: Colors.teal,
           style: const TextStyle(
@@ -119,7 +178,7 @@ class _SessionStudentState extends State<SessionStudent> {
           ),
           decoration: InputDecoration(
             prefixIcon: Icon(icon),
-            hintText: lbltext,
+            hintText: hinttext,
             labelStyle: const TextStyle(
               color: Colors.teal,
             ),
@@ -155,11 +214,9 @@ class _SessionStudentState extends State<SessionStudent> {
         floatingActionButtonWidgetChildren: <FloatingActionButton>[
           FloatingActionButton.extended(
             heroTag: 'btn1',
-            // mini: true,
             label: customText(txt: 'Upload File'),
             icon: const Icon(FontAwesomeIcons.upload),
             onPressed: () {
-              // filepicker();
               Get.to(
                 () => const UploadFile(),
               );
@@ -168,16 +225,36 @@ class _SessionStudentState extends State<SessionStudent> {
             foregroundColor: Colors.white,
           ),
           FloatingActionButton.extended(
-            // mini: true,
             label: customText(txt: 'Add Student'),
             icon: const Icon(FontAwesomeIcons.penToSquare),
             onPressed: () {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return customdailog('Add Student', Icons.edit,
-                        FontAwesomeIcons.graduationCap, 'ADD',
-                        initialvalue1: 'Name', initialvalue2: 'Roll No');
+                    return customdailog(
+                        'Add Student',
+                        'ADD',
+                        (){
+                         addstudent();
+                         Navigator.pop(context);
+                        },
+                        customtextformfield(Icons.edit,controller:_addname,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Enter Student Name ";
+                          }
+                        }, onsaved: (value) {
+                          _addname.text = value!;
+                        }, hinttext: 'Name'),
+                        customtextformfield(
+                            FontAwesomeIcons.graduationCap,controller:_addrollno,
+                            validator:(value) {
+                          if (value!.isEmpty) {
+                            return "Please Enter Roll No ";
+                          }
+                        },onsaved: (value) {
+                          _addrollno.text = value!;
+                        }, hinttext: 'Roll No'),);
                   });
             },
             backgroundColor: Colors.teal,
@@ -187,103 +264,136 @@ class _SessionStudentState extends State<SessionStudent> {
         isSpeedDialFABsMini: true,
         paddingBtwSpeedDialButton: 60.0,
       ),
-      body: CustomScrollView(slivers: [
-        SliverAppBar(
-          title: Text(
-            "${args['session_name']}",
-            softWrap: true,
-            overflow: TextOverflow.visible,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
-          ),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          automaticallyImplyLeading: false,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-          ),
-          pinned: true,
-          floating: true,
-          snap: true,
-          expandedHeight: responsiveHW(context, ht: 12),
-          collapsedHeight: responsiveHW(context, ht: 11),
-          flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-            "\n\n\nTotal Students: ${student.length}",
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-                color: Colors.grey[400]),
-          )),
-        ),
-        SliverList(
-            delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 19, right: 19, top: 13),
-              child: Column(
-                children: ListTile.divideTiles(
-                  context: context,
-                  tiles: [
-                    ListTile(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      tileColor: Colors.grey[800],
-                      onLongPress: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return customdailog(
-                                'Edit Student',
-                                Icons.edit,
-                                FontAwesomeIcons.graduationCap,
-                                'UPDATE',
-                                label1: student[index]['studentName'],
-                                label2: student[index]['rollno'],
-                              );
-                            });
-                      },
-                      leading: const Icon(
-                        FontAwesomeIcons.userGraduate,
-                        color: Colors.teal,
-                      ),
-                      title: Text(
-                        student[index]['studentName'],
-                        style: const TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      subtitle: RichText(
-                        text: TextSpan(
-                            text: student[index]['rollno'],
-                            style: const TextStyle(
-                              fontSize: 15.5,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: " (${student[index]['semester']})",
-                              ),
-                            ]),
+      body:  StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('sessionstudents').snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            var data = snapshot.data?.docs;
+              var documents = snapshot.data?.docs;
+             if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } if (data!.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.hourglass_empty,
+                      size: 50.0,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      'No Students',
+                      style: TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
+                        // color: Colors.white,
                       ),
                     ),
                   ],
-                ).toList(),
+                ),
+              );
+            } else {
+              return CustomScrollView(slivers: [
+            SliverAppBar(
+              title: const Text(
+                "Students",
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
               ),
-            );
-          },
-          childCount: student.length,
-        )),
-      ]),
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              automaticallyImplyLeading: false,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+              ),
+              pinned: true,
+              floating: true,
+              snap: true,
+              expandedHeight: responsiveHW(context, ht: 12),
+              collapsedHeight: responsiveHW(context, ht: 11),
+              flexibleSpace: FlexibleSpaceBar(
+                  title: Text(
+                "\n\n\nTotal Students: ${documents?.length}",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                    color: Colors.grey[400]),
+              )),
+            ),
+            SliverList(
+                delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                DocumentSnapshot ds = documents![index];
+                return Padding(
+                  padding: const EdgeInsets.only(left: 19, right: 19, top: 13),
+                  child: Column(
+                    children: ListTile.divideTiles(
+                      context: context,
+                      tiles: [
+                        ListTile(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          tileColor: Colors.grey[800],
+                       onLongPress: (){deletedialog(ds.id);},
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return customdailog(
+                                      'Edit Student',
+                                      'UPDATE',
+                                      (){
+                                        Navigator.pop(context);
+                                      },
+                                      customtextformfield(Icons.edit,
+                                      initialvalue: student[index]['studentName']
+                                      ),
+                                      customtextformfield(
+                                        FontAwesomeIcons.graduationCap,
+                                        initialvalue: student[index]['rollno'],
+                                      ),);
+                                });
+                          },
+                          leading: const Icon(
+                            FontAwesomeIcons.userGraduate,
+                            color: Colors.teal,
+                          ),
+                          title: Text(ds['studentname'],
+                            style: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          subtitle:Text(ds['studentrollno'],
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ).toList(),
+                  ),
+                );
+              },
+              childCount:documents?.length
+            )),
+          ]);
+        }}
+      )
     );
   }
 }

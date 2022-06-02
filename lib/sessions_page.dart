@@ -214,7 +214,6 @@ class _sessionpageState extends State<sessionpage> {
     '2038-2040',
   ];
 
-  var sessioninfo = [];
   Future setsessiondata() {
     return FirebaseFirestore.instance.collection('session').doc().set({
       'department': selecteddepartment,
@@ -633,6 +632,7 @@ class _sessionpageState extends State<sessionpage> {
               );
             }
           }),
+
     );
   }
 }
