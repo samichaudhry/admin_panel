@@ -108,7 +108,6 @@ class _sessionpageState extends State<sessionpage> {
     'Chemistry',
     'Physics',
     'Business Administration',
-    'Commerce',
     'Economics',
     'Education',
     'English',
