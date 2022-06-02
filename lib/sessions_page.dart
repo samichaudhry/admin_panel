@@ -589,7 +589,15 @@ class _sessionpageState extends State<sessionpage> {
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
                                 onTap: () {
-                                  Get.to(() => const SessionStudent());
+                                  Get.to(() => const SessionStudent(),
+                                      arguments: {
+                                        'session_name': ds['program'] +
+                                            (ds['program_type'] == 'Regular'
+                                                ? '-R-'
+                                                : '-SS-') +
+                                            ds['session'],
+                                        'department': ds['department'],
+                                      });
                                 },
                                 onLongPress: () {
                                   deletedialog(ds.id);
