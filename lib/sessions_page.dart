@@ -596,6 +596,7 @@ class _sessionpageState extends State<sessionpage> {
                                                 : '-SS-') +
                                             ds['session'],
                                         'department': ds['department'],
+                                        'session_id': ds.id.toString(),
                                       });
                                 },
                                 onLongPress: () {
@@ -631,7 +632,6 @@ class _sessionpageState extends State<sessionpage> {
               );
             }
           }),
-
     );
   }
 }

@@ -38,14 +38,31 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: useremail.toString(), password: userpassword.toString());
+      // UserCredential thisuser = auth.currentUser;
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get()
+          .then((DocumentSnapshot user) {
+        if (user.exists) {
+          if (user['isteacher']) {
+            customtoast('Invalid admin credentials');
+            FirebaseAuth.instance.signOut();
+          } else {
+            Get.to(
+              () => const AdminMainPage(),
+            );
+
+            customtoast('Login Successful');
+          }
+        } else {
+          customtoast('User not found');
+          FirebaseAuth.instance.signOut();
+        }
+      });
       setState(() {
         isauthenticating = false;
       });
-      Get.to(
-        () => const AdminMainPage(),
-      );
-
-      customtoast('Login Successful');
     } on FirebaseAuthException catch (e) {
       setState(() {
         isauthenticating = false;
