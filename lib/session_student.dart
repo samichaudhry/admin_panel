@@ -88,27 +88,33 @@ class _SessionStudentState extends State<SessionStudent> {
   //   },
   // ];
 
-  Future addstudent({isupdate = false,docid}) async {
-    if(isupdate == true){FirebaseFirestore.instance
-        .collection('students')
-        .doc(args['session_id'])
-        .collection('sessionstudents')
-        .doc(docid)
-        .set({
-      'studentname': _addname.text,
-      'studentrollno': _addrollno.text,
-    }, SetOptions(merge: true)).then((value) {});} 
-    else{
+  Future addstudent({isupdate = false, docid}) async {
+    if (isupdate) {
+      print(docid);
+      print(_addname.text);
+      print(_addrollno.text);
       FirebaseFirestore.instance
-        .collection('students')
-        .doc(args['session_id'])
-        .collection('sessionstudents')
-        .doc()
-        .set({
-      'studentname': _addname.text,
-      'studentrollno': _addrollno.text,
-    }, SetOptions(merge: true)).then((value) {});
+          .collection('students')
+          .doc(args['session_id'])
+          .collection('sessionstudents')
+          .doc(docid)
+          .set({
+        'studentname': _addname.text,
+        'studentrollno': _addrollno.text,
+      }, SetOptions(merge: true));
+    } else {
+      FirebaseFirestore.instance
+          .collection('students')
+          .doc(args['session_id'])
+          .collection('sessionstudents')
+          .doc()
+          .set({
+        'studentname': _addname.text,
+        'studentrollno': _addrollno.text,
+      }, SetOptions(merge: true));
     }
+    _addname.clear();
+    _addrollno.clear();
   }
 
   Widget customdailog(
@@ -272,7 +278,7 @@ class _SessionStudentState extends State<SessionStudent> {
                         'ADD',
                         () {
                           if (_formkey.currentState!.validate()) {
-                            addstudent( );
+                            addstudent();
                             Navigator.pop(context);
                           }
                         },
@@ -397,6 +403,8 @@ class _SessionStudentState extends State<SessionStudent> {
                                 deletedialog(ds.id);
                               },
                               onTap: () {
+                                _addname.text = ds['studentname'];
+                                _addrollno.text = ds['studentrollno'];
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -404,23 +412,27 @@ class _SessionStudentState extends State<SessionStudent> {
                                         'Edit Student',
                                         'UPDATE',
                                         () {
-                                          addstudent(isupdate: true,docid: ds.id);
+                                          addstudent(
+                                              isupdate: true,
+                                              docid: ds.id.toString());
                                           Navigator.pop(context);
                                         },
-                                        customtextformfield(Icons.edit,
-                                            controller: TextEditingController(text: ds['studentname']),
-                                            validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "Please Enter Student Name ";
-                                          }
-                                        }, onsaved: (value) {
-                                          _addname.text = value!;
-                                        },
-                                        //  initialvalue: ds['studentname']
-                                         ),
+                                        customtextformfield(
+                                          Icons.edit,
+                                          controller: _addname,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return "Please Enter Student Name ";
+                                            }
+                                          },
+                                          onsaved: (value) {
+                                            _addname.text = value!;
+                                          },
+                                          //  initialvalue: ds['studentname']
+                                        ),
                                         customtextformfield(
                                           FontAwesomeIcons.graduationCap,
-                                          controller: TextEditingController(text: ds['studentrollno']),
+                                          controller: _addrollno,
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return "Please Enter Roll No ";
