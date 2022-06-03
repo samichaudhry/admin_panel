@@ -122,7 +122,8 @@ class _UploadFileState extends State<UploadFile> {
               height: MediaQuery.of(context).size.height * 0.15,
             ),
             custombutton('Download Templete', Icons.cloud_upload_outlined, () {
-              FilePicker.platform.getDirectoryPath();
+              var file = FilePicker.platform.getDirectoryPath();
+              print(File(file.toString()));
             }),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.07,
