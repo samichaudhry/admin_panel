@@ -49,6 +49,8 @@ dependencies:
   percent_indicator: any
   connectivity_plus: any
   excel: any
+  flutter_downloader: any
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

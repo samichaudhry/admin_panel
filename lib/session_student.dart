@@ -90,9 +90,9 @@ class _SessionStudentState extends State<SessionStudent> {
 
   Future addstudent({isupdate = false, docid}) async {
     if (isupdate) {
-      print(docid);
-      print(_addname.text);
-      print(_addrollno.text);
+      // print(docid);
+      // print(_addname.text);
+      // print(_addrollno.text);
       FirebaseFirestore.instance
           .collection('students')
           .doc(args['session_id'])
@@ -259,9 +259,10 @@ class _SessionStudentState extends State<SessionStudent> {
               label: customText(txt: 'Upload File'),
               icon: const Icon(FontAwesomeIcons.upload),
               onPressed: () {
-                Get.to(
-                  () => const UploadFile(),
-                );
+                Get.to(() => const UploadFile(), arguments: {
+                  'session_id',
+                  args['session_id'],
+                });
               },
               backgroundColor: Colors.teal,
               foregroundColor: Colors.white,
