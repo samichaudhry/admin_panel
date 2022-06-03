@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:admin_panel/session_student.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UploadFile extends StatefulWidget {
   const UploadFile({Key? key}) : super(key: key);
@@ -17,8 +20,11 @@ class UploadFile extends StatefulWidget {
 class _UploadFileState extends State<UploadFile> {
   bool visibilityObs = false;
   UploadTask? task;
+ var sessionstudent;
   File? file;
   List studentsdata = [];
+  var args = Get.arguments;
+
   void _changed(bool visibility, String field) {
     setState(() {
       if (field == "obs") {
@@ -57,6 +63,18 @@ class _UploadFileState extends State<UploadFile> {
       });
     }
     print(studentsdata);
+    for(var student in studentsdata){
+      FirebaseFirestore.instance
+    .collection('students')
+    .doc(args['session_id'])
+    .collection('sessionstudents')
+    .doc().set({
+      'name':student['name'],
+      'rollno':student['roll_no']
+    },SetOptions(merge: true)).then((value) {
+      print('data added');
+    });
+    }
     // for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
     //   for (var item in thisrow[row]) {
     //     print(thisrow[1][1]);
@@ -68,6 +86,17 @@ class _UploadFileState extends State<UploadFile> {
     //     rowindex < excel['Sheet1'].rows.length;
     //     rowindex++) {}
   }
+  // Future uploaddata(){
+  //   return FirebaseFirestore.instance
+  //   .collection('uploadfile')
+  //   .doc().set({
+  //     'name':studentsdata,
+  //     'rollno':studentsdata
+  //   },SetOptions(merge: true)).then((value) {
+  //     print('upload file');
+  //   });
+  // }
+
 
   Widget custombutton(title, icon, onclick) {
     return Padding(
@@ -125,13 +154,6 @@ class _UploadFileState extends State<UploadFile> {
                       }),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      CircularPercentIndicator(
-                        radius: 60.0,
-                        lineWidth: 7.0,
-                        percent: 0.70,
-                        center: const Text("70%"),
-                        progressColor: Colors.teal,
                       ),
                     ],
                   )

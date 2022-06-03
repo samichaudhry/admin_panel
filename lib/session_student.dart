@@ -261,6 +261,9 @@ class _SessionStudentState extends State<SessionStudent> {
               onPressed: () {
                 Get.to(
                   () => const UploadFile(),
+                  arguments:{
+                    'session_id',args['session_id']
+                  }
                 );
               },
               backgroundColor: Colors.teal,
@@ -270,6 +273,8 @@ class _SessionStudentState extends State<SessionStudent> {
               label: customText(txt: 'Add Student'),
               icon: const Icon(FontAwesomeIcons.penToSquare),
               onPressed: () {
+                _addname.clear();
+                _addrollno.clear();
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
