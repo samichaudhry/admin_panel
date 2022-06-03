@@ -88,8 +88,18 @@ class _SessionStudentState extends State<SessionStudent> {
   //   },
   // ];
 
-  Future addstudent() async {
-    return FirebaseFirestore.instance
+  Future addstudent({isupdate = false,docid}) async {
+    if(isupdate == true){FirebaseFirestore.instance
+        .collection('students')
+        .doc(args['session_id'])
+        .collection('sessionstudents')
+        .doc(docid)
+        .set({
+      'studentname': _addname.text,
+      'studentrollno': _addrollno.text,
+    }, SetOptions(merge: true)).then((value) {});} 
+    else{
+      FirebaseFirestore.instance
         .collection('students')
         .doc(args['session_id'])
         .collection('sessionstudents')
@@ -98,6 +108,7 @@ class _SessionStudentState extends State<SessionStudent> {
       'studentname': _addname.text,
       'studentrollno': _addrollno.text,
     }, SetOptions(merge: true)).then((value) {});
+    }
   }
 
   Widget customdailog(
@@ -261,7 +272,7 @@ class _SessionStudentState extends State<SessionStudent> {
                         'ADD',
                         () {
                           if (_formkey.currentState!.validate()) {
-                            addstudent();
+                            addstudent( );
                             Navigator.pop(context);
                           }
                         },
@@ -393,13 +404,32 @@ class _SessionStudentState extends State<SessionStudent> {
                                         'Edit Student',
                                         'UPDATE',
                                         () {
+                                          addstudent(isupdate: true,docid: ds.id);
                                           Navigator.pop(context);
                                         },
                                         customtextformfield(Icons.edit,
-                                            initialvalue: ds['studentname']),
+                                            controller: TextEditingController(text: ds['studentname']),
+                                            validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Please Enter Student Name ";
+                                          }
+                                        }, onsaved: (value) {
+                                          _addname.text = value!;
+                                        },
+                                        //  initialvalue: ds['studentname']
+                                         ),
                                         customtextformfield(
                                           FontAwesomeIcons.graduationCap,
-                                          initialvalue: ds['studentrollno'],
+                                          controller: TextEditingController(text: ds['studentrollno']),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return "Please Enter Roll No ";
+                                            }
+                                          },
+                                          onsaved: (value) {
+                                            _addrollno.text = value!;
+                                          },
+                                          // initialvalue: ds['studentrollno'],
                                         ),
                                       );
                                     });
