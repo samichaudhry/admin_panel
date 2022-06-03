@@ -260,8 +260,7 @@ class _SessionStudentState extends State<SessionStudent> {
               icon: const Icon(FontAwesomeIcons.upload),
               onPressed: () {
                 Get.to(() => const UploadFile(), arguments: {
-                  'session_id',
-                  args['session_id'],
+                  'sessionid': args['session_id'].toString(),
                 });
               },
               backgroundColor: Colors.teal,
@@ -316,6 +315,7 @@ class _SessionStudentState extends State<SessionStudent> {
                 .collection('students')
                 .doc(args['session_id'])
                 .collection('sessionstudents')
+                .orderBy('studentrollno', descending: false)
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

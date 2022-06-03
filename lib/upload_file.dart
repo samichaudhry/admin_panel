@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:admin_panel/session_student.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -20,8 +21,9 @@ class UploadFile extends StatefulWidget {
 
 class _UploadFileState extends State<UploadFile> {
   bool visibilityObs = false;
+  bool isuploading = false;
   UploadTask? task;
- var sessionstudent;
+  var sessionstudent;
   File? file;
   List studentsdata = [];
   var args = Get.arguments;
@@ -75,18 +77,24 @@ class _UploadFileState extends State<UploadFile> {
       });
     }
     print(studentsdata);
-    for(var student in studentsdata){
+    print('session id ${args['sessionid'].toString()}');
+    for (var student in studentsdata) {
       FirebaseFirestore.instance
-    .collection('students')
-    .doc(args['session_id'])
-    .collection('sessionstudents')
-    .doc().set({
-      'name':student['name'],
-      'rollno':student['roll_no']
-    },SetOptions(merge: true)).then((value) {
-      print('data added');
-    });
+          .collection('students')
+          .doc(args['sessionid'])
+          .collection('sessionstudents')
+          .doc()
+          .set({
+        'studentname': student['name'],
+        'studentrollno': student['roll_no']
+      }, SetOptions(merge: true)).then((value) {
+        print('data added');
+      });
     }
+    customtoast('Data Uploaded Successfully');
+    Get.back();
+    Get.back();
+
     // for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
     //   for (var item in thisrow[row]) {
     //     print(thisrow[1][1]);
@@ -108,7 +116,6 @@ class _UploadFileState extends State<UploadFile> {
   //     print('upload file');
   //   });
   // }
-
 
   Widget custombutton(title, icon, onclick) {
     return Padding(
@@ -134,7 +141,7 @@ class _UploadFileState extends State<UploadFile> {
   @override
   Widget build(BuildContext context) {
     final fileName = file != null ? basename(file!.path) : 'No File Selected';
-
+    print(args);
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -164,6 +171,8 @@ class _UploadFileState extends State<UploadFile> {
                     children: [
                       custombutton('Upload File', Icons.cloud_upload_outlined,
                           () {
+                        customdialogcircularprogressindicator(
+                            'Isuploading... ');
                         readfile(file!.path);
                       }),
                       SizedBox(

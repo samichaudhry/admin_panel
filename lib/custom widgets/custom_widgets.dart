@@ -78,6 +78,42 @@ Widget customFAB({ontap, text, icon, clr}) {
   );
 }
 
+Future<void> customdialogcircularprogressindicator(txt) async {
+  Get.dialog(
+    WillPopScope(
+      onWillPop: () async => false,
+      child: AlertDialog(
+        // title: _title,
+        title: Row(
+          // mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Center(
+              child: CircularProgressIndicator(
+                color: Colors.teal,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  txt,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18.0,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+    barrierDismissible: false,
+  );
+}
+
 // File Picker
 
 Future filepicker({required filetype, allowedextensions}) async {
