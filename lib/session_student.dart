@@ -89,7 +89,10 @@ class _SessionStudentState extends State<SessionStudent> {
   // ];
 
   Future addstudent({isupdate = false,docid}) async {
-    if(isupdate == true){FirebaseFirestore.instance
+    print(docid);
+    print(_addname.text);
+    print(_addrollno.text);
+    if(isupdate){FirebaseFirestore.instance
         .collection('students')
         .doc(args['session_id'])
         .collection('sessionstudents')
@@ -97,8 +100,8 @@ class _SessionStudentState extends State<SessionStudent> {
         .set({
       'studentname': _addname.text,
       'studentrollno': _addrollno.text,
-    }, SetOptions(merge: true)).then((value) {});} 
-    else{
+    }, SetOptions(merge: true)).then((value) {});
+    } else{
       FirebaseFirestore.instance
         .collection('students')
         .doc(args['session_id'])
@@ -397,6 +400,8 @@ class _SessionStudentState extends State<SessionStudent> {
                                 deletedialog(ds.id);
                               },
                               onTap: () {
+                                _addname.text= ds['studentname'];
+                                _addrollno.text= ds['studentrollno'];
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -408,7 +413,7 @@ class _SessionStudentState extends State<SessionStudent> {
                                           Navigator.pop(context);
                                         },
                                         customtextformfield(Icons.edit,
-                                            controller: TextEditingController(text: ds['studentname']),
+                                            controller: _addname,
                                             validator: (value) {
                                           if (value!.isEmpty) {
                                             return "Please Enter Student Name ";
@@ -420,7 +425,7 @@ class _SessionStudentState extends State<SessionStudent> {
                                          ),
                                         customtextformfield(
                                           FontAwesomeIcons.graduationCap,
-                                          controller: TextEditingController(text: ds['studentrollno']),
+                                          controller: _addrollno,
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return "Please Enter Roll No ";
