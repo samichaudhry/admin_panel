@@ -7,7 +7,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:path/path.dart';
-import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 
 class UploadFile extends StatefulWidget {
