@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:path/path.dart';
@@ -24,13 +25,24 @@ class _UploadFileState extends State<UploadFile> {
   File? file;
   List studentsdata = [];
   var args = Get.arguments;
-
   void _changed(bool visibility, String field) {
     setState(() {
       if (field == "obs") {
         visibilityObs = visibility;
       }
     });
+  }
+
+  Future downloadfile() async {
+    FilePicker.platform.getDirectoryPath();
+    final taskId = await FlutterDownloader.enqueue(
+      url: 'your download link',
+      savedDir: 'the path of directory where you want to save downloaded files',
+      showNotification:
+          true, // show download progress in status bar (for Android)
+      openFileFromNotification:
+          true, // click on notification to open downloaded file (for Android)
+    );
   }
 
   Future readfile(filepath) async {
@@ -135,8 +147,9 @@ class _UploadFileState extends State<UploadFile> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
             ),
-            custombutton(
-                'Download Templete', Icons.cloud_upload_outlined, () {}),
+            custombutton('Download Templete', Icons.cloud_upload_outlined, () {
+              FilePicker.platform.getDirectoryPath();
+            }),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.07,
             ),
