@@ -1,3 +1,4 @@
+import 'package:admin_panel/request.dart';
 import 'package:admin_panel/upload_file.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -327,28 +328,78 @@ class _SessionStudentState extends State<SessionStudent> {
                 );
               }
               if (data!.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.hourglass_empty,
-                        size: 50.0,
+                return CustomScrollView(slivers: [
+                  SliverAppBar(
+                    title: Text(
+                      "${args['session_name']}",
+                      overflow: TextOverflow.visible,
+                      softWrap: true,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 20),
+                    ),
+                    leading: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
                       ),
-                      SizedBox(
-                        height: 10.0,
+                      onPressed: () {
+                        Get.to(RequestPage());
+                        // Navigator.op(context);
+                      },
+                    ),
+                    automaticallyImplyLeading: false,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
                       ),
-                      Text(
-                        'No Students',
-                        style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
-                          // color: Colors.white,
+                    ),
+                    pinned: true,
+                    floating: true,
+                    snap: true,
+                    expandedHeight: responsiveHW(context, ht: 12),
+                    collapsedHeight: responsiveHW(context, ht: 11),
+                    flexibleSpace: FlexibleSpaceBar(
+                        title: Text(
+                      "\n\n\nTotal Students: ${documents?.length}",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: Colors.grey[400]),
+                    )),
+                  ),
+                  SliverToBoxAdapter(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      setState(() {});
+                    },
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: responsiveHW(context, ht: 30)!.toDouble()),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.hourglass_empty,
+                              size: 50.0,
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              'No Student Available',
+                              style: TextStyle(
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                );
+                ),]);
               } else {
                 return CustomScrollView(slivers: [
                   SliverAppBar(
@@ -364,7 +415,8 @@ class _SessionStudentState extends State<SessionStudent> {
                         Icons.arrow_back,
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Get.to(RequestPage());
+                        // Navigator.op(context);
                       },
                     ),
                     automaticallyImplyLeading: false,
