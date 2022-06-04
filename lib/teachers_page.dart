@@ -19,26 +19,26 @@ class _TeachersPageState extends State<TeachersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: customFAB(
-          clr: Colors.teal,
-          ontap: () {
-            Get.to(() => const AddTeacher(), arguments: [
-              {
-                "pageTitle": "Add Teacher",
-                "buttonText": "Submit",
-                'teacher_name': '',
-                'designation': '',
-                'department': '',
-                'imgUrl': '',
-                'teacherId': '',
-              }
-            ]);
-          },
-          icon: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          text: customText(txt: 'Teacher', clr: Colors.white)),
+      // floatingActionButton: customFAB(
+      //     clr: Colors.teal,
+      //     ontap: () {
+      //       Get.to(() => const AddTeacher(), arguments: [
+      //         {
+      //           "pageTitle": "Add Teacher",
+      //           "buttonText": "Submit",
+      //           'teacher_name': '',
+      //           'designation': '',
+      //           'department': '',
+      //           'imgUrl': '',
+      //           'teacherId': '',
+      //         }
+      //       ]);
+      //     },
+      //     icon: const Icon(
+      //       Icons.add,
+      //       color: Colors.white,
+      //     ),
+      //     text: customText(txt: 'Teacher', clr: Colors.white)),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection('teachers').snapshots(),
           builder:

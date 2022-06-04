@@ -4,8 +4,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,28 +33,41 @@ class _UploadFileState extends State<UploadFile> {
     });
   }
 
+  Future downloadFile() async {
+    final ref =
+        FirebaseStorage.instance.ref('images/file_template/template.xlsx');
+    print(ref);
+    final dir = await getApplicationDocumentsDirectory();
+    print(dir.path);
+    final file = File('${dir.path}/${ref.name}');
+
+    await ref.writeToFile(file);
+    customtoast('file downloaded');
+  }
+
   Future downloadfile() async {
-    FilePicker.platform.getDirectoryPath();
-    final taskId = await FlutterDownloader.enqueue(
-      url: 'your download link',
-      savedDir: 'the path of directory where you want to save downloaded files',
-      showNotification:
-          true, // show download progress in status bar (for Android)
-      openFileFromNotification:
-          true, // click on notification to open downloaded file (for Android)
-    );
+    // FilePicker.platform.saveFile();
+    // Directory appDocDir = await getApplicationDocumentsDirectory();
+    // appDocDir.create(recursive: true);
+    // String appDocPath = appDocDir.path;
+    // print(appDocPath);
+    // final fileurl = await FirebaseStorage.instance
+    //     .ref('images/file_template/template.xlsx')
+    //     .getDownloadURL();
+    // // print(fileurl);
+    // final taskId = await FlutterDownloader.enqueue(
+    //   url: fileurl.toString(),
+    //   savedDir: '$appDocPath/template.xlsx',
+    //   showNotification:
+    //       true, // show download progress in status bar (for Android)
+    //   openFileFromNotification:
+    //       true, // click on notification to open downloaded file (for Android)
+    // );
   }
 
   Future readfile(filepath) async {
     var bytes = File(filepath).readAsBytesSync();
     var excel = Excel.decodeBytes(bytes);
-    // print('Sheet1'); //sheet Name
-    // print(excel.tables['Sheet1']?.maxCols);
-    // print(excel.tables['Sheet1']?.maxRows);
-    // var thisrow = excel['Sheet1']
-    //     .cell(CellIndex.indexByColumnRow(rowIndex: 1, columnIndex: 0))
-    //     .value;
-    // print(thisrow);
     for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
       studentsdata.add({
         'roll_no': excel['Sheet1']
@@ -74,8 +87,6 @@ class _UploadFileState extends State<UploadFile> {
             .value,
       });
     }
-    print(studentsdata);
-    print('session id ${args['sessionid'].toString()}');
     for (var student in studentsdata) {
       FirebaseFirestore.instance
           .collection('students')
@@ -85,35 +96,12 @@ class _UploadFileState extends State<UploadFile> {
           .set({
         'studentname': student['name'],
         'studentrollno': student['roll_no']
-      }, SetOptions(merge: true)).then((value) {
-        print('data added');
-      });
+      }, SetOptions(merge: true)).then((value) {});
     }
     customtoast('Data Uploaded Successfully');
     Get.back();
     Get.back();
-
-    // for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
-    //   for (var item in thisrow[row]) {
-    //     print(thisrow[1][1]);
-    //     // studentsdata.add();
-    //   }
-    //   print(row);
-    // }
-    // for (var rowindex = 1;
-    //     rowindex < excel['Sheet1'].rows.length;
-    //     rowindex++) {}
   }
-  // Future uploaddata(){
-  //   return FirebaseFirestore.instance
-  //   .collection('uploadfile')
-  //   .doc().set({
-  //     'name':studentsdata,
-  //     'rollno':studentsdata
-  //   },SetOptions(merge: true)).then((value) {
-  //     print('upload file');
-  //   });
-  // }
 
   Widget custombutton(title, icon, onclick) {
     return Padding(
@@ -139,7 +127,6 @@ class _UploadFileState extends State<UploadFile> {
   @override
   Widget build(BuildContext context) {
     final fileName = file != null ? basename(file!.path) : 'No File Selected';
-    print(args);
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -153,8 +140,8 @@ class _UploadFileState extends State<UploadFile> {
               height: MediaQuery.of(context).size.height * 0.15,
             ),
             custombutton('Download Templete', Icons.cloud_upload_outlined, () {
-              var file = FilePicker.platform.getDirectoryPath();
-              print(File(file.toString()));
+              downloadFile();
+              // print(getappl);
             }),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.07,
