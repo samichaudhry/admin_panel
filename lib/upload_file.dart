@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'dart:io' as io;
 import 'package:admin_panel/custom%20widgets/custom_toast.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _UploadFileState extends State<UploadFile> {
   bool isuploading = false;
   UploadTask? task;
   var sessionstudent;
-  File? file;
+  io.File? file;
   List studentsdata = [];
   var args = Get.arguments;
   void _changed(bool visibility, String field) {
@@ -33,40 +34,31 @@ class _UploadFileState extends State<UploadFile> {
     });
   }
 
-  Future downloadFile() async {
-    final ref =
-        FirebaseStorage.instance.ref('images/file_template/template.xlsx');
-    print(ref);
-    final dir = await getApplicationDocumentsDirectory();
-    print(dir.path);
-    final file = File('${dir.path}/${ref.name}');
+var downloadProgress;
 
-    await ref.writeToFile(file);
-    customtoast('file downloaded');
-  }
-
-  Future downloadfile() async {
-    // FilePicker.platform.saveFile();
-    // Directory appDocDir = await getApplicationDocumentsDirectory();
-    // appDocDir.create(recursive: true);
-    // String appDocPath = appDocDir.path;
-    // print(appDocPath);
-    // final fileurl = await FirebaseStorage.instance
-    //     .ref('images/file_template/template.xlsx')
-    //     .getDownloadURL();
-    // // print(fileurl);
-    // final taskId = await FlutterDownloader.enqueue(
-    //   url: fileurl.toString(),
-    //   savedDir: '$appDocPath/template.xlsx',
-    //   showNotification:
-    //       true, // show download progress in status bar (for Android)
-    //   openFileFromNotification:
-    //       true, // click on notification to open downloaded file (for Android)
-    // );
+  Future downloadfile(ctx) async {
+    customdialogcircularprogressindicator('Downloading...');
+  var ref = await FirebaseStorage.instance.ref().child("images").child('file_template').child('template.xlsx').getDownloadURL();
+   Dio dio = Dio();
+  var dir = await getApplicationDocumentsDirectory();
+  var imageDownloadPath = '${dir.path}/template.xlsx';
+  await dio.download(ref, imageDownloadPath,
+      onReceiveProgress: (received, total) {
+    var progress = (received / total) * 100;
+    debugPrint('Rec: $received , Total: $total, $progress%');
+    setState(() {
+      downloadProgress = received.toDouble() / total.toDouble();
+      print(downloadProgress);
+    });
+  });
+  // downloadFile function returns path where image has been downloaded
+  customtoast('File Downloaded');
+  Navigator.pop(ctx);
+  print(imageDownloadPath);
   }
 
   Future readfile(filepath) async {
-    var bytes = File(filepath).readAsBytesSync();
+    var bytes = io.File(filepath).readAsBytesSync();
     var excel = Excel.decodeBytes(bytes);
     for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
       studentsdata.add({
@@ -140,7 +132,7 @@ class _UploadFileState extends State<UploadFile> {
               height: MediaQuery.of(context).size.height * 0.15,
             ),
             custombutton('Download Templete', Icons.cloud_upload_outlined, () {
-              downloadFile();
+              downloadfile(context);
               // print(getappl);
             }),
             SizedBox(
@@ -179,7 +171,7 @@ class _UploadFileState extends State<UploadFile> {
     if (result == null) return;
     final path = result.files.single.path!;
 
-    setState(() => file = File(path));
+    setState(() => file = io.File(path));
     visibilityObs ? null : _changed(true, "obs");
   }
 }

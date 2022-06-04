@@ -60,7 +60,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
       'title': "Teachers Requests",
       'icon': FontAwesomeIcons.userClock,
       'route': const TeachersPage(),
-      'color': Color.fromARGB(255, 63, 106, 126),
+      'color': const Color.fromARGB(255, 63, 106, 126),
       'ispassword': false,
     },
     {

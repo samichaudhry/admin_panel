@@ -49,7 +49,7 @@ dependencies:
   percent_indicator: any
   connectivity_plus: any
   excel: any
-  flutter_downloader: any
+  dio: any
   path_provider: any
 dev_dependencies:
   flutter_test:

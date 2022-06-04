@@ -101,7 +101,7 @@ Future<void> customdialogcircularprogressindicator(txt) async {
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 18.0,
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 ),
               ),
