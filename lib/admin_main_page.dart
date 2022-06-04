@@ -57,6 +57,13 @@ class _AdminMainPageState extends State<AdminMainPage> {
       'ispassword': false,
     },
     {
+      'title': "Teachers Requests",
+      'icon': FontAwesomeIcons.userClock,
+      'route': const TeachersPage(),
+      'color': Color.fromARGB(255, 63, 106, 126),
+      'ispassword': false,
+    },
+    {
       'title': "Students",
       'icon': FontAwesomeIcons.userGraduate,
       'route': () => const sessionpage(),
@@ -555,6 +562,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                               child: customText(
                                 txt: '${OptionsList[index]['title']}',
                                 fsize: 20.0,
+                                txtalign: TextAlign.center,
                                 clr: Colors.white,
                                 fweight: FontWeight.w600,
                               ),

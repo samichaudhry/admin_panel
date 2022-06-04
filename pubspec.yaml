@@ -50,7 +50,7 @@ dependencies:
   connectivity_plus: any
   excel: any
   flutter_downloader: any
-  
+  path_provider: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
