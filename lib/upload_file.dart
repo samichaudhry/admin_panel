@@ -37,8 +37,8 @@ class _UploadFileState extends State<UploadFile> {
   }
 
   Future downloadFile() async {
-    final ref = FirebaseStorage.instance
-        .ref('images/file_template/template.xlsx')
+    final ref =
+        FirebaseStorage.instance.ref('images/file_template/template.xlsx');
     print(ref);
     final dir = await getApplicationDocumentsDirectory();
     print(dir.path);
