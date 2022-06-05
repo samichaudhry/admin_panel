@@ -7,6 +7,7 @@ import 'package:admin_panel/request_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/attendance_record.dart';
 import 'package:admin_panel/sessions_page.dart';
@@ -60,8 +61,8 @@ class _AdminMainPageState extends State<AdminMainPage> {
     {
       'title': "Teachers Requests",
       'icon': FontAwesomeIcons.userClock,
-      'route': const  RequestPage(),
-      'color': Color.fromARGB(255, 63, 106, 126),
+      'route': const RequestPage(),
+      'color': const Color.fromARGB(255, 63, 106, 126),
       'ispassword': false,
     },
     {
@@ -263,6 +264,27 @@ class _AdminMainPageState extends State<AdminMainPage> {
     );
   }
 
+  Future<bool> onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to exit the App'),
+            actions: <Widget>[
+              MaterialButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('No'),
+              ),
+              MaterialButton(
+                onPressed: () => SystemNavigator.pop(),
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
   Future changeemail() async {
     // isworking = false;
     _email.clear();
@@ -429,7 +451,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
   Widget build(BuildContext context) {
     getadminname();
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: onWillPop,
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
