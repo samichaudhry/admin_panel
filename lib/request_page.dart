@@ -1,7 +1,7 @@
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'custom widgets/custom_widgets.dart';
 
 class RequestPage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _RequestPageState extends State<RequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-          stream:FirebaseFirestore.instance.collection('teachers').snapshots(),
+          stream: FirebaseFirestore.instance.collection('teachers').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;
@@ -88,21 +88,53 @@ class _RequestPageState extends State<RequestPage> {
                             context: context,
                             tiles: [
                               ListTile(
+                                isThreeLine: true,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
                                 onTap: () {},
-                                title: Text('jhanzab',
-                                  style: const TextStyle(
+                                title: const Text(
+                                  'jhanzab',
+                                  style: TextStyle(
                                     fontSize: 17.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                subtitle: Text('leturer',
-                                  style: const TextStyle(
+                                subtitle: const Text(
+                                  'jhanzab1@gmail.com',
+                                  style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
+                                ),
+                                trailing: Column(
+                                  children:<Widget> [
+                                   Flexible(
+                                     child: TextButton(
+                                       style: TextButton.styleFrom(
+                                         minimumSize:Size(2.0,8.0), 
+                                         backgroundColor: Colors.teal
+                                       ),
+                                       onPressed: (){},
+                                      child: const Text('APPROVE',style: TextStyle(
+                                        color: Color.fromARGB(255, 43, 25, 25),
+                                        fontSize: 14
+                                      ),))),
+                                      SizedBox(
+                                        height: MediaQuery.of(context).size.height*0.002,
+                                      ),
+                                   Flexible(
+                                     child: TextButton(
+                                       style: TextButton.styleFrom(
+                                         backgroundColor: Colors.red
+                                       ),
+                                       onPressed: (){},
+                                      child: const Text('DECLINE  ',style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12
+                                      ),))),
+                                    
+                                  ],
                                 ),
                               ),
                             ],
@@ -115,7 +147,7 @@ class _RequestPageState extends State<RequestPage> {
                 )),
               ]);
             } else {
-             totalrequests = data.length;
+              totalrequests = data.length;
               return CustomScrollView(slivers: [
                 SliverAppBar(
                   title: const Text(

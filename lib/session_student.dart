@@ -1,4 +1,3 @@
-import 'package:admin_panel/request.dart';
 import 'package:admin_panel/upload_file.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -342,8 +341,7 @@ class _SessionStudentState extends State<SessionStudent> {
                         Icons.arrow_back,
                       ),
                       onPressed: () {
-                        Get.to(RequestPage());
-                        // Navigator.op(context);
+                        Navigator.pop(context);
                       },
                     ),
                     automaticallyImplyLeading: false,
@@ -415,8 +413,7 @@ class _SessionStudentState extends State<SessionStudent> {
                         Icons.arrow_back,
                       ),
                       onPressed: () {
-                        Get.to(RequestPage());
-                        // Navigator.op(context);
+                        Navigator.pop(context);
                       },
                     ),
                     automaticallyImplyLeading: false,

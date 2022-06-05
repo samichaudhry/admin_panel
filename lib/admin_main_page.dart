@@ -3,6 +3,7 @@ import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/edit_profile.dart';
 import 'package:admin_panel/login_page.dart';
 import 'package:admin_panel/profile_widget.dart';
+import 'package:admin_panel/request_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
     {
       'title': "Teachers Requests",
       'icon': FontAwesomeIcons.userClock,
-      'route': const TeachersPage(),
+      'route': const  RequestPage(),
       'color': Color.fromARGB(255, 63, 106, 126),
       'ispassword': false,
     },
