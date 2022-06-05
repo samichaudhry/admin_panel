@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
@@ -7,6 +8,10 @@ import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
 import 'package:time_range_picker/time_range_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
+
+import 'custom widgets/custom_toast.dart';
 
 class AddSubject extends StatefulWidget {
   const AddSubject({Key? key}) : super(key: key);
@@ -18,21 +23,31 @@ class AddSubject extends StatefulWidget {
 class _AddSubjectState extends State<AddSubject> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var imgPath = '';
+  String? downloadImgUrl;
+
   final TextEditingController _subjName = TextEditingController();
   final TextEditingController _subjCode = TextEditingController();
-  // final TextEditingController _program = TextEditingController();
+  final TextEditingController _duration = TextEditingController();
   // final TextEditingController _semester = TextEditingController();
   // final TextEditingController _session = TextEditingController();
   var editSubjectArgument = Get.arguments;
-  TimeRange? subjectDuration;
+  String? teacherId;
+  String? subjectId;
+  bool isauthenticating = false;
+  bool isImageSelected = false;
 
+  TimeOfDay? subjectStartDuration;
+  TimeOfDay? subjectEndDuration;
+  String? subjectDuration;
   String? selectedProgram;
+  String? selectedProgramType;
   String? selectedSemester;
   String? selectedSession;
   String? selectedYear;
   String? selectedFallOrSpring;
 
   // Semester Type
+  List<String> regularOrSelf = ["Regular", "Self Support"];
   List<String> fallORSpring = ['Fall', 'Spring'];
   List<String> years = [
     "2018",
@@ -184,6 +199,135 @@ class _AddSubjectState extends State<AddSubject> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    if (editSubjectArgument[0]['pageTitle'] == "Edit Subject's Details") {
+      _subjName.text = editSubjectArgument[0]['subject_name'];
+      _subjCode.text = editSubjectArgument[0]['subject_code'];
+      selectedProgram = editSubjectArgument[0]['program'];
+      selectedProgramType = editSubjectArgument[0]['programType'];
+      selectedSession = editSubjectArgument[0]['session'];
+      selectedSemester = editSubjectArgument[0]['semester'];
+      selectedFallOrSpring = editSubjectArgument[0]['semester_type'];
+      selectedYear = editSubjectArgument[0]['semester_type_year'];
+      subjectDuration =
+          "${editSubjectArgument[0]['start_duration']}-${editSubjectArgument[0]['end_duration']}";
+      subjectId = editSubjectArgument[0]['subjectId'];
+      _duration.text = subjectDuration.toString();
+    }
+    teacherId = editSubjectArgument[0]['teacherId'];
+  }
+
+//backend Functionality
+
+  CollectionReference subjects =
+      FirebaseFirestore.instance.collection('subjects');
+
+  Future<void> uploadFile(String filePath) async {
+    File file = File(filePath);
+    try {
+      await FirebaseStorage.instance
+          .ref('images/subject_pictures/${_subjName.text}.png')
+          .putFile(file);
+    } on firebase_core.FirebaseException catch (e) {
+      Get.snackbar('Error occured.', '$e');
+    }
+  }
+
+  Future<void> downloadURLfunc(subjectName) async {
+    String imgurl = await FirebaseStorage.instance
+        .ref('images/subject_pictures/$subjectName.png')
+        .getDownloadURL();
+    setState(() {
+      downloadImgUrl = imgurl;
+    });
+  }
+
+  Future _addSubjectQuery() async {
+    return editSubjectArgument[0]["pageTitle"].toString() == "Add Subject"
+        ? subjects.doc(teacherId).collection("teacherSubjects").doc().set({
+            'subject_name': _subjName.text.trim(),
+            'subject_code': _subjCode.text.trim(),
+            'program': '$selectedProgram',
+            'programType': '$selectedProgramType',
+            'session': '$selectedSession',
+            'semester': '$selectedSemester',
+            'semester_type': '$selectedFallOrSpring',
+            'semester_type_year': '$selectedYear',
+            'start_duration': subjectStartDuration?.format(context),
+            'end_duration': subjectEndDuration?.format(context),
+            'imgUrl': downloadImgUrl,
+          }, SetOptions(merge: true))
+        : subjects
+            .doc(teacherId)
+            .collection("teacherSubjects")
+            .doc(subjectId)
+            .set({
+            'subject_name': _subjName.text.trim(),
+            'subject_code': _subjCode.text.trim(),
+            'program': '$selectedProgram',
+            'programType': '$selectedProgramType',
+            'session': '$selectedSession',
+            'semester': '$selectedSemester',
+            'semester_type': '$selectedFallOrSpring',
+            'semester_type_year': '$selectedYear',
+            'start_duration': subjectStartDuration?.format(context),
+            'end_duration': subjectEndDuration?.format(context),
+            'imgUrl': (isImageSelected)
+                ? downloadImgUrl
+                : editSubjectArgument[0]['imgUrl'],
+          }, SetOptions(merge: true));
+  }
+
+  Future<void> saveSubjectData() async {
+    return _addSubjectQuery().then((value) {
+      if (editSubjectArgument[0]['pageTitle'] == "Add Subject") {
+        _subjName.clear();
+        _subjCode.clear();
+        _duration.clear();
+        setState(() {
+          selectedProgram = null;
+          selectedProgramType = null;
+          selectedSemester = null;
+          selectedSession = null;
+          selectedFallOrSpring = null;
+          selectedYear = null;
+          subjectStartDuration = null;
+          subjectEndDuration = null;
+          subjectDuration = '';
+          imgPath = '';
+        });
+      }
+      editSubjectArgument[0]['pageTitle'] == "Edit Subject's Details"
+          ? customtoast("Subject's Data Updated")
+          : customtoast('Subject Added');
+      setState(() {
+        isauthenticating = false;
+      });
+    }).catchError((error) {
+      editSubjectArgument[0]['pageTitle'] == "Edit Subject's Details"
+          ? customtoast("Failed to update Subject's data: $error")
+          : customtoast("Failed to add Subject: $error");
+      setState(() {
+        isauthenticating = false;
+      });
+    });
+  }
+
+  Future<void> addSubjectData() async {
+    if (isImageSelected) {
+      uploadFile(imgPath).then((value) {
+        downloadURLfunc(_subjName.text).then((value) {
+          saveSubjectData();
+        });
+      });
+    } else {
+      saveSubjectData();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
@@ -228,25 +372,39 @@ class _AddSubjectState extends State<AddSubject> {
                   children: [
                     customSizedBox(height: 1),
                     GestureDetector(
-                        onTap: () {
-                          filepicker(filetype: FileType.image)
-                              .then((selectedpath) {
-                            if (selectedpath.toString().isNotEmpty) {
-                              setState(() {
-                                imgPath = selectedpath;
-                              });
-                            }
-                          });
-                        },
-                        child: CircleAvatar(
-                          radius: 50.0,
-                          foregroundImage: FileImage(File(imgPath)),
-                          child: const Icon(
-                            Icons.person,
-                            size: 80.0,
-                            color: Colors.white,
-                          ),
-                        )),
+                      onTap: () {
+                        filepicker(filetype: FileType.image)
+                            .then((selectedpath) {
+                          if (selectedpath.toString().isNotEmpty) {
+                            setState(() {
+                              imgPath = selectedpath;
+                              isImageSelected = true;
+                            });
+                          }
+                        });
+                      },
+                      child: isImageSelected
+                          ? CircleAvatar(
+                              radius: 50.0,
+                              foregroundImage: FileImage(File(imgPath)),
+                              child: const Icon(
+                                Icons.person,
+                                size: 80.0,
+                                color: Colors.white,
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: 50.0,
+                              foregroundImage: NetworkImage(
+                                  editSubjectArgument[0]['imgUrl'].toString()),
+                              backgroundColor: Colors.black26,
+                              child: const Icon(
+                                Icons.person,
+                                size: 80.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                    ),
                     customSizedBox(height: 1),
                     Text(
                       "Select Subject Image",
@@ -267,58 +425,71 @@ class _AddSubjectState extends State<AddSubject> {
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              customTextField(
-                  "Subject Name",  false, null, _subjName, (value) {
+              customTextField("Subject Name", false, null, _subjName, (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Subject Name";
                 }
               }, (value) {
                 _subjName.text = value!;
-              }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100), OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-            ), filled: true,fillColor: Colors.grey[800],pIcon:Icons.edit, labeltext: 'Subject Name '),
+              },
+                  responsiveHW(context, wd: 100),
+                  responsiveHW(context, ht: 100),
+                  OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[800],
+                  pIcon: Icons.edit,
+                  labeltext: 'Subject Name '),
               customSizedBox(),
-              customTextField(
-                  "Subject Code",  false, null, _subjCode, (value) {
+              customTextField("Subject Code", false, null, _subjCode, (value) {
                 if (value!.isEmpty) {
                   return "Subject Code Required*";
-                } }, (value) {
+                }
+              }, (value) {
                 _subjCode.text = value!;
-              }, responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100), OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-            ), filled: true,fillColor: Colors.grey[800],pIcon:Icons.code,labeltext: "Subject Code"),
+              },
+                  responsiveHW(context, wd: 100),
+                  responsiveHW(context, ht: 100),
+                  OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[800],
+                  pIcon: Icons.code,
+                  labeltext: "Subject Code"),
               customSizedBox(),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-                child: TextField(
+                child: TextFormField(
+                  validator: (value) => value == null ? 'Required*' : null,
+                  controller: _duration,
                   onTap: (() async {
                     TimeRange? result = await showTimeRangePicker(
                       context: context,
                       use24HourFormat: false,
-                      padding: 30,
-                      strokeWidth: 10,
-                      handlerRadius: 12,
+                      padding: 10,
+                      strokeWidth: 8,
+                      handlerRadius: 7,
                       strokeColor: Colors.teal,
                       selectedColor: Colors.teal[300],
                       ticks: 12,
                       ticksColor: Colors.white,
                     );
                     setState(() {
-                      subjectDuration = result;
+                      subjectStartDuration = result!.startTime;
+                      subjectEndDuration = result.endTime;
+                      _duration.text =
+                          "${subjectStartDuration?.format(context)}-${subjectEndDuration?.format(context)}";
                     });
                   }),
                   readOnly: true,
                   decoration: InputDecoration(
-                    prefixIcon:const Icon(Icons.timelapse_sharp),
-                    labelText:"Subject Duration",
+                      prefixIcon: const Icon(Icons.timelapse_sharp),
+                      labelText: "Subject Duration",
                       filled: true,
                       fillColor: Colors.grey[800],
-                      hintText: subjectDuration == null
-                          ? "Subject Duration"
-                          : "${subjectDuration!.startTime.format(context)}-${subjectDuration!.endTime.format(context)}",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30)),
                       contentPadding: EdgeInsets.symmetric(
@@ -333,8 +504,16 @@ class _AddSubjectState extends State<AddSubject> {
                   (value) {
                 setState(() {
                   selectedProgram = value;
+                  selectedProgramType = null;
                   selectedSession = null;
                   selectedSemester = null;
+                });
+              }),
+              customSizedBox(),
+              customDropDownFormField(
+                  "Program Type", selectedProgramType, regularOrSelf, (value) {
+                setState(() {
+                  selectedProgramType = value;
                 });
               }),
               customSizedBox(),
@@ -382,16 +561,27 @@ class _AddSubjectState extends State<AddSubject> {
                         color: Color(0xff009688)),
                     height: responsiveHW(context, ht: 6),
                     child: TextButton(
-                      child: Text(
-                        editSubjectArgument[0]['buttonText'].toString(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: responsiveHW(context, ht: 3)),
-                      ),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                      },
+                      onPressed: isauthenticating
+                          ? null
+                          : () async {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  isauthenticating = true;
+                                });
+                                addSubjectData();
+                              }
+                            },
+                      child: isauthenticating
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              editSubjectArgument[0]['buttonText'].toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: responsiveHW(context, ht: 3)),
+                            ),
                     ),
                   ))
             ]))

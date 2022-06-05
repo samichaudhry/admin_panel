@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:admin_panel/teachers_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -125,16 +123,29 @@ class _AddTeacherState extends State<AddTeacher> {
       editProfileArgument[0]['pageTitle'] == "Edit Teacher's Profile"
           ? null
           : _department.clear();
+      editProfileArgument[0]['pageTitle'] == "Edit Teacher's Profile"
+          ? null
+          : setState(
+              () {
+                imgPath = "";
+              },
+            );
       _email.clear();
       _password.clear();
       _confirmpass.clear();
       editProfileArgument[0]['pageTitle'] == "Edit Teacher's Profile"
           ? customtoast("Teacher's Data Updated")
           : customtoast('Teacher Added');
+      setState(() {
+        isauthenticating = false;
+      });
     }).catchError((error) {
       editProfileArgument[0]['pageTitle'] == "Edit Teacher's Profile"
           ? customtoast("Failed to update Teacher's data: $error")
           : customtoast("Failed to add Teacher: $error");
+      setState(() {
+        isauthenticating = false;
+      });
     });
   }
 
@@ -157,22 +168,8 @@ class _AddTeacherState extends State<AddTeacher> {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: useremail, password: userpassword);
+
       addTeacherData();
-
-      setState(() {
-        isauthenticating = false;
-      });
-      // Get.rawSnackbar(
-      //   messageText: const Text(
-      //     'Ask Teachers To verify his/her email',
-      //     style: TextStyle(
-      //       fontSize: 17.0,
-      //       fontWeight: FontWeight.w400,
-      //       color: Colors.white,
-      //     ),
-      //   ),
-      // );
-
     } on FirebaseAuthException catch (e) {
       setState(() {
         isauthenticating = false;

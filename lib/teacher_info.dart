@@ -1,4 +1,6 @@
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/add_teacher.dart';
 import 'package:admin_panel/teachers_subject.dart';
@@ -15,11 +17,43 @@ class TeacherInfo extends StatefulWidget {
 
 class _TeacherInfoState extends State<TeacherInfo> {
   var teacherInfoArguments = Get.arguments;
+  bool isAuthenticating = false;
 
   // Custom Sized Box
   SizedBox customSizedBox({height = 2}) => SizedBox(
         height: responsiveHW(context, ht: height),
       );
+  Future<void> removeTeacher() async {
+    return FirebaseFirestore.instance
+        .collection('teachers')
+        .doc(teacherInfoArguments[0]['teacherId'])
+        .delete()
+        .then((value) {
+      FirebaseStorage.instance
+          .ref(
+              'images/profile_pictures/${teacherInfoArguments[0]['teacher_name']}.png')
+          .delete();
+          Navigator.pop(context);
+
+      customtoast('Teacher Removed Successfully.');
+    }).catchError((error) {
+      customtoast('Failed to Remove Teacher: $error');
+      Navigator.pop(context);
+    });
+  }
+
+  Future deleteDialog() async {
+    dialog_func(
+      const Text('Are you sure?'),
+      const Text('Do you want to remove this teacher?'),
+      () => Navigator.pop(context),
+      () async {
+        Navigator.pop(context);
+
+        removeTeacher();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +143,11 @@ class _TeacherInfoState extends State<TeacherInfo> {
               padding: EdgeInsets.symmetric(
                   horizontal: responsiveHW(context, wd: 6)!.toDouble()),
               child: customButton("View Subjects", () {
-                Get.to(() => const TeacherSubjects());
+                Get.to(() => const TeacherSubjects(), arguments: [
+                  {
+                    "teacherId": teacherInfoArguments[0]['teacherId'],
+                  }
+                ]);
               }, context, 100),
             ),
             customSizedBox(),
@@ -134,7 +172,9 @@ class _TeacherInfoState extends State<TeacherInfo> {
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-              child: customButton("Delete Profile", () {}, context, 100),
+              child: customButton("Delete Profile", () {
+                deleteDialog();
+              }, context, 100),
             ),
           ]))
         ],
