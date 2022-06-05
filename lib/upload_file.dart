@@ -6,10 +6,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class UploadFile extends StatefulWidget {
@@ -28,22 +28,20 @@ class _UploadFileState extends State<UploadFile> {
   io.File? file;
   List studentsdata = [];
   var args = Get.arguments;
-  void initState(){
+  void initState() {
     super.initState();
     permissionmanager();
-    
   }
+
   Future permissionmanager() async {
     if (await Permission.storage.status.isDenied) {
-      Permission.manageExternalStorage.request();
-  // Either the permission was already granted before or the user just granted it.
-}else{
-
-}
+      await Permission.storage.request();
+      // Either the permission was already granted before or the user just granted it.
+    }
 
 // You can request multiple permissions at once.
-
   }
+
   void _changed(bool visibility, String field) {
     setState(() {
       if (field == "obs") {
@@ -53,22 +51,29 @@ class _UploadFileState extends State<UploadFile> {
   }
 
   Future downloadfile(ctx) async {
+    permissionmanager();
     customdialogcircularprogressindicator('Downloading...');
-  var ref = await FirebaseStorage.instance.ref().child("images").child('file_template').child('template.xlsx').getDownloadURL();
-  print(ref);
-  // print(await getTemporaryDirectory());
-      var externalStorageDirPath;
+    var ref = await FirebaseStorage.instance
+        .ref()
+        .child("images")
+        .child('file_template')
+        .child('template.xlsx')
+        .getDownloadURL();
+    print(ref);
+    // print(await getTemporaryDirectory());
+    var externalStorageDirPath;
     // final directory = await getExternalStorageDirectory();
     io.Directory directory = io.Directory('/storage/emulated/0/Download');
-    // directory.create();
-    // directory.createSync();
-    externalStorageDirPath = directory.path+'/template.xlsx';
+    directory.create();
+    directory.createSync();
+    externalStorageDirPath = directory.path + '/template.xlsx';
     Dio dio = Dio();
-    final response = await dio.download(ref, externalStorageDirPath, onReceiveProgress: ((rec, total) {
-print('rec: $rec  total:$total');      
+    final response = await dio.download(ref, externalStorageDirPath,
+        onReceiveProgress: ((rec, total) {
+      print('rec: $rec  total:$total');
     }));
-  Navigator.pop(ctx);
-  rawsnackbar('File downloaded to\n$externalStorageDirPath', duration: 3);
+    Navigator.pop(ctx);
+    rawsnackbar('File downloaded to\n$externalStorageDirPath', duration: 3);
   }
 
   Future readfile(filepath) async {
