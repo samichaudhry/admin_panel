@@ -1,3 +1,6 @@
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/add_subject.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
@@ -12,13 +15,47 @@ class SubjectInfo extends StatefulWidget {
 }
 
 class _SubjectInfoState extends State<SubjectInfo> {
-  var imgUrl =
-      "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png";
+  var subjectInfoArguments = Get.arguments;
 
   // Custom Sized Box
   SizedBox customSizedBox({height = 2}) => SizedBox(
         height: responsiveHW(context, ht: height),
       );
+
+  Future<void> deleteSubject() async {
+    return FirebaseFirestore.instance
+        .collection('subjects')
+        .doc(subjectInfoArguments[0]['teacherId'])
+        .collection('teacherSubjects')
+        .doc(subjectInfoArguments[0]['subjectId'])
+        .delete()
+        .then((value) {
+      FirebaseStorage.instance
+          .ref(
+              'images/subject_pictures/${subjectInfoArguments[0]['subject_name']}.png')
+          .delete();
+          Navigator.pop(context);
+
+      customtoast('Subject Deleted Successfully.');
+    }).catchError((error) {
+      customtoast('Failed to delete Subject: $error');
+      Navigator.pop(context);
+    });
+  }
+
+  Future deleteDialog() async {
+    dialog_func(
+      const Text('Are you sure?'),
+      const Text('Do you want to delete this Subject?'),
+      () => Navigator.pop(context),
+      () async {
+        Navigator.pop(context);
+        
+        deleteSubject();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +100,8 @@ class _SubjectInfoState extends State<SubjectInfo> {
                   customSizedBox(height: 1),
                   CircleAvatar(
                     radius: 50.0,
-                    foregroundImage: NetworkImage(imgUrl),
+                    foregroundImage:
+                        NetworkImage(subjectInfoArguments[0]['imgUrl']),
                     child: const Icon(
                       Icons.person,
                       size: 80.0,
@@ -74,7 +112,7 @@ class _SubjectInfoState extends State<SubjectInfo> {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                        text: "Subject Name",
+                        text: subjectInfoArguments[0]['subject_name'],
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -82,7 +120,8 @@ class _SubjectInfoState extends State<SubjectInfo> {
                         ),
                         children: [
                           TextSpan(
-                            text: "\nBSCS-8th-SS (2018-2022)",
+                            text:
+                                "\n${subjectInfoArguments[0]['program']}-${subjectInfoArguments[0]['semester']}-${subjectInfoArguments[0]['programType'].toString() == 'Self Support' ? "SS" : "R"} (${subjectInfoArguments[0]['session']})",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -108,8 +147,22 @@ class _SubjectInfoState extends State<SubjectInfo> {
               child: customButton("Edit Subject", () {
                 Get.to(() => const AddSubject(), arguments: [
                   {
+                    'teacherId': subjectInfoArguments[0]['teacherId'],
+                    "subjectId": subjectInfoArguments[0]['subjectId'],
                     "pageTitle": "Edit Subject's Details",
-                    "buttonText": "Update"
+                    "buttonText": "Update",
+                    'subject_name': subjectInfoArguments[0]['subject_name'],
+                    'subject_code': subjectInfoArguments[0]['subject_code'],
+                    'program': subjectInfoArguments[0]['program'],
+                    'programType': subjectInfoArguments[0]['programType'],
+                    'session': subjectInfoArguments[0]['session'],
+                    'semester': subjectInfoArguments[0]['semester'],
+                    'semester_type': subjectInfoArguments[0]['semester_type'],
+                    'semester_type_year': subjectInfoArguments[0]
+                        ['semester_type_year'],
+                    'start_duration': subjectInfoArguments[0]['start_duration'],
+                    'end_duration': subjectInfoArguments[0]['end_duration'],
+                    'imgUrl': subjectInfoArguments[0]['imgUrl'],
                   }
                 ]);
               }, context, 100),
@@ -118,7 +171,9 @@ class _SubjectInfoState extends State<SubjectInfo> {
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-              child: customButton("Delete Subject", () {}, context, 100),
+              child: customButton("Delete Subject", () {
+                deleteDialog();
+              }, context, 100),
             ),
           ]))
         ],
