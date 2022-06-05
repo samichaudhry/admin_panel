@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class UploadFile extends StatefulWidget {
   const UploadFile({Key? key}) : super(key: key);
@@ -27,6 +28,22 @@ class _UploadFileState extends State<UploadFile> {
   io.File? file;
   List studentsdata = [];
   var args = Get.arguments;
+  void initState(){
+    super.initState();
+    permissionmanager();
+    
+  }
+  Future permissionmanager() async {
+    if (await Permission.storage.status.isDenied) {
+      Permission.manageExternalStorage.request();
+  // Either the permission was already granted before or the user just granted it.
+}else{
+
+}
+
+// You can request multiple permissions at once.
+
+  }
   void _changed(bool visibility, String field) {
     setState(() {
       if (field == "obs") {
