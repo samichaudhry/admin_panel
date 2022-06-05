@@ -22,6 +22,7 @@ class _UploadFileState extends State<UploadFile> {
   bool visibilityObs = false;
   bool isuploading = false;
   UploadTask? task;
+  var progress;
   var sessionstudent;
   io.File? file;
   List studentsdata = [];
@@ -34,27 +35,23 @@ class _UploadFileState extends State<UploadFile> {
     });
   }
 
-var downloadProgress;
-
   Future downloadfile(ctx) async {
     customdialogcircularprogressindicator('Downloading...');
   var ref = await FirebaseStorage.instance.ref().child("images").child('file_template').child('template.xlsx').getDownloadURL();
-   Dio dio = Dio();
-  var dir = await getApplicationDocumentsDirectory();
-  var imageDownloadPath = '${dir.path}/template.xlsx';
-  await dio.download(ref, imageDownloadPath,
-      onReceiveProgress: (received, total) {
-    var progress = (received / total) * 100;
-    debugPrint('Rec: $received , Total: $total, $progress%');
-    setState(() {
-      downloadProgress = received.toDouble() / total.toDouble();
-      print(downloadProgress);
-    });
-  });
-  // downloadFile function returns path where image has been downloaded
-  customtoast('File Downloaded');
+  print(ref);
+  // print(await getTemporaryDirectory());
+      var externalStorageDirPath;
+    // final directory = await getExternalStorageDirectory();
+    io.Directory directory = io.Directory('/storage/emulated/0/Download');
+    // directory.create();
+    // directory.createSync();
+    externalStorageDirPath = directory.path+'/template.xlsx';
+    Dio dio = Dio();
+    final response = await dio.download(ref, externalStorageDirPath, onReceiveProgress: ((rec, total) {
+print('rec: $rec  total:$total');      
+    }));
   Navigator.pop(ctx);
-  print(imageDownloadPath);
+  rawsnackbar('File downloaded to\n$externalStorageDirPath', duration: 3);
   }
 
   Future readfile(filepath) async {
