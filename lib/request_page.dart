@@ -114,8 +114,8 @@ class _RequestPageState extends State<RequestPage> {
                                        ),
                                        onPressed: (){},
                                       child: const Text('APPROVE',style: TextStyle(
-                                        color: Color.fromARGB(255, 43, 25, 25),
-                                        fontSize: 13
+                                        color: Colors.white,
+                                        fontSize: 13,
                                       ),))),
                                       SizedBox(
                                         width:MediaQuery.of(context).size.width*0.01,
