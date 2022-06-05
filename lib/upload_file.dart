@@ -30,7 +30,6 @@ class _UploadFileState extends State<UploadFile> {
   var args = Get.arguments;
   void initState() {
     super.initState();
-    permissionmanager();
   }
 
   Future permissionmanager() async {
