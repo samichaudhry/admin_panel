@@ -101,7 +101,7 @@ Future<void> customdialogcircularprogressindicator(txt) async {
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 18.0,
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 ),
               ),
@@ -128,7 +128,7 @@ Future filepicker({required filetype, allowedextensions}) async {
   }
 }
 
-void rawsnackbar(txt) {
+void rawsnackbar(txt, {duration}) {
   Get.rawSnackbar(
     // message: e.message.toString(),
     messageText: Text(
@@ -139,5 +139,6 @@ void rawsnackbar(txt) {
         color: Colors.white,
       ),
     ),
+    duration: Duration(seconds: duration),
   );
 }

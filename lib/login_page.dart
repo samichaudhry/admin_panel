@@ -31,15 +31,12 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-// collection('sessions').doc('BSCS-R-2018-2022')
-// collection('students').doc('BSCS-R-2018-2022').set({
-// }, setoption(merge:true);
   Future<dynamic> loginFunc(useremail, userpassword) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: useremail.toString(), password: userpassword.toString());
       // UserCredential thisuser = auth.currentUser;
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .get()
@@ -104,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.teal,
           elevation: 0,
         ),

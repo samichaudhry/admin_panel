@@ -1,14 +1,16 @@
-import 'dart:io';
+import 'dart:io' as io;
 import 'package:admin_panel/custom%20widgets/custom_toast.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class UploadFile extends StatefulWidget {
   const UploadFile({Key? key}) : super(key: key);
@@ -21,10 +23,24 @@ class _UploadFileState extends State<UploadFile> {
   bool visibilityObs = false;
   bool isuploading = false;
   UploadTask? task;
+  var progress;
   var sessionstudent;
-  File? file;
+  io.File? file;
   List studentsdata = [];
   var args = Get.arguments;
+  void initState() {
+    super.initState();
+  }
+
+  Future permissionmanager() async {
+    if (await Permission.storage.status.isDenied) {
+      await Permission.storage.request();
+      // Either the permission was already granted before or the user just granted it.
+    }
+
+// You can request multiple permissions at once.
+  }
+
   void _changed(bool visibility, String field) {
     setState(() {
       if (field == "obs") {
@@ -33,40 +49,34 @@ class _UploadFileState extends State<UploadFile> {
     });
   }
 
-  Future downloadFile() async {
-    final ref =
-        FirebaseStorage.instance.ref('images/file_template/template.xlsx');
+  Future downloadfile(ctx) async {
+    permissionmanager();
+    customdialogcircularprogressindicator('Downloading...');
+    var ref = await FirebaseStorage.instance
+        .ref()
+        .child("images")
+        .child('file_template')
+        .child('template.xlsx')
+        .getDownloadURL();
     print(ref);
-    final dir = await getApplicationDocumentsDirectory();
-    print(dir.path);
-    final file = File('${dir.path}/${ref.name}');
-
-    await ref.writeToFile(file);
-    customtoast('file downloaded');
-  }
-
-  Future downloadfile() async {
-    // FilePicker.platform.saveFile();
-    // Directory appDocDir = await getApplicationDocumentsDirectory();
-    // appDocDir.create(recursive: true);
-    // String appDocPath = appDocDir.path;
-    // print(appDocPath);
-    // final fileurl = await FirebaseStorage.instance
-    //     .ref('images/file_template/template.xlsx')
-    //     .getDownloadURL();
-    // // print(fileurl);
-    // final taskId = await FlutterDownloader.enqueue(
-    //   url: fileurl.toString(),
-    //   savedDir: '$appDocPath/template.xlsx',
-    //   showNotification:
-    //       true, // show download progress in status bar (for Android)
-    //   openFileFromNotification:
-    //       true, // click on notification to open downloaded file (for Android)
-    // );
+    // print(await getTemporaryDirectory());
+    var externalStorageDirPath;
+    // final directory = await getExternalStorageDirectory();
+    io.Directory directory = io.Directory('/storage/emulated/0/Download');
+    directory.create();
+    directory.createSync();
+    externalStorageDirPath = directory.path + '/template.xlsx';
+    Dio dio = Dio();
+    final response = await dio.download(ref, externalStorageDirPath,
+        onReceiveProgress: ((rec, total) {
+      print('rec: $rec  total:$total');
+    }));
+    Navigator.pop(ctx);
+    rawsnackbar('File downloaded to\n$externalStorageDirPath', duration: 3);
   }
 
   Future readfile(filepath) async {
-    var bytes = File(filepath).readAsBytesSync();
+    var bytes = io.File(filepath).readAsBytesSync();
     var excel = Excel.decodeBytes(bytes);
     for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
       studentsdata.add({
@@ -140,7 +150,7 @@ class _UploadFileState extends State<UploadFile> {
               height: MediaQuery.of(context).size.height * 0.15,
             ),
             custombutton('Download Templete', Icons.cloud_upload_outlined, () {
-              downloadFile();
+              downloadfile(context);
               // print(getappl);
             }),
             SizedBox(
@@ -179,7 +189,7 @@ class _UploadFileState extends State<UploadFile> {
     if (result == null) return;
     final path = result.files.single.path!;
 
-    setState(() => file = File(path));
+    setState(() => file = io.File(path));
     visibilityObs ? null : _changed(true, "obs");
   }
 }

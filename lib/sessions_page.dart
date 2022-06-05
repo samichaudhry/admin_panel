@@ -287,7 +287,7 @@ class _sessionpageState extends State<sessionpage> {
                 return StatefulBuilder(builder: (context, statesetter) {
                   return AlertDialog(
                     scrollable: true,
-                    insetPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    insetPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                     title: Center(
                         child: customText(
                             txt: "Add Session", fweight: FontWeight.w500)),
