@@ -81,7 +81,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
     {
       'title': "Attendance Record",
       'icon': FontAwesomeIcons.filePrescription,
-      'route': const AttendanceRecord(),
+      'route': () => const AttendanceRecord(),
       'color': const Color(0xff263E52),
       'ispassword': false,
     },
