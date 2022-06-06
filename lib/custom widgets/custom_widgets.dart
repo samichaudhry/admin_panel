@@ -26,11 +26,15 @@ Widget customText(
     clr,
     fweight = FontWeight.normal,
     txtalign,
-    padding = 0.0}) {
+    padding = 0.0,
+    overflow,
+    wrap}) {
   return Padding(
     padding: EdgeInsets.all(padding),
     child: Text(
       txt,
+      overflow: overflow,
+      softWrap: wrap,
       textAlign: txtalign,
       style: TextStyle(fontSize: fsize, color: clr, fontWeight: fweight),
     ),

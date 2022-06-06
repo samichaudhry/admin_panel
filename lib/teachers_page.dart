@@ -40,7 +40,9 @@ class _TeachersPageState extends State<TeachersPage> {
       //     ),
       //     text: customText(txt: 'Teacher', clr: Colors.white)),
       body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('teachers').snapshots(),
+          stream: FirebaseFirestore.instance.collection('teachers')
+          .where('status', isEqualTo: 'Approved')
+          .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;

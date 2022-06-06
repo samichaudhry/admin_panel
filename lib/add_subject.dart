@@ -274,7 +274,7 @@ class _AddSubjectState extends State<AddSubject> {
             'programType': '$selectedProgramType',
             'session': '$selectedSession',
             'semester': '$selectedSemester',
-            'semester_type': '$selectedFallOrSpring',
+            'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
             'start_duration': subjectStartDuration?.format(context),
             'end_duration': subjectEndDuration?.format(context),

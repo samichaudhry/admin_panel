@@ -17,7 +17,9 @@ class _RequestPageState extends State<RequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('teachers').snapshots(),
+          stream: FirebaseFirestore.instance.collection('teachers')
+          .where('status', isGreaterThanOrEqualTo: 'Pending')
+          .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;
