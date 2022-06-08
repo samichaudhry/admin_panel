@@ -2,7 +2,7 @@ import 'package:admin_panel/attendance_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +17,7 @@ class AttendanceSession extends StatefulWidget {
 
 class _AttendanceSessionState extends State<AttendanceSession> {
   Icon customIcon = const Icon(Icons.search);
+  final TextEditingController _searchcontroller = TextEditingController();
   Widget? customSearchBar;
   var args = Get.arguments;
 // CollectionReference subjectscollection = FirebaseFirestore.instance.collection('subjects');
@@ -25,85 +26,6 @@ class _AttendanceSessionState extends State<AttendanceSession> {
     super.initState();
     customSearchBar = Text('${args['session_name']}');
   }
-
-
-  List sessiondata = [
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Computer Science and IT',
-      'icon': FontAwesomeIcons.computer
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Biological Science',
-      'icon': FontAwesomeIcons.dna
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Chemistry',
-      'icon': FontAwesomeIcons.flaskVial
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Physics',
-      'icon': FontAwesomeIcons.atom
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Business Administration',
-      'icon': FontAwesomeIcons.briefcase
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Commerce',
-      'icon': FontAwesomeIcons.cartPlus
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Economics',
-      'icon': FontAwesomeIcons.sackDollar
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Education',
-      'icon': FontAwesomeIcons.bookOpenReader
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'English',
-      'icon': FontAwesomeIcons.arrowDownAZ
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Mathematics',
-      'icon': FontAwesomeIcons.calculator
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Psychology',
-      'icon': FontAwesomeIcons.brain
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Social Work',
-      'icon': FontAwesomeIcons.handshake
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Sociology',
-      'icon': FontAwesomeIcons.userClock
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Sports Sciences',
-      'icon': FontAwesomeIcons.personRunning
-    },
-    {
-      'title': 'BS-R 2018-2022',
-      'subtitle': 'Urdu',
-      'icon': FontAwesomeIcons.globe
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -115,19 +37,30 @@ class _AttendanceSessionState extends State<AttendanceSession> {
         .snapshots(),
         builder: (context, snapshot) {
             var data = snapshot.data?.docs;
+             var documents = snapshot.data?.docs;
+            //todo Documents list added to filterTitle
+            if (_searchcontroller.text.isNotEmpty) {
+              documents = documents?.where((element) {
+                return element
+                    .get('program')
+                    .toString()
+                    .toLowerCase()
+                    .contains(_searchcontroller.text.toLowerCase());
+              }).toList();
+            }
           if (snapshot.hasError) {
             // print(snapshot.error);
               return const Center(
                 child: Text('Something Went Wrong'),
               );
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.teal,
-                ),
-              );
-            }
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return const Center(
+            //     child: CircularProgressIndicator(
+            //       color: Colors.teal,
+            //     ),
+            //   );
+            // }
             if (data!.isEmpty) {
               return Center(
                 child: Column(
@@ -178,11 +111,17 @@ class _AttendanceSessionState extends State<AttendanceSession> {
                             child: Material(
                               color: Colors.grey[600],
                               borderRadius: BorderRadius.circular(14.0),
-                              child: const Padding(
-                                padding: EdgeInsets.only(left: 10.0, top: 2),
+                              child:  Padding(
+                                padding: const EdgeInsets.only(left: 10.0, top: 2),
                                 child: TextField(
+                                  controller: _searchcontroller,
+                                  autofocus: true,
+                                  onChanged: (val){
+                                    setState(() {
+                                    });
+                                  },
                                     cursorColor: Colors.teal,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       hintText: 'Search Session',
                                       border: InputBorder.none,
                                     )),
@@ -212,7 +151,7 @@ class _AttendanceSessionState extends State<AttendanceSession> {
                 collapsedHeight: responsiveHW(context, ht: 11),
                 flexibleSpace: FlexibleSpaceBar(
                     title: Text(
-                  "\n\n\nTotal Sessions: ${data.length}",
+                  "\n\n\nTotal Sessions: ${documents?.length}",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
@@ -221,7 +160,8 @@ class _AttendanceSessionState extends State<AttendanceSession> {
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                    DocumentSnapshot session = snapshot.data!.docs[index];
+                    DocumentSnapshot session = documents![index];
+                    
                   return Padding(
                     padding: const EdgeInsets.only(left: 19, right: 19, top: 13),
                     child: Column(
@@ -263,7 +203,7 @@ class _AttendanceSessionState extends State<AttendanceSession> {
                       ).toList(),
                     ),
                   );
-                }, childCount: data.length),
+                }, childCount: documents?.length),
               )
             ],
           );
