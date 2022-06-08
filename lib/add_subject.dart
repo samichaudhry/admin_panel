@@ -270,7 +270,7 @@ class _AddSubjectState extends State<AddSubject> {
             'programType': '$selectedProgramType',
             'session': '$selectedSession',
             'semester': '$selectedSemester',
-            'semester_type': '$selectedFallOrSpring',
+            'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
             'start_duration': subjectStartDuration?.format(context),
             'end_duration': subjectEndDuration?.format(context),
@@ -463,7 +463,12 @@ class _AddSubjectState extends State<AddSubject> {
                 padding: EdgeInsets.symmetric(
                     horizontal: responsiveHW(context, wd: 6)!.toDouble()),
                 child: TextFormField(
-                  validator: (value) => value == null ? 'Required*' : null,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Required*";
+                    }
+                  },
                   controller: _duration,
                   onTap: (() async {
                     TimeRange? result = await showTimeRangePicker(
