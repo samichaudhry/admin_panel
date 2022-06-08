@@ -2,6 +2,8 @@ import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'custom widgets/custom_toast.dart';
+
 class RequestPage extends StatefulWidget {
   const RequestPage({Key? key}) : super(key: key);
 
@@ -12,6 +14,15 @@ class RequestPage extends StatefulWidget {
 class _RequestPageState extends State<RequestPage> {
   @override
   int? totalrequests;
+
+   Future statusupdate(docid,updatedstatus) async {
+    return FirebaseFirestore.instance
+    .collection('teachers')
+    .doc(docid).set({
+      'status': updatedstatus,
+    }, SetOptions(merge: true)).then((value) { 
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +125,10 @@ class _RequestPageState extends State<RequestPage> {
                                        style: TextButton.styleFrom(
                                          backgroundColor: Colors.teal
                                        ),
-                                       onPressed: (){},
+                                       onPressed: (){
+                                         statusupdate(docsnapshot.id, 'Approved');
+                                         customtoast('Teacher Added');
+                                       },
                                       child: const Text('APPROVE',style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 13,
@@ -127,7 +141,10 @@ class _RequestPageState extends State<RequestPage> {
                                        style: TextButton.styleFrom(
                                          backgroundColor: Colors.red
                                        ),
-                                       onPressed: (){},
+                                       onPressed: (){
+                                         statusupdate(docsnapshot.id, 'Declined');
+                                         customtoast('Request Declined');
+                                       },
                                       child: const Text('DECLINE  ',style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 13
