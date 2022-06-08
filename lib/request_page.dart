@@ -1,8 +1,6 @@
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
-import 'custom widgets/custom_widgets.dart';
 
 class RequestPage extends StatefulWidget {
   const RequestPage({Key? key}) : super(key: key);
@@ -19,7 +17,9 @@ class _RequestPageState extends State<RequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('teachers').snapshots(),
+          stream: FirebaseFirestore.instance.collection('teachers')
+          .where('status', isGreaterThanOrEqualTo: 'Pending')
+          .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;
@@ -75,7 +75,7 @@ class _RequestPageState extends State<RequestPage> {
                 SliverList(
                     delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    // DocumentSnapshot docsnapshot = snapshot.data!.docs[index];
+                    DocumentSnapshot docsnapshot = snapshot.data!.docs[index];
                     return RefreshIndicator(
                       onRefresh: () async {
                         setState(() {});
@@ -88,40 +88,39 @@ class _RequestPageState extends State<RequestPage> {
                             context: context,
                             tiles: [
                               ListTile(
-                                isThreeLine: true,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
                                 onTap: () {},
-                                title: const Text(
-                                  'jhanzab',
-                                  style: TextStyle(
+                                title:  Text(
+                                   docsnapshot['teacher_name'].toString(),
+                                  style: const  TextStyle(
                                     fontSize: 17.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                subtitle: const Text(
-                                  'jhanzab1@gmail.com',
-                                  style: TextStyle(
+                                subtitle: Text(
+                                   docsnapshot['designation'].toString(),
+                                  style: const  TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                trailing: Column(
+                                trailing: Row(
+                                  mainAxisSize:MainAxisSize.min,
                                   children:<Widget> [
                                    Flexible(
                                      child: TextButton(
                                        style: TextButton.styleFrom(
-                                         minimumSize:Size(2.0,8.0), 
                                          backgroundColor: Colors.teal
                                        ),
                                        onPressed: (){},
                                       child: const Text('APPROVE',style: TextStyle(
-                                        color: Color.fromARGB(255, 43, 25, 25),
-                                        fontSize: 14
+                                        color: Colors.white,
+                                        fontSize: 13,
                                       ),))),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height*0.002,
+                                        width:MediaQuery.of(context).size.width*0.01,
                                       ),
                                    Flexible(
                                      child: TextButton(
@@ -131,7 +130,7 @@ class _RequestPageState extends State<RequestPage> {
                                        onPressed: (){},
                                       child: const Text('DECLINE  ',style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 12
+                                        fontSize: 13
                                       ),))),
                                     
                                   ],
@@ -151,7 +150,7 @@ class _RequestPageState extends State<RequestPage> {
               return CustomScrollView(slivers: [
                 SliverAppBar(
                   title: const Text(
-                    "Teachers",
+                    "Requests",
                     style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
                   ),
                   leading: IconButton(

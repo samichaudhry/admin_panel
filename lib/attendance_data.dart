@@ -18,7 +18,8 @@ class _AttendanceDataState extends State<AttendanceData> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: customText(txt: '${args['session']}', fsize: 20.0),
+        toolbarHeight: 80.0,
+        title: customText(txt: '${args['session']}', fsize: 20.0, fweight: FontWeight.w700, overflow: TextOverflow.visible, wrap: true),
       ),
       body: ListView.builder(
         itemCount: 3,
@@ -33,9 +34,9 @@ class _AttendanceDataState extends State<AttendanceData> {
               Table(
                 defaultColumnWidth: const FlexColumnWidth(4.0),
                 columnWidths: const {
-                  0: FlexColumnWidth(9.0),
+                  0: FlexColumnWidth(10.0),
                   1: FlexColumnWidth(9.0),
-                  2: FlexColumnWidth(7.0),
+                  2: FlexColumnWidth(5.0),
                 },
                 children: [
                   TableRow(
@@ -48,8 +49,9 @@ class _AttendanceDataState extends State<AttendanceData> {
                         customText(
                             txt: 'Name', clr: Colors.white, padding: 10.0),
                         customText(
-                            txt: 'Percentage',
+                            txt: 'Percent',
                             clr: Colors.white,
+                            txtalign: TextAlign.center,
                             padding: 10.0),
                       ]),
                   TableRow(children: [
