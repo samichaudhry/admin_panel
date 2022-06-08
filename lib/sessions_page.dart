@@ -118,10 +118,10 @@ class _sessionpageState extends State<sessionpage> {
     'Sports Sciences',
     'Urdu'
   ];
-  static Map<String, List<String>> programs = {
+  Map<String, List<String>> programs = {
     'Computer Science and IT': <String>[
-      "BS Computer Science",
-      "BS Information Technology",
+      "BS CS",
+      "BS IT",
       "MIT",
     ],
     'Biological Science': <String>[
@@ -213,7 +213,7 @@ class _sessionpageState extends State<sessionpage> {
     '2038-2040',
   ];
 
-  Future setsessiondata() {
+  Future setsessiondata() async {
     return FirebaseFirestore.instance.collection('session').doc().set({
       'department': selecteddepartment,
       'program': selectedprogram,
