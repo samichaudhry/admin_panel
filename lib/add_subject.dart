@@ -246,11 +246,7 @@ class _AddSubjectState extends State<AddSubject> {
 
   Future _addSubjectQuery() async {
     return editSubjectArgument[0]["pageTitle"].toString() == "Add Subject"
-        ? await subjects
-            .doc(teacherId)
-            .collection("teacherSubjects")
-            .doc()
-            .set({
+        ? subjects.doc(teacherId).collection("teacherSubjects").doc().set({
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
             'program': '$selectedProgram',
@@ -263,7 +259,7 @@ class _AddSubjectState extends State<AddSubject> {
             'end_duration': subjectEndDuration?.format(context),
             'imgUrl': downloadImgUrl,
           }, SetOptions(merge: true))
-        : await subjects
+        : subjects
             .doc(teacherId)
             .collection("teacherSubjects")
             .doc(subjectId)
@@ -284,23 +280,8 @@ class _AddSubjectState extends State<AddSubject> {
           }, SetOptions(merge: true));
   }
 
-  Future addsemester() async {
-    await FirebaseFirestore.instance
-        .collection('semesters')
-        .where('semester', isEqualTo: '$selectedFallOrSpring $selectedYear')
-        .get()
-        .then((QuerySnapshot semesters) async {
-      if (semesters.docs.isEmpty) {
-        await FirebaseFirestore.instance.collection('semesters').doc().set({
-          'semester': '$selectedFallOrSpring $selectedYear',
-        }, SetOptions(merge: true));
-      }
-    });
-  }
-
   Future<void> saveSubjectData() async {
     return _addSubjectQuery().then((value) {
-      addsemester();
       if (editSubjectArgument[0]['pageTitle'] == "Add Subject") {
         _subjName.clear();
         _subjCode.clear();
@@ -482,7 +463,12 @@ class _AddSubjectState extends State<AddSubject> {
                 padding: EdgeInsets.symmetric(
                     horizontal: responsiveHW(context, wd: 6)!.toDouble()),
                 child: TextFormField(
-                  validator: (value) => value == null ? 'Required*' : null,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Required*";
+                    }
+                  },
                   controller: _duration,
                   onTap: (() async {
                     TimeRange? result = await showTimeRangePicker(

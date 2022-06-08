@@ -34,7 +34,7 @@ class _SubjectInfoState extends State<SubjectInfo> {
           .ref(
               'images/subject_pictures/${subjectInfoArguments[0]['subject_name']}.png')
           .delete();
-          Navigator.pop(context);
+      Navigator.pop(context);
 
       customtoast('Subject Deleted Successfully.');
     }).catchError((error) {
@@ -50,7 +50,7 @@ class _SubjectInfoState extends State<SubjectInfo> {
       () => Navigator.pop(context),
       () async {
         Navigator.pop(context);
-        
+
         deleteSubject();
       },
     );
@@ -157,7 +157,13 @@ class _SubjectInfoState extends State<SubjectInfo> {
                     'programType': subjectInfoArguments[0]['programType'],
                     'session': subjectInfoArguments[0]['session'],
                     'semester': subjectInfoArguments[0]['semester'],
-                    'semester_type': subjectInfoArguments[0]['semester_type'],
+                    'semester_type': subjectInfoArguments[0]['semester_type']
+                        .toString()
+                        .substring(
+                            0,
+                            subjectInfoArguments[0]['semester_type']
+                                .toString()
+                                .indexOf(" ")),
                     'semester_type_year': subjectInfoArguments[0]
                         ['semester_type_year'],
                     'start_duration': subjectInfoArguments[0]['start_duration'],
