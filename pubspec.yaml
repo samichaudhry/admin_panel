@@ -50,8 +50,8 @@ dependencies:
   connectivity_plus: any
   excel: any
   dio: any
-  path_provider: any
   permission_handler: any
+  badges: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

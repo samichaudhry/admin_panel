@@ -17,6 +17,7 @@ import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 // import 'package:admin_panel/subjects_page.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:get/get.dart';
+import 'package:badges/badges.dart';
 
 class AdminMainPage extends StatefulWidget {
   const AdminMainPage({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class AdminMainPage extends StatefulWidget {
 class _AdminMainPageState extends State<AdminMainPage> {
   bool isloggedin = false;
   bool isworking = false;
-
+  var teacherrequests = '';
   var users = FirebaseFirestore.instance.collection('users');
   var currentuserid = FirebaseAuth.instance.currentUser?.uid;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -93,6 +94,15 @@ class _AdminMainPageState extends State<AdminMainPage> {
       'ispassword': true,
     },
   ];
+
+  Future teacherrequest() async {
+    await FirebaseFirestore.instance.collection('teachers').where('status', isEqualTo: 'Pending').get().then((QuerySnapshot teachers){
+      teacherrequests = teachers.docs.length.toString();
+      setState(() {
+        
+      });
+    });
+  }
 
   Future changepassword() async {
     // isworking = false;
@@ -449,6 +459,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
 
   @override
   Widget build(BuildContext context) {
+    teacherrequest();
     getadminname();
     return WillPopScope(
       onWillPop: onWillPop,
@@ -574,12 +585,25 @@ class _AdminMainPageState extends State<AdminMainPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            OptionsList[index]['title'] == 'Teachers Requests' ?
                             Center(
+                                child: Badge(
+                                  animationType: BadgeAnimationType.scale,
+                                  stackFit: StackFit.passthrough,
+                              badgeContent:  Text(teacherrequests == '' ? '0' : teacherrequests),
                               child: Icon(
                                 OptionsList[index]['icon'],
                                 color: Colors.white,
                                 size: 50.0,
                               ),
+                            ))
+                            :
+                            Center(
+                              child: Icon(
+                                  OptionsList[index]['icon'],
+                                  color: Colors.white,
+                                  size: 50.0,
+                                ),
                             ),
                             Center(
                               child: customText(
