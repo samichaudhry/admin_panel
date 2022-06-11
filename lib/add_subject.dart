@@ -46,6 +46,7 @@ class _AddSubjectState extends State<AddSubject> {
   String? selectedYear;
   String? selectedFallOrSpring;
   List<String> sessionsavailable = [];
+  Map sessionsavailableids = {};
   // Semester Type
   List<String> regularOrSelf = ["Regular", "Self Support"];
   List<String> fallORSpring = ['Fall', 'Spring'];
@@ -204,6 +205,7 @@ class _AddSubjectState extends State<AddSubject> {
     getsessions().then((value) {
       setState(() {});
       print(sessionsavailable);
+      print(sessionsavailableids);
     });
     if (editSubjectArgument[0]['pageTitle'] == "Edit Subject's Details") {
       _subjName.text = editSubjectArgument[0]['subject_name'];
@@ -228,10 +230,13 @@ class _AddSubjectState extends State<AddSubject> {
         .get()
         .then((QuerySnapshot sessions) {
       for (var session in sessions.docs) {
-        print(session['program']);
+        // print(session['program']);
         sessionsavailable.add(
             "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}");
+     sessionsavailableids["${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}"] = session.id.toString();
+    
       }
+      
     });
   }
 
@@ -273,6 +278,7 @@ class _AddSubjectState extends State<AddSubject> {
             'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
+            'session_id': sessionsavailableids[selectedProgram],
             'imgUrl': downloadImgUrl,
           }, SetOptions(merge: true))
         : await subjects
@@ -290,6 +296,7 @@ class _AddSubjectState extends State<AddSubject> {
             'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
+            'session_id': sessionsavailableids[selectedProgram],
             'imgUrl': (isImageSelected)
                 ? downloadImgUrl
                 : editSubjectArgument[0]['imgUrl'],
