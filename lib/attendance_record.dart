@@ -39,6 +39,34 @@ class _AttendanceRecordState extends State<AttendanceRecord> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    emptysemesters();
+  }
+
+  Future emptysemesters() async {
+    await FirebaseFirestore.instance
+        .collection('semesters')
+        .get()
+        .then((QuerySnapshot semesters) {
+      for (var semester in semesters.docs) {
+        FirebaseFirestore.instance
+            .collectionGroup('teacherSubjects')
+            .where('semester_type', isEqualTo: semester['semester'])
+            .get()
+            .then((QuerySnapshot qs) async {
+          if (qs.docs.isEmpty) {
+            await FirebaseFirestore.instance
+                .collection('semesters')
+                .doc(semester.id)
+                .delete();
+          }
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(

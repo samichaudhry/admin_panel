@@ -174,12 +174,12 @@ class _AttendanceSessionState extends State<AttendanceSession> {
                             tileColor: Colors.grey[800],
                             onTap: () {
                               Get.to(() => const AttendanceData(), arguments: {
-                                'session': '${session['program']}-${session['programType']} ${session['session']}',
+                                'session': '${session['program']}',
                                 'session_name' : '${args['session_name']}',
                               });
                             },
                             title: customText(
-                              txt: '${session['program']}-${session['programType']} ${session['session']}',
+                              txt: '${session['program']}',
                               fsize: 17.0,
                               fweight: FontWeight.w700,
                             ),

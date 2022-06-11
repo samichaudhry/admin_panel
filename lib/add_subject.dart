@@ -270,7 +270,7 @@ class _AddSubjectState extends State<AddSubject> {
             // 'session': '$selectedSession',
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
-            // 'semester_type_year': '$selectedYear',
+            'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
             'imgUrl': downloadImgUrl,
@@ -287,7 +287,7 @@ class _AddSubjectState extends State<AddSubject> {
             // 'session': '$selectedSession',
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
-            // 'semester_type_year': '$selectedYear',
+            'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
             'imgUrl': (isImageSelected)
