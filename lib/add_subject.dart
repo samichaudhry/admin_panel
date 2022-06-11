@@ -253,7 +253,7 @@ class _AddSubjectState extends State<AddSubject> {
             'programType': '$selectedProgramType',
             'session': '$selectedSession',
             'semester': '$selectedSemester',
-            'semester_type': '$selectedFallOrSpring',
+            'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
             'start_duration': subjectStartDuration?.format(context),
             'end_duration': subjectEndDuration?.format(context),
@@ -280,8 +280,23 @@ class _AddSubjectState extends State<AddSubject> {
           }, SetOptions(merge: true));
   }
 
+  Future addsemester() async {
+    var semestercollection = FirebaseFirestore.instance.collection('semesters');
+    await semestercollection
+        .where('semester', isEqualTo: '$selectedFallOrSpring $selectedYear')
+        .get()
+        .then((QuerySnapshot semsters) {
+      if (semsters.docs.isEmpty) {
+        semestercollection.doc().set({
+          'semester': '$selectedFallOrSpring $selectedYear',
+        }, SetOptions(merge: true));
+      }
+    });
+  }
+
   Future<void> saveSubjectData() async {
     return _addSubjectQuery().then((value) {
+      addsemester();
       if (editSubjectArgument[0]['pageTitle'] == "Add Subject") {
         _subjName.clear();
         _subjCode.clear();
