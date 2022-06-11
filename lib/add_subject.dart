@@ -45,7 +45,7 @@ class _AddSubjectState extends State<AddSubject> {
   String? selectedSession;
   String? selectedYear;
   String? selectedFallOrSpring;
-
+  List<String> sessionsavailable = [];
   // Semester Type
   List<String> regularOrSelf = ["Regular", "Self Support"];
   List<String> fallORSpring = ['Fall', 'Spring'];
@@ -201,7 +201,10 @@ class _AddSubjectState extends State<AddSubject> {
   @override
   void initState() {
     super.initState();
-
+    getsessions().then((value) {
+      setState(() {});
+      print(sessionsavailable);
+    });
     if (editSubjectArgument[0]['pageTitle'] == "Edit Subject's Details") {
       _subjName.text = editSubjectArgument[0]['subject_name'];
       _subjCode.text = editSubjectArgument[0]['subject_code'];
@@ -217,6 +220,19 @@ class _AddSubjectState extends State<AddSubject> {
       _duration.text = subjectDuration.toString();
     }
     teacherId = editSubjectArgument[0]['teacherId'];
+  }
+
+  Future getsessions() async {
+    await FirebaseFirestore.instance
+        .collection('session')
+        .get()
+        .then((QuerySnapshot sessions) {
+      for (var session in sessions.docs) {
+        print(session['program']);
+        sessionsavailable.add(
+            "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}");
+      }
+    });
   }
 
 //backend Functionality
@@ -250,8 +266,8 @@ class _AddSubjectState extends State<AddSubject> {
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
             'program': '$selectedProgram',
-            'programType': '$selectedProgramType',
-            'session': '$selectedSession',
+            // 'programType': '$selectedProgramType',
+            // 'session': '$selectedSession',
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
@@ -267,8 +283,8 @@ class _AddSubjectState extends State<AddSubject> {
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
             'program': '$selectedProgram',
-            'programType': '$selectedProgramType',
-            'session': '$selectedSession',
+            // 'programType': '$selectedProgramType',
+            // 'session': '$selectedSession',
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
@@ -520,8 +536,7 @@ class _AddSubjectState extends State<AddSubject> {
               ),
               customSizedBox(),
               customDropDownFormField(
-                  "Program", selectedProgram, programs4years + programs2years,
-                  (value) {
+                  "Program", selectedProgram, sessionsavailable, (value) {
                 setState(() {
                   selectedProgram = value;
                   selectedProgramType = null;
@@ -529,31 +544,27 @@ class _AddSubjectState extends State<AddSubject> {
                   selectedSemester = null;
                 });
               }),
+              // customSizedBox(),
+              // customDropDownFormField(
+              //     "Program Type", selectedProgramType, regularOrSelf, (value) {
+              //   setState(() {
+              //     selectedProgramType = value;
+              //   });
+              // }),
+              // customSizedBox(),
+              // customDropDownFormField(
+              //     "Session",
+              //     selectedSession,
+              //     programs4years.contains(selectedProgram)
+              //         ? sessions4years
+              //         : sessions2years, (value) {
+              //   setState(() {
+              //     selectedSession = value;
+              //   });
+              // }),
               customSizedBox(),
               customDropDownFormField(
-                  "Program Type", selectedProgramType, regularOrSelf, (value) {
-                setState(() {
-                  selectedProgramType = value;
-                });
-              }),
-              customSizedBox(),
-              customDropDownFormField(
-                  "Session",
-                  selectedSession,
-                  programs4years.contains(selectedProgram)
-                      ? sessions4years
-                      : sessions2years, (value) {
-                setState(() {
-                  selectedSession = value;
-                });
-              }),
-              customSizedBox(),
-              customDropDownFormField(
-                  "Semester",
-                  selectedSemester,
-                  programs4years.contains(selectedProgram)
-                      ? semester4years
-                      : semester2years, (value) {
+                  "Semester", selectedSemester, semester4years, (value) {
                 setState(() {
                   selectedSemester = value;
                 });
