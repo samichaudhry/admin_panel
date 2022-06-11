@@ -262,7 +262,7 @@ class _AddSubjectState extends State<AddSubject> {
 
   Future _addSubjectQuery() async {
     return editSubjectArgument[0]["pageTitle"].toString() == "Add Subject"
-        ? subjects.doc(teacherId).collection("teacherSubjects").doc().set({
+        ? await subjects.doc(teacherId).collection("teacherSubjects").doc().set({
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
             'program': '$selectedProgram',
@@ -270,12 +270,12 @@ class _AddSubjectState extends State<AddSubject> {
             // 'session': '$selectedSession',
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
-            'semester_type_year': '$selectedYear',
+            // 'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
             'imgUrl': downloadImgUrl,
           }, SetOptions(merge: true))
-        : subjects
+        : await subjects
             .doc(teacherId)
             .collection("teacherSubjects")
             .doc(subjectId)
@@ -287,7 +287,7 @@ class _AddSubjectState extends State<AddSubject> {
             // 'session': '$selectedSession',
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
-            'semester_type_year': '$selectedYear',
+            // 'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
             'imgUrl': (isImageSelected)
@@ -311,8 +311,8 @@ class _AddSubjectState extends State<AddSubject> {
   }
 
   Future<void> saveSubjectData() async {
-    return _addSubjectQuery().then((value) {
-      addsemester();
+    await  addsemester();
+    _addSubjectQuery().then((value) {
       if (editSubjectArgument[0]['pageTitle'] == "Add Subject") {
         _subjName.clear();
         _subjCode.clear();
