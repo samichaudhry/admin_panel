@@ -271,8 +271,8 @@ class _AddSubjectState extends State<AddSubject> {
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
-            'start_duration': subjectStartDuration?.format(context),
-            'end_duration': subjectEndDuration?.format(context),
+            // 'start_duration': subjectStartDuration?.format(context),
+            // 'end_duration': subjectEndDuration?.format(context),
             'imgUrl': downloadImgUrl,
           }, SetOptions(merge: true))
         : subjects
@@ -288,8 +288,8 @@ class _AddSubjectState extends State<AddSubject> {
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
-            'start_duration': subjectStartDuration?.format(context),
-            'end_duration': subjectEndDuration?.format(context),
+            // 'start_duration': subjectStartDuration?.format(context),
+            // 'end_duration': subjectEndDuration?.format(context),
             'imgUrl': (isImageSelected)
                 ? downloadImgUrl
                 : editSubjectArgument[0]['imgUrl'],
@@ -490,51 +490,51 @@ class _AddSubjectState extends State<AddSubject> {
                   pIcon: Icons.code,
                   labeltext: "Subject Code"),
               customSizedBox(),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-                child: TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Required*";
-                    }
-                  },
-                  controller: _duration,
-                  onTap: (() async {
-                    TimeRange? result = await showTimeRangePicker(
-                      context: context,
-                      use24HourFormat: false,
-                      padding: 10,
-                      strokeWidth: 8,
-                      handlerRadius: 7,
-                      strokeColor: Colors.teal,
-                      selectedColor: Colors.teal[300],
-                      ticks: 12,
-                      ticksColor: Colors.white,
-                    );
-                    setState(() {
-                      subjectStartDuration = result!.startTime;
-                      subjectEndDuration = result.endTime;
-                      _duration.text =
-                          "${subjectStartDuration?.format(context)}-${subjectEndDuration?.format(context)}";
-                    });
-                  }),
-                  readOnly: true,
-                  decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.timelapse_sharp),
-                      labelText: "Subject Duration",
-                      filled: true,
-                      fillColor: Colors.grey[800],
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30)),
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal:
-                              responsiveHW(context, wd: 2.5)!.toDouble(),
-                          vertical: responsiveHW(context, ht: 2)!.toDouble())),
-                ),
-              ),
-              customSizedBox(),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(
+              //       horizontal: responsiveHW(context, wd: 6)!.toDouble()),
+              //   child: TextFormField(
+              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+              //     validator: (value) {
+              //       if (value!.isEmpty) {
+              //         return "Required*";
+              //       }
+              //     },
+              //     controller: _duration,
+              //     onTap: (() async {
+              //       TimeRange? result = await showTimeRangePicker(
+              //         context: context,
+              //         use24HourFormat: false,
+              //         padding: 10,
+              //         strokeWidth: 8,
+              //         handlerRadius: 7,
+              //         strokeColor: Colors.teal,
+              //         selectedColor: Colors.teal[300],
+              //         ticks: 12,
+              //         ticksColor: Colors.white,
+              //       );
+              //       setState(() {
+              //         subjectStartDuration = result!.startTime;
+              //         subjectEndDuration = result.endTime;
+              //         _duration.text =
+              //             "${subjectStartDuration?.format(context)}-${subjectEndDuration?.format(context)}";
+              //       });
+              //     }),
+              //     readOnly: true,
+              //     decoration: InputDecoration(
+              //         prefixIcon: const Icon(Icons.timelapse_sharp),
+              //         labelText: "Subject Duration",
+              //         filled: true,
+              //         fillColor: Colors.grey[800],
+              //         border: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(30)),
+              //         contentPadding: EdgeInsets.symmetric(
+              //             horizontal:
+              //                 responsiveHW(context, wd: 2.5)!.toDouble(),
+              //             vertical: responsiveHW(context, ht: 2)!.toDouble())),
+              //   ),
+              // ),
+              // customSizedBox(),
               customDropDownFormField(
                   "Program", selectedProgram, sessionsavailable, (value) {
                 setState(() {

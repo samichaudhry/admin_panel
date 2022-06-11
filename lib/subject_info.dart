@@ -121,7 +121,7 @@ class _SubjectInfoState extends State<SubjectInfo> {
                         children: [
                           TextSpan(
                             text:
-                                "\n${subjectInfoArguments[0]['program']}-${subjectInfoArguments[0]['semester']}-${subjectInfoArguments[0]['programType'].toString() == 'Self Support' ? "SS" : "R"} (${subjectInfoArguments[0]['session']})",
+                                "\n${subjectInfoArguments[0]['program']}-${subjectInfoArguments[0]['semester']})",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
