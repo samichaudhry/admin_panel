@@ -586,11 +586,16 @@ class _AdminMainPageState extends State<AdminMainPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             OptionsList[index]['title'] == 'Teachers Requests' ?
+                            teacherrequests == '' ? Center(child: Icon(
+                                OptionsList[index]['icon'],
+                                color: Colors.white,
+                                size: 50.0,
+                              ),):
                             Center(
                                 child: Badge(
                                   animationType: BadgeAnimationType.scale,
                                   stackFit: StackFit.passthrough,
-                              badgeContent:  Text(teacherrequests == '' ? '0' : teacherrequests),
+                              badgeContent:  Text(teacherrequests),
                               child: Icon(
                                 OptionsList[index]['icon'],
                                 color: Colors.white,
