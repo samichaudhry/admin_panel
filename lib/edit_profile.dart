@@ -1,16 +1,12 @@
 import 'dart:io';
 import 'package:admin_panel/custom%20widgets/custom_toast.dart';
-import 'package:admin_panel/custom_formfield.dart';
-import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:admin_panel/profile_widget.dart';
 import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import '../custom widgets/custom_widgets.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
@@ -24,11 +20,7 @@ class edit_profile extends StatefulWidget {
 class _edit_profileState extends State<edit_profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _fullname = TextEditingController();
-  // final TextEditingController _about = TextEditingController();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _oldemail = TextEditingController();
-  final TextEditingController _oldpassword = TextEditingController();
-  // final TextEditingController _department = TextEditingController();
+
   String path = '';
   bool IsSelected = false;
   final maxlength = 5;
@@ -42,7 +34,7 @@ class _edit_profileState extends State<edit_profile> {
   void initState() {
     super.initState();
     _fullname.text = args['name'];
-    _email.text = args['email'];
+    // _email.text = args['email'];
     currentuserid = FirebaseAuth.instance.currentUser!.uid;
     // FirebaseFirestore.instance.collection('sessions').doc().set({
     //   'dapartment_name': 'CSIT',
@@ -146,7 +138,7 @@ class _edit_profileState extends State<edit_profile> {
                                 .set({
                               'isteacher': false,
                               'name': _fullname.text.trim(),
-                              'email': _email.text.trim()
+                              // 'email': _email.text.trim()
                             }, SetOptions(merge: true)).then((value) {
                               setState(() {
                                 inprogress = false;
@@ -157,15 +149,15 @@ class _edit_profileState extends State<edit_profile> {
                           });
                         });
                       } else {
-                        FirebaseAuth.instance.currentUser!
-                            .updateEmail(_email.text.trim());
+                        // FirebaseAuth.instance.currentUser!
+                        //     .updateEmail(_email.text.trim());
                         FirebaseFirestore.instance
                             .collection('users')
                             .doc(currentuserid)
                             .set({
                           'isteacher': false,
                           'name': _fullname.text.trim(),
-                          'email': _email.text.trim()
+                          // 'email': _email.text.trim()
                         }, SetOptions(merge: true)).then((value) {
                           setState(() {
                             inprogress = false;
