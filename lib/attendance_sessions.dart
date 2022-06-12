@@ -39,7 +39,7 @@ class _AttendanceSessionState extends State<AttendanceSession> {
             var data = snapshot.data?.docs;
              var documents = snapshot.data?.docs;
             //todo Documents list added to filterTitle
-            final seen = Set<String>();
+            final seen = <dynamic>{};
 documents = documents!.where((str) => seen.add(str['program'])).toList();
             if (_searchcontroller.text.isNotEmpty) {
               documents = documents.where((element) {
@@ -191,16 +191,16 @@ documents = documents!.where((str) => seen.add(str['program'])).toList();
                               fsize: 16.0,
                               fweight: FontWeight.w600,
                             ),
-                            trailing: CircleAvatar(
-                              backgroundColor: Colors.teal,
-                              child: const Icon(
-                                Icons.subject,
-                                size: 25.0,
-                                color: Colors.white,
-                              ),
-                              radius: 25.0,
-                              foregroundImage: CachedNetworkImageProvider(session['imgUrl'].toString()),
-                            ),
+                            // trailing: CircleAvatar(
+                            //   backgroundColor: Colors.teal,
+                            //   child: const Icon(
+                            //     Icons.subject,
+                            //     size: 25.0,
+                            //     color: Colors.white,
+                            //   ),
+                            //   radius: 25.0,
+                            //   foregroundImage: CachedNetworkImageProvider(session['imgUrl'].toString()),
+                            // ),
                           ),
                         ],
                       ).toList(),
