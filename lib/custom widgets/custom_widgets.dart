@@ -132,7 +132,7 @@ Future filepicker({required filetype, allowedextensions}) async {
   }
 }
 
-void rawsnackbar(txt, {duration}) {
+void rawsnackbar(txt, {duration = 3}) {
   Get.rawSnackbar(
     // message: e.message.toString(),
     messageText: Text(

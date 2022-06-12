@@ -30,6 +30,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
   bool isloggedin = false;
   bool isworking = false;
   var teacherrequests = '';
+  var useremail;
   var users = FirebaseFirestore.instance.collection('users');
   var currentuserid = FirebaseAuth.instance.currentUser?.uid;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -41,6 +42,16 @@ class _AdminMainPageState extends State<AdminMainPage> {
   @override
   void initState() {
     super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if(user == null){
+        Get.to(
+          () => const LoginPage(),
+        );
+      }
+    });
+    setState(() {
+      useremail = FirebaseAuth.instance.currentUser?.email;
+    });
   }
 
   Future getadminname() async {
@@ -104,7 +115,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
     });
   }
 
-  Future changepassword() async {
+Future changepassword() async {
     // isworking = false;
     _email.clear();
     _oldpassword.clear();
@@ -120,36 +131,6 @@ class _AdminMainPageState extends State<AdminMainPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                customTextField(
-                  "Email",
-                  false,
-                  null,
-                  _email,
-                  (value) {
-                    if (value!.isEmpty) {
-                      return "Please Enter Your Email";
-                    }
-                    if (!RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return "Please Enter Valid Email Address";
-                    }
-                    if (_email.text.trim() !=
-                        FirebaseAuth.instance.currentUser?.email.toString()) {
-                      return 'No user found with this email';
-                    }
-                  },
-                  (value) {
-                    _email.text = value!;
-                  },
-                  responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100),
-                  InputBorder.none,
-                  pIcon: Icons.email,
-                ),
-                SizedBox(
-                  height: responsiveHW(context, ht: 2),
-                ),
                 customTextField(
                   "old Password",
                   true,
@@ -198,7 +179,10 @@ class _AdminMainPageState extends State<AdminMainPage> {
               child: const Text('Cancel'),
             ),
             isworking
-                ? const CircularProgressIndicator()
+                ?  const Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 26.0),
+                  child: CircularProgressIndicator(),
+                )
                 : MaterialButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
@@ -209,7 +193,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                           await FirebaseAuth.instance.currentUser!
                               .reauthenticateWithCredential(
                                   EmailAuthProvider.credential(
-                                      email: _email.text.trim(),
+                                      email: useremail.toString(),
                                       password: _oldpassword.text.trim()));
                           try {
                             await FirebaseAuth.instance.currentUser!
@@ -260,12 +244,12 @@ class _AdminMainPageState extends State<AdminMainPage> {
           MaterialButton(
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              setState(() {
-                isloggedin = false;
-              });
-              Get.to(
-                () => const LoginPage(),
-              );
+              // setState(() {
+              //   isloggedin = false;
+              // });
+              // Get.to(
+              //   () => const LoginPage(),
+              // );
             },
             child: const Text('Yes'),
           ),
@@ -307,6 +291,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
       builder: (context) => StatefulBuilder(builder: (context, innerstate) {
         return AlertDialog(
           title: const Center(child: Text('Change Email')),
+          contentPadding: const EdgeInsets.all(10.0),
           content: Form(
             key: _formKey,
             child: Column(
@@ -315,33 +300,6 @@ class _AdminMainPageState extends State<AdminMainPage> {
               children: [
                 SizedBox(
                   height: responsiveHW(context, ht: 3),
-                ),
-                customTextField(
-                  "Current Email",
-                  false,
-                  null,
-                  _oldemail,
-                  (value) {
-                    if (value!.isEmpty) {
-                      return "Please Enter Your Email";
-                    }
-                    if (!RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return "Please Enter Valid Email Address";
-                    }
-                    if (_oldemail.text.trim() !=
-                        FirebaseAuth.instance.currentUser?.email.toString()) {
-                      return 'No user found with this email';
-                    }
-                  },
-                  (value) {
-                    _oldemail.text = value!;
-                  },
-                  responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100),
-                  InputBorder.none,
-                  pIcon: Icons.email,
                 ),
                 customTextField(
                   "New Email",
@@ -397,13 +355,14 @@ class _AdminMainPageState extends State<AdminMainPage> {
             MaterialButton(
               onPressed: () {
                 Navigator.pop(context);
-                // Navigator.pop(context);
-                // rawsnackbar('Cannot change email without re-authentication');
               },
               child: const Text('Cancel'),
             ),
             isworking
-                ? const CircularProgressIndicator()
+                ? const Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 26.0),
+                  child:  CircularProgressIndicator(),
+                )
                 : MaterialButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
@@ -414,7 +373,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                           await FirebaseAuth.instance.currentUser!
                               .reauthenticateWithCredential(
                                   EmailAuthProvider.credential(
-                                      email: _oldemail.text.trim(),
+                                      email: useremail,
                                       password: _oldpassword.text.trim()));
                           try {
                             await FirebaseAuth.instance.currentUser!
