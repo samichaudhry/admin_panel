@@ -39,8 +39,10 @@ class _AttendanceSessionState extends State<AttendanceSession> {
             var data = snapshot.data?.docs;
              var documents = snapshot.data?.docs;
             //todo Documents list added to filterTitle
+            final seen = Set<String>();
+documents = documents!.where((str) => seen.add(str['program'])).toList();
             if (_searchcontroller.text.isNotEmpty) {
-              documents = documents?.where((element) {
+              documents = documents.where((element) {
                 return element
                     .get('program')
                     .toString()
@@ -151,7 +153,7 @@ class _AttendanceSessionState extends State<AttendanceSession> {
                 collapsedHeight: responsiveHW(context, ht: 11),
                 flexibleSpace: FlexibleSpaceBar(
                     title: Text(
-                  "\n\n\nTotal Sessions: ${documents?.length}",
+                  "\n\n\nTotal Sessions: ${documents.length}",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
@@ -175,7 +177,8 @@ class _AttendanceSessionState extends State<AttendanceSession> {
                             onTap: () {
                               Get.to(() => const AttendanceData(), arguments: {
                                 'session': '${session['program']}',
-                                'session_name' : '${args['session_name']}',
+                                'semester_name' : '${args['session_name']}',
+                                'session_id' : '${args['session_id']}'
                               });
                             },
                             title: customText(
@@ -203,7 +206,7 @@ class _AttendanceSessionState extends State<AttendanceSession> {
                       ).toList(),
                     ),
                   );
-                }, childCount: documents?.length),
+                }, childCount: documents.length),
               )
             ],
           );
