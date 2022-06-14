@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,46 @@ class AttendanceData extends StatefulWidget {
 
 class _AttendanceDataState extends State<AttendanceData> {
   var args = Get.arguments;
+  bool isloading = true;
+
+  List subjectsdata = [];
+  Map subjects = {};
+  @override
+  void initState() {
+    super.initState();
+
+  }
+  
+  Future<void> getsubjectsdata() async {
+    // print(args['session_id']);
+    await FirebaseFirestore.instance
+        .collectionGroup('attendancedata')
+        .where('semester_type', isEqualTo: args['semester_name'])
+        .where('session_id', isEqualTo: args['session_id'])
+        .get()
+        .then((subjects) {
+      print(subjects.docs.length);
+      for(var subject in subjects.docs){
+       subjectsdata.add(
+        {
+          'record' : subject['attendancerecord'],
+          'subject_code' : subject['subject_code'],
+          'subject_name' : subject['subject_name'],
+        }
+       );
+      }
+    }).then((value){
+      // print(subjectsdata);
+      List subjectnames = [];
+      for(var data in subjectsdata){
+        if(!subjectnames.contains(data['subject_name'])){
+        subjectnames.add(data['subject_name']); 
+        }
+      }
+      print(subjectnames);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +60,17 @@ class _AttendanceDataState extends State<AttendanceData> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         toolbarHeight: 80.0,
-        title: customText(txt: '${args['session']}', fsize: 20.0, fweight: FontWeight.w700, overflow: TextOverflow.visible, wrap: true),
+        actions: [
+          IconButton(
+              onPressed: getsubjectsdata,
+              icon: const Icon(Icons.add_circle_sharp)),
+        ],
+        title: customText(
+            txt: '${args['session']}',
+            fsize: 20.0,
+            fweight: FontWeight.w700,
+            overflow: TextOverflow.visible,
+            wrap: true),
       ),
       body: ListView.builder(
         itemCount: 3,

@@ -178,7 +178,7 @@ documents = documents!.where((str) => seen.add(str['program'])).toList();
                               Get.to(() => const AttendanceData(), arguments: {
                                 'session': '${session['program']}',
                                 'semester_name' : '${args['session_name']}',
-                                'session_id' : '${args['session_id']}'
+                                'session_id' : '${session['session_id']}'
                               });
                             },
                             title: customText(
