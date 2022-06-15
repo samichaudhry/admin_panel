@@ -15,40 +15,47 @@ class _AttendanceDataState extends State<AttendanceData> {
   bool isloading = true;
 
   List subjectsdata = [];
-  Map subjects = {};
+  List<TableRow> rows = [];
+  List<TableRow> headerrow = [
+    TableRow(
+        decoration: const BoxDecoration(
+          color: Colors.teal,
+        ),
+        children: [
+          customText(txt: 'Roll No', clr: Colors.white, padding: 10.0),
+          customText(txt: 'Name', clr: Colors.white, padding: 10.0),
+          customText(
+              txt: 'Percent',
+              clr: Colors.white,
+              txtalign: TextAlign.center,
+              padding: 10.0),
+        ]),
+  ];
+
   @override
   void initState() {
     super.initState();
-
+    getsubjectsdata();
   }
-  
+
   Future<void> getsubjectsdata() async {
     // print(args['session_id']);
     await FirebaseFirestore.instance
-        .collectionGroup('attendancedata')
+        .collectionGroup('subjectstats')
         .where('semester_type', isEqualTo: args['semester_name'])
         .where('session_id', isEqualTo: args['session_id'])
         .get()
         .then((subjects) {
       print(subjects.docs.length);
-      for(var subject in subjects.docs){
-       subjectsdata.add(
-        {
-          'record' : subject['attendancerecord'],
-          'subject_code' : subject['subject_code'],
-          'subject_name' : subject['subject_name'],
-        }
-       );
+      for (var subject in subjects.docs) {
+        subjectsdata.add(
+          subject.data(),
+        );
       }
-    }).then((value){
-      // print(subjectsdata);
-      List subjectnames = [];
-      for(var data in subjectsdata){
-        if(!subjectnames.contains(data['subject_name'])){
-        subjectnames.add(data['subject_name']); 
-        }
-      }
-      print(subjectnames);
+    }).then((value) {
+      setState(() {
+        isloading = false;
+      });
     });
   }
 
@@ -60,11 +67,11 @@ class _AttendanceDataState extends State<AttendanceData> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         toolbarHeight: 80.0,
-        actions: [
-          IconButton(
-              onPressed: getsubjectsdata,
-              icon: const Icon(Icons.add_circle_sharp)),
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: getsubjectsdata,
+        //       icon: const Icon(Icons.add_circle_sharp)),
+        // ],
         title: customText(
             txt: '${args['session']}',
             fsize: 20.0,
@@ -72,69 +79,54 @@ class _AttendanceDataState extends State<AttendanceData> {
             overflow: TextOverflow.visible,
             wrap: true),
       ),
-      body: ListView.builder(
-        itemCount: 3,
-        itemBuilder: (context, ind) {
-          return ExpansionTile(
-            textColor: Colors.white,
-            iconColor: Colors.white,
-            title: customText(txt: 'Operating Systems'),
-            // childrenPadding: EdgeInsets.all(10.0),
-
-            children: [
-              Table(
-                defaultColumnWidth: const FlexColumnWidth(4.0),
-                columnWidths: const {
-                  0: FlexColumnWidth(10.0),
-                  1: FlexColumnWidth(9.0),
-                  2: FlexColumnWidth(5.0),
-                },
-                children: [
-                  TableRow(
-                      decoration: const BoxDecoration(
-                        color: Colors.teal,
-                      ),
-                      children: [
-                        customText(
-                            txt: 'Roll No', clr: Colors.white, padding: 10.0),
-                        customText(
-                            txt: 'Name', clr: Colors.white, padding: 10.0),
-                        customText(
-                            txt: 'Percent',
-                            clr: Colors.white,
-                            txtalign: TextAlign.center,
-                            padding: 10.0),
-                      ]),
-                  TableRow(children: [
-                    customText(txt: 'BCSF18BM001', padding: 10.0),
-                    customText(txt: 'Rustam Shakeel', padding: 10.0),
-                    customText(
-                        txt: '96%', padding: 10.0, txtalign: TextAlign.center),
-                  ]),
-                  TableRow(children: [
-                    customText(txt: 'BCSF18BM002', padding: 10.0),
-                    customText(txt: 'Amna Malik', padding: 10.0),
-                    customText(
-                        txt: '80%', padding: 10.0, txtalign: TextAlign.center),
-                  ]),
-                  TableRow(children: [
-                    customText(txt: 'BCSF18BM003', padding: 10.0),
-                    customText(txt: 'Sami Ullah', padding: 10.0),
-                    customText(
-                        txt: '99%', padding: 10.0, txtalign: TextAlign.center),
-                  ]),
-                  TableRow(children: [
-                    customText(txt: 'BCSF18BM004', padding: 10.0),
-                    customText(txt: 'Usman Fayaz', padding: 10.0),
-                    customText(
-                        txt: '60%', padding: 10.0, txtalign: TextAlign.center),
-                  ]),
-                ],
+      body: isloading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.teal,
               ),
-            ],
-          );
-        },
-      ),
+            )
+          : subjectsdata.isEmpty
+              ? Center(
+                  child: customText(txt: 'No data available', fsize: 23.0),
+                )
+              : ListView.builder(
+                  itemCount: subjectsdata.length,
+                  itemBuilder: (context, ind) {
+                    rows.clear();
+                    Map statsdata = subjectsdata[ind]['statsdata'];
+                  
+                    for (var data in statsdata.values) {
+                      rows.add(
+                        TableRow(children: [
+                          customText(txt: '${data["rollno"]}', padding: 10.0),
+                          customText(txt: '${data["name"]}', padding: 10.0),
+                          customText(
+                              txt: '${data["percentage"]}%',
+                              padding: 10.0,
+                              txtalign: TextAlign.center),
+                        ]),
+                      );
+                    }
+                    return ExpansionTile(
+                      textColor: Colors.white,
+                      iconColor: Colors.white,
+                      title: customText(txt: subjectsdata[ind]['subject_name']),
+                      // childrenPadding: EdgeInsets.all(10.0),
+
+                      children: [
+                        Table(
+                          defaultColumnWidth: const FlexColumnWidth(4.0),
+                          columnWidths: const {
+                            0: FlexColumnWidth(10.0),
+                            1: FlexColumnWidth(9.0),
+                            2: FlexColumnWidth(5.0),
+                          },
+                          children: headerrow + rows,
+                        ),
+                      ],
+                    );
+                  },
+                ),
     );
   }
 }
