@@ -18,7 +18,11 @@ class _TeachersPageState extends State<TeachersPage> {
   int? totalTeachers;
 
   Future updatestatus(docid, updatedstatus) async {
-    customdialogcircularprogressindicator('Blocking... ');
+    if (updatedstatus == 'Approved') {
+      customdialogcircularprogressindicator('Unblocking... ');
+    } else {
+      customdialogcircularprogressindicator('Blocking... ');
+    }
     return FirebaseFirestore.instance.collection('teachers').doc(docid).set({
       'status': updatedstatus,
     }, SetOptions(merge: true)).then((value) {
