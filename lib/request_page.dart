@@ -1,5 +1,7 @@
+import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'custom widgets/custom_toast.dart';
@@ -15,12 +17,12 @@ class _RequestPageState extends State<RequestPage> {
   @override
   int? totalrequests;
 
-   Future statusupdate(docid,updatedstatus) async {
-    return FirebaseFirestore.instance
-    .collection('teachers')
-    .doc(docid).set({
+  Future statusupdate(docid, updatedstatus) async {
+    customdialogcircularprogressindicator('Processing... ');
+    return FirebaseFirestore.instance.collection('teachers').doc(docid).set({
       'status': updatedstatus,
-    }, SetOptions(merge: true)).then((value) { 
+    }, SetOptions(merge: true)).then((value) {
+      Navigator.pop(context);
     });
   }
 
@@ -28,9 +30,9 @@ class _RequestPageState extends State<RequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('teachers')
-          .where('status', isGreaterThanOrEqualTo: 'Pending')
-          .snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('teachers')
+              .where('status', whereIn: ['Pending', 'Declined']).snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;
@@ -102,54 +104,71 @@ class _RequestPageState extends State<RequestPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
-                                onTap: () {},
-                                title:  Text(
-                                   docsnapshot['teacher_name'].toString(),
-                                  style: const  TextStyle(
+                                // onTap: () {},
+                                title: Text(
+                                  docsnapshot['teacher_name'].toString(),
+                                  style: const TextStyle(
                                     fontSize: 17.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 subtitle: Text(
-                                   docsnapshot['designation'].toString(),
-                                  style: const  TextStyle(
+                                  docsnapshot['designation'].toString(),
+                                  style: const TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 trailing: Row(
-                                  mainAxisSize:MainAxisSize.min,
-                                  children:<Widget> [
-                                   Flexible(
-                                     child: TextButton(
-                                       style: TextButton.styleFrom(
-                                         backgroundColor: Colors.teal
-                                       ),
-                                       onPressed: (){
-                                         statusupdate(docsnapshot.id, 'Approved');
-                                         customtoast('Teacher Added');
-                                       },
-                                      child: const Text('APPROVE',style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13,
-                                      ),))),
-                                      SizedBox(
-                                        width:MediaQuery.of(context).size.width*0.01,
-                                      ),
-                                   Flexible(
-                                     child: TextButton(
-                                       style: TextButton.styleFrom(
-                                         backgroundColor: Colors.red
-                                       ),
-                                       onPressed: (){
-                                         statusupdate(docsnapshot.id, 'Declined');
-                                         customtoast('Request Declined');
-                                       },
-                                      child: const Text('DECLINE  ',style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13
-                                      ),))),
-                                    
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Flexible(
+                                        child: TextButton(
+                                            style: TextButton.styleFrom(
+                                                backgroundColor: Colors.teal),
+                                            onPressed: () {
+                                              statusupdate(docsnapshot.id,
+                                                      'Approved')
+                                                  .then((value) {
+                                                customtoast('Request Approved');
+                                              });
+                                            },
+                                            child: const Text(
+                                              'APPROVE',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 13,
+                                              ),
+                                            ))),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.01,
+                                    ),
+                                    Flexible(
+                                        child: TextButton(
+                                            style: TextButton.styleFrom(
+                                                backgroundColor:
+                                                    docsnapshot['status'] ==
+                                                            'Declined'
+                                                        ? Colors.grey
+                                                        : Colors.red),
+                                            onPressed: docsnapshot['status'] ==
+                                                    'Declined'
+                                                ? null
+                                                : () {
+                                                    statusupdate(docsnapshot.id,
+                                                            'Declined')
+                                                        .then((value) {
+                                                      customtoast(
+                                                          'Request Declined');
+                                                    });
+                                                  },
+                                            child: const Text(
+                                              'DECLINE  ',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 13),
+                                            ))),
                                   ],
                                 ),
                               ),

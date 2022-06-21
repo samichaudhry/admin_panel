@@ -19,7 +19,12 @@ class _AttendanceDataState extends State<AttendanceData> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         toolbarHeight: 80.0,
-        title: customText(txt: '${args['session']}', fsize: 20.0, fweight: FontWeight.w700, overflow: TextOverflow.visible, wrap: true),
+        title: customText(
+            txt: '${args['session']}',
+            fsize: 20.0,
+            fweight: FontWeight.w700,
+            overflow: TextOverflow.visible,
+            wrap: true),
       ),
       body: ListView.builder(
         itemCount: 3,

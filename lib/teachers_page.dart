@@ -1,4 +1,5 @@
 import 'package:admin_panel/add_teacher.dart';
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:admin_panel/teacher_info.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
@@ -15,6 +16,15 @@ class TeachersPage extends StatefulWidget {
 
 class _TeachersPageState extends State<TeachersPage> {
   int? totalTeachers;
+
+  Future updatestatus(docid, updatedstatus) async {
+    customdialogcircularprogressindicator('Blocking... ');
+    return FirebaseFirestore.instance.collection('teachers').doc(docid).set({
+      'status': updatedstatus,
+    }, SetOptions(merge: true)).then((value) {
+      Navigator.pop(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +50,12 @@ class _TeachersPageState extends State<TeachersPage> {
       //     ),
       //     text: customText(txt: 'Teacher', clr: Colors.white)),
       body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('teachers')
-          .where('status', isEqualTo: 'Approved')
-          .snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('teachers')
+              .where('status', whereIn: [
+            'Approved',
+            'Blocked',
+          ]).snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;
@@ -150,6 +163,45 @@ class _TeachersPageState extends State<TeachersPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                                trailing: docsnapshot['status'] == 'Blocked'
+                                    ? Flexible(
+                                        child: TextButton(
+                                            style: TextButton.styleFrom(
+                                                backgroundColor: Colors.teal),
+                                            onPressed: () {
+                                              updatestatus(docsnapshot.id,
+                                                      'Approved')
+                                                  .then((value) {
+                                                // customtoast(
+                                                //     '${docsnapshot['teacher_name']} unblocked');
+                                              });
+                                            },
+                                            child: const Text(
+                                              'Unblock',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 13,
+                                              ),
+                                            )))
+                                    : Flexible(
+                                        // fit: FlexFit.loose,
+                                        child: TextButton(
+                                            style: TextButton.styleFrom(
+                                                backgroundColor: Colors.red),
+                                            onPressed: () {
+                                              updatestatus(
+                                                      docsnapshot.id, 'Blocked')
+                                                  .then((value) {
+                                                // customtoast(
+                                                //     '${docsnapshot['teacher_name']} blocked');
+                                              });
+                                            },
+                                            child: const Text(
+                                              'Block',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 13),
+                                            ))),
                               ),
                             ],
                           ).toList(),
