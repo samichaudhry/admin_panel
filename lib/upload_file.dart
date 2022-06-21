@@ -78,6 +78,8 @@ class _UploadFileState extends State<UploadFile> {
   Future readfile(filepath) async {
     var bytes = io.File(filepath).readAsBytesSync();
     var excel = Excel.decodeBytes(bytes);
+    var availablestudents = [];
+    var duplicatestudents = 0;
     for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
       studentsdata.add({
         'roll_no': excel['Sheet1']
@@ -97,19 +99,40 @@ class _UploadFileState extends State<UploadFile> {
             .value,
       });
     }
+    await FirebaseFirestore.instance
+        .collection('students')
+        .doc(args['sessionid'])
+        .collection('sessionstudents')
+        .get()
+        .then((students) {
+      for (var thisstudent in students.docs) {
+        availablestudents.add(
+          thisstudent['studentrollno'],
+        );
+      }
+    });
     for (var student in studentsdata) {
-      FirebaseFirestore.instance
-          .collection('students')
-          .doc(args['sessionid'])
-          .collection('sessionstudents')
-          .doc()
-          .set({
-        'studentname': student['name'],
-        'studentrollno': student['roll_no']
-      }, SetOptions(merge: true)).then((value) {});
+      if (availablestudents.contains(student['roll_no'])) {
+        duplicatestudents += 1;
+      } else {
+        await FirebaseFirestore.instance
+            .collection('students')
+            .doc(args['sessionid'])
+            .collection('sessionstudents')
+            .doc()
+            .set({
+          'studentname': student['name'],
+          'studentrollno': student['roll_no']
+        }, SetOptions(merge: true)).then((value) {});
+      }
     }
-    customtoast('Data Uploaded Successfully');
     Get.back();
+    if (duplicatestudents == 0) {
+      customtoast('Data Uploaded Successfully');
+    } else {
+      customtoast(
+          '$duplicatestudents students already found!!!. \nRemaining students uploaded');
+    }
     Get.back();
   }
 
@@ -166,8 +189,7 @@ class _UploadFileState extends State<UploadFile> {
                     children: [
                       custombutton('Upload File', Icons.cloud_upload_outlined,
                           () {
-                        customdialogcircularprogressindicator(
-                            'Isuploading... ');
+                        customdialogcircularprogressindicator('Uploading... ');
                         readfile(file!.path);
                       }),
                       SizedBox(
