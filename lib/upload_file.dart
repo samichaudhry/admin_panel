@@ -130,8 +130,7 @@ class _UploadFileState extends State<UploadFile> {
     if (duplicatestudents == 0) {
       customtoast('Data Uploaded Successfully');
     } else {
-      customtoast(
-          '$duplicatestudents students already found!!!. \nRemaining students uploaded');
+      customtoast('$duplicatestudents students already found!!!');
     }
     Get.back();
   }
