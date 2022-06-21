@@ -184,7 +184,6 @@ class _TeachersPageState extends State<TeachersPage> {
                                               ),
                                             )))
                                     : Flexible(
-                                        // fit: FlexFit.loose,
                                         child: TextButton(
                                             style: TextButton.styleFrom(
                                                 backgroundColor: Colors.red),
