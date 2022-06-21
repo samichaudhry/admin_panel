@@ -168,43 +168,41 @@ class _TeachersPageState extends State<TeachersPage> {
                                   ),
                                 ),
                                 trailing: docsnapshot['status'] == 'Blocked'
-                                    ? Flexible(
-                                        child: TextButton(
-                                            style: TextButton.styleFrom(
-                                                backgroundColor: Colors.teal),
-                                            onPressed: () {
-                                              updatestatus(docsnapshot.id,
-                                                      'Approved')
-                                                  .then((value) {
-                                                // customtoast(
-                                                //     '${docsnapshot['teacher_name']} unblocked');
-                                              });
-                                            },
-                                            child: const Text(
-                                              'Unblock',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 13,
-                                              ),
-                                            )))
-                                    : Flexible(
-                                        child: TextButton(
-                                            style: TextButton.styleFrom(
-                                                backgroundColor: Colors.red),
-                                            onPressed: () {
-                                              updatestatus(
-                                                      docsnapshot.id, 'Blocked')
-                                                  .then((value) {
-                                                // customtoast(
-                                                //     '${docsnapshot['teacher_name']} blocked');
-                                              });
-                                            },
-                                            child: const Text(
-                                              'Block',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 13),
-                                            ))),
+                                    ? TextButton(
+                                        style: TextButton.styleFrom(
+                                            backgroundColor: Colors.teal),
+                                        onPressed: () {
+                                          updatestatus(
+                                                  docsnapshot.id, 'Approved')
+                                              .then((value) {
+                                            // customtoast(
+                                            //     '${docsnapshot['teacher_name']} unblocked');
+                                          });
+                                        },
+                                        child: const Text(
+                                          'Unblock',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 13,
+                                          ),
+                                        ))
+                                    : TextButton(
+                                        style: TextButton.styleFrom(
+                                            backgroundColor: Colors.red),
+                                        onPressed: () {
+                                          updatestatus(
+                                                  docsnapshot.id, 'Blocked')
+                                              .then((value) {
+                                            // customtoast(
+                                            //     '${docsnapshot['teacher_name']} blocked');
+                                          });
+                                        },
+                                        child: const Text(
+                                          'Block',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 13),
+                                        )),
                               ),
                             ],
                           ).toList(),
