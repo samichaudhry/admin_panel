@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
@@ -97,7 +95,7 @@ class _AttendanceDataState extends State<AttendanceData> {
                           return a["rollno"].compareTo(b["rollno"]);
                         },
                       );
-                    print(vals);
+
                     for (var data in vals) {
                       rows.add(
                         TableRow(children: [
