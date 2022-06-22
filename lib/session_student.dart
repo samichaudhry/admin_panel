@@ -103,15 +103,27 @@ class _SessionStudentState extends State<SessionStudent> {
         'studentrollno': _addrollno.text,
       }, SetOptions(merge: true));
     } else {
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('students')
           .doc(args['session_id'])
           .collection('sessionstudents')
-          .doc()
-          .set({
-        'studentname': _addname.text,
-        'studentrollno': _addrollno.text,
-      }, SetOptions(merge: true));
+          .where('studentrollno', isEqualTo: _addrollno.text)
+          .get()
+          .then((student) {
+        if (student.docs.isEmpty) {
+          FirebaseFirestore.instance
+              .collection('students')
+              .doc(args['session_id'])
+              .collection('sessionstudents')
+              .doc()
+              .set({
+            'studentname': _addname.text,
+            'studentrollno': _addrollno.text,
+          }, SetOptions(merge: true));
+        } else {
+          customtoast('Student already found');
+        }
+      });
     }
     _addname.clear();
     _addrollno.clear();
@@ -366,38 +378,39 @@ class _SessionStudentState extends State<SessionStudent> {
                     )),
                   ),
                   SliverToBoxAdapter(
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      setState(() {});
-                    },
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: responsiveHW(context, ht: 30)!.toDouble()),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              Icons.hourglass_empty,
-                              size: 50.0,
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Text(
-                              'No Student Available',
-                              style: TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.bold,
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        setState(() {});
+                      },
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: responsiveHW(context, ht: 30)!.toDouble()),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.hourglass_empty,
+                                size: 50.0,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text(
+                                'No Student Available',
+                                style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),]);
+                ]);
               } else {
                 return CustomScrollView(slivers: [
                   SliverAppBar(

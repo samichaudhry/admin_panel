@@ -132,7 +132,11 @@ Future filepicker({required filetype, allowedextensions}) async {
   }
 }
 
+<<<<<<< HEAD
 void rawsnackbar(txt, {duration = 3}) {
+=======
+void rawsnackbar(txt, {int duration = 3}) {
+>>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
   Get.rawSnackbar(
     // message: e.message.toString(),
     messageText: Text(
@@ -140,7 +144,7 @@ void rawsnackbar(txt, {duration = 3}) {
       style: const TextStyle(
         fontSize: 17.0,
         fontWeight: FontWeight.w400,
-        color: Colors.white,
+        // color: Colors.white,
       ),
     ),
     duration: Duration(seconds: duration),

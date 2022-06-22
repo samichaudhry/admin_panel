@@ -33,7 +33,7 @@ class _TeacherInfoState extends State<TeacherInfo> {
           .ref(
               'images/profile_pictures/${teacherInfoArguments[0]['teacher_name']}.png')
           .delete();
-          Navigator.pop(context);
+      Navigator.pop(context);
 
       customtoast('Teacher Removed Successfully.');
     }).catchError((error) {
@@ -143,6 +143,7 @@ class _TeacherInfoState extends State<TeacherInfo> {
               padding: EdgeInsets.symmetric(
                   horizontal: responsiveHW(context, wd: 6)!.toDouble()),
               child: customButton("View Subjects", () {
+                // print(teacherInfoArguments[0]['teacherId']);
                 Get.to(() => const TeacherSubjects(), arguments: [
                   {
                     "teacherId": teacherInfoArguments[0]['teacherId'],

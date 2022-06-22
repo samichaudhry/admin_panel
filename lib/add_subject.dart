@@ -172,7 +172,7 @@ class _AddSubjectState extends State<AddSubject> {
       fieldTitle, dropDownValue, List<String> listOfItems, onChangedFunc) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: responsiveHW(context, wd: 6)!.toDouble()),
+          horizontal: responsiveHW(context, wd: 5.5)!.toDouble()),
       child: DropdownButtonFormField(
           decoration: InputDecoration(
             labelText: fieldTitle,
@@ -199,11 +199,15 @@ class _AddSubjectState extends State<AddSubject> {
     );
   }
 
+  bool isloading = true;
+
   @override
   void initState() {
     super.initState();
     getsessions().then((value) {
-      setState(() {});
+      setState(() {
+        isloading = false;
+      });
       print(sessionsavailable);
       print(sessionsavailableids);
     });
@@ -211,15 +215,15 @@ class _AddSubjectState extends State<AddSubject> {
       _subjName.text = editSubjectArgument[0]['subject_name'];
       _subjCode.text = editSubjectArgument[0]['subject_code'];
       selectedProgram = editSubjectArgument[0]['program'];
-      selectedProgramType = editSubjectArgument[0]['programType'];
-      selectedSession = editSubjectArgument[0]['session'];
+      // selectedProgramType = editSubjectArgument[0]['programType'];
+      // selectedSession = editSubjectArgument[0]['session'];
       selectedSemester = editSubjectArgument[0]['semester'];
       selectedFallOrSpring = editSubjectArgument[0]['semester_type'];
       selectedYear = editSubjectArgument[0]['semester_type_year'];
-      subjectDuration =
-          "${editSubjectArgument[0]['start_duration']}-${editSubjectArgument[0]['end_duration']}";
+      // subjectDuration =
+      //     "${editSubjectArgument[0]['start_duration']}-${editSubjectArgument[0]['end_duration']}";
       subjectId = editSubjectArgument[0]['subjectId'];
-      _duration.text = subjectDuration.toString();
+      // _duration.text = subjectDuration.toString();
     }
     teacherId = editSubjectArgument[0]['teacherId'];
   }
@@ -229,12 +233,21 @@ class _AddSubjectState extends State<AddSubject> {
         .collection('session')
         .get()
         .then((QuerySnapshot sessions) {
+      print(sessions.docs.length);
       for (var session in sessions.docs) {
         // print(session['program']);
         sessionsavailable.add(
+<<<<<<< HEAD
             "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}");
      sessionsavailableids["${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}"] = session.id.toString();
     
+=======
+          "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}",
+        );
+        sessionsavailableids[
+                "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}"] =
+            session.id.toString();
+>>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
       }
       
     });
@@ -266,10 +279,13 @@ class _AddSubjectState extends State<AddSubject> {
   }
 
   Future _addSubjectQuery() async {
+    print(selectedProgram);
+    print(sessionsavailableids);
     return editSubjectArgument[0]["pageTitle"].toString() == "Add Subject"
         ? await subjects.doc(teacherId).collection("teacherSubjects").doc().set({
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
+            'session_id': sessionsavailableids[selectedProgram],
             'program': '$selectedProgram',
             // 'programType': '$selectedProgramType',
             // 'session': '$selectedSession',
@@ -278,7 +294,10 @@ class _AddSubjectState extends State<AddSubject> {
             'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
+<<<<<<< HEAD
             'session_id': sessionsavailableids[selectedProgram],
+=======
+>>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
             'imgUrl': downloadImgUrl,
           }, SetOptions(merge: true))
         : await subjects
@@ -288,6 +307,7 @@ class _AddSubjectState extends State<AddSubject> {
             .set({
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
+            'session_id': sessionsavailableids[selectedProgram],
             'program': '$selectedProgram',
             // 'programType': '$selectedProgramType',
             // 'session': '$selectedSession',
@@ -296,7 +316,10 @@ class _AddSubjectState extends State<AddSubject> {
             'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
+<<<<<<< HEAD
             'session_id': sessionsavailableids[selectedProgram],
+=======
+>>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
             'imgUrl': (isImageSelected)
                 ? downloadImgUrl
                 : editSubjectArgument[0]['imgUrl'],
@@ -318,8 +341,13 @@ class _AddSubjectState extends State<AddSubject> {
   }
 
   Future<void> saveSubjectData() async {
+<<<<<<< HEAD
     await  addsemester();
     _addSubjectQuery().then((value) {
+=======
+    await addsemester();
+    return _addSubjectQuery().then((value) {
+>>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
       if (editSubjectArgument[0]['pageTitle'] == "Add Subject") {
         _subjName.clear();
         _subjCode.clear();
@@ -331,9 +359,9 @@ class _AddSubjectState extends State<AddSubject> {
           selectedSession = null;
           selectedFallOrSpring = null;
           selectedYear = null;
-          subjectStartDuration = null;
-          subjectEndDuration = null;
-          subjectDuration = '';
+          // subjectStartDuration = null;
+          // subjectEndDuration = null;
+          // subjectDuration = '';
           imgPath = '';
         });
       }
@@ -343,6 +371,7 @@ class _AddSubjectState extends State<AddSubject> {
       setState(() {
         isauthenticating = false;
       });
+      Navigator.pop(context);
     }).catchError((error) {
       editSubjectArgument[0]['pageTitle'] == "Edit Subject's Details"
           ? customtoast("Failed to update Subject's data: $error")
@@ -368,130 +397,41 @@ class _AddSubjectState extends State<AddSubject> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+      body: isloading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.teal,
               ),
-              automaticallyImplyLeading: false,
-              backgroundColor: Colors.teal,
-              centerTitle: true,
-              pinned: true,
-              snap: true,
-              floating: true,
-              elevation: 0.0,
-              title: customText(
-                txt: editSubjectArgument[0]["pageTitle"].toString(),
-                clr: Colors.white,
-                fsize: 20.0,
-                fweight: FontWeight.w500,
-              ),
-              expandedHeight: responsiveHW(context, ht: 8),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                width: responsiveHW(context, wd: 100),
-                height: responsiveHW(context, ht: 23),
-                decoration: const BoxDecoration(
-                  color: Colors.teal,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20.0),
-                      bottomRight: Radius.circular(20.0)),
-                ),
-                child: Column(
-                  children: [
-                    customSizedBox(height: 1),
-                    GestureDetector(
-                      onTap: () {
-                        filepicker(filetype: FileType.image)
-                            .then((selectedpath) {
-                          if (selectedpath.toString().isNotEmpty) {
-                            setState(() {
-                              imgPath = selectedpath;
-                              isImageSelected = true;
-                            });
-                          }
-                        });
+            )
+          : Form(
+              key: _formKey,
+              child: CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    leading: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
                       },
-                      child: isImageSelected
-                          ? CircleAvatar(
-                              radius: 50.0,
-                              foregroundImage: FileImage(File(imgPath)),
-                              child: const Icon(
-                                Icons.person,
-                                size: 80.0,
-                                color: Colors.white,
-                              ),
-                            )
-                          : CircleAvatar(
-                              radius: 50.0,
-                              foregroundImage: NetworkImage(
-                                  editSubjectArgument[0]['imgUrl'].toString()),
-                              backgroundColor: Colors.black26,
-                              child: const Icon(
-                                Icons.person,
-                                size: 80.0,
-                                color: Colors.white,
-                              ),
-                            ),
                     ),
-                    customSizedBox(height: 1),
-                    Text(
-                      "Select Subject Image",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: responsiveHW(context, ht: 2)),
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Colors.teal,
+                    centerTitle: true,
+                    pinned: true,
+                    snap: true,
+                    floating: true,
+                    elevation: 0.0,
+                    title: customText(
+                      txt: editSubjectArgument[0]["pageTitle"].toString(),
+                      clr: Colors.white,
+                      fsize: 20.0,
+                      fweight: FontWeight.w500,
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                  padding: EdgeInsets.only(
-                bottom: responsiveHW(context, ht: 3)!.toDouble(),
-              )),
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              customTextField("Subject Name", false, null, _subjName, (value) {
-                if (value!.isEmpty) {
-                  return "Please Enter Subject Name";
-                }
-              }, (value) {
-                _subjName.text = value!;
-              },
-                  responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100),
-                  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    expandedHeight: responsiveHW(context, ht: 8),
                   ),
-                  filled: true,
-                  fillColor: Colors.grey[800],
-                  pIcon: Icons.edit,
-                  labeltext: 'Subject Name '),
-              customSizedBox(),
-              customTextField("Subject Code", false, null, _subjCode, (value) {
-                if (value!.isEmpty) {
-                  return "Subject Code Required*";
-                }
-              }, (value) {
-                _subjCode.text = value!;
-              },
-                  responsiveHW(context, wd: 100),
-                  responsiveHW(context, ht: 100),
-                  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+<<<<<<< HEAD
                   filled: true,
                   fillColor: Colors.grey[800],
                   pIcon: Icons.code,
@@ -608,24 +548,246 @@ class _AddSubjectState extends State<AddSubject> {
                                 });
                                 addSubjectData();
                               }
+=======
+                  SliverToBoxAdapter(
+                    child: Container(
+                      width: responsiveHW(context, wd: 100),
+                      height: responsiveHW(context, ht: 23),
+                      decoration: const BoxDecoration(
+                        color: Colors.teal,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20.0),
+                            bottomRight: Radius.circular(20.0)),
+                      ),
+                      child: Column(
+                        children: [
+                          customSizedBox(height: 1),
+                          GestureDetector(
+                            onTap: () {
+                              filepicker(filetype: FileType.image)
+                                  .then((selectedpath) {
+                                if (selectedpath.toString().isNotEmpty) {
+                                  setState(() {
+                                    imgPath = selectedpath;
+                                    isImageSelected = true;
+                                  });
+                                }
+                              });
+>>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
                             },
-                      child: isauthenticating
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : Text(
-                              editSubjectArgument[0]['buttonText'].toString(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: responsiveHW(context, ht: 3)),
-                            ),
+                            child: isImageSelected
+                                ? CircleAvatar(
+                                    radius: 50.0,
+                                    foregroundImage: FileImage(File(imgPath)),
+                                    child: const Icon(
+                                      Icons.person,
+                                      size: 80.0,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    radius: 50.0,
+                                    foregroundImage: NetworkImage(
+                                        editSubjectArgument[0]['imgUrl']
+                                            .toString()),
+                                    backgroundColor: Colors.black26,
+                                    child: const Icon(
+                                      Icons.person,
+                                      size: 80.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                          ),
+                          customSizedBox(height: 1),
+                          Text(
+                            "Select Subject Image",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: responsiveHW(context, ht: 2)),
+                          ),
+                        ],
+                      ),
                     ),
-                  ))
-            ]))
-          ],
-        ),
-      ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                        padding: EdgeInsets.only(
+                      bottom: responsiveHW(context, ht: 3)!.toDouble(),
+                    )),
+                  ),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    customTextField("Subject Name", false, null, _subjName,
+                        (value) {
+                      if (value!.isEmpty) {
+                        return "Please Enter Subject Name";
+                      }
+                    }, (value) {
+                      _subjName.text = value!;
+                    },
+                        responsiveHW(context, wd: 100),
+                        responsiveHW(context, ht: 100),
+                        OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[800],
+                        pIcon: Icons.edit,
+                        labeltext: 'Subject Name '),
+                    customSizedBox(),
+                    customTextField("Subject Code", false, null, _subjCode,
+                        (value) {
+                      if (value!.isEmpty) {
+                        return "Subject Code Required*";
+                      }
+                    }, (value) {
+                      _subjCode.text = value!;
+                    },
+                        responsiveHW(context, wd: 100),
+                        responsiveHW(context, ht: 100),
+                        OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[800],
+                        pIcon: Icons.code,
+                        labeltext: "Subject Code"),
+                    // customSizedBox(),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(
+                    //       horizontal: responsiveHW(context, wd: 6)!.toDouble()),
+                    //   child: TextFormField(
+                    //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    //     validator: (value) {
+                    //       if (value!.isEmpty) {
+                    //         return "Required*";
+                    //       }
+                    //     },
+                    //     controller: _duration,
+                    //     onTap: (() async {
+                    //       TimeRange? result = await showTimeRangePicker(
+                    //         context: context,
+                    //         use24HourFormat: false,
+                    //         padding: 10,
+                    //         strokeWidth: 8,
+                    //         handlerRadius: 7,
+                    //         strokeColor: Colors.teal,
+                    //         selectedColor: Colors.teal[300],
+                    //         ticks: 12,
+                    //         ticksColor: Colors.white,
+                    //       );
+                    //       setState(() {
+                    //         subjectStartDuration = result!.startTime;
+                    //         subjectEndDuration = result.endTime;
+                    //         _duration.text =
+                    //             "${subjectStartDuration?.format(context)}-${subjectEndDuration?.format(context)}";
+                    //       });
+                    //     }),
+                    //     readOnly: true,
+                    //     decoration: InputDecoration(
+                    //         prefixIcon: const Icon(Icons.timelapse_sharp),
+                    //         labelText: "Subject Duration",
+                    //         filled: true,
+                    //         fillColor: Colors.grey[800],
+                    //         border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(30)),
+                    //         contentPadding: EdgeInsets.symmetric(
+                    //             horizontal:
+                    //                 responsiveHW(context, wd: 2.5)!.toDouble(),
+                    //             vertical: responsiveHW(context, ht: 2)!.toDouble())),
+                    //   ),
+                    // ),
+                    customSizedBox(),
+                    customDropDownFormField(
+                        "Program", selectedProgram, sessionsavailable, (value) {
+                      setState(() {
+                        selectedProgram = value;
+                        selectedProgramType = null;
+                        selectedSession = null;
+                        selectedSemester = null;
+                      });
+                    }),
+                    // customSizedBox(),
+                    // customDropDownFormField(
+                    //     "Program Type", selectedProgramType, regularOrSelf, (value) {
+                    //   setState(() {
+                    //     selectedProgramType = value;
+                    //   });
+                    // }),
+                    // customSizedBox(),
+                    // customDropDownFormField(
+                    //     "Session",
+                    //     selectedSession,
+                    //     programs4years.contains(selectedProgram)
+                    //         ? sessions4years
+                    //         : sessions2years, (value) {
+                    //   setState(() {
+                    //     selectedSession = value;
+                    //   });
+                    // }),
+                    customSizedBox(),
+                    customDropDownFormField(
+                        "Semester", selectedSemester, semester4years, (value) {
+                      setState(() {
+                        selectedSemester = value;
+                      });
+                    }),
+                    customSizedBox(),
+                    customDropDownFormField(
+                        "Fall / Spring", selectedFallOrSpring, fallORSpring,
+                        (value) {
+                      setState(() {
+                        selectedFallOrSpring = value;
+                      });
+                    }),
+                    customSizedBox(),
+                    customDropDownFormField("Year", selectedYear, years,
+                        (value) {
+                      setState(() {
+                        selectedYear = value;
+                      });
+                    }),
+                    customSizedBox(height: 3),
+                    Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                responsiveHW(context, wd: 6)!.toDouble()),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100)),
+                              color: Color(0xff009688)),
+                          height: responsiveHW(context, ht: 6),
+                          child: TextButton(
+                            onPressed: isauthenticating
+                                ? null
+                                : () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        isauthenticating = true;
+                                      });
+                                      addSubjectData();
+                                    }
+                                  },
+                            child: isauthenticating
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : Text(
+                                    editSubjectArgument[0]['buttonText']
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: responsiveHW(context, ht: 3)),
+                                  ),
+                          ),
+                        ))
+                  ]))
+                ],
+              ),
+            ),
     );
   }
 }
