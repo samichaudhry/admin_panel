@@ -46,6 +46,7 @@ class _AddSubjectState extends State<AddSubject> {
   String? selectedYear;
   String? selectedFallOrSpring;
   List<String> sessionsavailable = [];
+  Map sessionsavailableids = {};
   // Semester Type
   List<String> regularOrSelf = ["Regular", "Self Support"];
   List<String> fallORSpring = ['Fall', 'Spring'];
@@ -171,7 +172,7 @@ class _AddSubjectState extends State<AddSubject> {
       fieldTitle, dropDownValue, List<String> listOfItems, onChangedFunc) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: responsiveHW(context, wd: 6)!.toDouble()),
+          horizontal: responsiveHW(context, wd: 5.5)!.toDouble()),
       child: DropdownButtonFormField(
           decoration: InputDecoration(
             labelText: fieldTitle,
@@ -230,7 +231,11 @@ class _AddSubjectState extends State<AddSubject> {
       for (var session in sessions.docs) {
         print(session['program']);
         sessionsavailable.add(
-            "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}");
+          "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}",
+        );
+        sessionsavailableids.assign(
+            "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}",
+            session.id.toString());
       }
     });
   }
@@ -265,14 +270,15 @@ class _AddSubjectState extends State<AddSubject> {
         ? subjects.doc(teacherId).collection("teacherSubjects").doc().set({
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
+            'session_id': sessionsavailableids[selectedProgram],
             'program': '$selectedProgram',
             // 'programType': '$selectedProgramType',
             // 'session': '$selectedSession',
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
-            'start_duration': subjectStartDuration?.format(context),
-            'end_duration': subjectEndDuration?.format(context),
+            // 'start_duration': subjectStartDuration?.format(context),
+            // 'end_duration': subjectEndDuration?.format(context),
             'imgUrl': downloadImgUrl,
           }, SetOptions(merge: true))
         : subjects
@@ -282,14 +288,15 @@ class _AddSubjectState extends State<AddSubject> {
             .set({
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
+            'session_id': sessionsavailableids[selectedProgram],
             'program': '$selectedProgram',
             // 'programType': '$selectedProgramType',
             // 'session': '$selectedSession',
             'semester': '$selectedSemester',
             'semester_type': '$selectedFallOrSpring $selectedYear',
             'semester_type_year': '$selectedYear',
-            'start_duration': subjectStartDuration?.format(context),
-            'end_duration': subjectEndDuration?.format(context),
+            // 'start_duration': subjectStartDuration?.format(context),
+            // 'end_duration': subjectEndDuration?.format(context),
             'imgUrl': (isImageSelected)
                 ? downloadImgUrl
                 : editSubjectArgument[0]['imgUrl'],
@@ -311,8 +318,8 @@ class _AddSubjectState extends State<AddSubject> {
   }
 
   Future<void> saveSubjectData() async {
+    await addsemester();
     return _addSubjectQuery().then((value) {
-      addsemester();
       if (editSubjectArgument[0]['pageTitle'] == "Add Subject") {
         _subjName.clear();
         _subjCode.clear();
@@ -324,9 +331,9 @@ class _AddSubjectState extends State<AddSubject> {
           selectedSession = null;
           selectedFallOrSpring = null;
           selectedYear = null;
-          subjectStartDuration = null;
-          subjectEndDuration = null;
-          subjectDuration = '';
+          // subjectStartDuration = null;
+          // subjectEndDuration = null;
+          // subjectDuration = '';
           imgPath = '';
         });
       }
@@ -336,6 +343,7 @@ class _AddSubjectState extends State<AddSubject> {
       setState(() {
         isauthenticating = false;
       });
+      Navigator.pop(context);
     }).catchError((error) {
       editSubjectArgument[0]['pageTitle'] == "Edit Subject's Details"
           ? customtoast("Failed to update Subject's data: $error")
@@ -489,51 +497,51 @@ class _AddSubjectState extends State<AddSubject> {
                   fillColor: Colors.grey[800],
                   pIcon: Icons.code,
                   labeltext: "Subject Code"),
-              customSizedBox(),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-                child: TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Required*";
-                    }
-                  },
-                  controller: _duration,
-                  onTap: (() async {
-                    TimeRange? result = await showTimeRangePicker(
-                      context: context,
-                      use24HourFormat: false,
-                      padding: 10,
-                      strokeWidth: 8,
-                      handlerRadius: 7,
-                      strokeColor: Colors.teal,
-                      selectedColor: Colors.teal[300],
-                      ticks: 12,
-                      ticksColor: Colors.white,
-                    );
-                    setState(() {
-                      subjectStartDuration = result!.startTime;
-                      subjectEndDuration = result.endTime;
-                      _duration.text =
-                          "${subjectStartDuration?.format(context)}-${subjectEndDuration?.format(context)}";
-                    });
-                  }),
-                  readOnly: true,
-                  decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.timelapse_sharp),
-                      labelText: "Subject Duration",
-                      filled: true,
-                      fillColor: Colors.grey[800],
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30)),
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal:
-                              responsiveHW(context, wd: 2.5)!.toDouble(),
-                          vertical: responsiveHW(context, ht: 2)!.toDouble())),
-                ),
-              ),
+              // customSizedBox(),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(
+              //       horizontal: responsiveHW(context, wd: 6)!.toDouble()),
+              //   child: TextFormField(
+              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+              //     validator: (value) {
+              //       if (value!.isEmpty) {
+              //         return "Required*";
+              //       }
+              //     },
+              //     controller: _duration,
+              //     onTap: (() async {
+              //       TimeRange? result = await showTimeRangePicker(
+              //         context: context,
+              //         use24HourFormat: false,
+              //         padding: 10,
+              //         strokeWidth: 8,
+              //         handlerRadius: 7,
+              //         strokeColor: Colors.teal,
+              //         selectedColor: Colors.teal[300],
+              //         ticks: 12,
+              //         ticksColor: Colors.white,
+              //       );
+              //       setState(() {
+              //         subjectStartDuration = result!.startTime;
+              //         subjectEndDuration = result.endTime;
+              //         _duration.text =
+              //             "${subjectStartDuration?.format(context)}-${subjectEndDuration?.format(context)}";
+              //       });
+              //     }),
+              //     readOnly: true,
+              //     decoration: InputDecoration(
+              //         prefixIcon: const Icon(Icons.timelapse_sharp),
+              //         labelText: "Subject Duration",
+              //         filled: true,
+              //         fillColor: Colors.grey[800],
+              //         border: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(30)),
+              //         contentPadding: EdgeInsets.symmetric(
+              //             horizontal:
+              //                 responsiveHW(context, wd: 2.5)!.toDouble(),
+              //             vertical: responsiveHW(context, ht: 2)!.toDouble())),
+              //   ),
+              // ),
               customSizedBox(),
               customDropDownFormField(
                   "Program", selectedProgram, sessionsavailable, (value) {
