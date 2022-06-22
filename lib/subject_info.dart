@@ -154,8 +154,8 @@ class _SubjectInfoState extends State<SubjectInfo> {
                     'subject_name': subjectInfoArguments[0]['subject_name'],
                     'subject_code': subjectInfoArguments[0]['subject_code'],
                     'program': subjectInfoArguments[0]['program'],
-                    'programType': subjectInfoArguments[0]['programType'],
-                    'session': subjectInfoArguments[0]['session'],
+                    // 'programType': subjectInfoArguments[0]['programType'],
+                    'session_id': subjectInfoArguments[0]['session_id'],
                     'semester': subjectInfoArguments[0]['semester'],
                     'semester_type': subjectInfoArguments[0]['semester_type']
                         .toString()
@@ -166,8 +166,8 @@ class _SubjectInfoState extends State<SubjectInfo> {
                                 .indexOf(" ")),
                     'semester_type_year': subjectInfoArguments[0]
                         ['semester_type_year'],
-                    'start_duration': subjectInfoArguments[0]['start_duration'],
-                    'end_duration': subjectInfoArguments[0]['end_duration'],
+                    // 'start_duration': subjectInfoArguments[0]['start_duration'],
+                    // 'end_duration': subjectInfoArguments[0]['end_duration'],
                     'imgUrl': subjectInfoArguments[0]['imgUrl'],
                   }
                 ]);

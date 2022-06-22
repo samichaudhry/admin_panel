@@ -125,6 +125,8 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
                                       'subject_code':
                                           docSnapshot['subject_code']
                                               .toString(),
+                                      'session_id':
+                                          docSnapshot['session_id'].toString(),
                                       'program':
                                           docSnapshot['program'].toString(),
                                       // 'programType':
