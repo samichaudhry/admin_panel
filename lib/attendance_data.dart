@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
@@ -89,8 +91,14 @@ class _AttendanceDataState extends State<AttendanceData> {
                   itemBuilder: (context, ind) {
                     rows.clear();
                     Map statsdata = subjectsdata[ind]['statsdata'];
-
-                    for (var data in statsdata.values) {
+                    var vals = statsdata.values.toList()
+                      ..sort(
+                        (a, b) {
+                          return a["rollno"].compareTo(b["rollno"]);
+                        },
+                      );
+                    print(vals);
+                    for (var data in vals) {
                       rows.add(
                         TableRow(children: [
                           customText(txt: '${data["rollno"]}', padding: 10.0),
