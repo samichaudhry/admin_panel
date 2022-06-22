@@ -121,11 +121,7 @@ class _SubjectInfoState extends State<SubjectInfo> {
                         children: [
                           TextSpan(
                             text:
-<<<<<<< HEAD
-                                "\n${subjectInfoArguments[0]['program']}-${subjectInfoArguments[0]['semester']})",
-=======
                                 "\n${subjectInfoArguments[0]['program']}-${subjectInfoArguments[0]['semester']} (${subjectInfoArguments[0]['semester_type']})",
->>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,

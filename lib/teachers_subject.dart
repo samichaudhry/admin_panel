@@ -172,15 +172,11 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
                                       children: [
                                         TextSpan(
                                           text:
-<<<<<<< HEAD
-                                              "-${docSnapshot['semester'].toString()}",
-=======
                                               "(${docSnapshot['semester_type'].toString()})",
                                         ),
                                         TextSpan(
                                           text:
                                               "\n${docSnapshot['program'].toString()}",
->>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
                                         ),
                                         // TextSpan(
                                         //   text:

@@ -67,14 +67,6 @@ class _AttendanceDataState extends State<AttendanceData> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         toolbarHeight: 80.0,
-<<<<<<< HEAD
-        // actions: [
-        //   IconButton(
-        //       onPressed: getsubjectsdata,
-        //       icon: const Icon(Icons.add_circle_sharp)),
-        // ],
-=======
->>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
         title: customText(
             txt: '${args['session']}',
             fsize: 20.0,
@@ -97,7 +89,7 @@ class _AttendanceDataState extends State<AttendanceData> {
                   itemBuilder: (context, ind) {
                     rows.clear();
                     Map statsdata = subjectsdata[ind]['statsdata'];
-                  
+
                     for (var data in statsdata.values) {
                       rows.add(
                         TableRow(children: [

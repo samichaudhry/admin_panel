@@ -237,19 +237,12 @@ class _AddSubjectState extends State<AddSubject> {
       for (var session in sessions.docs) {
         // print(session['program']);
         sessionsavailable.add(
-<<<<<<< HEAD
-            "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}");
-     sessionsavailableids["${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}"] = session.id.toString();
-    
-=======
           "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}",
         );
         sessionsavailableids[
                 "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}"] =
             session.id.toString();
->>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
       }
-      
     });
   }
 
@@ -282,7 +275,11 @@ class _AddSubjectState extends State<AddSubject> {
     print(selectedProgram);
     print(sessionsavailableids);
     return editSubjectArgument[0]["pageTitle"].toString() == "Add Subject"
-        ? await subjects.doc(teacherId).collection("teacherSubjects").doc().set({
+        ? await subjects
+            .doc(teacherId)
+            .collection("teacherSubjects")
+            .doc()
+            .set({
             'subject_name': _subjName.text.trim(),
             'subject_code': _subjCode.text.trim(),
             'session_id': sessionsavailableids[selectedProgram],
@@ -294,10 +291,7 @@ class _AddSubjectState extends State<AddSubject> {
             'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
-<<<<<<< HEAD
-            'session_id': sessionsavailableids[selectedProgram],
-=======
->>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
+            // 'session_id': sessionsavailableids[selectedProgram],
             'imgUrl': downloadImgUrl,
           }, SetOptions(merge: true))
         : await subjects
@@ -316,10 +310,6 @@ class _AddSubjectState extends State<AddSubject> {
             'semester_type_year': '$selectedYear',
             // 'start_duration': subjectStartDuration?.format(context),
             // 'end_duration': subjectEndDuration?.format(context),
-<<<<<<< HEAD
-            'session_id': sessionsavailableids[selectedProgram],
-=======
->>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
             'imgUrl': (isImageSelected)
                 ? downloadImgUrl
                 : editSubjectArgument[0]['imgUrl'],
@@ -341,13 +331,8 @@ class _AddSubjectState extends State<AddSubject> {
   }
 
   Future<void> saveSubjectData() async {
-<<<<<<< HEAD
-    await  addsemester();
-    _addSubjectQuery().then((value) {
-=======
     await addsemester();
     return _addSubjectQuery().then((value) {
->>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
       if (editSubjectArgument[0]['pageTitle'] == "Add Subject") {
         _subjName.clear();
         _subjCode.clear();
@@ -431,124 +416,6 @@ class _AddSubjectState extends State<AddSubject> {
                     ),
                     expandedHeight: responsiveHW(context, ht: 8),
                   ),
-<<<<<<< HEAD
-                  filled: true,
-                  fillColor: Colors.grey[800],
-                  pIcon: Icons.code,
-                  labeltext: "Subject Code"),
-              customSizedBox(),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(
-              //       horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-              //   child: TextFormField(
-              //     autovalidateMode: AutovalidateMode.onUserInteraction,
-              //     validator: (value) {
-              //       if (value!.isEmpty) {
-              //         return "Required*";
-              //       }
-              //     },
-              //     controller: _duration,
-              //     onTap: (() async {
-              //       TimeRange? result = await showTimeRangePicker(
-              //         context: context,
-              //         use24HourFormat: false,
-              //         padding: 10,
-              //         strokeWidth: 8,
-              //         handlerRadius: 7,
-              //         strokeColor: Colors.teal,
-              //         selectedColor: Colors.teal[300],
-              //         ticks: 12,
-              //         ticksColor: Colors.white,
-              //       );
-              //       setState(() {
-              //         subjectStartDuration = result!.startTime;
-              //         subjectEndDuration = result.endTime;
-              //         _duration.text =
-              //             "${subjectStartDuration?.format(context)}-${subjectEndDuration?.format(context)}";
-              //       });
-              //     }),
-              //     readOnly: true,
-              //     decoration: InputDecoration(
-              //         prefixIcon: const Icon(Icons.timelapse_sharp),
-              //         labelText: "Subject Duration",
-              //         filled: true,
-              //         fillColor: Colors.grey[800],
-              //         border: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(30)),
-              //         contentPadding: EdgeInsets.symmetric(
-              //             horizontal:
-              //                 responsiveHW(context, wd: 2.5)!.toDouble(),
-              //             vertical: responsiveHW(context, ht: 2)!.toDouble())),
-              //   ),
-              // ),
-              // customSizedBox(),
-              customDropDownFormField(
-                  "Program", selectedProgram, sessionsavailable, (value) {
-                setState(() {
-                  selectedProgram = value;
-                  selectedProgramType = null;
-                  selectedSession = null;
-                  selectedSemester = null;
-                });
-              }),
-              // customSizedBox(),
-              // customDropDownFormField(
-              //     "Program Type", selectedProgramType, regularOrSelf, (value) {
-              //   setState(() {
-              //     selectedProgramType = value;
-              //   });
-              // }),
-              // customSizedBox(),
-              // customDropDownFormField(
-              //     "Session",
-              //     selectedSession,
-              //     programs4years.contains(selectedProgram)
-              //         ? sessions4years
-              //         : sessions2years, (value) {
-              //   setState(() {
-              //     selectedSession = value;
-              //   });
-              // }),
-              customSizedBox(),
-              customDropDownFormField(
-                  "Semester", selectedSemester, semester4years, (value) {
-                setState(() {
-                  selectedSemester = value;
-                });
-              }),
-              customSizedBox(),
-              customDropDownFormField(
-                  "Fall / Spring", selectedFallOrSpring, fallORSpring, (value) {
-                setState(() {
-                  selectedFallOrSpring = value;
-                });
-              }),
-              customSizedBox(),
-              customDropDownFormField("Year", selectedYear, years, (value) {
-                setState(() {
-                  selectedYear = value;
-                });
-              }),
-              customSizedBox(height: 3),
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
-                        color: Color(0xff009688)),
-                    height: responsiveHW(context, ht: 6),
-                    child: TextButton(
-                      onPressed: isauthenticating
-                          ? null
-                          : () async {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  isauthenticating = true;
-                                });
-                                addSubjectData();
-                              }
-=======
                   SliverToBoxAdapter(
                     child: Container(
                       width: responsiveHW(context, wd: 100),
@@ -573,7 +440,6 @@ class _AddSubjectState extends State<AddSubject> {
                                   });
                                 }
                               });
->>>>>>> fe901597de6205d604bc37d604317c235cecb9bc
                             },
                             child: isImageSelected
                                 ? CircleAvatar(
