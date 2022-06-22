@@ -127,10 +127,10 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
                                               .toString(),
                                       'program':
                                           docSnapshot['program'].toString(),
-                                      'programType':
-                                          docSnapshot['programType'].toString(),
-                                      'session':
-                                          docSnapshot['session'].toString(),
+                                      // 'programType':
+                                      //     docSnapshot['programType'].toString(),
+                                      // 'session':
+                                      //     docSnapshot['session'].toString(),
                                       'semester':
                                           docSnapshot['semester'].toString(),
                                       'semester_type':
@@ -139,10 +139,10 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
                                       'semester_type_year':
                                           docSnapshot['semester_type_year']
                                               .toString(),
-                                      'start_duration':
-                                          docSnapshot['start_duration'],
-                                      'end_duration':
-                                          docSnapshot['end_duration'],
+                                      // 'start_duration':
+                                      //     docSnapshot['start_duration'],
+                                      // 'end_duration':
+                                      //     docSnapshot['end_duration'],
                                       'imgUrl':
                                           docSnapshot['imgUrl'].toString(),
                                     }
@@ -162,7 +162,7 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
                                 ),
                                 subtitle: RichText(
                                   text: TextSpan(
-                                      text: docSnapshot['program'].toString(),
+                                      // text: docSnapshot['program'].toString(),
                                       style: const TextStyle(
                                         fontSize: 15.5,
                                         fontWeight: FontWeight.w600,
@@ -170,11 +170,11 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
                                       children: [
                                         TextSpan(
                                           text:
-                                              "-${docSnapshot['semester'].toString()}-${docSnapshot['programType'].toString() == 'Self Support' ? "SS" : "R"}",
+                                              "(${docSnapshot['semester_type'].toString()})",
                                         ),
                                         TextSpan(
                                           text:
-                                              " (${docSnapshot['session'].toString()})",
+                                              "\n${docSnapshot['program'].toString()}",
                                         ),
                                       ]),
                                 ),
