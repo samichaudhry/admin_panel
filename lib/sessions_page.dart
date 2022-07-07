@@ -470,80 +470,78 @@ class _sessionpageState extends State<sessionpage> {
               );
             }
             if (data!.isEmpty) {
-              return CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    leading: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back,
-                      ),
+              return CustomScrollView(slivers: [
+                SliverAppBar(
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
                     ),
-                    title: customSearchBar,
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            if (customIcon.icon == Icons.search) {
-                              customIcon = const Icon(
-                                Icons.cancel,
-                              );
-                              customSearchBar = SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.04,
-                                child: Material(
-                                  color: Colors.grey[600],
-                                  borderRadius: BorderRadius.circular(14.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10.0, top: 2),
-                                    child: TextField(
-                                        autofocus: true,
-                                        onChanged: (value) {
-                                          setState(() {});
-                                        },
-                                        controller: _searchcontroller,
-                                        cursorColor: Colors.teal,
-                                        decoration: const InputDecoration(
-                                          hintText: 'Search by program',
-                                          border: InputBorder.none,
-                                        )),
-                                  ),
-                                ),
-                              );
-                            } else {
-                              customIcon = const Icon(Icons.search);
-                              customSearchBar = const Text('Sessions');
-                            }
-                          });
-                        },
-                        icon: customIcon,
-                      ),
-                    ],
-                    automaticallyImplyLeading: false,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                    ),
-                    pinned: true,
-                    floating: true,
-                    snap: true,
-                    expandedHeight: responsiveHW(context, ht: 12),
-                    collapsedHeight: responsiveHW(context, ht: 11),
-                    flexibleSpace: FlexibleSpaceBar(
-                        title: Text(
-                      "\n\n\nTotal Sessions: ${documents?.length}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          color: Colors.grey[400]),
-                    )),
                   ),
-              SliverToBoxAdapter(
+                  title: customSearchBar,
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          if (customIcon.icon == Icons.search) {
+                            customIcon = const Icon(
+                              Icons.cancel,
+                            );
+                            customSearchBar = SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              child: Material(
+                                color: Colors.grey[600],
+                                borderRadius: BorderRadius.circular(14.0),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 10.0, top: 2),
+                                  child: TextField(
+                                      autofocus: true,
+                                      onChanged: (value) {
+                                        setState(() {});
+                                      },
+                                      controller: _searchcontroller,
+                                      cursorColor: Colors.teal,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Search by program',
+                                        border: InputBorder.none,
+                                      )),
+                                ),
+                              ),
+                            );
+                          } else {
+                            customIcon = const Icon(Icons.search);
+                            customSearchBar = const Text('Sessions');
+                          }
+                        });
+                      },
+                      icon: customIcon,
+                    ),
+                  ],
+                  automaticallyImplyLeading: false,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                  pinned: true,
+                  floating: true,
+                  snap: true,
+                  expandedHeight: responsiveHW(context, ht: 12),
+                  collapsedHeight: responsiveHW(context, ht: 11),
+                  flexibleSpace: FlexibleSpaceBar(
+                      title: Text(
+                    "\n\n\nTotal Sessions: ${documents?.length}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                        color: Colors.grey[400]),
+                  )),
+                ),
+                SliverToBoxAdapter(
                   child: RefreshIndicator(
                     onRefresh: () async {
                       setState(() {});
@@ -575,7 +573,8 @@ class _sessionpageState extends State<sessionpage> {
                       ),
                     ),
                   ),
-                ),]);
+                ),
+              ]);
             } else {
               return CustomScrollView(
                 slivers: [

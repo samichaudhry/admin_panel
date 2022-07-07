@@ -2,7 +2,9 @@ import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'custom widgets/custom_toast.dart';
 
@@ -104,7 +106,129 @@ class _RequestPageState extends State<RequestPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
-                                // onTap: () {},
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    // barrierColor: Colors.teal,
+                                    elevation: 10,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    builder: (BuildContext context) {
+                                      // UDE : SizedBox instead of Container for whitespaces
+                                      return SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.4,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Center(
+                                            child: ListView(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 20.0,
+                                                ),
+                                                RichText(
+                                                  textAlign: TextAlign.left,
+                                                  text: TextSpan(
+                                                      style: const TextStyle(
+                                                          fontSize: 18.0),
+                                                      children: [
+                                                        const TextSpan(
+                                                            text: 'NAME: ',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.teal,
+                                                            )),
+                                                        TextSpan(
+                                                          text:
+                                                              '${docsnapshot['teacher_name']}\n\n',
+                                                        ),
+                                                        const TextSpan(
+                                                            text:
+                                                                'DEPARTMENT: ',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.teal,
+                                                            )),
+                                                        TextSpan(
+                                                          text:
+                                                              '${docsnapshot['department']}\n\n',
+                                                        ),
+                                                        const TextSpan(
+                                                            text:
+                                                                'DESIGNATION: ',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.teal,
+                                                            )),
+                                                        TextSpan(
+                                                          text:
+                                                              '${docsnapshot['designation']}\n\n',
+                                                        ),
+                                                        const TextSpan(
+                                                            text: 'EMAIL: ',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.teal,
+                                                            )),
+                                                        TextSpan(
+                                                          text:
+                                                              '${docsnapshot['email']}\n\n',
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.blue,
+                                                          ),
+                                                          recognizer:
+                                                              TapGestureRecognizer()
+                                                                ..onTap = () {
+                                                                  Clipboard.setData(ClipboardData(
+                                                                          text:
+                                                                              "${docsnapshot['email']}"))
+                                                                      .then(
+                                                                          (value) {
+                                                                    rawsnackbar(
+                                                                        'Email copied to clipboard');
+                                                                  });
+                                                                },
+                                                        ),
+                                                        const TextSpan(
+                                                            text:
+                                                                'CONTACT NO: ',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.teal,
+                                                            )),
+                                                        TextSpan(
+                                                          text:
+                                                              '${docsnapshot['contact_no']}\n\n',
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.blue,
+                                                          ),
+                                                          recognizer:
+                                                              TapGestureRecognizer()
+                                                                ..onTap = () {
+                                                                  Clipboard.setData(ClipboardData(
+                                                                          text:
+                                                                              "${docsnapshot['contact_no']}"))
+                                                                      .then(
+                                                                          (value) {
+                                                                    rawsnackbar(
+                                                                        'Phone number copied to clipboard');
+                                                                  });
+                                                                },
+                                                        ),
+                                                      ]),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
                                 title: Text(
                                   docsnapshot['teacher_name'].toString(),
                                   style: const TextStyle(
