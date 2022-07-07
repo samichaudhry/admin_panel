@@ -224,11 +224,19 @@ class _RequestPageState extends State<RequestPage> {
                                                                             PopupMenuItem(
                                                                                 child: TextButton.icon(
                                                                               onPressed: () async {
-                                                                                final Uri params = Uri(
+                                                                                String? encodeQueryParameters(Map<String, String> params) {
+                                                                                  return params.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
+                                                                                }
+
+                                                                                final Uri emailLaunchUri = Uri(
                                                                                   scheme: 'mailto',
                                                                                   path: '${docsnapshot['email']}',
+                                                                                  query: encodeQueryParameters(<String, String>{
+                                                                                    'subject': '',
+                                                                                  }),
                                                                                 );
-                                                                                launchUrl(params);
+
+                                                                                launchUrl(Uri.parse('${docsnapshot['email']}'));
                                                                               },
                                                                               icon: const Icon(
                                                                                 Icons.email_outlined,
@@ -266,9 +274,9 @@ class _RequestPageState extends State<RequestPage> {
                                                                     position: RelativeRect.fromLTRB(
                                                                         0.0,
                                                                         MediaQuery.of(context).size.height *
-                                                                            0.7,
+                                                                            0.75,
                                                                         MediaQuery.of(context).size.height *
-                                                                            0.7,
+                                                                            0.75,
                                                                         0.0),
                                                                     elevation:
                                                                         5.0,
@@ -313,14 +321,6 @@ class _RequestPageState extends State<RequestPage> {
                                                                       ),
                                                                     ],
                                                                   );
-                                                                  // Clipboard.setData(ClipboardData(
-                                                                  //         text:
-                                                                  //             "${docsnapshot['contact_no']}"))
-                                                                  //     .then(
-                                                                  //         (value) {
-                                                                  //   rawsnackbar(
-                                                                  //       'Phone number copied to clipboard');
-                                                                  // });
                                                                 },
                                                         ),
                                                       ]),
@@ -341,7 +341,7 @@ class _RequestPageState extends State<RequestPage> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  docsnapshot['designation'].toString(),
+                                  docsnapshot['department'].toString(),
                                   style: const TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
