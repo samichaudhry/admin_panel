@@ -161,7 +161,7 @@ class _TeachersPageState extends State<TeachersPage> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  docsnapshot['designation'].toString(),
+                                  docsnapshot['department'].toString(),
                                   style: const TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,

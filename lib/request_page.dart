@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'custom widgets/custom_toast.dart';
 
@@ -182,14 +184,63 @@ class _RequestPageState extends State<RequestPage> {
                                                           recognizer:
                                                               TapGestureRecognizer()
                                                                 ..onTap = () {
-                                                                  Clipboard.setData(ClipboardData(
-                                                                          text:
-                                                                              "${docsnapshot['email']}"))
-                                                                      .then(
-                                                                          (value) {
-                                                                    rawsnackbar(
-                                                                        'Email copied to clipboard');
-                                                                  });
+                                                                  showMenu(
+                                                                    context:
+                                                                        context,
+                                                                    position: RelativeRect.fromLTRB(
+                                                                        0.0,
+                                                                        MediaQuery.of(context).size.height *
+                                                                            0.7,
+                                                                        MediaQuery.of(context).size.height *
+                                                                            0.7,
+                                                                        0.0),
+                                                                    elevation:
+                                                                        5.0,
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10.0),
+                                                                    ),
+                                                                    items: [
+                                                                      PopupMenuItem(
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            PopupMenuItem(
+                                                                                child: TextButton.icon(
+                                                                              onPressed: () {
+                                                                                Clipboard.setData(ClipboardData(text: "${docsnapshot['email']}")).then((value) {
+                                                                                  rawsnackbar('Email copied to clipboard');
+                                                                                  Navigator.pop(context);
+                                                                                });
+                                                                              },
+                                                                              icon: const Icon(
+                                                                                Icons.copy,
+                                                                                color: Colors.teal,
+                                                                              ),
+                                                                              label: customText(txt: 'Copy', clr: Colors.white),
+                                                                            )),
+                                                                            PopupMenuItem(
+                                                                                child: TextButton.icon(
+                                                                              onPressed: () async {
+                                                                                final Uri params = Uri(
+                                                                                  scheme: 'mailto',
+                                                                                  path: '${docsnapshot['email']}',
+                                                                                );
+                                                                                launchUrl(params);
+                                                                              },
+                                                                              icon: const Icon(
+                                                                                Icons.email_outlined,
+                                                                                color: Colors.teal,
+                                                                              ),
+                                                                              label: customText(txt: 'Email', clr: Colors.white),
+                                                                            )),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  );
                                                                 },
                                                         ),
                                                         const TextSpan(
@@ -209,14 +260,67 @@ class _RequestPageState extends State<RequestPage> {
                                                           recognizer:
                                                               TapGestureRecognizer()
                                                                 ..onTap = () {
-                                                                  Clipboard.setData(ClipboardData(
-                                                                          text:
-                                                                              "${docsnapshot['contact_no']}"))
-                                                                      .then(
-                                                                          (value) {
-                                                                    rawsnackbar(
-                                                                        'Phone number copied to clipboard');
-                                                                  });
+                                                                  showMenu(
+                                                                    context:
+                                                                        context,
+                                                                    position: RelativeRect.fromLTRB(
+                                                                        0.0,
+                                                                        MediaQuery.of(context).size.height *
+                                                                            0.7,
+                                                                        MediaQuery.of(context).size.height *
+                                                                            0.7,
+                                                                        0.0),
+                                                                    elevation:
+                                                                        5.0,
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10.0),
+                                                                    ),
+                                                                    items: [
+                                                                      PopupMenuItem(
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            PopupMenuItem(
+                                                                                child: TextButton.icon(
+                                                                              onPressed: () {
+                                                                                Clipboard.setData(ClipboardData(text: "${docsnapshot['contact_no']}")).then((value) {
+                                                                                  rawsnackbar('Phone number copied to clipboard');
+                                                                                  Navigator.pop(context);
+                                                                                });
+                                                                              },
+                                                                              icon: const Icon(
+                                                                                Icons.copy,
+                                                                                color: Colors.teal,
+                                                                              ),
+                                                                              label: customText(txt: 'Copy', clr: Colors.white),
+                                                                            )),
+                                                                            PopupMenuItem(
+                                                                                child: TextButton.icon(
+                                                                              onPressed: () async {
+                                                                                launchUrl(Uri.parse('tel:${docsnapshot['contact_no']}'));
+                                                                              },
+                                                                              icon: const Icon(
+                                                                                Icons.call,
+                                                                                color: Colors.teal,
+                                                                              ),
+                                                                              label: customText(txt: 'Call', clr: Colors.white),
+                                                                            )),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                  // Clipboard.setData(ClipboardData(
+                                                                  //         text:
+                                                                  //             "${docsnapshot['contact_no']}"))
+                                                                  //     .then(
+                                                                  //         (value) {
+                                                                  //   rawsnackbar(
+                                                                  //       'Phone number copied to clipboard');
+                                                                  // });
                                                                 },
                                                         ),
                                                       ]),

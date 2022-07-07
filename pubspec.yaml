@@ -52,6 +52,7 @@ dependencies:
   dio: any
   permission_handler: any
   badges: any
+  url_launcher: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
