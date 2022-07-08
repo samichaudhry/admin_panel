@@ -1,7 +1,9 @@
+import 'package:admin_panel/utils.dart';
 import 'package:flutter/material.dart';
 
 Widget customTextField(hintTitle, isPassword, sIcon, controllerName,
-    validationFunc, onSavedFunc, wSize, hSize,border ,{ pIcon,filled ,fillColor,labeltext}) {
+    validationFunc, onSavedFunc, wSize, hSize, border,
+    {pIcon, filled, fillColor, labeltext}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: wSize * 6 / 100),
     child: Stack(children: [
@@ -27,9 +29,9 @@ Widget customTextField(hintTitle, isPassword, sIcon, controllerName,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: isPassword,
         decoration: InputDecoration(
-           filled: filled,
-           fillColor:fillColor,
-           labelText: labeltext,
+            filled: filled,
+            fillColor: fillColor,
+            labelText: labeltext,
             hintText: hintTitle,
             suffixIcon: sIcon,
             prefixIcon: Icon(
@@ -43,5 +45,37 @@ Widget customTextField(hintTitle, isPassword, sIcon, controllerName,
         onSaved: onSavedFunc,
       ),
     ]),
+  );
+}
+
+Widget customDropDownFormField(
+    fieldTitle, dropDownValue, List<String> listOfItems, onChangedFunc, ctx) {
+  return Padding(
+    padding:
+        EdgeInsets.symmetric(horizontal: responsiveHW(ctx, wd: 6)!.toDouble()),
+    child: DropdownButtonFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        decoration: InputDecoration(
+          labelText: fieldTitle,
+          focusColor: Colors.grey,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          filled: true,
+          fillColor: Colors.grey[800],
+        ),
+        validator: (value) => value == null ? 'Required*' : null,
+        icon: const Icon(
+          Icons.arrow_drop_down,
+          color: Colors.grey,
+        ),
+        // hint: Text(
+        //   'Select $fieldTitle',
+        // ),
+        value: dropDownValue,
+        items: listOfItems.map((String value) {
+          return DropdownMenuItem<String>(value: value, child: Text(value));
+        }).toList(),
+        onChanged: onChangedFunc),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +31,25 @@ class _RequestPageState extends State<RequestPage> {
     });
   }
 
+  String? _departments;
+
+  List<String> departments = [
+    'Computer Science and IT',
+    'Biological Science',
+    'Chemistry',
+    'Physics',
+    'Business Administration',
+    'Economics',
+    'Education',
+    'English',
+    'Mathematics',
+    'Psychology',
+    'Social Work',
+    'Sociology',
+    'Sports Sciences',
+    'Urdu'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,11 +65,16 @@ class _RequestPageState extends State<RequestPage> {
                 child: Text('Something Went Wrong'),
               );
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return const Center(
+            //     child: CircularProgressIndicator(
+            //       color: Colors.teal,
+            //     ),
+            //   );
+            // }
+            if (!snapshot.hasData) {
               return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.teal,
-                ),
+                child: CircularProgressIndicator(),
               );
             }
             if (data!.isNotEmpty) {

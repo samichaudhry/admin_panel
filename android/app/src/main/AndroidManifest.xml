@@ -34,10 +34,10 @@
         <action android:name="android.intent.action.VIEW" />
         <data android:scheme="https" />
     </intent-filter>
-    <!-- <intent-filter>
+    <intent-filter>
         <action android:name="android.intent.action.SEND" />
         <data android:mimeType="*/*" />
-    </intent-filter> -->
+    </intent-filter>
      <intent-filter>
       <action android:name="android.intent.action.SENDTO" />
       <data android:scheme="mailto" />

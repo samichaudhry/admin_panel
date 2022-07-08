@@ -1,5 +1,6 @@
 import 'package:admin_panel/add_teacher.dart';
 import 'package:admin_panel/custom%20widgets/custom_toast.dart';
+import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/teacher_info.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
@@ -7,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 class TeachersPage extends StatefulWidget {
   const TeachersPage({Key? key}) : super(key: key);
 
@@ -29,6 +31,26 @@ class _TeachersPageState extends State<TeachersPage> {
       Navigator.pop(context);
     });
   }
+
+  String? _departments = 'All';
+
+  List<String> departments = [
+    'All',
+    'Computer Science and IT',
+    'Biological Science',
+    'Chemistry',
+    'Physics',
+    'Business Administration',
+    'Economics',
+    'Education',
+    'English',
+    'Mathematics',
+    'Psychology',
+    'Social Work',
+    'Sociology',
+    'Sports Sciences',
+    'Urdu'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +85,23 @@ class _TeachersPageState extends State<TeachersPage> {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;
+            data?.insertAll(0, data);
+            data?.insertAll(0, data);
             if (snapshot.hasError) {
               return const Center(
                 child: Text('Something Went Wrong'),
               );
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return const Center(
+            //     child: CircularProgressIndicator(
+            //       color: Colors.teal,
+            //     ),
+            //   );
+            // }
+            if (!snapshot.hasData) {
               return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.teal,
-                ),
+                child: CircularProgressIndicator(),
               );
             }
             if (data!.isNotEmpty) {
@@ -104,18 +133,33 @@ class _TeachersPageState extends State<TeachersPage> {
                   expandedHeight: responsiveHW(context, ht: 12),
                   collapsedHeight: responsiveHW(context, ht: 11),
                   flexibleSpace: FlexibleSpaceBar(
-                      title: Text(
-                    "\n\n\nTotal Teachers: $totalTeachers",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        color: Colors.grey[400]),
-                  )),
+                    title: Text(
+                      "\n\n\nTotal Teachers: $totalTeachers",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: Colors.grey[400]),
+                    ),
+                  ),
+                ),
+                const SliverPadding(
+                  padding: EdgeInsets.all(10.0),
+                ),
+                SliverToBoxAdapter(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: customDropDownFormField(
+                        "Departments", _departments, departments, (value) {
+                      setState(() {
+                        _departments = value;
+                      });
+                    }, context),
+                  ),
                 ),
                 SliverList(
                     delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    DocumentSnapshot docsnapshot = snapshot.data!.docs[index];
+                    DocumentSnapshot docsnapshot = data[index];
                     return RefreshIndicator(
                       onRefresh: () async {
                         setState(() {});
@@ -262,15 +306,25 @@ class _TeachersPageState extends State<TeachersPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
+                          children: [
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: customDropDownFormField(
+                                  "Designation", _departments, departments,
+                                  (value) {
+                                setState(() {
+                                  _departments = value;
+                                });
+                              }, context),
+                            ),
+                            const Icon(
                               Icons.hourglass_empty,
                               size: 50.0,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10.0,
                             ),
-                            Text(
+                            const Text(
                               'No Teacher Available',
                               style: TextStyle(
                                 fontSize: 22.0,
