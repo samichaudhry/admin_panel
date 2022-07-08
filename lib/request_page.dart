@@ -190,9 +190,9 @@ class _RequestPageState extends State<RequestPage> {
                                                                     position: RelativeRect.fromLTRB(
                                                                         0.0,
                                                                         MediaQuery.of(context).size.height *
-                                                                            0.7,
+                                                                            0.70,
                                                                         MediaQuery.of(context).size.height *
-                                                                            0.7,
+                                                                            0.70,
                                                                         0.0),
                                                                     elevation:
                                                                         5.0,
@@ -229,14 +229,15 @@ class _RequestPageState extends State<RequestPage> {
                                                                                 }
 
                                                                                 final Uri emailLaunchUri = Uri(
-                                                                                  scheme: 'mailto',
-                                                                                  path: '${docsnapshot['email']}',
-                                                                                  query: encodeQueryParameters(<String, String>{
-                                                                                    'subject': '',
-                                                                                  }),
-                                                                                );
+                                                                                    scheme: 'mailto',
+                                                                                    path: '${docsnapshot['email']}',
+                                                                                    query: encodeQueryParameters(<String, String>{
+                                                                                      'subject': '',
+                                                                                      'body': '',
+                                                                                    }));
 
-                                                                                launchUrl(Uri.parse('${docsnapshot['email']}'));
+                                                                                await launchUrl(emailLaunchUri);
+                                                                                Navigator.pop(context);
                                                                               },
                                                                               icon: const Icon(
                                                                                 Icons.email_outlined,
@@ -308,7 +309,8 @@ class _RequestPageState extends State<RequestPage> {
                                                                             PopupMenuItem(
                                                                                 child: TextButton.icon(
                                                                               onPressed: () async {
-                                                                                launchUrl(Uri.parse('tel:${docsnapshot['contact_no']}'));
+                                                                                await launchUrl(Uri.parse('tel:${docsnapshot['contact_no']}'));
+                                                                                Navigator.pop(context);
                                                                               },
                                                                               icon: const Icon(
                                                                                 Icons.call,
