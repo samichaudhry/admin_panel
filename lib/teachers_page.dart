@@ -8,7 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-// import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+
 class TeachersPage extends StatefulWidget {
   const TeachersPage({Key? key}) : super(key: key);
 
@@ -18,7 +19,9 @@ class TeachersPage extends StatefulWidget {
 
 class _TeachersPageState extends State<TeachersPage> {
   int? totalTeachers;
-
+  Icon customIcon = const Icon(Icons.search);
+  Widget customSearchBar = const Text('Teachers');
+  final TextEditingController _searchcontroller = TextEditingController();
   Future updatestatus(docid, updatedstatus) async {
     if (updatedstatus == 'Approved') {
       customdialogcircularprogressindicator('Unblocking... ');
@@ -85,8 +88,17 @@ class _TeachersPageState extends State<TeachersPage> {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;
-            data?.insertAll(0, data);
-            data?.insertAll(0, data);
+            var documents = snapshot.data?.docs;
+            //todo Documents list added to filterTitle
+            if (_searchcontroller.text.isNotEmpty) {
+              documents = documents?.where((element) {
+                return element
+                    .get('department')
+                    .toString()
+                    .toLowerCase()
+                    .contains(_searchcontroller.text.toLowerCase());
+              }).toList();
+            }
             if (snapshot.hasError) {
               return const Center(
                 child: Text('Something Went Wrong'),
@@ -105,13 +117,10 @@ class _TeachersPageState extends State<TeachersPage> {
               );
             }
             if (data!.isNotEmpty) {
-              totalTeachers = data.length;
+              totalTeachers = documents!.length;
               return CustomScrollView(slivers: [
                 SliverAppBar(
-                  title: const Text(
-                    "Teachers",
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
-                  ),
+                  title: customSearchBar,
                   leading: IconButton(
                     icon: const Icon(
                       Icons.arrow_back,
@@ -120,6 +129,45 @@ class _TeachersPageState extends State<TeachersPage> {
                       Navigator.pop(context);
                     },
                   ),
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          if (customIcon.icon == Icons.search) {
+                            customIcon = const Icon(
+                              Icons.cancel,
+                            );
+                            customSearchBar = SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.04,
+                              child: Material(
+                                color: Colors.grey[600],
+                                borderRadius: BorderRadius.circular(14.0),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 10.0, top: 2),
+                                  child: TextField(
+                                      autofocus: true,
+                                      onChanged: (value) {
+                                        setState(() {});
+                                      },
+                                      controller: _searchcontroller,
+                                      cursorColor: Colors.teal,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Search by department',
+                                        border: InputBorder.none,
+                                      )),
+                                ),
+                              ),
+                            );
+                          } else {
+                            customIcon = const Icon(Icons.search);
+                            customSearchBar = const Text('Teachers');
+                          }
+                        });
+                      },
+                      icon: customIcon,
+                    ),
+                  ],
                   automaticallyImplyLeading: false,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -127,9 +175,9 @@ class _TeachersPageState extends State<TeachersPage> {
                       bottomRight: Radius.circular(20),
                     ),
                   ),
-                  pinned: true,
-                  floating: true,
-                  snap: true,
+                  // pinned: true,
+                  // floating: true,
+                  // snap: true,
                   expandedHeight: responsiveHW(context, ht: 12),
                   collapsedHeight: responsiveHW(context, ht: 11),
                   flexibleSpace: FlexibleSpaceBar(
@@ -142,11 +190,11 @@ class _TeachersPageState extends State<TeachersPage> {
                     ),
                   ),
                 ),
-                const SliverPadding(
-                  padding: EdgeInsets.all(10.0),
-                ),
-                SliverToBoxAdapter(
-                  child: Align(
+                SliverStickyHeader(
+                  header: Container(
+                    // height: 60.0,
+                    // color: Colors.lightBlue,
+                    // padding: const EdgeInsets.all(10.0),
                     alignment: Alignment.topCenter,
                     child: customDropDownFormField(
                         "Departments", _departments, departments, (value) {
@@ -155,110 +203,116 @@ class _TeachersPageState extends State<TeachersPage> {
                       });
                     }, context),
                   ),
-                ),
-                SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    DocumentSnapshot docsnapshot = data[index];
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        setState(() {});
-                      },
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 19, right: 19, top: 13),
-                        child: Column(
-                          children: ListTile.divideTiles(
-                            context: context,
-                            tiles: [
-                              ListTile(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0)),
-                                tileColor: Colors.grey[800],
-                                onTap: () {
-                                  Get.to(() => const TeacherInfo(), arguments: [
-                                    {
-                                      'designation':
-                                          docsnapshot['designation'].toString(),
-                                      'department':
-                                          docsnapshot['department'].toString(),
-                                      'email': docsnapshot['email'].toString(),
-                                      'teacher_name':
-                                          docsnapshot['teacher_name']
-                                              .toString(),
-                                      'imgUrl':
-                                          docsnapshot['imgUrl'].toString(),
-                                      'teacherId': docsnapshot.id.toString()
-                                    }
-                                  ]);
-                                },
-                                leading: CircleAvatar(
-                                  backgroundColor: Colors.teal,
-                                  foregroundImage: NetworkImage(
-                                      docsnapshot['imgUrl'].toString()),
-                                ),
-                                title: Text(
-                                  docsnapshot['teacher_name'].toString(),
-                                  style: const TextStyle(
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.bold,
+                  sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      DocumentSnapshot docsnapshot = documents![index];
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          setState(() {});
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 19, right: 19, top: 13),
+                          child: Column(
+                            children: ListTile.divideTiles(
+                              context: context,
+                              tiles: [
+                                ListTile(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  tileColor: Colors.grey[800],
+                                  onTap: () {
+                                    Get.to(() => const TeacherInfo(),
+                                        arguments: [
+                                          {
+                                            'designation':
+                                                docsnapshot['designation']
+                                                    .toString(),
+                                            'department':
+                                                docsnapshot['department']
+                                                    .toString(),
+                                            'email':
+                                                docsnapshot['email'].toString(),
+                                            'teacher_name':
+                                                docsnapshot['teacher_name']
+                                                    .toString(),
+                                            'imgUrl': docsnapshot['imgUrl']
+                                                .toString(),
+                                            'teacherId':
+                                                docsnapshot.id.toString()
+                                          }
+                                        ]);
+                                  },
+                                  leading: CircleAvatar(
+                                    backgroundColor: Colors.teal,
+                                    foregroundImage: NetworkImage(
+                                        docsnapshot['imgUrl'].toString()),
                                   ),
-                                ),
-                                subtitle: Text(
-                                  docsnapshot['department'].toString(),
-                                  style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
+                                  title: Text(
+                                    docsnapshot['teacher_name'].toString(),
+                                    style: const TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                trailing: docsnapshot['status'] == 'Blocked'
-                                    ? TextButton(
-                                        style: TextButton.styleFrom(
-                                            backgroundColor: Colors.teal),
-                                        onPressed: () {
-                                          updatestatus(
-                                                  docsnapshot.id, 'Approved')
-                                              .then((value) {
-                                            // customtoast(
-                                            //     '${docsnapshot['teacher_name']} unblocked');
-                                          });
-                                        },
-                                        child: const Text(
-                                          'Unblock',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 13,
-                                          ),
-                                        ))
-                                    : TextButton(
-                                        style: TextButton.styleFrom(
-                                            backgroundColor: Colors.red),
-                                        onPressed: () {
-                                          updatestatus(
-                                                  docsnapshot.id, 'Blocked')
-                                              .then((value) {
-                                            // customtoast(
-                                            //     '${docsnapshot['teacher_name']} blocked');
-                                          });
-                                        },
-                                        child: const Text(
-                                          'Block',
-                                          style: TextStyle(
+                                  subtitle: Text(
+                                    docsnapshot['department'].toString(),
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  trailing: docsnapshot['status'] == 'Blocked'
+                                      ? TextButton(
+                                          style: TextButton.styleFrom(
+                                              backgroundColor: Colors.teal),
+                                          onPressed: () {
+                                            updatestatus(
+                                                    docsnapshot.id, 'Approved')
+                                                .then((value) {
+                                              // customtoast(
+                                              //     '${docsnapshot['teacher_name']} unblocked');
+                                            });
+                                          },
+                                          child: const Text(
+                                            'Unblock',
+                                            style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 13),
-                                        )),
-                              ),
-                            ],
-                          ).toList(),
+                                              fontSize: 13,
+                                            ),
+                                          ))
+                                      : TextButton(
+                                          style: TextButton.styleFrom(
+                                              backgroundColor: Colors.red),
+                                          onPressed: () {
+                                            updatestatus(
+                                                    docsnapshot.id, 'Blocked')
+                                                .then((value) {
+                                              // customtoast(
+                                              //     '${docsnapshot['teacher_name']} blocked');
+                                            });
+                                          },
+                                          child: const Text(
+                                            'Block',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 13),
+                                          )),
+                                ),
+                              ],
+                            ).toList(),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  childCount: totalTeachers,
-                )),
+                      );
+                    },
+                    childCount: documents.length,
+                  )),
+                ),
               ]);
             } else {
-              totalTeachers = data.length;
+              totalTeachers = documents!.length;
               return CustomScrollView(slivers: [
                 SliverAppBar(
                   title: const Text(
@@ -306,25 +360,15 @@ class _TeachersPageState extends State<TeachersPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: customDropDownFormField(
-                                  "Designation", _departments, departments,
-                                  (value) {
-                                setState(() {
-                                  _departments = value;
-                                });
-                              }, context),
-                            ),
-                            const Icon(
+                          children: const [
+                            Icon(
                               Icons.hourglass_empty,
                               size: 50.0,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               height: 10.0,
                             ),
-                            const Text(
+                            Text(
                               'No Teacher Available',
                               style: TextStyle(
                                 fontSize: 22.0,

@@ -51,15 +51,16 @@ Widget customTextField(hintTitle, isPassword, sIcon, controllerName,
 Widget customDropDownFormField(
     fieldTitle, dropDownValue, List<String> listOfItems, onChangedFunc, ctx) {
   return Padding(
-    padding:
-        EdgeInsets.symmetric(horizontal: responsiveHW(ctx, wd: 6)!.toDouble()),
+    padding: EdgeInsets.symmetric(
+        horizontal: responsiveHW(ctx, wd: 2)!.toDouble(),
+        vertical: responsiveHW(ctx, wd: 5)!.toDouble()),
     child: DropdownButtonFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           labelText: fieldTitle,
-          focusColor: Colors.grey,
+          // focusColor: Colors.transparent,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(10),
           ),
           filled: true,
           fillColor: Colors.grey[800],
