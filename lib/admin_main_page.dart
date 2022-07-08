@@ -84,12 +84,13 @@ class _AdminMainPageState extends State<AdminMainPage> {
       'color': const Color(0xff2A5E75),
       'ispassword': false,
     },
-    // {
-    //   'title': "Today's Attendance Report",
-    //   'icon': FontAwesomeIcons.fileContract,
-    //   'route': const SubjectsPage(),
-    //   'color': const Color(0xff314554)
-    // },
+    {
+      'title': "Departments",
+      'icon': Icons.cast_for_education,
+      'route': const AttendanceRecord(), //Todo class construstor
+      'color': const Color(0xff314554),
+      'ispassword': false,
+    },
     {
       'title': "Attendance Record",
       'icon': FontAwesomeIcons.filePrescription,
