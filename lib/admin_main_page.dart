@@ -1,5 +1,6 @@
 import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:admin_panel/custom_formfield.dart';
+import 'package:admin_panel/departments.dart';
 import 'package:admin_panel/edit_profile.dart';
 import 'package:admin_panel/login_page.dart';
 import 'package:admin_panel/profile_widget.dart';
@@ -86,8 +87,8 @@ class _AdminMainPageState extends State<AdminMainPage> {
     },
     {
       'title': "Departments",
-      'icon': Icons.cast_for_education,
-      'route': const AttendanceRecord(), //Todo class construstor
+      'icon': FontAwesomeIcons.building,
+      'route': const Departments(),
       'color': const Color(0xff314554),
       'ispassword': false,
     },
