@@ -43,7 +43,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
   void initState() {
     super.initState();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if(user == null){
+      if (user == null) {
         Get.to(
           () => const LoginPage(),
         );
@@ -107,15 +107,17 @@ class _AdminMainPageState extends State<AdminMainPage> {
   ];
 
   Future teacherrequest() async {
-    await FirebaseFirestore.instance.collection('teachers').where('status', isEqualTo: 'Pending').get().then((QuerySnapshot teachers){
+    await FirebaseFirestore.instance
+        .collection('teachers')
+        .where('status', isEqualTo: 'Pending')
+        .get()
+        .then((QuerySnapshot teachers) {
       teacherrequests = teachers.docs.length.toString();
-      setState(() {
-        
-      });
+      setState(() {});
     });
   }
 
-Future changepassword() async {
+  Future changepassword() async {
     // isworking = false;
     _email.clear();
     _oldpassword.clear();
@@ -179,10 +181,10 @@ Future changepassword() async {
               child: const Text('Cancel'),
             ),
             isworking
-                ?  const Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 26.0),
-                  child: CircularProgressIndicator(),
-                )
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 26.0),
+                    child: CircularProgressIndicator(),
+                  )
                 : MaterialButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
@@ -360,9 +362,9 @@ Future changepassword() async {
             ),
             isworking
                 ? const Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 26.0),
-                  child:  CircularProgressIndicator(),
-                )
+                    padding: EdgeInsets.symmetric(horizontal: 26.0),
+                    child: CircularProgressIndicator(),
+                  )
                 : MaterialButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
@@ -544,31 +546,33 @@ Future changepassword() async {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            OptionsList[index]['title'] == 'Teachers Requests' ?
-                            teacherrequests == '' ? Center(child: Icon(
-                                OptionsList[index]['icon'],
-                                color: Colors.white,
-                                size: 50.0,
-                              ),):
-                            Center(
-                                child: Badge(
-                                  animationType: BadgeAnimationType.scale,
-                                  stackFit: StackFit.passthrough,
-                              badgeContent:  Text(teacherrequests),
-                              child: Icon(
-                                OptionsList[index]['icon'],
-                                color: Colors.white,
-                                size: 50.0,
-                              ),
-                            ))
-                            :
-                            Center(
-                              child: Icon(
-                                  OptionsList[index]['icon'],
-                                  color: Colors.white,
-                                  size: 50.0,
-                                ),
-                            ),
+                            OptionsList[index]['title'] == 'Teachers Requests'
+                                ? teacherrequests == ''
+                                    ? Center(
+                                        child: Icon(
+                                          OptionsList[index]['icon'],
+                                          color: Colors.white,
+                                          size: 50.0,
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Badge(
+                                        animationType: BadgeAnimationType.scale,
+                                        stackFit: StackFit.passthrough,
+                                        badgeContent: Text(teacherrequests),
+                                        child: Icon(
+                                          OptionsList[index]['icon'],
+                                          color: Colors.white,
+                                          size: 50.0,
+                                        ),
+                                      ))
+                                : Center(
+                                    child: Icon(
+                                      OptionsList[index]['icon'],
+                                      color: Colors.white,
+                                      size: 50.0,
+                                    ),
+                                  ),
                             Center(
                               child: customText(
                                 txt: '${OptionsList[index]['title']}',

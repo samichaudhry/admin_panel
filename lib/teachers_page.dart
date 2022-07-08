@@ -22,6 +22,7 @@ class _TeachersPageState extends State<TeachersPage> {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('Teachers');
   final TextEditingController _searchcontroller = TextEditingController();
+
   Future updatestatus(docid, updatedstatus) async {
     if (updatedstatus == 'Approved') {
       customdialogcircularprogressindicator('Unblocking... ');
@@ -89,11 +90,20 @@ class _TeachersPageState extends State<TeachersPage> {
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var data = snapshot.data?.docs;
             var documents = snapshot.data?.docs;
+            if (_departments != 'All') {
+              documents = snapshot.data?.docs.where((element) {
+                return element
+                    .get('department')
+                    .toString()
+                    .toLowerCase()
+                    .contains(_departments!.toLowerCase());
+              }).toList();
+            }
             //todo Documents list added to filterTitle
             if (_searchcontroller.text.isNotEmpty) {
               documents = documents?.where((element) {
                 return element
-                    .get('department')
+                    .get('teacher_name')
                     .toString()
                     .toLowerCase()
                     .contains(_searchcontroller.text.toLowerCase());
@@ -153,7 +163,7 @@ class _TeachersPageState extends State<TeachersPage> {
                                       controller: _searchcontroller,
                                       cursorColor: Colors.teal,
                                       decoration: const InputDecoration(
-                                        hintText: 'Search by department',
+                                        hintText: 'Search by name',
                                         border: InputBorder.none,
                                       )),
                                 ),
@@ -229,6 +239,9 @@ class _TeachersPageState extends State<TeachersPage> {
                                           {
                                             'designation':
                                                 docsnapshot['designation']
+                                                    .toString(),
+                                            'contact_no':
+                                                docsnapshot['contact_no']
                                                     .toString(),
                                             'department':
                                                 docsnapshot['department']

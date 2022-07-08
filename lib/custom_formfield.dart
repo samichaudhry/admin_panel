@@ -52,13 +52,13 @@ Widget customDropDownFormField(
     fieldTitle, dropDownValue, List<String> listOfItems, onChangedFunc, ctx) {
   return Padding(
     padding: EdgeInsets.symmetric(
-        horizontal: responsiveHW(ctx, wd: 2)!.toDouble(),
+        horizontal: responsiveHW(ctx, wd: 4)!.toDouble(),
         vertical: responsiveHW(ctx, wd: 5)!.toDouble()),
     child: DropdownButtonFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           labelText: fieldTitle,
-          // focusColor: Colors.transparent,
+          focusColor: Colors.teal,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),

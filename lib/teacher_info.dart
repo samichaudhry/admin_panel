@@ -152,31 +152,31 @@ class _TeacherInfoState extends State<TeacherInfo> {
               }, context, 100),
             ),
             customSizedBox(),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-              child: customButton("Edit Profile", () {
-                Get.to(() => const AddTeacher(), arguments: [
-                  {
-                    "teacherId": teacherInfoArguments[0]['teacherId'],
-                    "pageTitle": "Edit Teacher's Profile",
-                    "buttonText": "Update",
-                    'teacher_name': teacherInfoArguments[0]['teacher_name'],
-                    'designation': teacherInfoArguments[0]['designation'],
-                    'department': teacherInfoArguments[0]['department'],
-                    'imgUrl': teacherInfoArguments[0]["imgUrl"],
-                  }
-                ]);
-              }, context, 100),
-            ),
-            customSizedBox(),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-              child: customButton("Delete Profile", () {
-                deleteDialog();
-              }, context, 100),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(
+            //       horizontal: responsiveHW(context, wd: 6)!.toDouble()),
+            //   child: customButton("Edit Profile", () {
+            //     Get.to(() => const AddTeacher(), arguments: [
+            //       {
+            //         "teacherId": teacherInfoArguments[0]['teacherId'],
+            //         "pageTitle": "Edit Teacher's Profile",
+            //         "buttonText": "Update",
+            //         'teacher_name': teacherInfoArguments[0]['teacher_name'],
+            //         'designation': teacherInfoArguments[0]['designation'],
+            //         'department': teacherInfoArguments[0]['department'],
+            //         'imgUrl': teacherInfoArguments[0]["imgUrl"],
+            //       }
+            //     ]);
+            //   }, context, 100),
+            // ),
+            // customSizedBox(),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(
+            //       horizontal: responsiveHW(context, wd: 6)!.toDouble()),
+            //   child: customButton("Delete Profile", () {
+            //     deleteDialog();
+            //   }, context, 100),
+            // ),
           ]))
         ],
       ),
