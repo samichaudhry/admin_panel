@@ -30,6 +30,7 @@ class AdminMainPage extends StatefulWidget {
 class _AdminMainPageState extends State<AdminMainPage> {
   bool isloggedin = false;
   bool isworking = false;
+  bool isloading = true;
   var teacherrequests = '';
   var useremail;
   var users = FirebaseFirestore.instance.collection('users');
@@ -115,7 +116,9 @@ class _AdminMainPageState extends State<AdminMainPage> {
         .get()
         .then((QuerySnapshot teachers) {
       teacherrequests = teachers.docs.length.toString();
-      setState(() {});
+      setState(() {
+        isloading = false;
+      });
     });
   }
 
@@ -427,174 +430,193 @@ class _AdminMainPageState extends State<AdminMainPage> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: Colors.teal,
-              centerTitle: true,
-              pinned: true,
-              snap: true,
-              floating: true,
-              elevation: 0.0,
-              title: customText(
-                txt: 'Admin Panel',
-                clr: Colors.white,
-                fsize: 20.0,
-                fweight: FontWeight.w500,
-              ),
-              actions: [
-                ElevatedButton.icon(
-                  onPressed: logoutfunc,
-                  icon: const Icon(Icons.logout_sharp),
-                  label: customText(txt: 'Logout', clr: Colors.white),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.teal,
-                    elevation: 0.0,
-                  ),
-                ),
-              ],
-              expandedHeight: MediaQuery.of(context).size.height * 0.08,
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                // padding: EdgeInsets.all(5.0),
-                width: responsiveHW(context, wd: 100),
-                height: responsiveHW(context, ht: 28),
-                decoration: const BoxDecoration(
-                  color: Colors.teal,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20.0),
-                      bottomRight: Radius.circular(20.0)),
-                ),
+        body: isloading
+            ? Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
+                    const CircularProgressIndicator(
+                      color: Colors.teal,
                     ),
-                    ProfileWidget(
-                      imagePath:
-                          '${FirebaseAuth.instance.currentUser?.photoURL}',
-                      onClicked: () async {
-                        Get.to(
-                          () => const edit_profile(),
-                          arguments: {
-                            'name': adminname ?? '',
-                            'email': FirebaseAuth.instance.currentUser?.email,
-                          },
-                        );
-                      },
-                      icon: Icons.edit,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.015,
-                    ),
-                    Center(
-                      child: customText(
-                          txt: adminname ?? '',
-                          fsize: 19.0,
-                          fweight: FontWeight.w500),
-                    ),
-                    Center(
-                        child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextButton.icon(
-                        onPressed: changeemail,
-                        label: customText(
-                            txt: '${FirebaseAuth.instance.currentUser?.email}',
-                            fsize: 19.0,
-                            clr: Colors.white),
-                        icon: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )),
+                    customText(
+                        txt: 'Loading Data... ', fsize: 22.0, padding: 15.0)
                   ],
                 ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: Padding(
-                  padding: EdgeInsets.only(
-                bottom: 2.5,
-              )),
-            ),
-            SliverGrid(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: Responsive.isMobile(context) ? 2 : 4,
-                crossAxisSpacing: 5.0,
-                mainAxisSpacing: 5.0,
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: OptionsList[index]['ispassword']
-                        ? changepassword
-                        : () {
-                            Get.to(
-                              OptionsList[index]['route'],
-                            );
-                          },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        color: OptionsList[index]['color'],
-                      ),
-                      margin: const EdgeInsets.all(3.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            OptionsList[index]['title'] == 'Teachers Requests'
-                                ? teacherrequests == ''
-                                    ? Center(
-                                        child: Icon(
-                                          OptionsList[index]['icon'],
-                                          color: Colors.white,
-                                          size: 50.0,
-                                        ),
-                                      )
-                                    : Center(
-                                        child: Badge(
-                                        animationType: BadgeAnimationType.scale,
-                                        stackFit: StackFit.passthrough,
-                                        badgeContent: Text(teacherrequests),
-                                        child: Icon(
-                                          OptionsList[index]['icon'],
-                                          color: Colors.white,
-                                          size: 50.0,
-                                        ),
-                                      ))
-                                : Center(
-                                    child: Icon(
-                                      OptionsList[index]['icon'],
-                                      color: Colors.white,
-                                      size: 50.0,
-                                    ),
-                                  ),
-                            Center(
-                              child: customText(
-                                txt: '${OptionsList[index]['title']}',
-                                fsize: 20.0,
-                                txtalign: TextAlign.center,
-                                clr: Colors.white,
-                                fweight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
+              )
+            : CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Colors.teal,
+                    centerTitle: true,
+                    pinned: true,
+                    snap: true,
+                    floating: true,
+                    elevation: 0.0,
+                    title: customText(
+                      txt: 'Admin Panel',
+                      clr: Colors.white,
+                      fsize: 20.0,
+                      fweight: FontWeight.w500,
+                    ),
+                    actions: [
+                      ElevatedButton.icon(
+                        onPressed: logoutfunc,
+                        icon: const Icon(Icons.logout_sharp),
+                        label: customText(txt: 'Logout', clr: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.teal,
+                          elevation: 0.0,
                         ),
                       ),
+                    ],
+                    expandedHeight: MediaQuery.of(context).size.height * 0.08,
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      // padding: EdgeInsets.all(5.0),
+                      width: responsiveHW(context, wd: 100),
+                      height: responsiveHW(context, ht: 28),
+                      decoration: const BoxDecoration(
+                        color: Colors.teal,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20.0),
+                            bottomRight: Radius.circular(20.0)),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          ProfileWidget(
+                            imagePath:
+                                '${FirebaseAuth.instance.currentUser?.photoURL}',
+                            onClicked: () async {
+                              Get.to(
+                                () => const edit_profile(),
+                                arguments: {
+                                  'name': adminname ?? '',
+                                  'email':
+                                      FirebaseAuth.instance.currentUser?.email,
+                                },
+                              );
+                            },
+                            icon: Icons.edit,
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.015,
+                          ),
+                          Center(
+                            child: customText(
+                                txt: adminname ?? '',
+                                fsize: 19.0,
+                                fweight: FontWeight.w500),
+                          ),
+                          Center(
+                              child: Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: TextButton.icon(
+                              onPressed: changeemail,
+                              label: customText(
+                                  txt:
+                                      '${FirebaseAuth.instance.currentUser?.email}',
+                                  fsize: 19.0,
+                                  clr: Colors.white),
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )),
+                        ],
+                      ),
                     ),
-                  );
-                },
-                childCount: OptionsList.length,
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                        padding: EdgeInsets.only(
+                      bottom: 2.5,
+                    )),
+                  ),
+                  SliverGrid(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: Responsive.isMobile(context) ? 2 : 4,
+                      crossAxisSpacing: 5.0,
+                      mainAxisSpacing: 5.0,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: OptionsList[index]['ispassword']
+                              ? changepassword
+                              : () {
+                                  Get.to(
+                                    OptionsList[index]['route'],
+                                  );
+                                },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              color: OptionsList[index]['color'],
+                            ),
+                            margin: const EdgeInsets.all(3.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  OptionsList[index]['title'] ==
+                                          'Teachers Requests'
+                                      ? teacherrequests == ''
+                                          ? Center(
+                                              child: Icon(
+                                                OptionsList[index]['icon'],
+                                                color: Colors.white,
+                                                size: 50.0,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Badge(
+                                              animationType:
+                                                  BadgeAnimationType.scale,
+                                              stackFit: StackFit.passthrough,
+                                              badgeContent:
+                                                  Text(teacherrequests),
+                                              child: Icon(
+                                                OptionsList[index]['icon'],
+                                                color: Colors.white,
+                                                size: 50.0,
+                                              ),
+                                            ))
+                                      : Center(
+                                          child: Icon(
+                                            OptionsList[index]['icon'],
+                                            color: Colors.white,
+                                            size: 50.0,
+                                          ),
+                                        ),
+                                  Center(
+                                    child: customText(
+                                      txt: '${OptionsList[index]['title']}',
+                                      fsize: 20.0,
+                                      txtalign: TextAlign.center,
+                                      clr: Colors.white,
+                                      fweight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      childCount: OptionsList.length,
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () {},
         //   backgroundColor: Colors.teal,
