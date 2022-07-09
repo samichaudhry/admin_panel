@@ -25,68 +25,6 @@ class _SessionStudentState extends State<SessionStudent> {
   final TextEditingController _editrollno = TextEditingController();
   bool _isShowDial = false;
   var args = Get.arguments;
-  // List student = [
-  //   {
-  //     "studentName": "Rustum shakeel",
-  //     "rollno": "BCSF18BM001",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Amna malik",
-  //     "rollno": "BCSF18BM002",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "sami ullah",
-  //     "rollno": "BCSF18BM003",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Usman feyaz",
-  //     "rollno": "BCSF18BM004",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Babar Ali",
-  //     "rollno": "BCSF18BM005",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Aqsa zafar",
-  //     "rollno": "BCSF18BM006",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Ahad raza",
-  //     "rollno": "BCSF18BM007",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Zulfiqar Ali",
-  //     "rollno": "BCSF18BM23",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Fizza Chauhdary",
-  //     "rollno": "BCSF18BM23",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Fizza Chauhdary",
-  //     "rollno": "BCSF18BM23",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Fizza Chauhdary",
-  //     "rollno": "BCSF18BM23",
-  //     "semester": "8th-R",
-  //   },
-  //   {
-  //     "studentName": "Fizza Chauhdary",
-  //     "rollno": "BCSF18BM23",
-  //     "semester": "8th-R",
-  //   },
-  // ];
 
   Future addstudent({isupdate = false, docid}) async {
     if (isupdate) {
@@ -273,6 +211,8 @@ class _SessionStudentState extends State<SessionStudent> {
               onPressed: () {
                 Get.to(() => const UploadFile(), arguments: {
                   'sessionid': args['session_id'].toString(),
+                  'department': args['department'].toString(),
+                  'session_name': args['session_name'].toString(),
                 });
               },
               backgroundColor: Colors.teal,

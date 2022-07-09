@@ -37,8 +37,6 @@ class _UploadFileState extends State<UploadFile> {
       await Permission.storage.request();
       // Either the permission was already granted before or the user just granted it.
     }
-
-// You can request multiple permissions at once.
   }
 
   void _changed(bool visibility, String field) {
@@ -81,23 +79,28 @@ class _UploadFileState extends State<UploadFile> {
     var availablestudents = [];
     var duplicatestudents = 0;
     for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
-      studentsdata.add({
-        'roll_no': excel['Sheet1']
-            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 0))
-            .value,
-        'name': excel['Sheet1']
-            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 1))
-            .value,
-        'session': excel['Sheet1']
-            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 2))
-            .value,
-        'department': excel['Sheet1']
-            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 3))
-            .value,
-        'type': excel['Sheet1']
-            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 4))
-            .value,
-      });
+      if (args['department'] ==
+          excel['Sheet1']
+              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 3))
+              .value) {
+        studentsdata.add({
+          'roll_no': excel['Sheet1']
+              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 0))
+              .value,
+          'name': excel['Sheet1']
+              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 1))
+              .value,
+          'session': excel['Sheet1']
+              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 2))
+              .value,
+          'department': excel['Sheet1']
+              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 3))
+              .value,
+          'type': excel['Sheet1']
+              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 4))
+              .value,
+        });
+      }
     }
     await FirebaseFirestore.instance
         .collection('students')

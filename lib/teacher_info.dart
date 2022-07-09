@@ -170,13 +170,13 @@ class _TeacherInfoState extends State<TeacherInfo> {
             //   }, context, 100),
             // ),
             // customSizedBox(),
-            // Padding(
-            //   padding: EdgeInsets.symmetric(
-            //       horizontal: responsiveHW(context, wd: 6)!.toDouble()),
-            //   child: customButton("Delete Profile", () {
-            //     deleteDialog();
-            //   }, context, 100),
-            // ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: responsiveHW(context, wd: 6)!.toDouble()),
+              child: customButton("Delete Profile", () {
+                deleteDialog();
+              }, context, 100),
+            ),
           ]))
         ],
       ),
