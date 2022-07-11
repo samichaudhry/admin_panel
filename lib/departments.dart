@@ -134,7 +134,7 @@ class _DepartmentsState extends State<Departments> {
                     .get('department_name')
                     .toString()
                     .toLowerCase()
-                    .contains(_searchcontroller.text.toLowerCase());
+                    .startsWith(_searchcontroller.text.toLowerCase());
               }).toList();
             }
             if (snapshot.hasError) {

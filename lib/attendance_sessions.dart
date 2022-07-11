@@ -50,7 +50,7 @@ class _AttendanceSessionState extends State<AttendanceSession> {
                     .get('program')
                     .toString()
                     .toLowerCase()
-                    .contains(_searchcontroller.text.toLowerCase());
+                    .startsWith(_searchcontroller.text.toLowerCase());
               }).toList();
             }
             if (snapshot.hasError) {

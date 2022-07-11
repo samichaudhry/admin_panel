@@ -122,7 +122,7 @@ class _TeachersPageState extends State<TeachersPage> {
                     .get('teacher_name')
                     .toString()
                     .toLowerCase()
-                    .contains(_searchcontroller.text.toLowerCase());
+                    .startsWith(_searchcontroller.text.toLowerCase());
               }).toList();
             }
             if (snapshot.hasError) {

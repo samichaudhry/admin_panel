@@ -471,7 +471,7 @@ class _sessionpageState extends State<sessionpage> {
                     .get('program')
                     .toString()
                     .toLowerCase()
-                    .contains(_searchcontroller.text.toLowerCase());
+                    .startsWith(_searchcontroller.text.toLowerCase());
               }).toList();
             }
             if (!snapshot.hasData) {
