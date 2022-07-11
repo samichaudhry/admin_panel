@@ -1,3 +1,4 @@
+import 'package:admin_panel/departments_getter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -103,25 +104,25 @@ class _sessionpageState extends State<sessionpage> {
   String? selectedsession;
   String? selectedprogramtype;
   List<String> department = [
-    'Computer Science and IT',
-    'Biological Science',
-    'Chemistry',
-    'Physics',
-    'Business Administration',
-    'Economics',
-    'Education',
-    'English',
-    'Mathematics',
-    'Psychology',
-    'Social Work',
-    'Sociology',
-    'Sports Sciences',
-    'Urdu'
+    // 'Computer Science and IT',
+    // 'Biological Science',
+    // 'Chemistry',
+    // 'Physics',
+    // 'Business Administration',
+    // 'Economics',
+    // 'Education',
+    // 'English',
+    // 'Mathematics',
+    // 'Psychology',
+    // 'Social Work',
+    // 'Sociology',
+    // 'Sports Sciences',
+    // 'Urdu'
   ];
   Map<String, List<String>> programs = {
     'Computer Science and IT': <String>[
-      "BS CS",
-      "BS IT",
+      "BSCS",
+      "BSIT",
       "MIT",
     ],
     'Biological Science': <String>[
@@ -212,6 +213,15 @@ class _sessionpageState extends State<sessionpage> {
     '2037-2039',
     '2038-2040',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    getdepartments().then((value) {
+      department = value as List<String>;
+      // print(value);
+    });
+  }
 
   Future setsessiondata() async {
     return FirebaseFirestore.instance.collection('session').doc().set({
