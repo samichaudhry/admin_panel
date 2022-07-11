@@ -9,6 +9,7 @@ Future<List> getdepartments() async {
     for (var dep in deps.docs) {
       departments.add(dep['department_name']);
     }
+    // print(departments);
   });
   return departments;
 }

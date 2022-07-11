@@ -1,12 +1,9 @@
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
-import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'custom widgets/custom_toast.dart';
@@ -30,25 +27,6 @@ class _RequestPageState extends State<RequestPage> {
       Navigator.pop(context);
     });
   }
-
-  String? _departments;
-
-  List<String> departments = [
-    'Computer Science and IT',
-    'Biological Science',
-    'Chemistry',
-    'Physics',
-    'Business Administration',
-    'Economics',
-    'Education',
-    'English',
-    'Mathematics',
-    'Psychology',
-    'Social Work',
-    'Sociology',
-    'Sports Sciences',
-    'Urdu'
-  ];
 
   @override
   Widget build(BuildContext context) {

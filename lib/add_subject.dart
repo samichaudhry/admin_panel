@@ -75,79 +75,7 @@ class _AddSubjectState extends State<AddSubject> {
     '2039',
     '2040',
   ];
-  //Program's lists
-  List<String> programs4years = [
-    "BS Computer Science",
-    "BS Information Technology",
-    "BS Chemistry",
-    "BS Physics",
-    "BS English",
-    "BS Education",
-    "BS Economics",
-    "BBA",
-    "B.com",
-    "BS Sociology",
-    "BS Social Work",
-    "BS Botonay",
-    "BS Psychology",
-    "BS Sports Sciences"
-  ];
-  List<String> programs2years = [
-    "MIT",
-    "Msc Chemistry",
-    "Msc Physics",
-    "MA English",
-    "B.ED",
-    "MA Sports Sciences"
-  ];
 
-  //Session's lists
-  List<String> sessions4years = [
-    '2018-2022',
-    '2019-2023',
-    '2020-2024',
-    '2021-2025',
-    '2022-2026',
-    '2023-2027',
-    '2024-2028',
-    '2025-2029',
-    '2026-2030',
-    '2027-2031',
-    '2028-2032',
-    '2029-2033',
-    '2030-2034',
-    '2031-2035',
-    '2032-2036',
-    '2033-2037',
-    '2034-2038',
-    '2035-2039',
-    '2036-2040',
-    '2037-2041',
-    '2038-2042',
-  ];
-  List<String> sessions2years = [
-    '2018-2020',
-    '2019-2021',
-    '2020-2022',
-    '2021-2023',
-    '2022-2024',
-    '2023-2025',
-    '2024-2026',
-    '2025-2027',
-    '2026-2028',
-    '2027-2029',
-    '2028-2030',
-    '2029-2031',
-    '2030-2032',
-    '2031-2033',
-    '2032-2034',
-    '2033-2035',
-    '2034-2036',
-    '2035-2037',
-    '2036-2038',
-    '2037-2039',
-    '2038-2040',
-  ];
   // semester's lists
   List<String> semester2years = ['1st', '2nd', '3rd', '4th'];
   List<String> semester4years = [
