@@ -22,6 +22,7 @@ class UploadFile extends StatefulWidget {
 class _UploadFileState extends State<UploadFile> {
   bool visibilityObs = false;
   bool isuploading = false;
+  bool allfine = false;
   UploadTask? task;
   var progress;
   var sessionstudent;
@@ -30,6 +31,7 @@ class _UploadFileState extends State<UploadFile> {
   var args = Get.arguments;
   void initState() {
     super.initState();
+    allfine = false;
   }
 
   Future permissionmanager() async {
@@ -78,64 +80,87 @@ class _UploadFileState extends State<UploadFile> {
     var excel = Excel.decodeBytes(bytes);
     var availablestudents = [];
     var duplicatestudents = 0;
+    var session = args['session_name'].toString().split('-')[2] +
+        '-' +
+        args['session_name'].toString().split('-')[3];
     for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
       if (args['department'] ==
           excel['Sheet1']
               .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 3))
               .value) {
-        studentsdata.add({
-          'roll_no': excel['Sheet1']
-              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 0))
-              .value,
-          'name': excel['Sheet1']
-              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 1))
-              .value,
-          'session': excel['Sheet1']
-              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 2))
-              .value,
-          'department': excel['Sheet1']
-              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 3))
-              .value,
-          'type': excel['Sheet1']
-              .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 4))
-              .value,
-        });
-      }
-    }
-    await FirebaseFirestore.instance
-        .collection('students')
-        .doc(args['sessionid'])
-        .collection('sessionstudents')
-        .get()
-        .then((students) {
-      for (var thisstudent in students.docs) {
-        availablestudents.add(
-          thisstudent['studentrollno'],
-        );
-      }
-    });
-    for (var student in studentsdata) {
-      if (availablestudents.contains(student['roll_no'])) {
-        duplicatestudents += 1;
+        if (session ==
+            excel['Sheet1']
+                .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 2))
+                .value) {
+          studentsdata.add({
+            'roll_no': excel['Sheet1']
+                .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 0))
+                .value,
+            'name': excel['Sheet1']
+                .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 1))
+                .value,
+            'session': excel['Sheet1']
+                .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 2))
+                .value,
+            'department': excel['Sheet1']
+                .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 3))
+                .value,
+            'type': excel['Sheet1']
+                .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 4))
+                .value,
+          });
+          allfine = true;
+        } else {
+          allfine = false;
+          customtoast('Failed to add students!\nsession mismatched.');
+          // Get.back();
+          Get.back();
+          break;
+        }
       } else {
-        await FirebaseFirestore.instance
-            .collection('students')
-            .doc(args['sessionid'])
-            .collection('sessionstudents')
-            .doc()
-            .set({
-          'studentname': student['name'],
-          'studentrollno': student['roll_no']
-        }, SetOptions(merge: true)).then((value) {});
+        allfine = false;
+        customtoast('Failed to add students!\nDepartment mismatched.');
+        // Get.back();
+        Get.back();
+        break;
       }
     }
-    Get.back();
-    if (duplicatestudents == 0) {
-      customtoast('Data Uploaded Successfully');
-    } else {
-      customtoast('$duplicatestudents students already found!!!');
+    if (allfine) {
+      await FirebaseFirestore.instance
+          .collection('students')
+          .doc(args['sessionid'])
+          .collection('sessionstudents')
+          .get()
+          .then((students) {
+        for (var thisstudent in students.docs) {
+          availablestudents.add(
+            thisstudent['studentrollno'],
+          );
+        }
+      });
+      for (var student in studentsdata) {
+        if (availablestudents.contains(student['roll_no'])) {
+          duplicatestudents += 1;
+        } else {
+          await FirebaseFirestore.instance
+              .collection('students')
+              .doc(args['sessionid'])
+              .collection('sessionstudents')
+              .doc()
+              .set({
+            'studentname': student['name'],
+            'studentrollno': student['roll_no']
+          }, SetOptions(merge: true)).then((value) {});
+        }
+      }
+      Get.back();
+      if (duplicatestudents == 0) {
+        customtoast('Data Uploaded Successfully');
+      } else {
+        customtoast('$duplicatestudents students already found!!!');
+      }
+      Get.back();
     }
-    Get.back();
   }
 
   Widget custombutton(title, icon, onclick) {
