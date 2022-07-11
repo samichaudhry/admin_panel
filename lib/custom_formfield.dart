@@ -53,17 +53,17 @@ Widget customDropDownFormField(
   return Padding(
     padding: EdgeInsets.symmetric(
         horizontal: responsiveHW(ctx, wd: 4)!.toDouble(),
-        vertical: responsiveHW(ctx, wd: 5)!.toDouble()),
+        vertical: responsiveHW(ctx, wd: 2)!.toDouble()),
     child: DropdownButtonFormField(
+        isExpanded: true,
+        isDense: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        decoration: InputDecoration(
-          labelText: fieldTitle,
+        decoration: const InputDecoration(
+          // labelText: fieldTitle,
           focusColor: Colors.teal,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          border: InputBorder.none,
           filled: true,
-          fillColor: Colors.grey[800],
+          fillColor: Colors.transparent,
         ),
         validator: (value) => value == null ? 'Required*' : null,
         icon: const Icon(

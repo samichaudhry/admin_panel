@@ -1,5 +1,3 @@
-import 'package:admin_panel/add_teacher.dart';
-import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:admin_panel/custom_formfield.dart';
 import 'package:admin_panel/departments_getter.dart';
 import 'package:admin_panel/teacher_info.dart';
@@ -224,10 +222,12 @@ class _TeachersPageState extends State<TeachersPage> {
                       ),
                       SliverStickyHeader(
                         header: Container(
+                          // width: MediaQuery.of(context).size.width * 0.5,
+                          // height: MediaQuery.of(context).size.height * 0.3,
                           // height: 60.0,
                           // color: Colors.lightBlue,
                           // padding: const EdgeInsets.all(10.0),
-                          alignment: Alignment.topCenter,
+                          alignment: Alignment.topRight,
                           child: customDropDownFormField(
                               "Departments", _departments, departments,
                               (value) {
