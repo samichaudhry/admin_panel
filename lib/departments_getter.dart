@@ -14,9 +14,9 @@ Future<List> getdepartments() async {
   return departments;
 }
 
-Future getsessions() async {
-  List<String> sessionsavailable = [];
-  Map sessionsavailableids = {};
+Future getprograms() async {
+  List<String> programsavailable = [];
+  Map programsavailableids = {};
   await FirebaseFirestore.instance
       .collection('session')
       .get()
@@ -24,16 +24,16 @@ Future getsessions() async {
     print(sessions.docs.length);
     for (var session in sessions.docs) {
       // print(session['program']);
-      sessionsavailable.add(
+      programsavailable.add(
         "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}",
       );
-      sessionsavailableids[
+      programsavailableids[
               "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}"] =
           session.id.toString();
     }
   });
   return {
-    'sessionnames': sessionsavailable,
-    'sessionids': sessionsavailableids,
+    'programsnames': programsavailable,
+    'programsids': programsavailableids,
   };
 }

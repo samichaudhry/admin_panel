@@ -205,15 +205,24 @@ class _UploadFileState extends State<UploadFile> {
               customdialogcircularprogressindicator('Generating...');
               // downloadfile(context);
               // print(getappl);
+              List<String> programs = [];
               await permissionmanager();
-              studenttemplategenerator(
-                      departmentname: args['department'].toString(),
-                      sessionname: args['session_name'].toString())
+              await getprograms().then((value) {
+                programs = value['programsnames'];
+              });
+              subjecttemplategenerator(availableprograms: programs)
                   .then((value) {
                 Navigator.pop(context);
-                rawsnackbar('File saved to downloads folder', duration: 3);
                 print('task completed');
               });
+              // studenttemplategenerator(
+              //         departmentname: args['department'].toString(),
+              //         sessionname: args['session_name'].toString())
+              //     .then((value) {
+              //   Navigator.pop(context);
+              //   rawsnackbar('File saved to downloads folder', duration: 3);
+              //   print('task completed');
+              // });
             }),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.07,
