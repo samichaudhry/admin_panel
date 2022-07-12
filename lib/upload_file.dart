@@ -181,7 +181,7 @@ class _UploadFileState extends State<UploadFile> {
         Get.back();
       } else {
         Get.back();
-        Get.snackbar('Error occured.', stderror);
+        Get.snackbar('Error occured while uploading students.', stderror);
       }
     }
   }
