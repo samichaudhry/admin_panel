@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
@@ -199,7 +200,7 @@ class _UploadFileState extends State<UploadFile> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
             ),
-            custombutton('Generate Templete', Icons.cloud_upload_outlined,
+            custombutton('Generate Templete', FontAwesomeIcons.solidFileExcel,
                 () async {
               customdialogcircularprogressindicator('Generating...');
               // downloadfile(context);

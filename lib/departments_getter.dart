@@ -13,3 +13,27 @@ Future<List> getdepartments() async {
   });
   return departments;
 }
+
+Future getsessions() async {
+  List<String> sessionsavailable = [];
+  Map sessionsavailableids = {};
+  await FirebaseFirestore.instance
+      .collection('session')
+      .get()
+      .then((QuerySnapshot sessions) {
+    print(sessions.docs.length);
+    for (var session in sessions.docs) {
+      // print(session['program']);
+      sessionsavailable.add(
+        "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}",
+      );
+      sessionsavailableids[
+              "${session['program']}-${session["program_type"] == 'Regular' ? 'R' : 'SS'}-${session["session"]}"] =
+          session.id.toString();
+    }
+  });
+  return {
+    'sessionnames': sessionsavailable,
+    'sessionids': sessionsavailableids,
+  };
+}

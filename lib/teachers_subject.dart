@@ -1,9 +1,13 @@
 import 'package:admin_panel/subject_info.dart';
+import 'package:admin_panel/upload_file.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/add_subject.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
+import 'package:flutter_arc_speed_dial/flutter_speed_dial_menu_button.dart';
+import 'package:flutter_arc_speed_dial/main_menu_floating_action_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class TeacherSubjects extends StatefulWidget {
@@ -16,26 +20,62 @@ class TeacherSubjects extends StatefulWidget {
 class _TeacherSubjectsState extends State<TeacherSubjects> {
   int? totalSubjects;
   var args = Get.arguments;
+  bool _isShowDial = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: customFAB(
-          clr: Colors.teal,
-          ontap: () {
-            Get.to(() => const AddSubject(), arguments: [
-              {
-                'teacherId': args[0]['teacherId'],
-                "pageTitle": "Add Subject",
-                "buttonText": "Submit",
-              }
-            ]);
-          },
-          icon: const Icon(
-            Icons.add,
-            color: Colors.white,
+      floatingActionButton: SpeedDialMenuButton(
+        isShowSpeedDial: _isShowDial,
+        updateSpeedDialStatus: (isShow) {
+          _isShowDial = isShow;
+        },
+        isMainFABMini: false,
+        mainMenuFloatingActionButton: MainMenuFloatingActionButton(
+            mini: false,
+            backgroundColor: Colors.teal,
+            foregroundColor: Colors.white,
+            child: const Icon(Icons.add),
+            onPressed: () {},
+            closeMenuChild: const Icon(Icons.close),
+            closeMenuForegroundColor: Colors.white,
+            closeMenuBackgroundColor: Colors.red),
+        floatingActionButtonWidgetChildren: <FloatingActionButton>[
+          FloatingActionButton.extended(
+            heroTag: 'btn1',
+            label: customText(txt: 'Upload File'),
+            icon: const Icon(FontAwesomeIcons.upload),
+            onPressed: () {
+              // Get.to(() => const UploadFile(), arguments: {
+              //   'sessionid': args['session_id'].toString(),
+              //   'department': args['department'].toString(),
+              //   'session_name': args['session_name'].toString(),
+              // });
+            },
+            backgroundColor: Colors.teal,
+            foregroundColor: Colors.white,
           ),
-          text: customText(txt: 'Subject', clr: Colors.white)),
+          customFAB(
+                  clr: Colors.teal,
+                  ontap: () {
+                    Get.to(() => const AddSubject(), arguments: [
+                      {
+                        'teacherId': args[0]['teacherId'],
+                        "pageTitle": "Add Subject",
+                        "buttonText": "Submit",
+                      }
+                    ]);
+                  },
+                  icon: const Icon(
+                    FontAwesomeIcons.penToSquare,
+                    color: Colors.white,
+                  ),
+                  text: customText(txt: 'Add Subject', clr: Colors.white))
+              as FloatingActionButton,
+        ],
+        isSpeedDialFABsMini: true,
+        paddingBtwSpeedDialButton: 60.0,
+      ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('subjects')
