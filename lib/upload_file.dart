@@ -27,14 +27,22 @@ class _UploadFileState extends State<UploadFile> {
   bool isuploading = false;
   bool allfine = false;
   UploadTask? task;
+  String? downloadImgUrl;
   var progress;
   var sessionstudent;
+  Map programids = {};
   io.File? file;
   List studentsdata = [];
+  List subjectssdata = [];
+  List availablesemesters = [];
   var args = Get.arguments;
   void initState() {
     super.initState();
     allfine = false;
+    getprograms().then((value) {
+      programids = value['programsids'];
+    });
+    addsemester();
   }
 
   Future permissionmanager() async {
@@ -78,11 +86,13 @@ class _UploadFileState extends State<UploadFile> {
   //   rawsnackbar('File downloaded to\n$externalStorageDirPath', duration: 3);
   // }
 
-  Future readfile(filepath) async {
+  Future uploadstudents(filepath) async {
     var bytes = io.File(filepath).readAsBytesSync();
     var excel = Excel.decodeBytes(bytes);
     var availablestudents = [];
     var duplicatestudents = 0;
+    bool studentsuploaded = false;
+    var stderror = '';
     var session = args['session_name'].toString();
     for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
       if (args['department'] ==
@@ -143,24 +153,202 @@ class _UploadFileState extends State<UploadFile> {
         if (availablestudents.contains(student['roll_no'])) {
           duplicatestudents += 1;
         } else {
-          await FirebaseFirestore.instance
-              .collection('students')
-              .doc(args['sessionid'])
-              .collection('sessionstudents')
-              .doc()
-              .set({
-            'studentname': student['name'],
-            'studentrollno': student['roll_no']
-          }, SetOptions(merge: true)).then((value) {});
+          try {
+            await FirebaseFirestore.instance
+                .collection('students')
+                .doc(args['sessionid'])
+                .collection('sessionstudents')
+                .doc()
+                .set({
+              'studentname': student['name'],
+              'studentrollno': student['roll_no']
+            }, SetOptions(merge: true)).then((value) {
+              studentsuploaded = true;
+            });
+          } on FirebaseException catch (e) {
+            studentsuploaded = false;
+            stderror = e.toString();
+          }
         }
       }
+      if (studentsuploaded) {
+        Get.back();
+        if (duplicatestudents == 0) {
+          customtoast('Data Uploaded Successfully');
+        } else {
+          customtoast('$duplicatestudents students already found!!!');
+        }
+        Get.back();
+      } else {
+        Get.back();
+        Get.snackbar('Error occured.', stderror);
+      }
+    }
+  }
+
+  Future<void> uploadImg({required filePath, required subjectname}) async {
+    io.File file = io.File(filePath);
+    try {
+      await FirebaseStorage.instance
+          .ref('images/subject_pictures/$subjectname.png')
+          .putFile(file);
+    } on FirebaseException catch (e) {
+      Get.snackbar('Error occured in upload file.', '$e');
+    }
+  }
+
+  Future<void> downloadURLfunc({required subjectName}) async {
+    String imgurl = await FirebaseStorage.instance
+        .ref('images/subject_pictures/$subjectName.png')
+        .getDownloadURL();
+    // setState(() {
+    downloadImgUrl = imgurl;
+    // print(downloadImgUrl);
+    // });
+  }
+
+  Future addsemester() async {
+    var semestercollection = FirebaseFirestore.instance.collection('semesters');
+    await semestercollection.get().then((QuerySnapshot semsters) {
+      for (var sem in semsters.docs) {
+        availablesemesters.add(sem['semester']);
+      }
+    });
+  }
+
+  Future uploadsubjects(filepath) async {
+    var sbjerror = '';
+    bool subjectsuploaded = false;
+    var bytes = io.File(filepath).readAsBytesSync();
+    var excel = Excel.decodeBytes(bytes);
+    var availablesubjects = [];
+    var duplicatesubjects = 0;
+    for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
+      subjectssdata.add({
+        'subject_name': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 0))
+            .value,
+        'subject_code': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 1))
+            .value,
+        'program': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 2))
+            .value,
+        'semester': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 3))
+            .value,
+        'fall/spring': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 4))
+            .value,
+        'year': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 5))
+            .value,
+        'imagepath': excel['Sheet1']
+            .cell(CellIndex.indexByColumnRow(rowIndex: row, columnIndex: 6))
+            .value,
+      });
+    }
+    await FirebaseFirestore.instance
+        .collection('subjects')
+        .doc(args['teacher_id'])
+        .collection('teacherSubjects')
+        .get()
+        .then((subjects) {
+      for (var thissubject in subjects.docs) {
+        availablesubjects.add(
+          thissubject['subject_name'],
+        );
+      }
+    });
+    for (var subject in subjectssdata) {
+      if (availablesubjects.contains(subject['subject_name'])) {
+        //todo
+        duplicatesubjects += 1;
+      } else {
+        if (!availablesemesters.contains(subject['fall/spring'].toString() +
+            ' ' +
+            subject['year'].toString())) {
+          FirebaseFirestore.instance.collection('semesters').doc().set({
+            'semester': subject['fall/spring'].toString() +
+                ' ' +
+                subject['year'].toString(),
+          }, SetOptions(merge: true));
+        }
+        // print(subject);
+        if (subject['imagepath'] != null) {
+          // print(subject['imagepath']);
+          await uploadImg(
+                  filePath: subject['imagepath'],
+                  subjectname: subject['subject_name'])
+              .then((value) async {
+            await downloadURLfunc(subjectName: subject['subject_name'])
+                .then((value) {
+              try {
+                FirebaseFirestore.instance
+                    .collection('subjects')
+                    .doc(args['teacher_id'])
+                    .collection('teacherSubjects')
+                    .doc()
+                    .set({
+                  'subject_name': subject['subject_name'],
+                  'subject_code': subject['subject_code'],
+                  'session_id': programids[subject['program']],
+                  'program': subject['program'],
+                  'semester': subject['semester'],
+                  'semester_type': subject['fall/spring'].toString() +
+                      ' ' +
+                      subject['year'].toString(),
+                  'semester_type_year': subject['year'],
+                  'imgUrl': downloadImgUrl,
+                }, SetOptions(merge: true)).then((value) {
+                  subjectsuploaded = true;
+                });
+              } on FirebaseException catch (e) {
+                subjectsuploaded = false;
+                sbjerror = e.toString();
+              }
+              downloadImgUrl = null;
+            });
+          });
+        } else {
+          try {
+            await FirebaseFirestore.instance
+                .collection('subjects')
+                .doc(args['teacher_id'])
+                .collection('teacherSubjects')
+                .doc()
+                .set({
+              'subject_name': subject['subject_name'],
+              'subject_code': subject['subject_code'],
+              'session_id': programids[subject['program']],
+              'program': subject['program'],
+              'semester': subject['semester'],
+              'semester_type': subject['fall/spring'].toString() +
+                  ' ' +
+                  subject['year'].toString(),
+              'semester_type_year': subject['year'],
+              'imgUrl': downloadImgUrl,
+            }, SetOptions(merge: true)).then((value) {
+              subjectsuploaded = true;
+            });
+          } on FirebaseException catch (e) {
+            subjectsuploaded = false;
+            sbjerror = e.toString();
+          }
+        }
+      }
+    }
+    if (subjectsuploaded) {
       Get.back();
-      if (duplicatestudents == 0) {
+      if (duplicatesubjects == 0) {
         customtoast('Data Uploaded Successfully');
       } else {
-        customtoast('$duplicatestudents students already found!!!');
+        customtoast('$duplicatesubjects subjects already found!!!');
       }
       Get.back();
+    } else {
+      Get.back();
+      Get.snackbar('Error occured.', sbjerror);
     }
   }
 
@@ -207,22 +395,28 @@ class _UploadFileState extends State<UploadFile> {
               // print(getappl);
               List<String> programs = [];
               await permissionmanager();
-              await getprograms().then((value) {
-                programs = value['programsnames'];
-              });
-              subjecttemplategenerator(availableprograms: programs)
-                  .then((value) {
-                Navigator.pop(context);
-                print('task completed');
-              });
-              // studenttemplategenerator(
-              //         departmentname: args['department'].toString(),
-              //         sessionname: args['session_name'].toString())
-              //     .then((value) {
-              //   Navigator.pop(context);
-              //   rawsnackbar('File saved to downloads folder', duration: 3);
-              //   print('task completed');
-              // });
+              if (args['isstudent']) {
+                studenttemplategenerator(
+                        departmentname: args['department'].toString(),
+                        sessionname: args['session_name'].toString())
+                    .then((value) {
+                  Navigator.pop(context);
+                  rawsnackbar('Students template saved to downloads folder',
+                      duration: 3);
+                  print('task completed');
+                });
+              } else {
+                await getprograms().then((value) {
+                  programs = value['programsnames'];
+                });
+                subjecttemplategenerator(availableprograms: programs)
+                    .then((value) {
+                  Navigator.pop(context);
+                  rawsnackbar('Subjects template saved to downloads folder',
+                      duration: 3);
+                  print('task completed');
+                });
+              }
             }),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.07,
@@ -238,7 +432,11 @@ class _UploadFileState extends State<UploadFile> {
                       custombutton('Upload File', Icons.cloud_upload_outlined,
                           () {
                         customdialogcircularprogressindicator('Uploading... ');
-                        readfile(file!.path);
+                        if (args['isstudent']) {
+                          uploadstudents(file!.path);
+                        } else {
+                          uploadsubjects(file!.path);
+                        }
                       }),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,

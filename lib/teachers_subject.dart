@@ -46,11 +46,13 @@ class _TeacherSubjectsState extends State<TeacherSubjects> {
             label: customText(txt: 'Upload File'),
             icon: const Icon(FontAwesomeIcons.upload),
             onPressed: () {
-              // Get.to(() => const UploadFile(), arguments: {
-              //   'sessionid': args['session_id'].toString(),
-              //   'department': args['department'].toString(),
-              //   'session_name': args['session_name'].toString(),
-              // });
+              Get.to(() => const UploadFile(), arguments: {
+                'isstudent': false,
+                'teacher_id': args[0]['teacherId'],
+                'sessionid': '',
+                'department': '',
+                'session_name': '',
+              });
             },
             backgroundColor: Colors.teal,
             foregroundColor: Colors.white,

@@ -121,12 +121,14 @@ Future subjecttemplategenerator({required List availableprograms}) async {
   sheet.getRangeByName('D1').cellStyle = globalStyle;
   sheet.getRangeByName('E1').cellStyle = globalStyle;
   sheet.getRangeByName('F1').cellStyle = globalStyle;
+  sheet.getRangeByName('G1').cellStyle = globalStyle;
   sheet.getRangeByName('A1').setValue('Subject Name');
   sheet.getRangeByName('B1').setValue('Subject Code');
   sheet.getRangeByName('C1').setValue('Program');
   sheet.getRangeByName('D1').setValue('Semester');
   sheet.getRangeByName('E1').setValue('Fall/Spring');
   sheet.getRangeByName('F1').setValue('Year');
+  sheet.getRangeByName('G1').setValue('Image Path');
 
   //DataValidation for list.
   final DataValidation listValidation =

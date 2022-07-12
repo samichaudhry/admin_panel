@@ -210,6 +210,8 @@ class _SessionStudentState extends State<SessionStudent> {
               icon: const Icon(FontAwesomeIcons.upload),
               onPressed: () {
                 Get.to(() => const UploadFile(), arguments: {
+                  'isstudent': true,
+                  'teacher_id': '',
                   'sessionid': args['session_id'].toString(),
                   'department': args['department'].toString(),
                   'session_name': args['session_name'].toString(),
