@@ -51,40 +51,38 @@ class _UploadFileState extends State<UploadFile> {
     });
   }
 
-  Future downloadfile(ctx) async {
-    permissionmanager();
-    customdialogcircularprogressindicator('Downloading...');
-    var ref = await FirebaseStorage.instance
-        .ref()
-        .child("images")
-        .child('file_template')
-        .child('template.xlsx')
-        .getDownloadURL();
-    print(ref);
-    // print(await getTemporaryDirectory());
-    var externalStorageDirPath;
-    // final directory = await getExternalStorageDirectory();
-    io.Directory directory = io.Directory('/storage/emulated/0/Download');
-    directory.create();
-    directory.createSync();
-    externalStorageDirPath = directory.path + '/template.xlsx';
-    Dio dio = Dio();
-    final response = await dio.download(ref, externalStorageDirPath,
-        onReceiveProgress: ((rec, total) {
-      print('rec: $rec  total:$total');
-    }));
-    Navigator.pop(ctx);
-    rawsnackbar('File downloaded to\n$externalStorageDirPath', duration: 3);
-  }
+  // Future downloadfile(ctx) async {
+  //   permissionmanager();
+  //   customdialogcircularprogressindicator('Downloading...');
+  //   var ref = await FirebaseStorage.instance
+  //       .ref()
+  //       .child("images")
+  //       .child('file_template')
+  //       .child('template.xlsx')
+  //       .getDownloadURL();
+  //   print(ref);
+  //   // print(await getTemporaryDirectory());
+  //   var externalStorageDirPath;
+  //   // final directory = await getExternalStorageDirectory();
+  //   io.Directory directory = io.Directory('/storage/emulated/0/Download');
+  //   directory.create();
+  //   directory.createSync();
+  //   externalStorageDirPath = directory.path + '/template.xlsx';
+  //   Dio dio = Dio();
+  //   final response = await dio.download(ref, externalStorageDirPath,
+  //       onReceiveProgress: ((rec, total) {
+  //     print('rec: $rec  total:$total');
+  //   }));
+  //   Navigator.pop(ctx);
+  //   rawsnackbar('File downloaded to\n$externalStorageDirPath', duration: 3);
+  // }
 
   Future readfile(filepath) async {
     var bytes = io.File(filepath).readAsBytesSync();
     var excel = Excel.decodeBytes(bytes);
     var availablestudents = [];
     var duplicatestudents = 0;
-    var session = args['session_name'].toString().split('-')[2] +
-        '-' +
-        args['session_name'].toString().split('-')[3];
+    var session = args['session_name'].toString();
     for (var row = 1; row < excel['Sheet1'].rows.length; row++) {
       if (args['department'] ==
           excel['Sheet1']
@@ -201,8 +199,9 @@ class _UploadFileState extends State<UploadFile> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
             ),
-            custombutton('Download Templete', Icons.cloud_upload_outlined,
+            custombutton('Generate Templete', Icons.cloud_upload_outlined,
                 () async {
+              customdialogcircularprogressindicator('Generating...');
               // downloadfile(context);
               // print(getappl);
               await permissionmanager();
@@ -210,6 +209,8 @@ class _UploadFileState extends State<UploadFile> {
                       departmentname: args['department'].toString(),
                       sessionname: args['session_name'].toString())
                   .then((value) {
+                Navigator.pop(context);
+                rawsnackbar('File saved to downloads folder', duration: 3);
                 print('task completed');
               });
             }),
