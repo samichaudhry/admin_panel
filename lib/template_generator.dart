@@ -7,46 +7,24 @@ Future studenttemplategenerator(
     {required sessionname, required departmentname}) async {
   print(sessionname);
   print(departmentname);
-  // Create a new Excel document.
+
   final Workbook workbook = Workbook();
 
-//Accessing worksheet via index.
   final Worksheet sheet = workbook.worksheets[0];
 
-//Defining a global style with all properties.
   Style globalStyle = workbook.styles.add('style');
-//set back color by hexa decimal.
-  // globalStyle.backColor = '#37D8E9';
-//set font name.
+
   globalStyle.fontName = 'Times New Roman';
-//set font size.
+
   globalStyle.fontSize = 20;
-//set font color by hexa decimal.
-  // globalStyle.fontColor = '#C67878';
-//set font italic.
-  // globalStyle.italic = true;
-//set font bold.
-  // globalStyle.bold = true;
-//set font underline.
-  // globalStyle.underline = true;
-//set wraper text.
-  // globalStyle.wrapText = true;
-//set indent value.
-  // globalStyle.indent = 1;
-//set horizontal alignment type.
+
   globalStyle.hAlign = HAlignType.left;
-//set vertical alignment type.
+
   globalStyle.vAlign = VAlignType.center;
-//set text rotation.
-  // globalStyle.rotation = 90;
-//set all border line style.
-  // globalStyle.borders.all.lineStyle = LineStyle.thick;
-//set border color by hexa decimal.
   globalStyle.borders.all.color = '#9954CC';
-//set number format.
+
   globalStyle.numberFormat = '_(\$* #,##0_)';
 
-//Defining Gloabl style.
   globalStyle = workbook.styles.add('style1');
 //set back color by RGB value.
   globalStyle.backColorRgb = Colors.teal;
@@ -76,6 +54,9 @@ Future studenttemplategenerator(
   final DataValidation listValidationsession =
       sheet.getRangeByName('C').dataValidation;
   listValidationsession.listOfValues = [sessionname.toString()];
+  final DataValidation listValidationtype =
+      sheet.getRangeByName('C').dataValidation;
+  listValidationtype.listOfValues = ['Regular', 'Self Support'];
 
   var externalStorageDirPath;
   Directory directory = Directory('/storage/emulated/0/Download');
