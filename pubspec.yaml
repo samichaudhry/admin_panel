@@ -54,6 +54,7 @@ dependencies:
   badges: any
   url_launcher: any
   flutter_sticky_header: any
+  syncfusion_flutter_xlsio: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

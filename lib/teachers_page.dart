@@ -227,7 +227,7 @@ class _TeachersPageState extends State<TeachersPage> {
                           // height: 60.0,
                           // color: Colors.lightBlue,
                           // padding: const EdgeInsets.all(10.0),
-                          alignment: Alignment.topRight,
+                          alignment: Alignment.topCenter,
                           child: customDropDownFormField(
                               "Departments", _departments, departments,
                               (value) {

@@ -1,5 +1,7 @@
 import 'dart:io' as io;
 import 'package:admin_panel/custom%20widgets/custom_toast.dart';
+import 'package:admin_panel/departments_getter.dart';
+import 'package:admin_panel/template_generator.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -199,9 +201,17 @@ class _UploadFileState extends State<UploadFile> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.15,
             ),
-            custombutton('Download Templete', Icons.cloud_upload_outlined, () {
-              downloadfile(context);
+            custombutton('Download Templete', Icons.cloud_upload_outlined,
+                () async {
+              // downloadfile(context);
               // print(getappl);
+              await permissionmanager();
+              studenttemplategenerator(
+                      departmentname: args['department'].toString(),
+                      sessionname: args['session_name'].toString())
+                  .then((value) {
+                print('task completed');
+              });
             }),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.07,
