@@ -54,6 +54,28 @@ Future studenttemplategenerator(
       sheet.getRangeByName('E2:E300').dataValidation;
   listValidationtype.listOfValues = ['Regular', 'Self Support'];
 
+  //Data Validation for text Length.
+  final DataValidation textLengthValidationcellA =
+      sheet.getRangeByName('A2:A300').dataValidation;
+  textLengthValidationcellA.allowType = ExcelDataValidationType.textLength;
+
+//Text Length should be less than 5 characters.
+  textLengthValidationcellA.comparisonOperator =
+      ExcelDataValidationComparisonOperator.greater;
+  textLengthValidationcellA.firstFormula = '1';
+// textLengthValidation.secondFormula = '5';
+
+  //Data Validation for text Length.
+  final DataValidation textLengthValidationcellB =
+      sheet.getRangeByName('B2:B300').dataValidation;
+  textLengthValidationcellB.allowType = ExcelDataValidationType.textLength;
+
+//Text Length should be less than 5 characters.
+  textLengthValidationcellB.comparisonOperator =
+      ExcelDataValidationComparisonOperator.greater;
+  textLengthValidationcellB.firstFormula = '1';
+// textLengthValidation.secondFormula = '5';
+
   var externalStorageDirPath;
   Directory directory = Directory('/storage/emulated/0/Download');
   directory.create();
@@ -143,6 +165,28 @@ Future subjecttemplategenerator({required List availableprograms}) async {
   final DataValidation listValidationyear =
       sheet.getRangeByName('F2:F300').dataValidation;
   listValidationyear.listOfValues = years;
+
+  //Data Validation for text Length.
+  final DataValidation textLengthValidationcellA =
+      sheet.getRangeByName('A2:A300').dataValidation;
+  textLengthValidationcellA.allowType = ExcelDataValidationType.textLength;
+
+//Text Length should be less than 5 characters.
+  textLengthValidationcellA.comparisonOperator =
+      ExcelDataValidationComparisonOperator.greater;
+  textLengthValidationcellA.firstFormula = '1';
+// textLengthValidation.secondFormula = '5';
+
+  //Data Validation for text Length.
+  final DataValidation textLengthValidationcellB =
+      sheet.getRangeByName('B2:B300').dataValidation;
+  textLengthValidationcellB.allowType = ExcelDataValidationType.textLength;
+
+//Text Length should be less than 5 characters.
+  textLengthValidationcellB.comparisonOperator =
+      ExcelDataValidationComparisonOperator.greater;
+  textLengthValidationcellB.firstFormula = '1';
+// textLengthValidation.secondFormula = '5';
 
   var externalStorageDirPath;
   Directory directory = Directory('/storage/emulated/0/Download');

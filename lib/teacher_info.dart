@@ -2,7 +2,6 @@ import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:admin_panel/add_teacher.dart';
 import 'package:admin_panel/teachers_subject.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
@@ -55,6 +54,90 @@ class _TeacherInfoState extends State<TeacherInfo> {
     );
   }
 
+  void infosheet() {
+    showModalBottomSheet(
+      context: context,
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.4,
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Center(
+              child: ListView(
+                children: [
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  RichText(
+                    textAlign: TextAlign.left,
+                    text: TextSpan(
+                        style: const TextStyle(fontSize: 18.0),
+                        children: [
+                          const TextSpan(
+                              text: 'NAME: ',
+                              style: TextStyle(
+                                color: Colors.teal,
+                              )),
+                          TextSpan(
+                            text:
+                                '${teacherInfoArguments[0]['teacher_name']}\n\n',
+                          ),
+                          const TextSpan(
+                              text: 'DEPARTMENT: ',
+                              style: TextStyle(
+                                color: Colors.teal,
+                              )),
+                          TextSpan(
+                            text:
+                                '${teacherInfoArguments[0]['department']}\n\n',
+                          ),
+                          const TextSpan(
+                              text: 'DESIGNATION: ',
+                              style: TextStyle(
+                                color: Colors.teal,
+                              )),
+                          TextSpan(
+                            text:
+                                '${teacherInfoArguments[0]['designation']}\n\n',
+                          ),
+                          const TextSpan(
+                              text: 'EMAIL: ',
+                              style: TextStyle(
+                                color: Colors.teal,
+                              )),
+                          TextSpan(
+                            text: '${teacherInfoArguments[0]['email']}\n\n',
+                            style: const TextStyle(
+                                // color: Colors.blue,
+                                ),
+                          ),
+                          const TextSpan(
+                              text: 'CONTACT NO: ',
+                              style: TextStyle(
+                                color: Colors.teal,
+                              )),
+                          TextSpan(
+                            text:
+                                '${teacherInfoArguments[0]['contact_no']}\n\n',
+                            style: const TextStyle(
+                                // color: Colors.blue,
+                                ),
+                          ),
+                        ]),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,14 +180,19 @@ class _TeacherInfoState extends State<TeacherInfo> {
               child: Column(
                 children: [
                   customSizedBox(height: 0.5),
-                  CircleAvatar(
-                    radius: 50.0,
-                    foregroundImage:
-                        NetworkImage(teacherInfoArguments[0]['imgUrl']),
-                    child: const Icon(
-                      Icons.person,
-                      size: 80.0,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      infosheet();
+                    },
+                    child: CircleAvatar(
+                      radius: 50.0,
+                      foregroundImage:
+                          NetworkImage(teacherInfoArguments[0]['imgUrl']),
+                      child: const Icon(
+                        Icons.person,
+                        size: 80.0,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   customSizedBox(height: 1),
