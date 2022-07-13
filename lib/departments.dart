@@ -1,4 +1,5 @@
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
+import 'package:admin_panel/iconslist.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +119,7 @@ class _DepartmentsState extends State<Departments> {
         onPressed: () {},
         label: customText(txt: 'Department', clr: Colors.white),
         icon: const Icon(
-          FontAwesomeIcons.plus,
+          Icons.add,
           color: Colors.white,
         ),
       ),
@@ -228,6 +229,13 @@ class _DepartmentsState extends State<Departments> {
                             context: context,
                             tiles: [
                               ListTile(
+                                onTap: () {
+                                  var mydep = 'medical';
+                                  var newlist = allicons.keys.where((element) {
+                                    return element.toString().contains(mydep);
+                                  }).toList();
+                                  print(newlist);
+                                },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
