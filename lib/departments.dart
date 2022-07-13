@@ -116,7 +116,7 @@ class _DepartmentsState extends State<Departments> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.teal,
         onPressed: () {},
-        label: customText(txt: 'Add Department', clr: Colors.white),
+        label: customText(txt: 'Department', clr: Colors.white),
         icon: const Icon(
           FontAwesomeIcons.plus,
           color: Colors.white,
