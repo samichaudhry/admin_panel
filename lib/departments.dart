@@ -121,7 +121,7 @@ class _DepartmentsState extends State<Departments> {
                   txt: 'Choose Icon', fsize: 20.0, fweight: FontWeight.w600)),
           content: SizedBox(
             height: MediaQuery.of(context).size.height * 0.4,
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 0.85,
             child: depiconslist.length == 0
                 ? Center(
                     child: customText(
@@ -134,7 +134,7 @@ class _DepartmentsState extends State<Departments> {
                     itemCount: depiconslist.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                            crossAxisCount: 3,
                             crossAxisSpacing: 5.0,
                             mainAxisSpacing: 5.0),
                     itemBuilder: (BuildContext context, int index) {
@@ -274,16 +274,35 @@ class _DepartmentsState extends State<Departments> {
                             tiles: [
                               ListTile(
                                 onTap: () async {
-                                  var mydep = 'science';
-                                  var newlist =
+                                  var mydep = 'water';
+                                  var allmatchedicons = [];
+                                  var materialFontAwesomeList =
                                       allicons.entries.where((element) {
                                     return element.key
                                         .toString()
                                         .toLowerCase()
                                         .contains(mydep);
                                   }).toList();
-                                  // print(newlist[0].value);
-                                  iconsdialog(depiconslist: newlist);
+                                  var cupertinolist =
+                                      cupertinoicons.entries.where((element) {
+                                    return element.key
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(mydep);
+                                  }).toList();
+                                  // print(cupertinolist);
+                                  var lineawesomelist =
+                                      lineAwesomeIcons.entries.where((element) {
+                                    return element.key
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(mydep);
+                                  }).toList();
+                                  allmatchedicons
+                                      .addAll(materialFontAwesomeList);
+                                  allmatchedicons.addAll(cupertinolist);
+                                  allmatchedicons.addAll(lineawesomelist);
+                                  iconsdialog(depiconslist: allmatchedicons);
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
