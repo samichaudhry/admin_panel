@@ -1,5 +1,8720 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/widgets.dart';
+
+const String iconFont = 'CupertinoIcons';
+const String iconFontPackage = 'cupertino_icons';
+
+const _kFontFam = 'LineAwesomeIcons';
+const _kFontPackage = 'flutter_iconpicker';
+
+const Map<String, IconData> lineAwesomeIcons = {
+  'caret_square_right_1':
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rock__hand__1':
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_with_rolling_eyes_1':
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_trash_1':
+      IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_square_up_1':
+      IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'eye_slash_1':
+      IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'neutral_face_1':
+      IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'map_1': IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'building_1':
+      IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'copy_1': IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dot_circle_1':
+      IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_face_with_big_eyes_1':
+      IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_with_tears_of_joy_1':
+      IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star_half_1':
+      IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'audio_file_1':
+      IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_face_with_smiling_eyes_1':
+      IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'smiling_face_1':
+      IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'window_maximize_1':
+      IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'loudly_crying_face_1':
+      IconData(0xe812, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sticky_note_1':
+      IconData(0xe813, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'window_restore_1':
+      IconData(0xe814, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angry_face_1':
+      IconData(0xe815, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star_1': IconData(0xe816, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'address_card_1':
+      IconData(0xe817, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comment_1':
+      IconData(0xe818, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'object_ungroup_1':
+      IconData(0xe819, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'winking_face_1':
+      IconData(0xe81a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'window_close_1':
+      IconData(0xe81b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'video_file_1':
+      IconData(0xe81c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'envelope_1':
+      IconData(0xe81d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hushed_face_1':
+      IconData(0xe81e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_with_tongue_1':
+      IconData(0xe81f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_square_down_1':
+      IconData(0xe820, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pause_circle_1':
+      IconData(0xe821, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'folder_open_1':
+      IconData(0xe822, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'folder_1':
+      IconData(0xe823, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'flag_1': IconData(0xe824, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_pointing_right_1':
+      IconData(0xe825, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'minus_square_1':
+      IconData(0xe826, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrow_circle_down_1':
+      IconData(0xe827, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'excel_file_1':
+      IconData(0xe828, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_square_left_1':
+      IconData(0xe829, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pointer__hand__1':
+      IconData(0xe82a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laugh_face_with_beaming_eyes_1':
+      IconData(0xe82b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'snowflake_1':
+      IconData(0xe82c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star_struck_1':
+      IconData(0xe82d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stop_circle_1':
+      IconData(0xe82e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comments_1':
+      IconData(0xe82f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'closed_captioning_1':
+      IconData(0xe830, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thumbs_down_1':
+      IconData(0xe831, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_winking_face_1':
+      IconData(0xe832, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'images_1':
+      IconData(0xe833, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'compass_1':
+      IconData(0xe834, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'code_file_1':
+      IconData(0xe835, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'squinting_face_with_tongue_1':
+      IconData(0xe836, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'clipboard_1':
+      IconData(0xe837, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'newspaper_1':
+      IconData(0xe838, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_pointing_left_1':
+      IconData(0xe839, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'object_group_1':
+      IconData(0xe83a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'image_1':
+      IconData(0xe83b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'keyboard_1':
+      IconData(0xe83c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_squinting_face_1':
+      IconData(0xe83d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_pointing_down_1':
+      IconData(0xe83e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gem_1': IconData(0xe83f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kissing_face_with_smiling_eyes_1':
+      IconData(0xe840, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'address_book_1':
+      IconData(0xe841, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_without_mouth_1':
+      IconData(0xe842, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paper_plane_1':
+      IconData(0xe843, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrow_circle_up_1':
+      IconData(0xe844, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'play_circle_1':
+      IconData(0xe845, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'image_file_1':
+      IconData(0xe846, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dizzy_face_1':
+      IconData(0xe847, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laughing_winking_face_1':
+      IconData(0xe848, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_money_bill_1':
+      IconData(0xe849, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_times_1':
+      IconData(0xe84a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rolling_on_the_floor_laughing_1':
+      IconData(0xe84b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'times_circle_1':
+      IconData(0xe84c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_plus_1':
+      IconData(0xe84d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'crying_face_1':
+      IconData(0xe84e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'powerpoint_file_1':
+      IconData(0xe84f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hdd_1': IconData(0xe850, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hourglass_1':
+      IconData(0xe851, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'credit_card_1':
+      IconData(0xe852, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lemon_1':
+      IconData(0xe853, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bell_slash_1':
+      IconData(0xe854, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_grinning_face_1':
+      IconData(0xe855, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrow_circle_right_1':
+      IconData(0xe856, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'archive_file_1':
+      IconData(0xe857, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lizard__hand__1':
+      IconData(0xe858, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laughing_squinting_face_1':
+      IconData(0xe859, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_face_1':
+      IconData(0xe85a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thumbs_up_1':
+      IconData(0xe85b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hospital_1':
+      IconData(0xe85c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kissing_face_1':
+      IconData(0xe85d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bar_chart_1':
+      IconData(0xe85e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_blowing_a_kiss_1':
+      IconData(0xe85f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'heart_1':
+      IconData(0xe860, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_comment_1':
+      IconData(0xe861, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'plus_square_1':
+      IconData(0xe862, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_list_1':
+      IconData(0xe863, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'smiling_face_with_heart_eyes_1':
+      IconData(0xe864, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrow_circle_left_1':
+      IconData(0xe865, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'frowning_face_with_open_mouth_1':
+      IconData(0xe866, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tired_face_1':
+      IconData(0xe867, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'peace__hand__1':
+      IconData(0xe868, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_minus_1':
+      IconData(0xe869, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lightbulb_1':
+      IconData(0xe86a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'check_square_1':
+      IconData(0xe86b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_1': IconData(0xe86c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'spock__hand__1':
+      IconData(0xe86d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'identification_card_1':
+      IconData(0xe86e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_check_1':
+      IconData(0xe86f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'moon_1': IconData(0xe870, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_1':
+      IconData(0xe871, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_1': IconData(0xe872, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'clock_1':
+      IconData(0xe873, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sun_1': IconData(0xe874, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_pointing_up_1':
+      IconData(0xe875, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_circle_1':
+      IconData(0xe876, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'envelope_open_1':
+      IconData(0xe877, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'edit_1': IconData(0xe878, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'circle_1':
+      IconData(0xe879, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'word_file_1':
+      IconData(0xe87a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_file_1':
+      IconData(0xe87b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'flushed_face_1':
+      IconData(0xe87c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'life_ring_1':
+      IconData(0xe87d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'beaming_face_with_smiling_eyes_1':
+      IconData(0xe87e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'square_1':
+      IconData(0xe87f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'question_circle_1':
+      IconData(0xe880, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'eye_1': IconData(0xe881, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pdf_file_1':
+      IconData(0xe882, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'frowning_face_1':
+      IconData(0xe883, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'window_minimize_1':
+      IconData(0xe884, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'registered_trademark_1':
+      IconData(0xe885, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comment_dots_1':
+      IconData(0xe886, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'winking_face_with_tongue_1':
+      IconData(0xe887, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'futbol_1':
+      IconData(0xe888, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'clone_1':
+      IconData(0xe889, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'share_square_1':
+      IconData(0xe88a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'copyright_1':
+      IconData(0xe88b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bell_1': IconData(0xe88c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'identification_badge_1':
+      IconData(0xe88d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paper__hand__1':
+      IconData(0xe88e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'scissors__hand__1':
+      IconData(0xe88f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bookmark_1':
+      IconData(0xe890, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grimacing_face_1':
+      IconData(0xe891, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'check_circle_1':
+      IconData(0xe892, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_calendar_1':
+      IconData(0xe893, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'handshake_1':
+      IconData(0xe894, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'martini_glass':
+      IconData(0xf000, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'music': IconData(0xf001, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'search': IconData(0xf002, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'heart': IconData(0xf004, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star': IconData(0xf005, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user': IconData(0xf007, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'film': IconData(0xf008, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'th_large':
+      IconData(0xf009, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'th': IconData(0xf00a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'th_list':
+      IconData(0xf00b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'check': IconData(0xf00c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'times': IconData(0xf00d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'search_plus':
+      IconData(0xf00e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'search_minus':
+      IconData(0xf010, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'power_off':
+      IconData(0xf011, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'signal': IconData(0xf012, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cog': IconData(0xf013, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'home': IconData(0xf015, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'clock': IconData(0xf017, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'road': IconData(0xf018, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'download':
+      IconData(0xf019, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'inbox': IconData(0xf01c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'redo': IconData(0xf01e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sync_icon':
+      IconData(0xf021, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_list':
+      IconData(0xf022, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lock': IconData(0xf023, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'flag': IconData(0xf024, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'headphones':
+      IconData(0xf025, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'volume_off':
+      IconData(0xf026, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'volume_down':
+      IconData(0xf027, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'volume_up':
+      IconData(0xf028, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'qrcode': IconData(0xf029, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'barcode':
+      IconData(0xf02a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tag': IconData(0xf02b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tags': IconData(0xf02c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'book': IconData(0xf02d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bookmark':
+      IconData(0xf02e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'print': IconData(0xf02f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'camera': IconData(0xf030, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'font': IconData(0xf031, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bold': IconData(0xf032, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'italic': IconData(0xf033, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'text_height':
+      IconData(0xf034, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'text_width':
+      IconData(0xf035, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'align_left':
+      IconData(0xf036, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'align_center':
+      IconData(0xf037, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'align_right':
+      IconData(0xf038, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'align_justify':
+      IconData(0xf039, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'list': IconData(0xf03a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'outdent':
+      IconData(0xf03b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'indent': IconData(0xf03c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'video_1':
+      IconData(0xf03d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'image': IconData(0xf03e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'map_marker':
+      IconData(0xf041, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'adjust': IconData(0xf042, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tint': IconData(0xf043, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'edit': IconData(0xf044, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'step_backward':
+      IconData(0xf048, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fast_backward':
+      IconData(0xf049, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'backward':
+      IconData(0xf04a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'play': IconData(0xf04b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pause': IconData(0xf04c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stop': IconData(0xf04d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'forward':
+      IconData(0xf04e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fast_forward':
+      IconData(0xf050, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'step_forward':
+      IconData(0xf051, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'eject': IconData(0xf052, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chevron_left':
+      IconData(0xf053, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chevron_right':
+      IconData(0xf054, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'plus_circle':
+      IconData(0xf055, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'minus_circle':
+      IconData(0xf056, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'times_circle':
+      IconData(0xf057, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'check_circle':
+      IconData(0xf058, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'question_circle':
+      IconData(0xf059, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'info_circle':
+      IconData(0xf05a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'crosshairs':
+      IconData(0xf05b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ban': IconData(0xf05e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'arrow_left':
+      IconData(0xf060, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'arrow_right':
+      IconData(0xf061, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'arrow_up':
+      IconData(0xf062, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'arrow_down':
+      IconData(0xf063, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'share': IconData(0xf064, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'expand': IconData(0xf065, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'compress':
+      IconData(0xf066, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'plus': IconData(0xf067, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'minus': IconData(0xf068, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'asterisk':
+      IconData(0xf069, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'exclamation_circle':
+      IconData(0xf06a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gift': IconData(0xf06b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'leaf': IconData(0xf06c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fire': IconData(0xf06d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'eye': IconData(0xf06e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'eye_slash':
+      IconData(0xf070, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'exclamation_triangle':
+      IconData(0xf071, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'plane': IconData(0xf072, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_calendar':
+      IconData(0xf073, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'random': IconData(0xf074, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comment':
+      IconData(0xf075, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'magnet': IconData(0xf076, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chevron_up':
+      IconData(0xf077, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chevron_down':
+      IconData(0xf078, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'retweet':
+      IconData(0xf079, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shopping_cart':
+      IconData(0xf07a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'folder': IconData(0xf07b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'folder_open':
+      IconData(0xf07c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bar_chart':
+      IconData(0xf080, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'twitter_square':
+      IconData(0xf081, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'facebook_square':
+      IconData(0xf082, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'retro_camera':
+      IconData(0xf083, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'key': IconData(0xf084, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cogs': IconData(0xf085, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comments':
+      IconData(0xf086, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star_half':
+      IconData(0xf089, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'linkedin':
+      IconData(0xf08c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thumbtack':
+      IconData(0xf08d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'trophy': IconData(0xf091, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'github_square':
+      IconData(0xf092, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'upload': IconData(0xf093, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lemon': IconData(0xf094, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'phone': IconData(0xf095, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'phone_square':
+      IconData(0xf098, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'twitter':
+      IconData(0xf099, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'facebook':
+      IconData(0xf09a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'github': IconData(0xf09b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'unlock': IconData(0xf09c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'credit_card':
+      IconData(0xf09d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rss': IconData(0xf09e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hdd': IconData(0xf0a0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bullhorn':
+      IconData(0xf0a1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'certificate':
+      IconData(0xf0a3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_pointing_right':
+      IconData(0xf0a4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_pointing_left':
+      IconData(0xf0a5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_pointing_up':
+      IconData(0xf0a6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_pointing_down':
+      IconData(0xf0a7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'arrow_circle_left':
+      IconData(0xf0a8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'arrow_circle_right':
+      IconData(0xf0a9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'arrow_circle_up':
+      IconData(0xf0aa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'arrow_circle_down':
+      IconData(0xf0ab, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'globe': IconData(0xf0ac, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wrench': IconData(0xf0ad, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tasks': IconData(0xf0ae, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'filter': IconData(0xf0b0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'briefcase':
+      IconData(0xf0b1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrows':
+      IconData(0xf0b2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'users': IconData(0xf0c0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'link': IconData(0xf0c1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloud': IconData(0xf0c2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'flask': IconData(0xf0c3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cut': IconData(0xf0c4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'copy': IconData(0xf0c5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paperclip':
+      IconData(0xf0c6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'save': IconData(0xf0c7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'square': IconData(0xf0c8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bars': IconData(0xf0c9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'list_ul':
+      IconData(0xf0ca, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'list_ol':
+      IconData(0xf0cb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'strikethrough':
+      IconData(0xf0cc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'underline':
+      IconData(0xf0cd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'table': IconData(0xf0ce, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'magic': IconData(0xf0d0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'truck': IconData(0xf0d1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pinterest':
+      IconData(0xf0d2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pinterest_square':
+      IconData(0xf0d3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'google_plus_square':
+      IconData(0xf0d4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'google_plus_g':
+      IconData(0xf0d5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'money_bill':
+      IconData(0xf0d6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_down':
+      IconData(0xf0d7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_up':
+      IconData(0xf0d8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_left':
+      IconData(0xf0d9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_right':
+      IconData(0xf0da, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'columns':
+      IconData(0xf0db, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort': IconData(0xf0dc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort_down__descending_':
+      IconData(0xf0dd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort_up__ascending_':
+      IconData(0xf0de, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'envelope':
+      IconData(0xf0e0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'linkedin_in':
+      IconData(0xf0e1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'undo': IconData(0xf0e2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gavel': IconData(0xf0e3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lightning_bolt':
+      IconData(0xf0e7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sitemap':
+      IconData(0xf0e8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'umbrella':
+      IconData(0xf0e9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paste': IconData(0xf0ea, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lightbulb':
+      IconData(0xf0eb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'doctor': IconData(0xf0f0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stethoscope':
+      IconData(0xf0f1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'suitcase':
+      IconData(0xf0f2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bell': IconData(0xf0f3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'coffee': IconData(0xf0f4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hospital':
+      IconData(0xf0f8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ambulance':
+      IconData(0xf0f9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medkit': IconData(0xf0fa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fighter_jet':
+      IconData(0xf0fb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'beer': IconData(0xf0fc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'h_square':
+      IconData(0xf0fd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'plus_square':
+      IconData(0xf0fe, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angle_double_left':
+      IconData(0xf100, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angle_double_right':
+      IconData(0xf101, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angle_double_up':
+      IconData(0xf102, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angle_double_down':
+      IconData(0xf103, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angle_left':
+      IconData(0xf104, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angle_right':
+      IconData(0xf105, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angle_up':
+      IconData(0xf106, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angle_down':
+      IconData(0xf107, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'desktop':
+      IconData(0xf108, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laptop': IconData(0xf109, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tablet': IconData(0xf10a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mobile_phone':
+      IconData(0xf10b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'quote_left':
+      IconData(0xf10d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'quote_right':
+      IconData(0xf10e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'spinner':
+      IconData(0xf110, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'circle': IconData(0xf111, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_github':
+      IconData(0xf113, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'smiling_face':
+      IconData(0xf118, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'frowning_face':
+      IconData(0xf119, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'neutral_face':
+      IconData(0xf11a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gamepad':
+      IconData(0xf11b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'keyboard':
+      IconData(0xf11c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'flag_checkered':
+      IconData(0xf11e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'terminal':
+      IconData(0xf120, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'code': IconData(0xf121, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'reply_all':
+      IconData(0xf122, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'location_arrow':
+      IconData(0xf124, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'crop': IconData(0xf125, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'code_branch':
+      IconData(0xf126, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'unlink': IconData(0xf127, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'question':
+      IconData(0xf128, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'info': IconData(0xf129, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'exclamation':
+      IconData(0xf12a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'superscript':
+      IconData(0xf12b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'subscript':
+      IconData(0xf12c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'eraser': IconData(0xf12d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'puzzle_piece':
+      IconData(0xf12e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'microphone':
+      IconData(0xf130, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'microphone_slash':
+      IconData(0xf131, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar':
+      IconData(0xf133, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fire_extinguisher':
+      IconData(0xf134, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rocket': IconData(0xf135, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'maxcdn': IconData(0xf136, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chevron_circle_left':
+      IconData(0xf137, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chevron_circle_right':
+      IconData(0xf138, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chevron_circle_up':
+      IconData(0xf139, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chevron_circle_down':
+      IconData(0xf13a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'html_5_logo':
+      IconData(0xf13b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'css_3_logo':
+      IconData(0xf13c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'anchor': IconData(0xf13d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_unlock':
+      IconData(0xf13e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bullseye':
+      IconData(0xf140, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'horizontal_ellipsis':
+      IconData(0xf141, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vertical_ellipsis':
+      IconData(0xf142, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rss_square':
+      IconData(0xf143, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'play_circle':
+      IconData(0xf144, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'minus_square':
+      IconData(0xf146, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'check_square':
+      IconData(0xf14a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pen_square':
+      IconData(0xf14b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'share_square':
+      IconData(0xf14d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'compass':
+      IconData(0xf14e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_square_down':
+      IconData(0xf150, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_square_up':
+      IconData(0xf151, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_square_right':
+      IconData(0xf152, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'euro_sign':
+      IconData(0xf153, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pound_sign':
+      IconData(0xf154, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dollar_sign':
+      IconData(0xf155, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'indian_rupee_sign':
+      IconData(0xf156, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yen_sign':
+      IconData(0xf157, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ruble_sign':
+      IconData(0xf158, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'won_sign':
+      IconData(0xf159, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'btc': IconData(0xf15a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file': IconData(0xf15b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_file':
+      IconData(0xf15c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort_alphabetical_down':
+      IconData(0xf15d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort_alphabetical_up':
+      IconData(0xf15e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort_amount_down':
+      IconData(0xf160, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort_amount_up':
+      IconData(0xf161, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort_numeric_down':
+      IconData(0xf162, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sort_numeric_up':
+      IconData(0xf163, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thumbs_up':
+      IconData(0xf164, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thumbs_down':
+      IconData(0xf165, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'youtube':
+      IconData(0xf167, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'xing': IconData(0xf168, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'xing_square':
+      IconData(0xf169, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dropbox':
+      IconData(0xf16b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stack_overflow':
+      IconData(0xf16c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'instagram':
+      IconData(0xf16d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'flickr': IconData(0xf16e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'app_net':
+      IconData(0xf170, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bitbucket':
+      IconData(0xf171, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tumblr': IconData(0xf173, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tumblr_square':
+      IconData(0xf174, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'apple': IconData(0xf179, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'windows':
+      IconData(0xf17a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'android':
+      IconData(0xf17b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'linux': IconData(0xf17c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dribbble':
+      IconData(0xf17d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'skype': IconData(0xf17e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'foursquare':
+      IconData(0xf180, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'trello': IconData(0xf181, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'female': IconData(0xf182, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'male': IconData(0xf183, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gratipay__gittip_':
+      IconData(0xf184, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sun': IconData(0xf185, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'moon': IconData(0xf186, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'archive':
+      IconData(0xf187, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bug': IconData(0xf188, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vk': IconData(0xf189, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'weibo': IconData(0xf18a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'renren': IconData(0xf18b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pagelines':
+      IconData(0xf18c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stack_exchange':
+      IconData(0xf18d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'caret_square_left':
+      IconData(0xf191, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dot_circle':
+      IconData(0xf192, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wheelchair':
+      IconData(0xf193, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vimeo_square':
+      IconData(0xf194, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'turkish_lira_sign':
+      IconData(0xf195, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'space_shuttle':
+      IconData(0xf197, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'slack_logo':
+      IconData(0xf198, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'envelope_square':
+      IconData(0xf199, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wordpress_logo':
+      IconData(0xf19a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'openid': IconData(0xf19b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'university':
+      IconData(0xf19c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'graduation_cap':
+      IconData(0xf19d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yahoo_logo':
+      IconData(0xf19e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'google_logo':
+      IconData(0xf1a0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'reddit_logo':
+      IconData(0xf1a1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'reddit_square':
+      IconData(0xf1a2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stumbleupon_circle':
+      IconData(0xf1a3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stumbleupon_logo':
+      IconData(0xf1a4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'delicious':
+      IconData(0xf1a5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'digg_logo':
+      IconData(0xf1a6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pied_piper_pp_logo__old_':
+      IconData(0xf1a7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_pied_piper_logo':
+      IconData(0xf1a8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'drupal_logo':
+      IconData(0xf1a9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'joomla_logo':
+      IconData(0xf1aa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'language':
+      IconData(0xf1ab, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fax': IconData(0xf1ac, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'building':
+      IconData(0xf1ad, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'child': IconData(0xf1ae, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paw': IconData(0xf1b0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cube': IconData(0xf1b2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cubes': IconData(0xf1b3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'behance':
+      IconData(0xf1b4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'behance_square':
+      IconData(0xf1b5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'steam': IconData(0xf1b6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'steam_square':
+      IconData(0xf1b7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'recycle':
+      IconData(0xf1b8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'car': IconData(0xf1b9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'taxi': IconData(0xf1ba, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tree': IconData(0xf1bb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'spotify':
+      IconData(0xf1bc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'deviantart':
+      IconData(0xf1bd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'soundcloud':
+      IconData(0xf1be, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'database':
+      IconData(0xf1c0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pdf_file':
+      IconData(0xf1c1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'word_file':
+      IconData(0xf1c2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'excel_file':
+      IconData(0xf1c3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'powerpoint_file':
+      IconData(0xf1c4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'image_file':
+      IconData(0xf1c5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'archive_file':
+      IconData(0xf1c6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'audio_file':
+      IconData(0xf1c7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'video_file':
+      IconData(0xf1c8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'code_file':
+      IconData(0xf1c9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vine': IconData(0xf1ca, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'codepen':
+      IconData(0xf1cb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'jsfiddle':
+      IconData(0xf1cc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'life_ring':
+      IconData(0xf1cd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'circle_notched':
+      IconData(0xf1ce, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rebel_alliance':
+      IconData(0xf1d0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'galactic_empire':
+      IconData(0xf1d1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'git_square':
+      IconData(0xf1d2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'git': IconData(0xf1d3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hacker_news':
+      IconData(0xf1d4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tencent_weibo':
+      IconData(0xf1d5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'qq': IconData(0xf1d6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'weixin__wechat_':
+      IconData(0xf1d7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paper_plane':
+      IconData(0xf1d8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'history':
+      IconData(0xf1da, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'heading':
+      IconData(0xf1dc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paragraph':
+      IconData(0xf1dd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'horizontal_sliders':
+      IconData(0xf1de, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_share':
+      IconData(0xf1e0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_share_square':
+      IconData(0xf1e1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bomb': IconData(0xf1e2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'futbol': IconData(0xf1e3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tty': IconData(0xf1e4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'binoculars':
+      IconData(0xf1e5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'plug': IconData(0xf1e6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'slideshare':
+      IconData(0xf1e7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'twitch': IconData(0xf1e8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yelp': IconData(0xf1e9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'newspaper':
+      IconData(0xf1ea, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wifi': IconData(0xf1eb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calculator':
+      IconData(0xf1ec, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paypal': IconData(0xf1ed, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'google_wallet':
+      IconData(0xf1ee, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'visa_credit_card':
+      IconData(0xf1f0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mastercard_credit_card':
+      IconData(0xf1f1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'discover_credit_card':
+      IconData(0xf1f2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'american_express_credit_card':
+      IconData(0xf1f3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paypal_credit_card':
+      IconData(0xf1f4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stripe_credit_card':
+      IconData(0xf1f5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bell_slash':
+      IconData(0xf1f6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'trash': IconData(0xf1f8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'copyright':
+      IconData(0xf1f9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'at': IconData(0xf1fa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'eye_dropper':
+      IconData(0xf1fb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paint_brush':
+      IconData(0xf1fc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'birthday_cake':
+      IconData(0xf1fd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'area_chart':
+      IconData(0xf1fe, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pie_chart':
+      IconData(0xf200, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'line_chart':
+      IconData(0xf201, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'last_fm':
+      IconData(0xf202, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'last_fm_square':
+      IconData(0xf203, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'toggle_off':
+      IconData(0xf204, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'toggle_on':
+      IconData(0xf205, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bicycle':
+      IconData(0xf206, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bus': IconData(0xf207, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ioxhost':
+      IconData(0xf208, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angellist':
+      IconData(0xf209, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'closed_captioning':
+      IconData(0xf20a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shekel_sign':
+      IconData(0xf20b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'buysellads':
+      IconData(0xf20d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'connect_develop':
+      IconData(0xf20e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dashcube':
+      IconData(0xf210, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'forumbee':
+      IconData(0xf211, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'leanpub':
+      IconData(0xf212, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sellsy': IconData(0xf213, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shirts_in_bulk':
+      IconData(0xf214, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'simplybuilt':
+      IconData(0xf215, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'skyatlas':
+      IconData(0xf216, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'add_to_shopping_cart':
+      IconData(0xf217, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shopping_cart_arrow_down':
+      IconData(0xf218, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ship': IconData(0xf21a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_secret':
+      IconData(0xf21b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'motorcycle':
+      IconData(0xf21c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'street_view':
+      IconData(0xf21d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'heartbeat':
+      IconData(0xf21e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'venus': IconData(0xf221, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mars': IconData(0xf222, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mercury':
+      IconData(0xf223, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'transgender':
+      IconData(0xf224, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_transgender':
+      IconData(0xf225, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'venus_double':
+      IconData(0xf226, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mars_double':
+      IconData(0xf227, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'venus_mars':
+      IconData(0xf228, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mars_stroke':
+      IconData(0xf229, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mars_stroke_vertical':
+      IconData(0xf22a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mars_stroke_horizontal':
+      IconData(0xf22b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'neuter': IconData(0xf22c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'genderless':
+      IconData(0xf22d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pinterest_p':
+      IconData(0xf231, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'what_s_app':
+      IconData(0xf232, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'server': IconData(0xf233, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_plus':
+      IconData(0xf234, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'remove_user':
+      IconData(0xf235, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bed': IconData(0xf236, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'viacoin':
+      IconData(0xf237, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'train': IconData(0xf238, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'subway': IconData(0xf239, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medium': IconData(0xf23a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'y_combinator':
+      IconData(0xf23b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'optin_monster':
+      IconData(0xf23c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'opencart':
+      IconData(0xf23d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'expeditedssl':
+      IconData(0xf23e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'battery_full':
+      IconData(0xf240, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'battery_3_4_full':
+      IconData(0xf241, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'battery_1_2_full':
+      IconData(0xf242, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'battery_1_4_full':
+      IconData(0xf243, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'battery_empty':
+      IconData(0xf244, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mouse_pointer':
+      IconData(0xf245, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'i_beam_cursor':
+      IconData(0xf246, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'object_group':
+      IconData(0xf247, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'object_ungroup':
+      IconData(0xf248, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sticky_note':
+      IconData(0xf249, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'jcb_credit_card':
+      IconData(0xf24b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'diner_s_club_credit_card':
+      IconData(0xf24c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'clone': IconData(0xf24d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'balance_scale':
+      IconData(0xf24e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hourglass_start':
+      IconData(0xf251, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hourglass_half':
+      IconData(0xf252, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hourglass_end':
+      IconData(0xf253, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hourglass':
+      IconData(0xf254, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rock__hand_':
+      IconData(0xf255, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paper__hand_':
+      IconData(0xf256, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'scissors__hand_':
+      IconData(0xf257, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lizard__hand_':
+      IconData(0xf258, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'spock__hand_':
+      IconData(0xf259, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pointer__hand_':
+      IconData(0xf25a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'peace__hand_':
+      IconData(0xf25b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'trademark':
+      IconData(0xf25c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'registered_trademark':
+      IconData(0xf25d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons':
+      IconData(0xf25e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gg_currency':
+      IconData(0xf260, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gg_currency_circle':
+      IconData(0xf261, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tripadvisor':
+      IconData(0xf262, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'odnoklassniki':
+      IconData(0xf263, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'odnoklassniki_square':
+      IconData(0xf264, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'get_pocket':
+      IconData(0xf265, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wikipedia_w':
+      IconData(0xf266, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'safari': IconData(0xf267, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chrome': IconData(0xf268, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'firefox':
+      IconData(0xf269, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'opera': IconData(0xf26a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'internet_explorer':
+      IconData(0xf26b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'television':
+      IconData(0xf26c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'contao': IconData(0xf26d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'px500': IconData(0xf26e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'amazon': IconData(0xf270, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_plus':
+      IconData(0xf271, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_minus':
+      IconData(0xf272, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_times':
+      IconData(0xf273, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_check':
+      IconData(0xf274, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'industry':
+      IconData(0xf275, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'map_pin':
+      IconData(0xf276, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'map_signs':
+      IconData(0xf277, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'map': IconData(0xf279, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_comment':
+      IconData(0xf27a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'houzz': IconData(0xf27c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vimeo': IconData(0xf27d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'font_awesome_black_tie':
+      IconData(0xf27e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fonticons':
+      IconData(0xf280, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'reddit_alien':
+      IconData(0xf281, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'edge_browser':
+      IconData(0xf282, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'codie_pie':
+      IconData(0xf284, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'modx': IconData(0xf285, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fort_awesome':
+      IconData(0xf286, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'usb': IconData(0xf287, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'product_hunt':
+      IconData(0xf288, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mixcloud':
+      IconData(0xf289, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'scribd': IconData(0xf28a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pause_circle':
+      IconData(0xf28b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stop_circle':
+      IconData(0xf28d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shopping_bag':
+      IconData(0xf290, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shopping_basket':
+      IconData(0xf291, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hashtag':
+      IconData(0xf292, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bluetooth_2':
+      IconData(0xf293, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bluetooth':
+      IconData(0xf294, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'percent':
+      IconData(0xf295, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gitlab': IconData(0xf296, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wpbeginner':
+      IconData(0xf297, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wpforms':
+      IconData(0xf298, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'envira_gallery':
+      IconData(0xf299, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'universal_access':
+      IconData(0xf29a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'blind': IconData(0xf29d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'audio_description':
+      IconData(0xf29e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'phone_volume':
+      IconData(0xf2a0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'braille':
+      IconData(0xf2a1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'assistive_listening_systems':
+      IconData(0xf2a2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'american_sign_language_interpreting':
+      IconData(0xf2a3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'deaf': IconData(0xf2a4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'glide': IconData(0xf2a5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'glide_g':
+      IconData(0xf2a6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sign_language':
+      IconData(0xf2a7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'low_vision':
+      IconData(0xf2a8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'video': IconData(0xf2a9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'video_square':
+      IconData(0xf2aa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'snapchat':
+      IconData(0xf2ab, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'snapchat_ghost':
+      IconData(0xf2ac, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'snapchat_square':
+      IconData(0xf2ad, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pied_piper_logo':
+      IconData(0xf2ae, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'first_order':
+      IconData(0xf2b0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yoast': IconData(0xf2b1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'themeisle':
+      IconData(0xf2b2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'google_plus':
+      IconData(0xf2b3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'font_awesome':
+      IconData(0xf2b4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'handshake':
+      IconData(0xf2b5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'envelope_open':
+      IconData(0xf2b6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'linode': IconData(0xf2b8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'address_book':
+      IconData(0xf2b9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'address_card':
+      IconData(0xf2bb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_circle':
+      IconData(0xf2bd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'identification_badge':
+      IconData(0xf2c1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'identification_card':
+      IconData(0xf2c2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'quora': IconData(0xf2c4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'free_code_camp':
+      IconData(0xf2c5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'telegram':
+      IconData(0xf2c6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thermometer_full':
+      IconData(0xf2c7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thermometer_3_4_full':
+      IconData(0xf2c8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thermometer_1_2_full':
+      IconData(0xf2c9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thermometer_1_4_full':
+      IconData(0xf2ca, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thermometer_empty':
+      IconData(0xf2cb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shower': IconData(0xf2cc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bath': IconData(0xf2cd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'podcast':
+      IconData(0xf2ce, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'window_maximize':
+      IconData(0xf2d0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'window_minimize':
+      IconData(0xf2d1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'window_restore':
+      IconData(0xf2d2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bandcamp':
+      IconData(0xf2d5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grav': IconData(0xf2d6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'etsy': IconData(0xf2d7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'imdb': IconData(0xf2d8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ravelry':
+      IconData(0xf2d9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sellcast':
+      IconData(0xf2da, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'microchip':
+      IconData(0xf2db, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'snowflake':
+      IconData(0xf2dc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'superpowers':
+      IconData(0xf2dd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wpexplorer':
+      IconData(0xf2de, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'meetup': IconData(0xf2e0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'utensil_spoon':
+      IconData(0xf2e5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'utensils':
+      IconData(0xf2e7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_undo':
+      IconData(0xf2ea, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_trash':
+      IconData(0xf2ed, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sync':
+      IconData(0xf2f1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stopwatch':
+      IconData(0xf2f2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sign_out':
+      IconData(0xf2f5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sign_in':
+      IconData(0xf2f6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_redo':
+      IconData(0xf2f9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'poo': IconData(0xf2fe, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'images': IconData(0xf302, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_pencil':
+      IconData(0xf303, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pen': IconData(0xf304, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_pen':
+      IconData(0xf305, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_long_arrow_down':
+      IconData(0xf309, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_long_arrow_left':
+      IconData(0xf30a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_long_arrow_right':
+      IconData(0xf30b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_long_arrow_up':
+      IconData(0xf30c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_expand_arrows':
+      IconData(0xf31e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'clipboard':
+      IconData(0xf328, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrows_horizontal':
+      IconData(0xf337, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrows_vertical':
+      IconData(0xf338, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrow_circle_down':
+      IconData(0xf358, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrow_circle_left':
+      IconData(0xf359, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrow_circle_right':
+      IconData(0xf35a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_arrow_circle_up':
+      IconData(0xf35b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_font_awesome':
+      IconData(0xf35c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_external_link':
+      IconData(0xf35d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_external_link_square':
+      IconData(0xf360, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_exchange':
+      IconData(0xf362, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'accessible_icon':
+      IconData(0xf368, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'accusoft':
+      IconData(0xf369, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'adversal':
+      IconData(0xf36a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'affiliatetheme':
+      IconData(0xf36b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'algolia':
+      IconData(0xf36c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'amilia': IconData(0xf36d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angry_creative':
+      IconData(0xf36e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'app_store':
+      IconData(0xf36f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ios_app_store':
+      IconData(0xf370, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'apper_systems_ab':
+      IconData(0xf371, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'asymmetrik__ltd_':
+      IconData(0xf372, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'audible':
+      IconData(0xf373, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'avianex':
+      IconData(0xf374, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'amazon_web_services__aws_':
+      IconData(0xf375, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bimobject':
+      IconData(0xf378, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bitcoin':
+      IconData(0xf379, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bity': IconData(0xf37a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'blackberry':
+      IconData(0xf37b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'blogger':
+      IconData(0xf37c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'blogger_b':
+      IconData(0xf37d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'b_rom_bel_experte_gmbh___co__kg_':
+      IconData(0xf37f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'centercode':
+      IconData(0xf380, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_cloud_download':
+      IconData(0xf381, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_cloud_upload':
+      IconData(0xf382, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloudscale_ch':
+      IconData(0xf383, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloudsmith':
+      IconData(0xf384, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloudversify':
+      IconData(0xf385, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cpanel': IconData(0xf388, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_css3_logo':
+      IconData(0xf38b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cuttlefish':
+      IconData(0xf38c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dungeons___dragons':
+      IconData(0xf38d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'deploy_dog':
+      IconData(0xf38e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'deskpro':
+      IconData(0xf38f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'digital_ocean':
+      IconData(0xf391, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'discord':
+      IconData(0xf392, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'discourse':
+      IconData(0xf393, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dochub': IconData(0xf394, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'docker': IconData(0xf395, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'draft2digital':
+      IconData(0xf396, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dribbble_square':
+      IconData(0xf397, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dyalog': IconData(0xf399, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'earlybirds':
+      IconData(0xf39a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'erlang': IconData(0xf39d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'facebook_f':
+      IconData(0xf39e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'facebook_messenger':
+      IconData(0xf39f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'firstdraft':
+      IconData(0xf3a1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fonticons_fi':
+      IconData(0xf3a2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_fort_awesome':
+      IconData(0xf3a3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'freebsd':
+      IconData(0xf3a4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gem': IconData(0xf3a5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gitkraken':
+      IconData(0xf3a6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gofore': IconData(0xf3a7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'goodreads':
+      IconData(0xf3a8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'goodreads_g':
+      IconData(0xf3a9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'google_drive':
+      IconData(0xf3aa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'google_play':
+      IconData(0xf3ab, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gripfire__inc_':
+      IconData(0xf3ac, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grunt': IconData(0xf3ad, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gulp': IconData(0xf3ae, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hacker_news_square':
+      IconData(0xf3af, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hireahelper':
+      IconData(0xf3b0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hotjar': IconData(0xf3b1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hubspot':
+      IconData(0xf3b2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'itunes': IconData(0xf3b4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'itunes_note':
+      IconData(0xf3b5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'jenkis': IconData(0xf3b6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'joget': IconData(0xf3b7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'javascript__js_':
+      IconData(0xf3b8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'javascript__js__square':
+      IconData(0xf3b9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'keycdn': IconData(0xf3ba, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kickstarter':
+      IconData(0xf3bb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kickstarter_k':
+      IconData(0xf3bc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laravel':
+      IconData(0xf3bd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_level_down':
+      IconData(0xf3be, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_level_up':
+      IconData(0xf3bf, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'line': IconData(0xf3c0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lock_open':
+      IconData(0xf3c1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'lyft': IconData(0xf3c3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'magento':
+      IconData(0xf3c4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_map_marker':
+      IconData(0xf3c5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medapps':
+      IconData(0xf3c6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medium_m':
+      IconData(0xf3c7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mrt': IconData(0xf3c8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_microphone':
+      IconData(0xf3c9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'microsoft':
+      IconData(0xf3ca, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mix': IconData(0xf3cb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mizuni': IconData(0xf3cc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_mobile':
+      IconData(0xf3cd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'monero': IconData(0xf3d0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_money_bill':
+      IconData(0xf3d1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'napster':
+      IconData(0xf3d2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'node_js_js':
+      IconData(0xf3d3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'npm': IconData(0xf3d4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ns8': IconData(0xf3d5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'nutritionix':
+      IconData(0xf3d6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'page4_corporation':
+      IconData(0xf3d7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'palfed': IconData(0xf3d8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'patreon':
+      IconData(0xf3d9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'periscope':
+      IconData(0xf3da, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'phabricator':
+      IconData(0xf3db, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'phoenix_framework':
+      IconData(0xf3dc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'phone_slash':
+      IconData(0xf3dd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'playstation':
+      IconData(0xf3df, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'portrait':
+      IconData(0xf3e0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pushed': IconData(0xf3e1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'python': IconData(0xf3e2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'red_river':
+      IconData(0xf3e3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wpressr':
+      IconData(0xf3e4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'reply': IconData(0xf3e5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'replyd': IconData(0xf3e6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'resolving':
+      IconData(0xf3e7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rocket_chat':
+      IconData(0xf3e8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rockrms':
+      IconData(0xf3e9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'schlix': IconData(0xf3ea, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'searchengin':
+      IconData(0xf3eb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'servicestack':
+      IconData(0xf3ec, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_shield':
+      IconData(0xf3ed, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sistrix':
+      IconData(0xf3ee, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'slack_hashtag':
+      IconData(0xf3ef, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'speakap':
+      IconData(0xf3f3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'staylinked':
+      IconData(0xf3f5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'steam_symbol':
+      IconData(0xf3f6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sticker_mule':
+      IconData(0xf3f7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'studio_vinari':
+      IconData(0xf3f8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'supple': IconData(0xf3f9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_tablet':
+      IconData(0xf3fa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_tachometer':
+      IconData(0xf3fd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'telegram_plane':
+      IconData(0xf3fe, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_ticket':
+      IconData(0xf3ff, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'uber': IconData(0xf402, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'uikit': IconData(0xf403, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'uniregistry':
+      IconData(0xf404, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'untappd':
+      IconData(0xf405, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_user':
+      IconData(0xf406, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'us_sunnah_foundation':
+      IconData(0xf407, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vaadin': IconData(0xf408, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'viber': IconData(0xf409, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vimeo_2':
+      IconData(0xf40a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vnv': IconData(0xf40b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'what_s_app_square':
+      IconData(0xf40c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'whmcs': IconData(0xf40d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'window_close':
+      IconData(0xf410, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wordpress_simple':
+      IconData(0xf411, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'xbox': IconData(0xf412, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yandex': IconData(0xf413, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yandex_international':
+      IconData(0xf414, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'apple_pay':
+      IconData(0xf415, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'apple_pay_credit_card':
+      IconData(0xf416, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fly': IconData(0xf417, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'node_js':
+      IconData(0xf419, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'open_source_initiative':
+      IconData(0xf41a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'react': IconData(0xf41b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'autoprefixer':
+      IconData(0xf41c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'less': IconData(0xf41d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sass': IconData(0xf41e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vue_js': IconData(0xf41f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angular':
+      IconData(0xf420, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'aviato': IconData(0xf421, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ember': IconData(0xf423, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'font_awesome_flag':
+      IconData(0xf425, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gitter': IconData(0xf426, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hooli': IconData(0xf427, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'strava': IconData(0xf428, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stripe': IconData(0xf429, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stripe_s':
+      IconData(0xf42a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'typo3': IconData(0xf42b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'amazon_pay':
+      IconData(0xf42c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'amazon_pay_credit_card':
+      IconData(0xf42d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ethereum':
+      IconData(0xf42e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'korvue': IconData(0xf42f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'elementor':
+      IconData(0xf430, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'youtube_square':
+      IconData(0xf431, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'baseball_ball':
+      IconData(0xf433, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'basketball_ball':
+      IconData(0xf434, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bowling_ball':
+      IconData(0xf436, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chess': IconData(0xf439, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chess_bishop':
+      IconData(0xf43a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chess_board':
+      IconData(0xf43c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chess_king':
+      IconData(0xf43f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chess_knight':
+      IconData(0xf441, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chess_pawn':
+      IconData(0xf443, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chess_queen':
+      IconData(0xf445, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chess_rook':
+      IconData(0xf447, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dumbbell':
+      IconData(0xf44b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'flipboard':
+      IconData(0xf44d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'football_ball':
+      IconData(0xf44e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'golf_ball':
+      IconData(0xf450, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hips': IconData(0xf452, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hockey_puck':
+      IconData(0xf453, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'php': IconData(0xf457, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'quidditch':
+      IconData(0xf458, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'quinscape':
+      IconData(0xf459, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'square_full':
+      IconData(0xf45c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'table_tennis':
+      IconData(0xf45d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'volleyball_ball':
+      IconData(0xf45f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'allergies':
+      IconData(0xf461, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'band_aid':
+      IconData(0xf462, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'box': IconData(0xf466, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'boxes': IconData(0xf468, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medical_briefcase':
+      IconData(0xf469, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'burn': IconData(0xf46a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'capsules':
+      IconData(0xf46b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'clipboard_with_check':
+      IconData(0xf46c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'clipboard_list':
+      IconData(0xf46d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'diagnoses':
+      IconData(0xf470, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dna': IconData(0xf471, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dolly': IconData(0xf472, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dolly_flatbed':
+      IconData(0xf474, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medical_file':
+      IconData(0xf477, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_medical_file':
+      IconData(0xf478, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'first_aid':
+      IconData(0xf479, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_hospital':
+      IconData(0xf47d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hospital_symbol':
+      IconData(0xf47e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_identification_card':
+      IconData(0xf47f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medical_notes':
+      IconData(0xf481, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pallet': IconData(0xf482, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pills': IconData(0xf484, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'prescription_bottle':
+      IconData(0xf485, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_prescription_bottle':
+      IconData(0xf486, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'procedures':
+      IconData(0xf487, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shipping_fast':
+      IconData(0xf48b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'smoking':
+      IconData(0xf48d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'syringe':
+      IconData(0xf48e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tablets':
+      IconData(0xf490, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'thermometer':
+      IconData(0xf491, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vial': IconData(0xf492, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vials': IconData(0xf493, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'warehouse':
+      IconData(0xf494, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'weight': IconData(0xf496, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'x_ray': IconData(0xf497, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'box_open':
+      IconData(0xf49e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comment_dots':
+      IconData(0xf4ad, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comment_slash':
+      IconData(0xf4b3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'couch': IconData(0xf4b8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'donate': IconData(0xf4b9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dove': IconData(0xf4ba, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_holding':
+      IconData(0xf4bd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_holding_heart':
+      IconData(0xf4be, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_holding_us_dollar':
+      IconData(0xf4c0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hands': IconData(0xf4c2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'helping_hands':
+      IconData(0xf4c4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'parachute_box':
+      IconData(0xf4cd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'people_carry':
+      IconData(0xf4ce, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'piggy_bank':
+      IconData(0xf4d3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'readme': IconData(0xf4d5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ribbon': IconData(0xf4d6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'route': IconData(0xf4d7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'seedling':
+      IconData(0xf4d8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sign': IconData(0xf4d9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'winking_face':
+      IconData(0xf4da, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tape': IconData(0xf4db, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'truck_loading':
+      IconData(0xf4de, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'truck_moving':
+      IconData(0xf4df, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'video_slash':
+      IconData(0xf4e2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wine_glass':
+      IconData(0xf4e3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'java': IconData(0xf4e4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pied_piper_hat':
+      IconData(0xf4e5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_attribution':
+      IconData(0xf4e7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_noncommercial':
+      IconData(0xf4e8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_noncommercial__euro_sign_':
+      IconData(0xf4e9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_noncommercial__yen_sign_':
+      IconData(0xf4ea, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_no_derivative_works':
+      IconData(0xf4eb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_public_domain':
+      IconData(0xf4ec, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_creative_commons_public_domain':
+      IconData(0xf4ed, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_remix':
+      IconData(0xf4ee, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_share_alike':
+      IconData(0xf4ef, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_sampling':
+      IconData(0xf4f0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_sampling__':
+      IconData(0xf4f1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_share':
+      IconData(0xf4f2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'creative_commons_cc0':
+      IconData(0xf4f3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ebay': IconData(0xf4f4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'keybase':
+      IconData(0xf4f5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mastodon':
+      IconData(0xf4f6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'r_project':
+      IconData(0xf4f7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'researchgate':
+      IconData(0xf4f8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'teamspeak':
+      IconData(0xf4f9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_user_slash':
+      IconData(0xf4fa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_astronaut':
+      IconData(0xf4fb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_check':
+      IconData(0xf4fc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_clock':
+      IconData(0xf4fd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_cog':
+      IconData(0xf4fe, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_edit':
+      IconData(0xf4ff, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_friends':
+      IconData(0xf500, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_graduate':
+      IconData(0xf501, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_lock':
+      IconData(0xf502, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_minus':
+      IconData(0xf503, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_ninja':
+      IconData(0xf504, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_shield':
+      IconData(0xf505, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_slash':
+      IconData(0xf506, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_tag':
+      IconData(0xf507, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_tie':
+      IconData(0xf508, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'users_cog':
+      IconData(0xf509, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_first_order':
+      IconData(0xf50a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fulcrum':
+      IconData(0xf50b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'galactic_republic':
+      IconData(0xf50c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'galactic_senate':
+      IconData(0xf50d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'jedi_order':
+      IconData(0xf50e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mandalorian':
+      IconData(0xf50f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'old_republic':
+      IconData(0xf510, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'phoenix_squadron':
+      IconData(0xf511, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sith': IconData(0xf512, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'trade_federation':
+      IconData(0xf513, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wolf_pack_battalion':
+      IconData(0xf514, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'balance_scale__left_weighted_':
+      IconData(0xf515, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'balance_scale__right_weighted_':
+      IconData(0xf516, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'blender':
+      IconData(0xf517, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'book_open':
+      IconData(0xf518, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'broadcast_tower':
+      IconData(0xf519, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'broom': IconData(0xf51a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chalkboard':
+      IconData(0xf51b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chalkboard_teacher':
+      IconData(0xf51c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'church': IconData(0xf51d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'coins': IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'compact_disc':
+      IconData(0xf51f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'crow': IconData(0xf520, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'crown': IconData(0xf521, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice': IconData(0xf522, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice_five':
+      IconData(0xf523, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice_four':
+      IconData(0xf524, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice_one':
+      IconData(0xf525, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice_six':
+      IconData(0xf526, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice_three':
+      IconData(0xf527, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice_two':
+      IconData(0xf528, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'divide': IconData(0xf529, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'door_closed':
+      IconData(0xf52a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'door_open':
+      IconData(0xf52b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'equals': IconData(0xf52c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'feather':
+      IconData(0xf52d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'frog': IconData(0xf52e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gas_pump':
+      IconData(0xf52f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'glasses':
+      IconData(0xf530, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'greater_than':
+      IconData(0xf531, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'greater_than_equal_to':
+      IconData(0xf532, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'helicopter':
+      IconData(0xf533, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'infinity':
+      IconData(0xf534, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kiwi_bird':
+      IconData(0xf535, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'less_than':
+      IconData(0xf536, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'less_than_equal_to':
+      IconData(0xf537, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'memory': IconData(0xf538, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_microphone_slash':
+      IconData(0xf539, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wavy_money_bill':
+      IconData(0xf53a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_wavy_money_bill':
+      IconData(0xf53b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'money_check':
+      IconData(0xf53c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_money_check':
+      IconData(0xf53d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'not_equal':
+      IconData(0xf53e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'palette':
+      IconData(0xf53f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'parking':
+      IconData(0xf540, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'percentage':
+      IconData(0xf541, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'project_diagram':
+      IconData(0xf542, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'receipt':
+      IconData(0xf543, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'robot': IconData(0xf544, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ruler': IconData(0xf545, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ruler_combined':
+      IconData(0xf546, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ruler_horizontal':
+      IconData(0xf547, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ruler_vertical':
+      IconData(0xf548, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'school': IconData(0xf549, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'screwdriver':
+      IconData(0xf54a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shoe_prints':
+      IconData(0xf54b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'skull': IconData(0xf54c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'smoking_ban':
+      IconData(0xf54d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'store': IconData(0xf54e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_store':
+      IconData(0xf54f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stream': IconData(0xf550, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stroopwafel':
+      IconData(0xf551, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'toolbox':
+      IconData(0xf552, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  't_shirt':
+      IconData(0xf553, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'walking':
+      IconData(0xf554, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wallet': IconData(0xf555, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'angry_face':
+      IconData(0xf556, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'archway':
+      IconData(0xf557, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'atlas': IconData(0xf558, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'award': IconData(0xf559, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'backspace':
+      IconData(0xf55a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bezier_curve':
+      IconData(0xf55b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bong': IconData(0xf55c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'brush': IconData(0xf55d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bus_alt':
+      IconData(0xf55e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cannabis':
+      IconData(0xf55f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'double_check':
+      IconData(0xf560, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cocktail':
+      IconData(0xf561, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'concierge_bell':
+      IconData(0xf562, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cookie': IconData(0xf563, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cookie_bite':
+      IconData(0xf564, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_crop':
+      IconData(0xf565, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'digital_tachograph':
+      IconData(0xf566, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dizzy_face':
+      IconData(0xf567, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'drafting_compass':
+      IconData(0xf568, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'drum': IconData(0xf569, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'drum_steelpan':
+      IconData(0xf56a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_feather':
+      IconData(0xf56b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_contract':
+      IconData(0xf56c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_download':
+      IconData(0xf56d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_export':
+      IconData(0xf56e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_import':
+      IconData(0xf56f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_invoice':
+      IconData(0xf570, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_invoice_with_us_dollar':
+      IconData(0xf571, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_prescription':
+      IconData(0xf572, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_signature':
+      IconData(0xf573, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_upload':
+      IconData(0xf574, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fill': IconData(0xf575, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fill_drip':
+      IconData(0xf576, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fingerprint':
+      IconData(0xf577, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fish': IconData(0xf578, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'flushed_face':
+      IconData(0xf579, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'frowning_face_with_open_mouth':
+      IconData(0xf57a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_glass_martini':
+      IconData(0xf57b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'globe_with_africa_shown':
+      IconData(0xf57c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'globe_with_americas_shown':
+      IconData(0xf57d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'globe_with_asia_shown':
+      IconData(0xf57e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grimacing_face':
+      IconData(0xf57f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_face':
+      IconData(0xf580, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_grinning_face':
+      IconData(0xf581, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_face_with_smiling_eyes':
+      IconData(0xf582, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_face_with_sweat':
+      IconData(0xf583, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'smiling_face_with_heart_eyes':
+      IconData(0xf584, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_squinting_face':
+      IconData(0xf585, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rolling_on_the_floor_laughing':
+      IconData(0xf586, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star_struck':
+      IconData(0xf587, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_with_tears_of_joy':
+      IconData(0xf588, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_with_tongue':
+      IconData(0xf589, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'squinting_face_with_tongue':
+      IconData(0xf58a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'winking_face_with_tongue':
+      IconData(0xf58b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_winking_face':
+      IconData(0xf58c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grip_horizontal':
+      IconData(0xf58d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grip_vertical':
+      IconData(0xf58e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_headphones':
+      IconData(0xf58f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'headset':
+      IconData(0xf590, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'highlighter':
+      IconData(0xf591, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hornbill':
+      IconData(0xf592, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hot_tub':
+      IconData(0xf593, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hotel': IconData(0xf594, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'joint': IconData(0xf595, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kissing_face':
+      IconData(0xf596, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kissing_face_with_smiling_eyes':
+      IconData(0xf597, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_blowing_a_kiss':
+      IconData(0xf598, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grinning_face_with_big_eyes':
+      IconData(0xf599, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laugh_face_with_beaming_eyes':
+      IconData(0xf59a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laughing_squinting_face':
+      IconData(0xf59b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laughing_winking_face':
+      IconData(0xf59c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'luggage_cart':
+      IconData(0xf59d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mailchimp':
+      IconData(0xf59e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'map_marked':
+      IconData(0xf59f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_map_marked':
+      IconData(0xf5a0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'marker': IconData(0xf5a1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medal': IconData(0xf5a2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'megaport':
+      IconData(0xf5a3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_without_mouth':
+      IconData(0xf5a4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'face_with_rolling_eyes':
+      IconData(0xf5a5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'monument':
+      IconData(0xf5a6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mortar_pestle':
+      IconData(0xf5a7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'nimblr': IconData(0xf5a8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'paint_roller':
+      IconData(0xf5aa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'passport':
+      IconData(0xf5ab, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pen_fancy':
+      IconData(0xf5ac, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pen_nib':
+      IconData(0xf5ad, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pencil_ruler':
+      IconData(0xf5ae, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'plane_arrival':
+      IconData(0xf5af, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'plane_departure':
+      IconData(0xf5b0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'prescription':
+      IconData(0xf5b1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rev_io': IconData(0xf5b2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'crying_face':
+      IconData(0xf5b3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'loudly_crying_face':
+      IconData(0xf5b4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shopware':
+      IconData(0xf5b5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shuttle_van':
+      IconData(0xf5b6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'signature':
+      IconData(0xf5b7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'beaming_face_with_smiling_eyes':
+      IconData(0xf5b8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'solar_panel':
+      IconData(0xf5ba, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'spa': IconData(0xf5bb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'splotch':
+      IconData(0xf5bc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'spray_can':
+      IconData(0xf5bd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'squarespace':
+      IconData(0xf5be, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stamp': IconData(0xf5bf, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_star_half':
+      IconData(0xf5c0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'suitcase_rolling':
+      IconData(0xf5c1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hushed_face':
+      IconData(0xf5c2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'swatchbook':
+      IconData(0xf5c3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'swimmer':
+      IconData(0xf5c4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'swimming_pool':
+      IconData(0xf5c5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'themeco':
+      IconData(0xf5c6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tint_slash':
+      IconData(0xf5c7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tired_face':
+      IconData(0xf5c8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tooth': IconData(0xf5c9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'umbrella_beach':
+      IconData(0xf5ca, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vector_square':
+      IconData(0xf5cb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'weebly': IconData(0xf5cc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hanging_weight':
+      IconData(0xf5cd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_wine_glas':
+      IconData(0xf5ce, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wix': IconData(0xf5cf, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'air_freshener':
+      IconData(0xf5d0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fruit_apple':
+      IconData(0xf5d1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'atom': IconData(0xf5d2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bone': IconData(0xf5d7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'book_reader':
+      IconData(0xf5da, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'brain': IconData(0xf5dc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_car':
+      IconData(0xf5de, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'car_battery':
+      IconData(0xf5df, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'car_crash':
+      IconData(0xf5e1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'car_side':
+      IconData(0xf5e4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'charging_station':
+      IconData(0xf5e7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'directions':
+      IconData(0xf5eb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'draw_polygon':
+      IconData(0xf5ee, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ello': IconData(0xf5f1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hackerrank':
+      IconData(0xf5f7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kaggle': IconData(0xf5fa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laptop_code':
+      IconData(0xf5fc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'layer_group':
+      IconData(0xf5fd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'markdown':
+      IconData(0xf60f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'microscope':
+      IconData(0xf610, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'neos': IconData(0xf612, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'oil_can':
+      IconData(0xf613, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'poop': IconData(0xf619, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'shapes': IconData(0xf61f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star_of_life':
+      IconData(0xf621, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'teeth': IconData(0xf62e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'teeth_open':
+      IconData(0xf62f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'theater_masks':
+      IconData(0xf630, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'traffic_light':
+      IconData(0xf637, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'truck_monster':
+      IconData(0xf63b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'truck_side':
+      IconData(0xf63c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'zhihu': IconData(0xf63f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ad': IconData(0xf641, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alipay': IconData(0xf642, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ankh': IconData(0xf644, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bible': IconData(0xf647, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'business_time':
+      IconData(0xf64a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'city': IconData(0xf64f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comment_dollar':
+      IconData(0xf651, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'comments_dollar':
+      IconData(0xf653, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cross': IconData(0xf654, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dharmachakra':
+      IconData(0xf655, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'envelope_open_text':
+      IconData(0xf658, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'folder_minus':
+      IconData(0xf65d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'folder_plus':
+      IconData(0xf65e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'funnel_dollar':
+      IconData(0xf662, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gopuram':
+      IconData(0xf664, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hamsa': IconData(0xf665, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'haykal': IconData(0xf666, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'jedi': IconData(0xf669, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'journal_of_the_whills':
+      IconData(0xf66a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'kaaba': IconData(0xf66b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'khanda': IconData(0xf66d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'landmark':
+      IconData(0xf66f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mail_bulk':
+      IconData(0xf674, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'menorah':
+      IconData(0xf676, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mosque': IconData(0xf678, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'om': IconData(0xf679, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pastafarianism':
+      IconData(0xf67b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'peace': IconData(0xf67c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'place_of_worship':
+      IconData(0xf67f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'poll': IconData(0xf681, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'poll_h': IconData(0xf682, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pray': IconData(0xf683, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'praying_hands':
+      IconData(0xf684, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'quran': IconData(0xf687, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'search_dollar':
+      IconData(0xf688, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'search_location':
+      IconData(0xf689, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'socks': IconData(0xf696, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_square_root':
+      IconData(0xf698, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star_and_crescent':
+      IconData(0xf699, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'star_of_david':
+      IconData(0xf69a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'synagogue':
+      IconData(0xf69b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'the_red_yeti':
+      IconData(0xf69d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'torah': IconData(0xf6a0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'torii_gate':
+      IconData(0xf6a1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vihara': IconData(0xf6a7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'volume_mute':
+      IconData(0xf6a9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yin_yang':
+      IconData(0xf6ad, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'acquisitions_incorporated':
+      IconData(0xf6af, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'blender_phone':
+      IconData(0xf6b6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'book_of_the_dead':
+      IconData(0xf6b7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'campground':
+      IconData(0xf6bb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cat': IconData(0xf6be, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chair': IconData(0xf6c0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloud_with_moon':
+      IconData(0xf6c3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloud_with_sun':
+      IconData(0xf6c4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'critical_role':
+      IconData(0xf6c9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'd_d_beyond':
+      IconData(0xf6ca, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dev': IconData(0xf6cc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice_d20':
+      IconData(0xf6cf, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dice_d6':
+      IconData(0xf6d1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dog': IconData(0xf6d3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dragon': IconData(0xf6d5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'drumstick_with_bite_taken_out':
+      IconData(0xf6d7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dungeon':
+      IconData(0xf6d9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fantasy_flight_games':
+      IconData(0xf6dc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'file_csv':
+      IconData(0xf6dd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'raised_fist':
+      IconData(0xf6de, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ghost': IconData(0xf6e2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hammer': IconData(0xf6e3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hanukiah':
+      IconData(0xf6e6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wizard_s_hat':
+      IconData(0xf6e8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hiking': IconData(0xf6ec, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hippo': IconData(0xf6ed, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'horse': IconData(0xf6f0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'damaged_house':
+      IconData(0xf6f1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hryvnia':
+      IconData(0xf6f2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mask': IconData(0xf6fa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mountain':
+      IconData(0xf6fc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wired_network':
+      IconData(0xf6ff, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'otter': IconData(0xf700, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'penny_arcade':
+      IconData(0xf704, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ring': IconData(0xf70b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'running':
+      IconData(0xf70c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'scroll': IconData(0xf70e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'skull___crossbones':
+      IconData(0xf714, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'slash': IconData(0xf715, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'spider': IconData(0xf717, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'toilet_paper':
+      IconData(0xf71e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tractor':
+      IconData(0xf722, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'user_injured':
+      IconData(0xf728, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cardboard_vr':
+      IconData(0xf729, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wind': IconData(0xf72e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wine_bottle':
+      IconData(0xf72f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'wizards_of_the_coast':
+      IconData(0xf730, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'think_peaks':
+      IconData(0xf731, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloud_with__a_chance_of__meatball':
+      IconData(0xf73b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloud_with_moon_and_rain':
+      IconData(0xf73c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloud_with_rain':
+      IconData(0xf73d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloud_with_heavy_showers':
+      IconData(0xf740, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cloud_with_sun_and_rain':
+      IconData(0xf743, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'democrat':
+      IconData(0xf747, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'united_states_of_america_flag':
+      IconData(0xf74d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'meteor': IconData(0xf753, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'person_entering_booth':
+      IconData(0xf756, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'poo_storm':
+      IconData(0xf75a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'rainbow':
+      IconData(0xf75b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'reacteurope':
+      IconData(0xf75d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'republican':
+      IconData(0xf75e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'smog': IconData(0xf75f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'high_temperature':
+      IconData(0xf769, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'low_temperature':
+      IconData(0xf76b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'vote_yea':
+      IconData(0xf772, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'water': IconData(0xf773, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'adobe': IconData(0xf778, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'artstation':
+      IconData(0xf77a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'atlassian':
+      IconData(0xf77b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'baby': IconData(0xf77c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'baby_carriage':
+      IconData(0xf77d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'biohazard':
+      IconData(0xf780, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'blog': IconData(0xf781, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_with_day_focus':
+      IconData(0xf783, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'calendar_with_week_focus':
+      IconData(0xf784, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'canadian_maple_leaf':
+      IconData(0xf785, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'candy_cane':
+      IconData(0xf786, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'carrot': IconData(0xf787, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cash_register':
+      IconData(0xf788, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'centos': IconData(0xf789, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_compress_arrows':
+      IconData(0xf78c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'confluence':
+      IconData(0xf78d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dhl': IconData(0xf790, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'diaspora':
+      IconData(0xf791, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dumpster':
+      IconData(0xf793, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'dumpster_fire':
+      IconData(0xf794, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ethernet':
+      IconData(0xf796, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fedex': IconData(0xf797, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fedora': IconData(0xf798, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'figma': IconData(0xf799, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'gifts': IconData(0xf79c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'glass_cheers':
+      IconData(0xf79f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'glass_whiskey':
+      IconData(0xf7a0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'globe_with_europe_shown':
+      IconData(0xf7a2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grip_lines':
+      IconData(0xf7a4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'grip_lines_vertical':
+      IconData(0xf7a5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'guitar': IconData(0xf7a6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'heart_broken':
+      IconData(0xf7a9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'holly_berry':
+      IconData(0xf7aa, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'horse_head':
+      IconData(0xf7ab, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'icicles':
+      IconData(0xf7ad, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'igloo': IconData(0xf7ae, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'intercom':
+      IconData(0xf7af, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'invision':
+      IconData(0xf7b0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'jira': IconData(0xf7b1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mendeley':
+      IconData(0xf7b3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mitten': IconData(0xf7b5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mug_hot':
+      IconData(0xf7b6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'radiation':
+      IconData(0xf7b9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_radiation':
+      IconData(0xf7ba, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'raspberry_pi':
+      IconData(0xf7bb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'redhat': IconData(0xf7bc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'restroom':
+      IconData(0xf7bd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'satellite':
+      IconData(0xf7bf, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'satellite_dish':
+      IconData(0xf7c0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sd_card':
+      IconData(0xf7c2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sim_card':
+      IconData(0xf7c4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'skating':
+      IconData(0xf7c5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sketch': IconData(0xf7c6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'skiing': IconData(0xf7c9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'skiing_nordic':
+      IconData(0xf7ca, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sleigh': IconData(0xf7cc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sms': IconData(0xf7cd, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'snowboarding':
+      IconData(0xf7ce, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'snowman':
+      IconData(0xf7d0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'snowplow':
+      IconData(0xf7d2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'sourcetree':
+      IconData(0xf7d3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'suse': IconData(0xf7d6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tenge': IconData(0xf7d7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'toilet': IconData(0xf7d8, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tools': IconData(0xf7d9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'tram': IconData(0xf7da, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ubuntu': IconData(0xf7df, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ups': IconData(0xf7e0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'united_states_postal_service':
+      IconData(0xf7e1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yarn': IconData(0xf7e3, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_fire':
+      IconData(0xf7e4, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bacon': IconData(0xf7e5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medical_book':
+      IconData(0xf7e6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bread_slice':
+      IconData(0xf7ec, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cheese': IconData(0xf7ef, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'medical_clinic':
+      IconData(0xf7f2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_medical_chat':
+      IconData(0xf7f5, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'crutch': IconData(0xf7f7, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'egg': IconData(0xf7fb, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hamburger':
+      IconData(0xf805, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hand_with_middle_finger_raised':
+      IconData(0xf806, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hard_hat':
+      IconData(0xf807, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hot_dog':
+      IconData(0xf80f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'ice_cream':
+      IconData(0xf810, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'laptop_medical':
+      IconData(0xf812, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pager': IconData(0xf815, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'hot_pepper':
+      IconData(0xf816, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'pizza_slice':
+      IconData(0xf818, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'trash_restore':
+      IconData(0xf829, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternative_trash_restore':
+      IconData(0xf82a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'nurse': IconData(0xf82f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'airbnb': IconData(0xf834, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'battle_net':
+      IconData(0xf835, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'bootstrap':
+      IconData(0xf836, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'buffer': IconData(0xf837, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'chromecast':
+      IconData(0xf838, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'evernote':
+      IconData(0xf839, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'itch_io':
+      IconData(0xf83a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'salesforce':
+      IconData(0xf83b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'speaker_deck':
+      IconData(0xf83c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'symfony':
+      IconData(0xf83d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'square_wave':
+      IconData(0xf83e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'waze': IconData(0xf83f, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'yammer': IconData(0xf840, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'git_alt':
+      IconData(0xf841, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'stackpath':
+      IconData(0xf842, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'biking': IconData(0xf84a, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'border_all':
+      IconData(0xf84c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'border_none':
+      IconData(0xf850, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'border_style':
+      IconData(0xf853, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'fan': IconData(0xf863, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'icons': IconData(0xf86d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_phone':
+      IconData(0xf879, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_phone_square':
+      IconData(0xf87b, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'photo_video':
+      IconData(0xf87c, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'remove_format':
+      IconData(0xf87d, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sort_alphabetical_down':
+      IconData(0xf881, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sort_alphabetical_up':
+      IconData(0xf882, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sort_amount_down':
+      IconData(0xf884, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sort_amount_up':
+      IconData(0xf885, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sort_numeric_down':
+      IconData(0xf886, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'alternate_sort_numeric_up':
+      IconData(0xf887, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'spell_check':
+      IconData(0xf891, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'voicemail':
+      IconData(0xf897, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cotton_bureau':
+      IconData(0xf89e, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'buy_n_large':
+      IconData(0xf8a6, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cowboy_hat':
+      IconData(0xf8c0, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'cowboy_hat_side':
+      IconData(0xf8c1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'material_design_for_bootstrap':
+      IconData(0xf8ca, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'mouse': IconData(0xf8cc, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'orcid': IconData(0xf8d2, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'record_vinyl':
+      IconData(0xf8d9, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'swift': IconData(0xf8e1, fontFamily: _kFontFam, fontPackage: _kFontPackage),
+  'umbraco': IconData(0xf8e8, fontFamily: _kFontFam, fontPackage: _kFontPackage)
+};
+
+Map cupertinoicons = {
+  /// A thin left chevron.
+  /// This is the same icon as [chevron_left] in cupertino_icons 1.0.0+.
+  'left_chevron': const IconData(0xf3d2,
+      fontFamily: iconFont,
+      fontPackage: iconFontPackage,
+      matchTextDirection: true),
+
+  /// A thin right chevron.
+  /// This is the same icon as [chevron_right] in cupertino_icons 1.0.0+.
+  'right_chevron': const IconData(0xf3d3,
+      fontFamily: iconFont,
+      fontPackage: iconFontPackage,
+      matchTextDirection: true),
+
+  /// iOS style share icon with an arrow pointing up from a box. This icon is not filled in.
+  /// This is the same icon as [square_arrow_up] and [share_up] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [share_solid], which is similar, but filled in.
+  ///  * [share_up], for another (pre-iOS 7) version of this icon.
+  'share': const IconData(0xf4ca,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// iOS style share icon with an arrow pointing up from a box. This icon is filled in.
+  /// This is the same icon as [square_arrow_up_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [share], which is similar, but not filled in.
+  ///  * [share_up], for another (pre-iOS 7) version of this icon.
+  'share_solid': const IconData(0xf4cb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A book silhouette spread open. This icon is not filled in.
+  /// See also:
+  ///
+  ///  * [book_solid], which is similar, but filled in.
+  'book': const IconData(0xf3e7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A book silhouette spread open. This icon is filled in.
+  /// This is the same icon as [book_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [book], which is similar, but not filled in.
+  'book_solid': const IconData(0xf3e8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A book silhouette spread open containing a bookmark in the upper right. This icon is not filled in.
+  ///
+  /// See also:
+  ///
+  ///  * [bookmark_solid], which is similar, but filled in.
+  'bookmark': const IconData(0xf3e9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A book silhouette spread open containing a bookmark in the upper right. This icon is filled in.
+  /// This is the same icon as [bookmark_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [bookmark], which is similar, but not filled in.
+  'bookmark_solid': const IconData(0xf3ea,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A letter 'i' in a circle.
+  /// This is the same icon as [info_circle] in cupertino_icons 1.0.0+.
+  'info': const IconData(0xf44c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A curved up and left pointing arrow.
+  /// This is the same icon as [arrowshape_turn_up_left] in cupertino_icons 1.0.0+.
+  ///
+  /// For another version of this icon, see [reply_thick_solid].
+  'reply': const IconData(0xf4c6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A chat bubble.
+  /// This is the same icon as [chat_bubble] in cupertino_icons 1.0.0+.
+  'conversation_bubble': const IconData(0xf3fb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A person's silhouette in a circle.
+  /// This is the same icon as [person_crop_circle] in cupertino_icons 1.0.0+.
+  'profile_circled': const IconData(0xf419,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A '+' sign in a circle.
+  /// This is the same icon as [plus_circle] in cupertino_icons 1.0.0+.
+  'plus_circled': const IconData(0xf48a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A '-' sign in a circle.
+  /// This is the same icon as [minus_circle] in cupertino_icons 1.0.0+.
+  'minus_circled': const IconData(0xf463,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A right facing flag and pole outline.
+  'flag': const IconData(0xf42c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A magnifier loop outline.
+  'search': const IconData(0xf4a5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A checkmark.
+  /// This is the same icon as [checkmark] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [check_mark_circled], which consists of this check mark and a circle surrounding it.
+  'check_mark': const IconData(0xf3fd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A checkmark in a circle. The circle is not filled in.
+  /// This is the same icon as [checkmark_circle] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [check_mark_circled_solid], which is similar, but filled in.
+  ///  * [check_mark], which is the check mark without a circle.
+  'check_mark_circled': const IconData(0xf3fe,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A checkmark in a circle. The circle is filled in.
+  /// This is the same icon as [checkmark_circle_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [check_mark_circled], which is similar, but not filled in.
+  'check_mark_circled_solid': const IconData(0xf3ff,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An empty circle (a ring).  An un-selected radio button.
+  ///
+  /// See also:
+  ///
+  ///  * [circle_filled], which is similar but filled in.
+  'circle': const IconData(0xf401,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled circle.  The circle is surrounded by a ring.  A selected radio button.
+  /// This is the same icon as [circle_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [circle], which is similar but not filled in.
+  'circle_filled': const IconData(0xf400,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A thicker left chevron used in iOS for the navigation bar back button.
+  /// This is the same icon as [chevron_back] in cupertino_icons 1.0.0+.
+  'back': const IconData(0xf3cf,
+      fontFamily: iconFont,
+      fontPackage: iconFontPackage,
+      matchTextDirection: true),
+
+  /// A thicker right chevron that's the reverse of [back].
+  /// This is the same icon as [chevron_forward] in cupertino_icons 1.0.0+.
+  'forward': const IconData(0xf3d1,
+      fontFamily: iconFont,
+      fontPackage: iconFontPackage,
+      matchTextDirection: true),
+
+  /// Outline of a simple front-facing house.
+  /// This is the same icon as [house] in cupertino_icons 1.0.0+.
+  'home': const IconData(0xf447,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A right-facing shopping cart outline.
+  /// This is the same icon as [cart] in cupertino_icons 1.0.0+.
+  'shopping_cart': const IconData(0xf3f7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Three solid dots.
+  'ellipsis': const IconData(0xf46a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A phone handset outline.
+  'phone': const IconData(0xf4b8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A phone handset.
+  /// This is the same icon as [phone_fill] in cupertino_icons 1.0.0+.
+  'phone_solid': const IconData(0xf4b9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A solid down arrow.
+  /// This is the same icon as [arrow_down] in cupertino_icons 1.0.0+.
+  'down_arrow': const IconData(0xf35d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A solid up arrow.
+  /// This is the same icon as [arrow_up] in cupertino_icons 1.0.0+.
+  'up_arrow': const IconData(0xf366,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A charging battery.
+  /// This is the same icon as [battery_100], [battery_full] and [battery_75_percent] in cupertino_icons 1.0.0+.
+  'battery_charging': const IconData(0xf111,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An empty battery.
+  /// This is the same icon as [battery_0] in cupertino_icons 1.0.0+.
+  'battery_empty': const IconData(0xf112,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A full battery.
+  /// This is the same icon as [battery_100], [battery_charging] and [battery_75_percent] in cupertino_icons 1.0.0+.
+  'battery_full': const IconData(0xf113,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A 75% charged battery.
+  /// This is the same icon as [battery_100], [battery_charging] and [battery_full] in cupertino_icons 1.0.0+.
+  'battery_75_percent': const IconData(0xf114,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A 25% charged battery.
+  /// This is the same icon as [battery_25] in cupertino_icons 1.0.0+.
+  'battery_25_percent': const IconData(0xf115,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// The Bluetooth logo.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  'bluetooth': const IconData(0xf116,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A restart arrow, pointing downwards.
+  /// This is the same icon as [arrow_counterclockwise] in cupertino_icons 1.0.0+.
+  'restart': const IconData(0xf21c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two curved up and left pointing arrows.
+  /// This is the same icon as [arrowshape_turn_up_left_2] in cupertino_icons 1.0.0+.
+  'reply_all': const IconData(0xf21d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A curved up and left pointing arrow.
+  /// This is the same icon as [arrowshape_turn_up_left_2_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// For another version of this icon, see [reply].
+  'reply_thick_solid': const IconData(0xf21e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// iOS style share icon with an arrow pointing upwards to the right from a box.
+  /// This is the same icon as [square_arrow_up] and [share_up] in cupertino_icons 1.0.0+.
+  ///
+  /// For another version of this icon (introduced in iOS 7), see [share].
+  'share_up': const IconData(0xf220,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two thin right-facing intertwined arrows.
+  /// This is the same icon as [shuffle_medium] and [shuffle_thick] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [shuffle_medium], with slightly thicker arrows.
+  ///  * [shuffle_thick], with thicker, bold arrows.
+  'shuffle': const IconData(0xf4a9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two medium thickness right-facing intertwined arrows.
+  /// This is the same icon as [shuffle] and [shuffle_thick] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [shuffle], with thin arrows.
+  ///  * [shuffle_thick], with thicker, bold arrows.
+  'shuffle_medium': const IconData(0xf4a8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two thick right-facing intertwined arrows.
+  /// This is the same icon as [shuffle_medium] and [shuffle] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [shuffle], with thin arrows.
+  ///  * [shuffle_medium], with slightly thinner arrows.
+  'shuffle_thick': const IconData(0xf221,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A camera for still photographs. This icon is filled in.
+  /// This is the same icon as [camera] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [photo_camera], which is similar, but not filled in.
+  ///  * [video_camera_solid], for the moving picture equivalent.
+  'photo_camera': const IconData(0xf3f5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A camera for still photographs. This icon is not filled in.
+  /// This is the same icon as [camera_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [photo_camera_solid], which is similar, but filled in.
+  ///  * [video_camera], for the moving picture equivalent.
+  'photo_camera_solid': const IconData(0xf3f6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A camera for moving pictures. This icon is not filled in.
+  /// This is the same icon as [videocam] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [video_camera_solid], which is similar, but filled in.
+  ///  * [photo_camera], for the still photograph equivalent.
+  'video_camera': const IconData(0xf4cc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A camera for moving pictures. This icon is filled in.
+  /// This is the same icon as [videocam_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [video_camera], which is similar, but not filled in.
+  ///  * [photo_camera_solid], for the still photograph equivalent.
+  'video_camera_solid': const IconData(0xf4cd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A camera containing two circular arrows pointing at each other, which indicate switching. This icon is not filled in.
+  /// This is the same icon as [camera_rotate] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [switch_camera_solid], which is similar, but filled in.
+  'switch_camera': const IconData(0xf49e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A camera containing two circular arrows pointing at each other, which indicate switching. This icon is filled in.
+  /// This is the same icon as [camera_rotate_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [switch_camera], which is similar, but not filled in.
+  'switch_camera_solid': const IconData(0xf49f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A collection of folders, which store collections of files, i.e. an album. This icon is not filled in.
+  /// This is the same icon as [rectangle_stack] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [collections_solid], which is similar, but filled in.
+  'collections': const IconData(0xf3c9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A collection of folders, which store collections of files, i.e. an album. This icon is filled in.
+  /// This is the same icon as [rectangle_stack_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [collections], which is similar, but not filled in.
+  'collections_solid': const IconData(0xf3ca,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A single folder, which stores multiple files. This icon is not filled in.
+  /// This is the same icon as [folder_open] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [folder_solid], which is similar, but filled in.
+  ///  * [folder_open], which is the pre-iOS 7 version of this icon.
+  'folder': const IconData(0xf434,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A single folder, which stores multiple files. This icon is filled in.
+  /// This is the same icon as [folder_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [folder], which is similar, but not filled in.
+  ///  * [folder_open], which is the pre-iOS 7 version of this icon and not filled in.
+  'folder_solid': const IconData(0xf435,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A single folder that indicates being opened. A folder like this typically stores multiple files.
+  /// This is the same icon as [folder] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [folder], which is the equivalent of this icon for iOS versions later than or equal to iOS 7.
+  'folder_open': const IconData(0xf38a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A trash bin for removing items. This icon is not filled in.
+  /// This is the same icon as [trash] and [delete_simple] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [delete_solid], which is similar, but filled in.
+  'delete': const IconData(0xf4c4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A trash bin for removing items. This icon is filled in.
+  /// This is the same icon as [trash_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [delete], which is similar, but not filled in.
+  'delete_solid': const IconData(0xf4c5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A trash bin with minimal detail for removing items.
+  /// This is the same icon as [trash] and [delete] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [delete], which is the iOS 7 equivalent of this icon with richer detail.
+  'delete_simple': const IconData(0xf37f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A simple pen.
+  ///
+  /// See also:
+  ///
+  ///  * [pencil], which is similar, but has less detail and looks like a pencil.
+  'pen': const IconData(0xf2bf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A simple pencil.
+  ///
+  /// See also:
+  ///
+  ///  * [pen], which is similar, but has more detail and looks like a pen.
+  'pencil': const IconData(0xf37e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A box for writing and a pen on top (that indicates the writing). This icon is not filled in.
+  /// This is the same icon as [square_pencil] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [create_solid], which is similar, but filled in.
+  ///  * [pencil], which is just a pencil.
+  ///  * [pen], which is just a pen.
+  'create': const IconData(0xf417,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A box for writing and a pen on top (that indicates the writing). This icon is filled in.
+  /// This is the same icon as [square_pencil_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [create], which is similar, but not filled in.
+  ///  * [pencil], which is just a pencil.
+  ///  * [pen], which is just a pen.
+  'create_solid': const IconData(0xf417,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An arrow on a circular path with its end pointing at its start.
+  /// This is the same icon as [arrow_clockwise], [refresh_thin] and [refresh_thick] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [refresh_circled], which is this icon put in a circle.
+  ///  * [refresh_thin], which is an arrow of the same concept, but thinner and with a smaller gap in between its end and start.
+  ///  * [refresh_thick], which is similar, but rotated 45 degrees clockwise and thicker.
+  ///  * [refresh_bold], which is similar, but rotated 90 degrees clockwise and much thicker.
+  'refresh': const IconData(0xf49a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An arrow on a circular path with its end pointing at its start surrounded by a circle. This is icon is not filled in.
+  /// This is the same icon as [arrow_clockwise_circle] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [refresh_circled_solid], which is similar, but filled in.
+  ///  * [refresh], which is the arrow of this icon without a circle.
+  'refresh_circled': const IconData(0xf49b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An arrow on a circular path with its end pointing at its start surrounded by a circle. This is icon is filled in.
+  /// This is the same icon as [arrow_clockwise_circle_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [refresh_circled], which is similar, but not filled in.
+  ///  * [refresh], which is the arrow of this icon filled in without a circle.
+  'refresh_circled_solid': const IconData(0xf49c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An arrow on a circular path with its end pointing at its start.
+  /// This is the same icon as [arrow_clockwise], [refresh] and [refresh_thick] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [refresh], which is an arrow of the same concept, but thicker and with a larger gap in between its end and start.
+  'refresh_thin': const IconData(0xf49d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An arrow on a circular path with its end pointing at its start.
+  /// This is the same icon as [arrow_clockwise], [refresh_thin] and [refresh] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [refresh], which is similar, but rotated 45 degrees anti-clockwise and thinner.
+  ///  * [refresh_bold], which is similar, but rotated 45 degrees clockwise and thicker.
+  'refresh_thick': const IconData(0xf3a8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An arrow on a circular path with its end pointing at its start.
+  /// This is the same icon as [arrow_counterclockwise] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [refresh_thick], which is similar, but rotated 45 degrees anti-clockwise and thinner.
+  ///  * [refresh], which is similar, but rotated 90 degrees anti-clockwise and much thinner.
+  'refresh_bold': const IconData(0xf21c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A cross of two diagonal lines from edge to edge crossing in an angle of 90 degrees, which is used for dismissal.
+  /// This is the same icon as [xmark] and [clear] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [clear_circled], which uses this cross as a blank space in a filled out circled.
+  ///  * [clear], which uses a thinner cross and is the iOS 7 equivalent of this icon.
+  'clear_thick': const IconData(0xf2d7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A cross of two diagonal lines from edge to edge crossing in an angle of 90 degrees, which is used for dismissal, used as a blank space in a circle.
+  /// This is the same icon as [xmark_circle_fill] and [clear_circled_solid] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [clear], which is equivalent to the cross of this icon without a circle.
+  ///  * [clear_circled_solid], which is similar, but uses a thinner cross.
+  'clear_thick_circled': const IconData(0xf36e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A cross of two diagonal lines from edge to edge crossing in an angle of 90 degrees, which is used for dismissal.
+  /// This is the same icon as [xmark] and [clear_thick] in cupertino_icons 1.0.0+.
+  ///
+  ///
+  /// See also:
+  ///
+  ///  * [clear_circled], which consists of this cross and a circle surrounding it.
+  ///  * [clear], which uses a thicker cross and is the pre-iOS 7 equivalent of this icon.
+  'clear': const IconData(0xf404,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A cross of two diagonal lines from edge to edge crossing in an angle of 90 degrees, which is used for dismissal, surrounded by circle. This icon is not filled in.
+  /// This is the same icon as [xmark_circle] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [clear_circled_solid], which is similar, but filled in.
+  ///  * [clear], which is the standalone cross of this icon.
+  'clear_circled': const IconData(0xf405,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A cross of two diagonal lines from edge to edge crossing in an angle of 90 degrees, which is used for dismissal, used as a blank space in a circle. This icon is filled in.
+  /// This is the same icon as [xmark_circle_fill] and [clear_thick_circled] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [clear_circled], which is similar, but not filled in.
+  'clear_circled_solid': const IconData(0xf406,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two straight lines, one horizontal and one vertical, meeting in the middle, which is the equivalent of a plus sign.
+  /// This is the same icon as [plus] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [plus_circled], which is the pre-iOS 7 version of this icon with a thicker cross.
+  ///  * [add_circled], which consists of the plus and a circle around it.
+  'add': const IconData(0xf489,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two straight lines, one horizontal and one vertical, meeting in the middle, which is the equivalent of a plus sign, surrounded by a circle. This icon is not filled in.
+  /// This is the same icon as [plus_circle] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [plus_circled], which is the pre-iOS 7 version of this icon with a thicker cross and a filled in circle.
+  ///  * [add_circled_solid], which is similar, but filled in.
+  'add_circled': const IconData(0xf48a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two straight lines, one horizontal and one vertical, meeting in the middle, which is the equivalent of a plus sign, surrounded by a circle. This icon is not filled in.
+  /// This is the same icon as [plus_circle_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [plus_circled], which is the pre-iOS 7 version of this icon with a thicker cross.
+  ///  * [add_circled], which is similar, but not filled in.
+  'add_circled_solid': const IconData(0xf48b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A gear with eight cogs. This icon is not filled in.
+  /// This is the same icon as [gear_alt] and [gear_big] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [gear_solid], which is similar, but filled in.
+  ///  * [gear_big], which is the pre-iOS 7 version of this icon and appears bigger because of fewer and bigger cogs.
+  ///  * [settings], which is another cogwheel with a different design.
+  'gear': const IconData(0xf43c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A gear with eight cogs. This icon is filled in.
+  /// This is the same icon as [gear_alt_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [gear], which is similar, but not filled in.
+  ///  * [settings_solid], which is another cogwheel with a different design.
+  'gear_solid': const IconData(0xf43d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A gear with six cogs.
+  /// This is the same icon as [gear_alt] and [gear] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [gear], which is the iOS 7 version of this icon and appears smaller because of more and larger cogs.
+  ///  * [settings_solid], which is another cogwheel with a different design.
+  'gear_big': const IconData(0xf2f7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A cogwheel with many cogs and decoration in the middle. This icon is not filled in.
+  ///
+  /// See also:
+  ///
+  ///  * [settings_solid], which is similar, but filled in.
+  ///  * [gear], which is another cogwheel with a different design.
+  'settings': const IconData(0xf411,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A cogwheel with many cogs and decoration in the middle. This icon is filled in.
+  ///
+  /// See also:
+  ///
+  ///  * [settings], which is similar, but not filled in.
+  ///  * [gear_solid], which is another cogwheel with a different design.
+  'settings_solid': const IconData(0xf412,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A symbol representing a solid single musical note.
+  ///
+  /// See also:
+  ///
+  ///  * [double_music_note], which is similar, but with 2 connected notes.
+  'music_note': const IconData(0xf46b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A symbol representing 2 connected musical notes.
+  /// This is the same icon as [music_note_2] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [music_note], which is similar, but with a single note.
+  'double_music_note': const IconData(0xf46c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A triangle facing to the right. This icon is not filled in.
+  /// This is the same icon as [play] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [play_arrow_solid], which is similar, but filled in.
+  'play_arrow': const IconData(0xf487,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A triangle facing to the right. This icon is filled in.
+  /// This is the same icon as [play_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [play_arrow], which is similar, but not filled in.
+  'play_arrow_solid': const IconData(0xf488,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two vertical rectangles. This icon is not filled in.
+  ///
+  /// See also:
+  ///
+  ///  * [pause_solid], which is similar, but filled in.
+  'pause': const IconData(0xf477,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Two vertical rectangles. This icon is filled in.
+  /// This is the same icon as [pause_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [pause], which is similar, but not filled in.
+  'pause_solid': const IconData(0xf478,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// The infinity symbol.
+  /// This is the same icon as [infinite] and [loop_thick] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [loop_thick], which is similar, but thicker.
+  'loop': const IconData(0xf449,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// The infinity symbol.
+  /// This is the same icon as [infinite] and [loop] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [loop], which is similar, but thinner.
+  'loop_thick': const IconData(0xf44a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A speaker with a single small sound wave.
+  /// This is the same icon as [speaker_1_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [volume_mute], which is similar, but has no sound waves.
+  ///  * [volume_off], which is similar, but with an additional larger sound wave and a diagonal line crossing the whole icon.
+  ///  * [volume_up], which has an additional larger sound wave next to the small one.
+  'volume_down': const IconData(0xf3b7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A speaker symbol.
+  /// This is the same icon as [speaker_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [volume_down], which is similar, but adds a small sound wave.
+  ///  * [volume_off], which is similar, but adds a small and a large sound wave and a diagonal line crossing the whole icon.
+  ///  * [volume_up], which is similar, but has a small and a large sound wave.
+  'volume_mute': const IconData(0xf3b8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A speaker with a small and a large sound wave and a diagonal line crossing the whole icon.
+  /// This is the same icon as [speaker_slash_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [volume_down], which is similar, but not crossed out and only has the small wave.
+  ///  * [volume_mute], which is similar, but not crossed out.
+  ///  * [volume_up], which is the version of this icon that is not crossed out.
+  'volume_off': const IconData(0xf3b9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A speaker with a small and a large sound wave.
+  /// This is the same icon as [speaker_3_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [volume_down], which is similar, but only has the small sound wave.
+  ///  * [volume_mute], which is similar, but has no sound waves.
+  ///  * [volume_off], which is the crossed out version of this icon.
+  'volume_up': const IconData(0xf3ba,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// All four corners of a square facing inwards.
+  /// This is the same icon as [arrow_up_left_arrow_down_right] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [fullscreen_exit], which is similar, but has the corners facing outwards.
+  'fullscreen': const IconData(0xf386,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// All four corners of a square facing outwards.
+  /// This is the same icon as [arrow_down_right_arrow_up_left] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [fullscreen], which is similar, but has the corners facing inwards.
+  'fullscreen_exit': const IconData(0xf37d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in microphone with a diagonal line crossing it.
+  /// This is the same icon as [mic_slash] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [mic], which is similar, but not filled in and without a diagonal line.
+  ///  * [mic_solid], which is similar, but without a diagonal line.
+  'mic_off': const IconData(0xf45f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A microphone.
+  ///
+  /// See also:
+  ///
+  ///  * [mic_solid], which is similar, but filled in.
+  ///  * [mic_off], which is similar, but filled in and with a diagonal line crossing the icon.
+  'mic': const IconData(0xf460,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in microphone.
+  /// This is the same icon as [mic_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [mic], which is similar, but not filled in.
+  ///  * [mic_off], which is similar, but with a diagonal line crossing the icon.
+  'mic_solid': const IconData(0xf461,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A circle with a dotted clock face inside with hands showing 10:30.
+  /// This is the same icon as [time] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [clock_solid], which is similar, but filled in.
+  ///  * [time], which is similar, but without dots on the clock face.
+  ///  * [time_solid], which is similar, but filled in and without dots on the clock face.
+  'clock': const IconData(0xf4be,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in circle with a dotted clock face inside with hands showing 10:30.
+  /// This is the same icon as [clock_fill] and [time_solid] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [clock], which is similar, but not filled in.
+  ///  * [time], which is similar, but not filled in and without dots on the clock face.
+  ///  * [time_solid], which is similar, but without dots on the clock face.
+  'clock_solid': const IconData(0xf4bf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A circle with with a 90 degree angle shape in the center, resembling a clock with hands showing 09:00.
+  /// This is the same icon as [clock] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [time_solid], which is similar, but filled in.
+  ///  * [clock], which is similar, but with dots on the clock face.
+  ///  * [clock_solid], which is similar, but filled in and with dots on the clock face.
+  'time': const IconData(0xf402,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in circle with with a 90 degree angle shape in the center, resembling a clock with hands showing 09:00.
+  /// This is the same icon as [clock_fill] and [clock_solid] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [time], which is similar, but not filled in.
+  ///  * [clock], which is similar, but not filled in and with dots on the clock face.
+  ///  * [clock_solid], which is similar, but with dots on the clock face.
+  'time_solid': const IconData(0xf403,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An unlocked padlock.
+  /// This is the same icon as [lock] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [padlock_solid], which is similar, but filled in.
+  'padlock': const IconData(0xf4c8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An unlocked padlock.
+  /// This is the same icon as [lock_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [padlock], which is similar, but not filled in.
+  'padlock_solid': const IconData(0xf4c9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An open eye.
+  ///
+  /// See also:
+  ///
+  ///  * [eye_solid], which is similar, but filled in.
+  'eye': const IconData(0xf424,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An open eye.
+  /// This is the same icon as [eye_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [eye], which is similar, but not filled in.
+  'eye_solid': const IconData(0xf425,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A single person. This icon is not filled in.
+  ///
+  /// See also:
+  ///
+  ///  * [person_solid], which is similar, but filled in.
+  ///  * [person_add], which has an additional plus sign next to the person.
+  ///  * [group], which consists of three people.
+  'person': const IconData(0xf47d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A single person. This icon is filled in.
+  /// This is the same icon as [person_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [person], which is similar, but not filled in.
+  ///  * [person_add_solid], which has an additional plus sign next to the person.
+  ///  * [group_solid], which consists of three people.
+  'person_solid': const IconData(0xf47e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A single person with a plus sign next to it. This icon is not filled in.
+  /// This is the same icon as [person_badge_plus] in cupertino_icons 1.0.0+.x
+  ///
+  /// See also:
+  ///
+  ///  * [person_add_solid], which is similar, but filled in.
+  ///  * [person], which is just the person.
+  ///  * [group], which consists of three people.
+  'person_add': const IconData(0xf47f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A single person with a plus sign next to it. This icon is filled in.
+  /// This is the same icon as [person_badge_plus_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [person_add], which is similar, but not filled in.
+  ///  * [person_solid], which is just the person.
+  ///  * [group_solid], which consists of three people.
+  'person_add_solid': const IconData(0xf480,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A group of three people. This icon is not filled in.
+  /// This is the same icon as [person_3] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [group_solid], which is similar, but filled in.
+  ///  * [person], which is just a single person.
+  'group': const IconData(0xf47b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A group of three people. This icon is filled in.
+  /// This is the same icon as [person_3_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [group], which is similar, but not filled in.
+  ///  * [person_solid], which is just a single person.
+  'group_solid': const IconData(0xf47c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Outline of a closed mail envelope.
+  /// This is the same icon as [envelope] in cupertino_icons 1.0.0+.
+  'mail': const IconData(0xf422,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A closed mail envelope. This icon is filled in.
+  /// This is the same icon as [envelope_fill] in cupertino_icons 1.0.0+.
+  'mail_solid': const IconData(0xf423,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Outline of a location pin.
+  'location': const IconData(0xf455,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A location pin. This icon is filled in.
+  /// This is the same icon as [placemark_fill] in cupertino_icons 1.0.0+.
+  'location_solid': const IconData(0xf456,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Outline of a sticker tag.
+  /// This is the same icon as [tags] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [tags], similar but with 2 overlapping tags.
+  'tag': const IconData(0xf48c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A sticker tag. This icon is filled in.
+  /// This is the same icon as [tag_fill] and [tags_solid] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [tags_solid], similar but with 2 overlapping tags.
+  'tag_solid': const IconData(0xf48d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Outlines of 2 overlapping sticker tags.
+  /// This is the same icon as [tag] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [tag], similar but with only one tag.
+  'tags': const IconData(0xf48e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// 2 overlapping sticker tags. This icon is filled in.
+  /// This is the same icon as [tag_fill] and [tag_solid] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [tag_solid], similar but with only one tag.
+  'tags_solid': const IconData(0xf48f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in bus.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  'bus': const IconData(0xf36d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in car.
+  /// This is the same icon as [car_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [car_detailed], similar, but a more detailed and realistic representation.
+  'car': const IconData(0xf36f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in detailed, realistic car.
+  ///
+  /// See also:
+  ///
+  ///  * [car], similar, but a more simple representation.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  'car_detailed': const IconData(0xf2c1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in train with a window divided in half and two headlights.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  ///
+  /// See also:
+  ///
+  ///  * [train_style_two], similar, but with a full, undivided window and a single, centered headlight.
+  'train_style_one': const IconData(0xf3af,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in train with a window and a single, centered headlight.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  ///
+  /// See also:
+  ///
+  ///  * [train_style_one], similar, but with a with a window divided in half and two headlights.
+  'train_style_two': const IconData(0xf3b4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An outlined paw.
+  ///
+  /// See also:
+  ///
+  ///  * [paw_solid], similar, but filled in.
+  'paw': const IconData(0xf479,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in paw.
+  /// This is the same icon as [paw] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [paw], similar, but not filled in.
+  'paw_solid': const IconData(0xf47a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An outlined game controller.
+  /// This is the same icon as [gamecontroller] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [game_controller_solid], similar, but filled in.
+  'game_controller': const IconData(0xf43a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in game controller.
+  /// This is the same icon as [gamecontroller_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [game_controller], similar, but not filled in.
+  'game_controller_solid': const IconData(0xf43b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An outlined lab flask.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  ///
+  /// See also:
+  ///
+  ///  * [lab_flask_solid], similar, but filled in.
+  'lab_flask': const IconData(0xf430,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in lab flask.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  ///
+  /// See also:
+  ///
+  ///  * [lab_flask], similar, but not filled in.
+  'lab_flask_solid': const IconData(0xf431,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An outlined heart shape. Can be used to indicate like or favorite states.
+  ///
+  /// See also:
+  ///
+  ///  * [heart_solid], same shape, but filled in.
+  'heart': const IconData(0xf442,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled heart shape. Can be used to indicate like or favorite states.
+  /// This is the same icon as [heart_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [heart], same shape, but not filled in.
+  'heart_solid': const IconData(0xf443,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An outlined bell. Can be used to represent notifications.
+  ///
+  /// See also:
+  ///
+  ///  * [bell_solid], same shape, but filled in.
+  'bell': const IconData(0xf3e1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled bell. Can be used represent notifications.
+  /// This is the same icon as [bell_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [bell], same shape, but not filled in.
+  'bell_solid': const IconData(0xf3e2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// An outlined folded newspaper icon.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  ///
+  /// See also:
+  ///
+  ///  * [news_solid], same shape, but filled in.
+  'news': const IconData(0xf471,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled folded newspaper icon.
+  /// This icon is available in cupertino_icons 1.0.0+ for backward
+  /// compatibility but not part of Apple icons' aesthetics.
+  ///
+  /// See also:
+  ///
+  ///  * [news], same shape, but not filled in.
+  'news_solid': const IconData(0xf472,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A outlined brightness icon.
+  /// This is the same icon as [sun_max] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [brightness_solid], same shape, but filled in.
+  'brightness': const IconData(0xf4B6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// A filled in brightness icon.
+  /// This is the same icon as [sun_max_fill] in cupertino_icons 1.0.0+.
+  ///
+  /// See also:
+  ///
+  ///  * [brightness], same shape, but not filled in.
+  'brightness_solid': const IconData(0xf4B7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+  // END LEGACY PRE SF SYMBOLS NAMES
+  // ===========================================================================
+
+  // ===========================================================================
+  // BEGIN GENERATED SF SYMBOLS NAMES
+  /// Cupertino icon for airplane. Available on cupertino_icons package 1.0.0+ only.
+  'airplane': const IconData(0xf4d4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for alarm. Available on cupertino_icons package 1.0.0+ only.
+  'alarm': const IconData(0xf4d5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for alarm_fill. Available on cupertino_icons package 1.0.0+ only.
+  'alarm_fill': const IconData(0xf4d6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for alt. Available on cupertino_icons package 1.0.0+ only.
+  'alt': const IconData(0xf4d7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ant. Available on cupertino_icons package 1.0.0+ only.
+  'ant': const IconData(0xf4d8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ant_circle. Available on cupertino_icons package 1.0.0+ only.
+  'ant_circle': const IconData(0xf4d9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ant_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'ant_circle_fill': const IconData(0xf4da,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ant_fill. Available on cupertino_icons package 1.0.0+ only.
+  'ant_fill': const IconData(0xf4db,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for antenna_radiowaves_left_right. Available on cupertino_icons package 1.0.0+ only.
+  'antenna_radiowaves_left_right': const IconData(0xf4dc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for app. Available on cupertino_icons package 1.0.0+ only.
+  'app': const IconData(0xf4dd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for app_badge. Available on cupertino_icons package 1.0.0+ only.
+  'app_badge': const IconData(0xf4de,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for app_badge_fill. Available on cupertino_icons package 1.0.0+ only.
+  'app_badge_fill': const IconData(0xf4df,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for app_fill. Available on cupertino_icons package 1.0.0+ only.
+  'app_fill': const IconData(0xf4e0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for archivebox. Available on cupertino_icons package 1.0.0+ only.
+  'archivebox': const IconData(0xf4e1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for archivebox_fill. Available on cupertino_icons package 1.0.0+ only.
+  'archivebox_fill': const IconData(0xf4e2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_2_circlepath. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_2_circlepath': const IconData(0xf4e3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_2_circlepath_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_2_circlepath_circle': const IconData(0xf4e4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_2_circlepath_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_2_circlepath_circle_fill': const IconData(0xf4e5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_2_squarepath. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_2_squarepath': const IconData(0xf4e6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_3_trianglepath. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_3_trianglepath': const IconData(0xf4e7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_branch. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_branch': const IconData(0xf4e8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_clockwise. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [refresh] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [refresh_thin] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [refresh_thick] which is available in cupertino_icons 0.1.3.
+  'arrow_clockwise': const IconData(0xf49a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_clockwise_circle. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [refresh_circled] which is available in cupertino_icons 0.1.3.
+  'arrow_clockwise_circle': const IconData(0xf49b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_clockwise_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [refresh_circled_solid] which is available in cupertino_icons 0.1.3.
+  'arrow_clockwise_circle_fill': const IconData(0xf49c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_counterclockwise. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [restart] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [refresh_bold] which is available in cupertino_icons 0.1.3.
+  'arrow_counterclockwise': const IconData(0xf21c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_counterclockwise_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_counterclockwise_circle': const IconData(0xf4e9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_counterclockwise_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_counterclockwise_circle_fill': const IconData(0xf4ea,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [down_arrow] which is available in cupertino_icons 0.1.3.
+  'arrow_down': const IconData(0xf35d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_circle': const IconData(0xf4eb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_circle_fill': const IconData(0xf4ec,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_doc. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_doc': const IconData(0xf4ed,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_doc_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_doc_fill': const IconData(0xf4ee,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_left. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_left': const IconData(0xf4ef,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_left_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_left_circle': const IconData(0xf4f0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_left_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_left_circle_fill': const IconData(0xf4f1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_left_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_left_square': const IconData(0xf4f2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_left_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_left_square_fill': const IconData(0xf4f3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_right': const IconData(0xf4f4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_right_arrow_up_left. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [fullscreen_exit] which is available in cupertino_icons 0.1.3.
+  'arrow_down_right_arrow_up_left': const IconData(0xf37d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_right_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_right_circle': const IconData(0xf4f5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_right_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_right_circle_fill': const IconData(0xf4f6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_right_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_right_square': const IconData(0xf4f7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_right_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_right_square_fill': const IconData(0xf4f8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_square': const IconData(0xf4f9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_square_fill': const IconData(0xf4fa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_to_line. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_to_line': const IconData(0xf4fb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_down_to_line_alt. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_down_to_line_alt': const IconData(0xf4fc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left': const IconData(0xf4fd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_circle': const IconData(0xf4fe,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_circle_fill': const IconData(0xf4ff,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_right': const IconData(0xf500,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_right_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_right_circle': const IconData(0xf501,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_right_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_right_circle_fill': const IconData(0xf502,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_right_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_right_square': const IconData(0xf503,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_right_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_right_square_fill': const IconData(0xf504,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_square': const IconData(0xf505,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_square_fill': const IconData(0xf506,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_to_line. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_to_line': const IconData(0xf507,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_left_to_line_alt. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_left_to_line_alt': const IconData(0xf508,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_merge. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_merge': const IconData(0xf509,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right': const IconData(0xf50a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_arrow_left. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_arrow_left': const IconData(0xf50b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_arrow_left_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_arrow_left_circle': const IconData(0xf50c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_arrow_left_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_arrow_left_circle_fill': const IconData(0xf50d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_arrow_left_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_arrow_left_square': const IconData(0xf50e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_arrow_left_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_arrow_left_square_fill': const IconData(0xf50f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_circle': const IconData(0xf510,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_circle_fill': const IconData(0xf511,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_square': const IconData(0xf512,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_square_fill': const IconData(0xf513,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_to_line. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_to_line': const IconData(0xf514,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_right_to_line_alt. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_right_to_line_alt': const IconData(0xf515,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_swap. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_swap': const IconData(0xf516,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_turn_down_left. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_turn_down_left': const IconData(0xf517,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_turn_down_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_turn_down_right': const IconData(0xf518,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_turn_left_down. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_turn_left_down': const IconData(0xf519,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_turn_left_up. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_turn_left_up': const IconData(0xf51a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_turn_right_down. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_turn_right_down': const IconData(0xf51b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_turn_right_up. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_turn_right_up': const IconData(0xf51c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_turn_up_left. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_turn_up_left': const IconData(0xf51d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_turn_up_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_turn_up_right': const IconData(0xf51e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [up_arrow] which is available in cupertino_icons 0.1.3.
+  'arrow_up': const IconData(0xf366,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_arrow_down. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_arrow_down': const IconData(0xf51f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_arrow_down_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_arrow_down_circle': const IconData(0xf520,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_arrow_down_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_arrow_down_circle_fill': const IconData(0xf521,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_arrow_down_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_arrow_down_square': const IconData(0xf522,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_arrow_down_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_arrow_down_square_fill': const IconData(0xf523,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_bin. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_bin': const IconData(0xf524,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_bin_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_bin_fill': const IconData(0xf525,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_circle': const IconData(0xf526,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_circle_fill': const IconData(0xf527,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_doc. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_doc': const IconData(0xf528,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_doc_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_doc_fill': const IconData(0xf529,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_down. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_down': const IconData(0xf52a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_down_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_down_circle': const IconData(0xf52b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_down_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_down_circle_fill': const IconData(0xf52c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_down_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_down_square': const IconData(0xf52d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_down_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_down_square_fill': const IconData(0xf52e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_left. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_left': const IconData(0xf52f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_left_arrow_down_right. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [fullscreen] which is available in cupertino_icons 0.1.3.
+  'arrow_up_left_arrow_down_right': const IconData(0xf386,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_left_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_left_circle': const IconData(0xf530,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_left_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_left_circle_fill': const IconData(0xf531,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_left_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_left_square': const IconData(0xf532,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_left_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_left_square_fill': const IconData(0xf533,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_right': const IconData(0xf534,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_right_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_right_circle': const IconData(0xf535,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_right_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_right_circle_fill': const IconData(0xf536,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_right_diamond. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_right_diamond': const IconData(0xf537,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_right_diamond_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_right_diamond_fill': const IconData(0xf538,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_right_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_right_square': const IconData(0xf539,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_right_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_right_square_fill': const IconData(0xf53a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_square': const IconData(0xf53b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_square_fill': const IconData(0xf53c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_to_line. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_to_line': const IconData(0xf53d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_up_to_line_alt. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_up_to_line_alt': const IconData(0xf53e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_down. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_down': const IconData(0xf53f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_down_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_down_circle': const IconData(0xf540,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_down_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_down_circle_fill': const IconData(0xf541,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_down_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_down_square': const IconData(0xf542,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_down_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_down_square_fill': const IconData(0xf543,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_left. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_left': const IconData(0xf544,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_left_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_left_circle': const IconData(0xf545,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_left_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_left_circle_fill': const IconData(0xf546,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_left_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_left_square': const IconData(0xf547,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_left_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_left_square_fill': const IconData(0xf548,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_right': const IconData(0xf549,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_right_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_right_circle': const IconData(0xf54a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_right_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_right_circle_fill': const IconData(0xf54b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_right_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_right_square': const IconData(0xf54c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_right_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_right_square_fill': const IconData(0xf54d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_up. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_up': const IconData(0xf54e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_up_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_up_circle': const IconData(0xf54f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_up_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_up_circle_fill': const IconData(0xf550,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_up_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_up_square': const IconData(0xf551,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrow_uturn_up_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrow_uturn_up_square_fill': const IconData(0xf552,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_left. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [reply] which is available in cupertino_icons 0.1.3.
+  'arrowshape_turn_up_left': const IconData(0xf4c6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_left_2. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [reply_all] which is available in cupertino_icons 0.1.3.
+  'arrowshape_turn_up_left_2': const IconData(0xf21d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_left_2_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [reply_thick_solid] which is available in cupertino_icons 0.1.3.
+  'arrowshape_turn_up_left_2_fill': const IconData(0xf21e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_left_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrowshape_turn_up_left_circle': const IconData(0xf553,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_left_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowshape_turn_up_left_circle_fill': const IconData(0xf554,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_left_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowshape_turn_up_left_fill': const IconData(0xf555,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrowshape_turn_up_right': const IconData(0xf556,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_right_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrowshape_turn_up_right_circle': const IconData(0xf557,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_right_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowshape_turn_up_right_circle_fill': const IconData(0xf558,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowshape_turn_up_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowshape_turn_up_right_fill': const IconData(0xf559,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_down. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_down': const IconData(0xf55a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_down_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_down_circle': const IconData(0xf55b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_down_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_down_circle_fill': const IconData(0xf55c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_down_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_down_fill': const IconData(0xf55d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_down_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_down_square': const IconData(0xf55e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_down_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_down_square_fill': const IconData(0xf55f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_left. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_left': const IconData(0xf560,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_left_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_left_circle': const IconData(0xf561,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_left_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_left_circle_fill': const IconData(0xf562,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_left_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_left_fill': const IconData(0xf563,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_left_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_left_square': const IconData(0xf564,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_left_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_left_square_fill': const IconData(0xf565,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_right. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_right': const IconData(0xf566,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_right_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_right_circle': const IconData(0xf567,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_right_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_right_circle_fill': const IconData(0xf568,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_right_fill': const IconData(0xf569,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_right_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_right_square': const IconData(0xf56a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_right_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_right_square_fill': const IconData(0xf56b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_up. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_up': const IconData(0xf56c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_up_circle. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_up_circle': const IconData(0xf56d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_up_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_up_circle_fill': const IconData(0xf56e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_up_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_up_fill': const IconData(0xf56f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_up_square. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_up_square': const IconData(0xf570,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for arrowtriangle_up_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'arrowtriangle_up_square_fill': const IconData(0xf571,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for asterisk_circle. Available on cupertino_icons package 1.0.0+ only.
+  'asterisk_circle': const IconData(0xf572,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for asterisk_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'asterisk_circle_fill': const IconData(0xf573,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for at. Available on cupertino_icons package 1.0.0+ only.
+  'at': const IconData(0xf574,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for at_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'at_badge_minus': const IconData(0xf575,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for at_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'at_badge_plus': const IconData(0xf576,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for at_circle. Available on cupertino_icons package 1.0.0+ only.
+  'at_circle': const IconData(0xf8af,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for at_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'at_circle_fill': const IconData(0xf8b0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for backward. Available on cupertino_icons package 1.0.0+ only.
+  'backward': const IconData(0xf577,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for backward_end. Available on cupertino_icons package 1.0.0+ only.
+  'backward_end': const IconData(0xf578,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for backward_end_alt. Available on cupertino_icons package 1.0.0+ only.
+  'backward_end_alt': const IconData(0xf579,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for backward_end_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'backward_end_alt_fill': const IconData(0xf57a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for backward_end_fill. Available on cupertino_icons package 1.0.0+ only.
+  'backward_end_fill': const IconData(0xf57b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for backward_fill. Available on cupertino_icons package 1.0.0+ only.
+  'backward_fill': const IconData(0xf57c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for badge_plus_radiowaves_right. Available on cupertino_icons package 1.0.0+ only.
+  'badge_plus_radiowaves_right': const IconData(0xf57d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bag. Available on cupertino_icons package 1.0.0+ only.
+  'bag': const IconData(0xf57e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bag_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'bag_badge_minus': const IconData(0xf57f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bag_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'bag_badge_plus': const IconData(0xf580,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bag_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bag_fill': const IconData(0xf581,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bag_fill_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'bag_fill_badge_minus': const IconData(0xf582,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bag_fill_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'bag_fill_badge_plus': const IconData(0xf583,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bandage. Available on cupertino_icons package 1.0.0+ only.
+  'bandage': const IconData(0xf584,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bandage_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bandage_fill': const IconData(0xf585,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for barcode. Available on cupertino_icons package 1.0.0+ only.
+  'barcode': const IconData(0xf586,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for barcode_viewfinder. Available on cupertino_icons package 1.0.0+ only.
+  'barcode_viewfinder': const IconData(0xf587,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bars. Available on cupertino_icons package 1.0.0+ only.
+  'bars': const IconData(0xf8b1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for battery_0. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [battery_empty] which is available in cupertino_icons 0.1.3.
+  'battery_0': const IconData(0xf112,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for battery_100. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [battery_charging] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [battery_full] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [battery_75_percent] which is available in cupertino_icons 0.1.3.
+  'battery_100': const IconData(0xf113,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for battery_25. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [battery_25_percent] which is available in cupertino_icons 0.1.3.
+  'battery_25': const IconData(0xf115,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bed_double. Available on cupertino_icons package 1.0.0+ only.
+  'bed_double': const IconData(0xf588,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bed_double_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bed_double_fill': const IconData(0xf589,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bell_circle. Available on cupertino_icons package 1.0.0+ only.
+  'bell_circle': const IconData(0xf58a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bell_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bell_circle_fill': const IconData(0xf58b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bell_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [bell_solid] which is available in cupertino_icons 0.1.3.
+  'bell_fill': const IconData(0xf3e2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bell_slash. Available on cupertino_icons package 1.0.0+ only.
+  'bell_slash': const IconData(0xf58c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bell_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bell_slash_fill': const IconData(0xf58d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bin_xmark. Available on cupertino_icons package 1.0.0+ only.
+  'bin_xmark': const IconData(0xf58e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bin_xmark_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bin_xmark_fill': const IconData(0xf58f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bitcoin. Available on cupertino_icons package 1.0.0+ only.
+  'bitcoin': const IconData(0xf8b2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bitcoin_circle. Available on cupertino_icons package 1.0.0+ only.
+  'bitcoin_circle': const IconData(0xf8b3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bitcoin_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bitcoin_circle_fill': const IconData(0xf8b4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bold. Available on cupertino_icons package 1.0.0+ only.
+  'bold': const IconData(0xf590,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bold_italic_underline. Available on cupertino_icons package 1.0.0+ only.
+  'bold_italic_underline': const IconData(0xf591,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bold_underline. Available on cupertino_icons package 1.0.0+ only.
+  'bold_underline': const IconData(0xf592,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt. Available on cupertino_icons package 1.0.0+ only.
+  'bolt': const IconData(0xf593,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_badge_a. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_badge_a': const IconData(0xf594,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_badge_a_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_badge_a_fill': const IconData(0xf595,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_circle. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_circle': const IconData(0xf596,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_circle_fill': const IconData(0xf597,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_fill': const IconData(0xf598,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_horizontal. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_horizontal': const IconData(0xf599,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_horizontal_circle. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_horizontal_circle': const IconData(0xf59a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_horizontal_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_horizontal_circle_fill': const IconData(0xf59b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_horizontal_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_horizontal_fill': const IconData(0xf59c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_slash. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_slash': const IconData(0xf59d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bolt_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bolt_slash_fill': const IconData(0xf59e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for book_circle. Available on cupertino_icons package 1.0.0+ only.
+  'book_circle': const IconData(0xf59f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for book_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'book_circle_fill': const IconData(0xf5a0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for book_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [book_solid] which is available in cupertino_icons 0.1.3.
+  'book_fill': const IconData(0xf3e8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bookmark_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [bookmark_solid] which is available in cupertino_icons 0.1.3.
+  'bookmark_fill': const IconData(0xf3ea,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for briefcase. Available on cupertino_icons package 1.0.0+ only.
+  'briefcase': const IconData(0xf5a1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for briefcase_fill. Available on cupertino_icons package 1.0.0+ only.
+  'briefcase_fill': const IconData(0xf5a2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_left. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_left': const IconData(0xf5a3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_left_bubble_right. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_left_bubble_right': const IconData(0xf5a4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_left_bubble_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_left_bubble_right_fill': const IconData(0xf5a5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_left_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_left_fill': const IconData(0xf5a6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_middle_bottom. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_middle_bottom': const IconData(0xf5a7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_middle_bottom_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_middle_bottom_fill': const IconData(0xf5a8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_middle_top. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_middle_top': const IconData(0xf5a9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_middle_top_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_middle_top_fill': const IconData(0xf5aa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_right. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_right': const IconData(0xf5ab,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for bubble_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'bubble_right_fill': const IconData(0xf5ac,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for building_2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'building_2_fill': const IconData(0xf8b5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for burn. Available on cupertino_icons package 1.0.0+ only.
+  'burn': const IconData(0xf5ad,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for burst. Available on cupertino_icons package 1.0.0+ only.
+  'burst': const IconData(0xf5ae,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for burst_fill. Available on cupertino_icons package 1.0.0+ only.
+  'burst_fill': const IconData(0xf5af,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for calendar. Available on cupertino_icons package 1.0.0+ only.
+  'calendar': const IconData(0xf5b0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for calendar_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'calendar_badge_minus': const IconData(0xf5b1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for calendar_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'calendar_badge_plus': const IconData(0xf5b2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for calendar_circle. Available on cupertino_icons package 1.0.0+ only.
+  'calendar_circle': const IconData(0xf5b3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for calendar_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'calendar_circle_fill': const IconData(0xf5b4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for calendar_today. Available on cupertino_icons package 1.0.0+ only.
+  'calendar_today': const IconData(0xf8b6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [photo_camera] which is available in cupertino_icons 0.1.3.
+  'camera': const IconData(0xf3f5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera_circle. Available on cupertino_icons package 1.0.0+ only.
+  'camera_circle': const IconData(0xf5b5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'camera_circle_fill': const IconData(0xf5b6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [photo_camera_solid] which is available in cupertino_icons 0.1.3.
+  'camera_fill': const IconData(0xf3f6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera_on_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'camera_on_rectangle': const IconData(0xf5b7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera_on_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'camera_on_rectangle_fill': const IconData(0xf5b8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera_rotate. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [switch_camera] which is available in cupertino_icons 0.1.3.
+  'camera_rotate': const IconData(0xf49e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera_rotate_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [switch_camera_solid] which is available in cupertino_icons 0.1.3.
+  'camera_rotate_fill': const IconData(0xf49f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for camera_viewfinder. Available on cupertino_icons package 1.0.0+ only.
+  'camera_viewfinder': const IconData(0xf5b9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for capslock. Available on cupertino_icons package 1.0.0+ only.
+  'capslock': const IconData(0xf5ba,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for capslock_fill. Available on cupertino_icons package 1.0.0+ only.
+  'capslock_fill': const IconData(0xf5bb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for capsule. Available on cupertino_icons package 1.0.0+ only.
+  'capsule': const IconData(0xf5bc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for capsule_fill. Available on cupertino_icons package 1.0.0+ only.
+  'capsule_fill': const IconData(0xf5bd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for captions_bubble. Available on cupertino_icons package 1.0.0+ only.
+  'captions_bubble': const IconData(0xf5be,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for captions_bubble_fill. Available on cupertino_icons package 1.0.0+ only.
+  'captions_bubble_fill': const IconData(0xf5bf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for car_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [car] which is available in cupertino_icons 0.1.3.
+  'car_fill': const IconData(0xf36f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cart. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [shopping_cart] which is available in cupertino_icons 0.1.3.
+  'cart': const IconData(0xf3f7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cart_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'cart_badge_minus': const IconData(0xf5c0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cart_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'cart_badge_plus': const IconData(0xf5c1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cart_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cart_fill': const IconData(0xf5c2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cart_fill_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'cart_fill_badge_minus': const IconData(0xf5c3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cart_fill_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'cart_fill_badge_plus': const IconData(0xf5c4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_bar. Available on cupertino_icons package 1.0.0+ only.
+  'chart_bar': const IconData(0xf5c5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_bar_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chart_bar_alt_fill': const IconData(0xf8b7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_bar_circle. Available on cupertino_icons package 1.0.0+ only.
+  'chart_bar_circle': const IconData(0xf8b8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_bar_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chart_bar_circle_fill': const IconData(0xf8b9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_bar_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chart_bar_fill': const IconData(0xf5c6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_bar_square. Available on cupertino_icons package 1.0.0+ only.
+  'chart_bar_square': const IconData(0xf8ba,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_bar_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chart_bar_square_fill': const IconData(0xf8bb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_pie. Available on cupertino_icons package 1.0.0+ only.
+  'chart_pie': const IconData(0xf5c7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chart_pie_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chart_pie_fill': const IconData(0xf5c8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chat_bubble. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [conversation_bubble] which is available in cupertino_icons 0.1.3.
+  'chat_bubble': const IconData(0xf3fb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chat_bubble_2. Available on cupertino_icons package 1.0.0+ only.
+  'chat_bubble_2': const IconData(0xf8bc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chat_bubble_2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chat_bubble_2_fill': const IconData(0xf8bd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chat_bubble_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chat_bubble_fill': const IconData(0xf8be,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chat_bubble_text. Available on cupertino_icons package 1.0.0+ only.
+  'chat_bubble_text': const IconData(0xf8bf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chat_bubble_text_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chat_bubble_text_fill': const IconData(0xf8c0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [check_mark] which is available in cupertino_icons 0.1.3.
+  'checkmark': const IconData(0xf3fd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_alt. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_alt': const IconData(0xf8c1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_alt_circle. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_alt_circle': const IconData(0xf8c2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_alt_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_alt_circle_fill': const IconData(0xf8c3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_circle. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [check_mark_circled] which is available in cupertino_icons 0.1.3.
+  'checkmark_circle': const IconData(0xf3fe,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [check_mark_circled_solid] which is available in cupertino_icons 0.1.3.
+  'checkmark_circle_fill': const IconData(0xf3ff,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_rectangle': const IconData(0xf5c9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_rectangle_fill': const IconData(0xf5ca,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_seal. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_seal': const IconData(0xf5cb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_seal_fill. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_seal_fill': const IconData(0xf5cc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_shield. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_shield': const IconData(0xf5cd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_shield_fill. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_shield_fill': const IconData(0xf5ce,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_square. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_square': const IconData(0xf5cf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for checkmark_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'checkmark_square_fill': const IconData(0xf5d0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_back. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [back] which is available in cupertino_icons 0.1.3.
+  'chevron_back': const IconData(0xf3cf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_compact_down. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_compact_down': const IconData(0xf5d1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_compact_left. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_compact_left': const IconData(0xf5d2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_compact_right. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_compact_right': const IconData(0xf5d3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_compact_up. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_compact_up': const IconData(0xf5d4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_down. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_down': const IconData(0xf5d5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_down_circle. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_down_circle': const IconData(0xf5d6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_down_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_down_circle_fill': const IconData(0xf5d7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_down_square. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_down_square': const IconData(0xf5d8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_down_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_down_square_fill': const IconData(0xf5d9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_forward. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [forward] which is available in cupertino_icons 0.1.3.
+  'chevron_forward': const IconData(0xf3d1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_left. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [left_chevron] which is available in cupertino_icons 0.1.3.
+  'chevron_left': const IconData(0xf3d2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_left_2. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_left_2': const IconData(0xf5da,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_left_circle. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_left_circle': const IconData(0xf5db,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_left_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_left_circle_fill': const IconData(0xf5dc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_left_slash_chevron_right. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_left_slash_chevron_right': const IconData(0xf5dd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_left_square. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_left_square': const IconData(0xf5de,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_left_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_left_square_fill': const IconData(0xf5df,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_right. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [right_chevron] which is available in cupertino_icons 0.1.3.
+  'chevron_right': const IconData(0xf3d3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_right_2. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_right_2': const IconData(0xf5e0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_right_circle. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_right_circle': const IconData(0xf5e1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_right_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_right_circle_fill': const IconData(0xf5e2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_right_square. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_right_square': const IconData(0xf5e3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_right_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_right_square_fill': const IconData(0xf5e4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_up. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_up': const IconData(0xf5e5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_up_chevron_down. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_up_chevron_down': const IconData(0xf5e6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_up_circle. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_up_circle': const IconData(0xf5e7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_up_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_up_circle_fill': const IconData(0xf5e8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_up_square. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_up_square': const IconData(0xf5e9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for chevron_up_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'chevron_up_square_fill': const IconData(0xf5ea,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for circle_bottomthird_split. Available on cupertino_icons package 1.0.0+ only.
+  'circle_bottomthird_split': const IconData(0xf5eb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [circle_filled] which is available in cupertino_icons 0.1.3.
+  'circle_fill': const IconData(0xf400,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for circle_grid_3x3. Available on cupertino_icons package 1.0.0+ only.
+  'circle_grid_3x3': const IconData(0xf5ec,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for circle_grid_3x3_fill. Available on cupertino_icons package 1.0.0+ only.
+  'circle_grid_3x3_fill': const IconData(0xf5ed,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for circle_grid_hex. Available on cupertino_icons package 1.0.0+ only.
+  'circle_grid_hex': const IconData(0xf5ee,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for circle_grid_hex_fill. Available on cupertino_icons package 1.0.0+ only.
+  'circle_grid_hex_fill': const IconData(0xf5ef,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for circle_lefthalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'circle_lefthalf_fill': const IconData(0xf5f0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for circle_righthalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'circle_righthalf_fill': const IconData(0xf5f1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for clear_fill. Available on cupertino_icons package 1.0.0+ only.
+  'clear_fill': const IconData(0xf5f3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for clock_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [clock_solid] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [time_solid] which is available in cupertino_icons 0.1.3.
+  'clock_fill': const IconData(0xf403,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud. Available on cupertino_icons package 1.0.0+ only.
+  'cloud': const IconData(0xf5f4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_bolt. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_bolt': const IconData(0xf5f5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_bolt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_bolt_fill': const IconData(0xf5f6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_bolt_rain. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_bolt_rain': const IconData(0xf5f7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_bolt_rain_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_bolt_rain_fill': const IconData(0xf5f8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_download. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_download': const IconData(0xf8c4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_download_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_download_fill': const IconData(0xf8c5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_drizzle. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_drizzle': const IconData(0xf5f9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_drizzle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_drizzle_fill': const IconData(0xf5fa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_fill': const IconData(0xf5fb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_fog. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_fog': const IconData(0xf5fc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_fog_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_fog_fill': const IconData(0xf5fd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_hail. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_hail': const IconData(0xf5fe,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_hail_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_hail_fill': const IconData(0xf5ff,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_heavyrain. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_heavyrain': const IconData(0xf600,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_heavyrain_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_heavyrain_fill': const IconData(0xf601,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_moon. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_moon': const IconData(0xf602,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_moon_bolt. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_moon_bolt': const IconData(0xf603,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_moon_bolt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_moon_bolt_fill': const IconData(0xf604,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_moon_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_moon_fill': const IconData(0xf605,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_moon_rain. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_moon_rain': const IconData(0xf606,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_moon_rain_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_moon_rain_fill': const IconData(0xf607,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_rain. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_rain': const IconData(0xf608,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_rain_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_rain_fill': const IconData(0xf609,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_sleet. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_sleet': const IconData(0xf60a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_sleet_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_sleet_fill': const IconData(0xf60b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_snow. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_snow': const IconData(0xf60c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_snow_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_snow_fill': const IconData(0xf60d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_sun. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_sun': const IconData(0xf60e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_sun_bolt. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_sun_bolt': const IconData(0xf60f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_sun_bolt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_sun_bolt_fill': const IconData(0xf610,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_sun_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_sun_fill': const IconData(0xf611,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_sun_rain. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_sun_rain': const IconData(0xf612,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_sun_rain_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_sun_rain_fill': const IconData(0xf613,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_upload. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_upload': const IconData(0xf8c6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cloud_upload_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cloud_upload_fill': const IconData(0xf8c7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for color_filter. Available on cupertino_icons package 1.0.0+ only.
+  'color_filter': const IconData(0xf8c8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for color_filter_fill. Available on cupertino_icons package 1.0.0+ only.
+  'color_filter_fill': const IconData(0xf8c9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for command. Available on cupertino_icons package 1.0.0+ only.
+  'command': const IconData(0xf614,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for compass. Available on cupertino_icons package 1.0.0+ only.
+  'compass': const IconData(0xf8ca,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for compass_fill. Available on cupertino_icons package 1.0.0+ only.
+  'compass_fill': const IconData(0xf8cb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for control. Available on cupertino_icons package 1.0.0+ only.
+  'control': const IconData(0xf615,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for creditcard. Available on cupertino_icons package 1.0.0+ only.
+  'creditcard': const IconData(0xf616,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for creditcard_fill. Available on cupertino_icons package 1.0.0+ only.
+  'creditcard_fill': const IconData(0xf617,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for crop. Available on cupertino_icons package 1.0.0+ only.
+  'crop': const IconData(0xf618,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for crop_rotate. Available on cupertino_icons package 1.0.0+ only.
+  'crop_rotate': const IconData(0xf619,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cube. Available on cupertino_icons package 1.0.0+ only.
+  'cube': const IconData(0xf61a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cube_box. Available on cupertino_icons package 1.0.0+ only.
+  'cube_box': const IconData(0xf61b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cube_box_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cube_box_fill': const IconData(0xf61c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cube_fill. Available on cupertino_icons package 1.0.0+ only.
+  'cube_fill': const IconData(0xf61d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for cursor_rays. Available on cupertino_icons package 1.0.0+ only.
+  'cursor_rays': const IconData(0xf61e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for decrease_indent. Available on cupertino_icons package 1.0.0+ only.
+  'decrease_indent': const IconData(0xf61f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for decrease_quotelevel. Available on cupertino_icons package 1.0.0+ only.
+  'decrease_quotelevel': const IconData(0xf620,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for delete_left. Available on cupertino_icons package 1.0.0+ only.
+  'delete_left': const IconData(0xf621,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for delete_left_fill. Available on cupertino_icons package 1.0.0+ only.
+  'delete_left_fill': const IconData(0xf622,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for delete_right. Available on cupertino_icons package 1.0.0+ only.
+  'delete_right': const IconData(0xf623,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for delete_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'delete_right_fill': const IconData(0xf624,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for desktopcomputer. Available on cupertino_icons package 1.0.0+ only.
+  'desktopcomputer': const IconData(0xf625,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for device_desktop. Available on cupertino_icons package 1.0.0+ only.
+  'device_desktop': const IconData(0xf8cc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for device_laptop. Available on cupertino_icons package 1.0.0+ only.
+  'device_laptop': const IconData(0xf8cd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for device_phone_landscape. Available on cupertino_icons package 1.0.0+ only.
+  'device_phone_landscape': const IconData(0xf8ce,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for device_phone_portrait. Available on cupertino_icons package 1.0.0+ only.
+  'device_phone_portrait': const IconData(0xf8cf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for dial. Available on cupertino_icons package 1.0.0+ only.
+  'dial': const IconData(0xf626,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for dial_fill. Available on cupertino_icons package 1.0.0+ only.
+  'dial_fill': const IconData(0xf627,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for divide. Available on cupertino_icons package 1.0.0+ only.
+  'divide': const IconData(0xf628,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for divide_circle. Available on cupertino_icons package 1.0.0+ only.
+  'divide_circle': const IconData(0xf629,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for divide_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'divide_circle_fill': const IconData(0xf62a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for divide_square. Available on cupertino_icons package 1.0.0+ only.
+  'divide_square': const IconData(0xf62b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for divide_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'divide_square_fill': const IconData(0xf62c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc. Available on cupertino_icons package 1.0.0+ only.
+  'doc': const IconData(0xf62d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_append. Available on cupertino_icons package 1.0.0+ only.
+  'doc_append': const IconData(0xf62e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_chart. Available on cupertino_icons package 1.0.0+ only.
+  'doc_chart': const IconData(0xf8d0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_chart_fill. Available on cupertino_icons package 1.0.0+ only.
+  'doc_chart_fill': const IconData(0xf8d1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_checkmark. Available on cupertino_icons package 1.0.0+ only.
+  'doc_checkmark': const IconData(0xf8d2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_checkmark_fill. Available on cupertino_icons package 1.0.0+ only.
+  'doc_checkmark_fill': const IconData(0xf8d3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_circle. Available on cupertino_icons package 1.0.0+ only.
+  'doc_circle': const IconData(0xf62f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'doc_circle_fill': const IconData(0xf630,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_fill. Available on cupertino_icons package 1.0.0+ only.
+  'doc_fill': const IconData(0xf631,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_on_clipboard. Available on cupertino_icons package 1.0.0+ only.
+  'doc_on_clipboard': const IconData(0xf632,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_on_clipboard_fill. Available on cupertino_icons package 1.0.0+ only.
+  'doc_on_clipboard_fill': const IconData(0xf633,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_on_doc. Available on cupertino_icons package 1.0.0+ only.
+  'doc_on_doc': const IconData(0xf634,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_on_doc_fill. Available on cupertino_icons package 1.0.0+ only.
+  'doc_on_doc_fill': const IconData(0xf635,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_person. Available on cupertino_icons package 1.0.0+ only.
+  'doc_person': const IconData(0xf8d4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_person_fill. Available on cupertino_icons package 1.0.0+ only.
+  'doc_person_fill': const IconData(0xf8d5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_plaintext. Available on cupertino_icons package 1.0.0+ only.
+  'doc_plaintext': const IconData(0xf636,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_richtext. Available on cupertino_icons package 1.0.0+ only.
+  'doc_richtext': const IconData(0xf637,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_text. Available on cupertino_icons package 1.0.0+ only.
+  'doc_text': const IconData(0xf638,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_text_fill. Available on cupertino_icons package 1.0.0+ only.
+  'doc_text_fill': const IconData(0xf639,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_text_search. Available on cupertino_icons package 1.0.0+ only.
+  'doc_text_search': const IconData(0xf63a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for doc_text_viewfinder. Available on cupertino_icons package 1.0.0+ only.
+  'doc_text_viewfinder': const IconData(0xf63b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for dot_radiowaves_left_right. Available on cupertino_icons package 1.0.0+ only.
+  'dot_radiowaves_left_right': const IconData(0xf63c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for dot_radiowaves_right. Available on cupertino_icons package 1.0.0+ only.
+  'dot_radiowaves_right': const IconData(0xf63d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for dot_square. Available on cupertino_icons package 1.0.0+ only.
+  'dot_square': const IconData(0xf63e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for dot_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'dot_square_fill': const IconData(0xf63f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for download_circle. Available on cupertino_icons package 1.0.0+ only.
+  'download_circle': const IconData(0xf8d6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for download_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'download_circle_fill': const IconData(0xf8d7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for drop. Available on cupertino_icons package 1.0.0+ only.
+  'drop': const IconData(0xf8d8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for drop_fill. Available on cupertino_icons package 1.0.0+ only.
+  'drop_fill': const IconData(0xf8d9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for drop_triangle. Available on cupertino_icons package 1.0.0+ only.
+  'drop_triangle': const IconData(0xf640,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for drop_triangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'drop_triangle_fill': const IconData(0xf641,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ear. Available on cupertino_icons package 1.0.0+ only.
+  'ear': const IconData(0xf642,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eject. Available on cupertino_icons package 1.0.0+ only.
+  'eject': const IconData(0xf643,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eject_fill. Available on cupertino_icons package 1.0.0+ only.
+  'eject_fill': const IconData(0xf644,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ellipses_bubble. Available on cupertino_icons package 1.0.0+ only.
+  'ellipses_bubble': const IconData(0xf645,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ellipses_bubble_fill. Available on cupertino_icons package 1.0.0+ only.
+  'ellipses_bubble_fill': const IconData(0xf646,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ellipsis_circle. Available on cupertino_icons package 1.0.0+ only.
+  'ellipsis_circle': const IconData(0xf647,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ellipsis_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'ellipsis_circle_fill': const IconData(0xf648,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ellipsis_vertical. Available on cupertino_icons package 1.0.0+ only.
+  'ellipsis_vertical': const IconData(0xf8da,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ellipsis_vertical_circle. Available on cupertino_icons package 1.0.0+ only.
+  'ellipsis_vertical_circle': const IconData(0xf8db,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ellipsis_vertical_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'ellipsis_vertical_circle_fill': const IconData(0xf8dc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for envelope. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [mail] which is available in cupertino_icons 0.1.3.
+  'envelope': const IconData(0xf422,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for envelope_badge. Available on cupertino_icons package 1.0.0+ only.
+  'envelope_badge': const IconData(0xf649,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for envelope_badge_fill. Available on cupertino_icons package 1.0.0+ only.
+  'envelope_badge_fill': const IconData(0xf64a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for envelope_circle. Available on cupertino_icons package 1.0.0+ only.
+  'envelope_circle': const IconData(0xf64b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for envelope_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'envelope_circle_fill': const IconData(0xf64c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for envelope_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [mail_solid] which is available in cupertino_icons 0.1.3.
+  'envelope_fill': const IconData(0xf423,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for envelope_open. Available on cupertino_icons package 1.0.0+ only.
+  'envelope_open': const IconData(0xf64d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for envelope_open_fill. Available on cupertino_icons package 1.0.0+ only.
+  'envelope_open_fill': const IconData(0xf64e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for equal. Available on cupertino_icons package 1.0.0+ only.
+  'equal': const IconData(0xf64f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for equal_circle. Available on cupertino_icons package 1.0.0+ only.
+  'equal_circle': const IconData(0xf650,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for equal_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'equal_circle_fill': const IconData(0xf651,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for equal_square. Available on cupertino_icons package 1.0.0+ only.
+  'equal_square': const IconData(0xf652,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for equal_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'equal_square_fill': const IconData(0xf653,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for escape. Available on cupertino_icons package 1.0.0+ only.
+  'escape': const IconData(0xf654,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark': const IconData(0xf655,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_bubble. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_bubble': const IconData(0xf656,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_bubble_fill. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_bubble_fill': const IconData(0xf657,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_circle. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_circle': const IconData(0xf658,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_circle_fill': const IconData(0xf659,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_octagon. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_octagon': const IconData(0xf65a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_octagon_fill. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_octagon_fill': const IconData(0xf65b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_shield. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_shield': const IconData(0xf65c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_shield_fill. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_shield_fill': const IconData(0xf65d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_square. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_square': const IconData(0xf65e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_square_fill': const IconData(0xf65f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_triangle. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_triangle': const IconData(0xf660,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for exclamationmark_triangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'exclamationmark_triangle_fill': const IconData(0xf661,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eye_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [eye_solid] which is available in cupertino_icons 0.1.3.
+  'eye_fill': const IconData(0xf425,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eye_slash. Available on cupertino_icons package 1.0.0+ only.
+  'eye_slash': const IconData(0xf662,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eye_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'eye_slash_fill': const IconData(0xf663,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eyedropper. Available on cupertino_icons package 1.0.0+ only.
+  'eyedropper': const IconData(0xf664,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eyedropper_full. Available on cupertino_icons package 1.0.0+ only.
+  'eyedropper_full': const IconData(0xf665,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eyedropper_halffull. Available on cupertino_icons package 1.0.0+ only.
+  'eyedropper_halffull': const IconData(0xf666,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for eyeglasses. Available on cupertino_icons package 1.0.0+ only.
+  'eyeglasses': const IconData(0xf667,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for f_cursive. Available on cupertino_icons package 1.0.0+ only.
+  'f_cursive': const IconData(0xf668,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for f_cursive_circle. Available on cupertino_icons package 1.0.0+ only.
+  'f_cursive_circle': const IconData(0xf669,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for f_cursive_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'f_cursive_circle_fill': const IconData(0xf66a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for film. Available on cupertino_icons package 1.0.0+ only.
+  'film': const IconData(0xf66b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for film_fill. Available on cupertino_icons package 1.0.0+ only.
+  'film_fill': const IconData(0xf66c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flag_circle. Available on cupertino_icons package 1.0.0+ only.
+  'flag_circle': const IconData(0xf66d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flag_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'flag_circle_fill': const IconData(0xf66e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flag_fill. Available on cupertino_icons package 1.0.0+ only.
+  'flag_fill': const IconData(0xf66f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flag_slash. Available on cupertino_icons package 1.0.0+ only.
+  'flag_slash': const IconData(0xf670,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flag_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'flag_slash_fill': const IconData(0xf671,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flame. Available on cupertino_icons package 1.0.0+ only.
+  'flame': const IconData(0xf672,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flame_fill. Available on cupertino_icons package 1.0.0+ only.
+  'flame_fill': const IconData(0xf673,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for floppy_disk. Available on cupertino_icons package 1.0.0+ only.
+  'floppy_disk': const IconData(0xf8dd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flowchart. Available on cupertino_icons package 1.0.0+ only.
+  'flowchart': const IconData(0xf674,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for flowchart_fill. Available on cupertino_icons package 1.0.0+ only.
+  'flowchart_fill': const IconData(0xf675,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'folder_badge_minus': const IconData(0xf676,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_badge_person_crop. Available on cupertino_icons package 1.0.0+ only.
+  'folder_badge_person_crop': const IconData(0xf677,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'folder_badge_plus': const IconData(0xf678,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_circle. Available on cupertino_icons package 1.0.0+ only.
+  'folder_circle': const IconData(0xf679,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'folder_circle_fill': const IconData(0xf67a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [folder_solid] which is available in cupertino_icons 0.1.3.
+  'folder_fill': const IconData(0xf435,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_fill_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'folder_fill_badge_minus': const IconData(0xf67b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_fill_badge_person_crop. Available on cupertino_icons package 1.0.0+ only.
+  'folder_fill_badge_person_crop': const IconData(0xf67c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for folder_fill_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'folder_fill_badge_plus': const IconData(0xf67d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for forward_end. Available on cupertino_icons package 1.0.0+ only.
+  'forward_end': const IconData(0xf67f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for forward_end_alt. Available on cupertino_icons package 1.0.0+ only.
+  'forward_end_alt': const IconData(0xf680,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for forward_end_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'forward_end_alt_fill': const IconData(0xf681,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for forward_end_fill. Available on cupertino_icons package 1.0.0+ only.
+  'forward_end_fill': const IconData(0xf682,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for forward_fill. Available on cupertino_icons package 1.0.0+ only.
+  'forward_fill': const IconData(0xf683,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for function. Available on cupertino_icons package 1.0.0+ only.
+  'function': const IconData(0xf684,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for fx. Available on cupertino_icons package 1.0.0+ only.
+  'fx': const IconData(0xf685,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gamecontroller. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [game_controller] which is available in cupertino_icons 0.1.3.
+  'gamecontroller': const IconData(0xf43a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gamecontroller_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'gamecontroller_alt_fill': const IconData(0xf8de,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gamecontroller_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [game_controller_solid] which is available in cupertino_icons 0.1.3.
+  'gamecontroller_fill': const IconData(0xf43b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gauge. Available on cupertino_icons package 1.0.0+ only.
+  'gauge': const IconData(0xf686,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gauge_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'gauge_badge_minus': const IconData(0xf687,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gauge_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'gauge_badge_plus': const IconData(0xf688,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gear_alt. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [gear] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [gear_big] which is available in cupertino_icons 0.1.3.
+  'gear_alt': const IconData(0xf43c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gear_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [gear_solid] which is available in cupertino_icons 0.1.3.
+  'gear_alt_fill': const IconData(0xf43d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gift. Available on cupertino_icons package 1.0.0+ only.
+  'gift': const IconData(0xf689,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gift_alt. Available on cupertino_icons package 1.0.0+ only.
+  'gift_alt': const IconData(0xf68a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gift_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'gift_alt_fill': const IconData(0xf68b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gift_fill. Available on cupertino_icons package 1.0.0+ only.
+  'gift_fill': const IconData(0xf68c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for globe. Available on cupertino_icons package 1.0.0+ only.
+  'globe': const IconData(0xf68d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward': const IconData(0xf68e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward_10. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward_10': const IconData(0xf68f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward_15. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward_15': const IconData(0xf690,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward_30. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward_30': const IconData(0xf691,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward_45. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward_45': const IconData(0xf692,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward_60. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward_60': const IconData(0xf693,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward_75. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward_75': const IconData(0xf694,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward_90. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward_90': const IconData(0xf695,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for gobackward_minus. Available on cupertino_icons package 1.0.0+ only.
+  'gobackward_minus': const IconData(0xf696,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward. Available on cupertino_icons package 1.0.0+ only.
+  'goforward': const IconData(0xf697,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward_10. Available on cupertino_icons package 1.0.0+ only.
+  'goforward_10': const IconData(0xf698,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward_15. Available on cupertino_icons package 1.0.0+ only.
+  'goforward_15': const IconData(0xf699,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward_30. Available on cupertino_icons package 1.0.0+ only.
+  'goforward_30': const IconData(0xf69a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward_45. Available on cupertino_icons package 1.0.0+ only.
+  'goforward_45': const IconData(0xf69b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward_60. Available on cupertino_icons package 1.0.0+ only.
+  'goforward_60': const IconData(0xf69c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward_75. Available on cupertino_icons package 1.0.0+ only.
+  'goforward_75': const IconData(0xf69d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward_90. Available on cupertino_icons package 1.0.0+ only.
+  'goforward_90': const IconData(0xf69e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for goforward_plus. Available on cupertino_icons package 1.0.0+ only.
+  'goforward_plus': const IconData(0xf69f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for graph_circle. Available on cupertino_icons package 1.0.0+ only.
+  'graph_circle': const IconData(0xf8df,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for graph_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'graph_circle_fill': const IconData(0xf8e0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for graph_square. Available on cupertino_icons package 1.0.0+ only.
+  'graph_square': const IconData(0xf8e1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for graph_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'graph_square_fill': const IconData(0xf8e2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for greaterthan. Available on cupertino_icons package 1.0.0+ only.
+  'greaterthan': const IconData(0xf6a0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for greaterthan_circle. Available on cupertino_icons package 1.0.0+ only.
+  'greaterthan_circle': const IconData(0xf6a1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for greaterthan_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'greaterthan_circle_fill': const IconData(0xf6a2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for greaterthan_square. Available on cupertino_icons package 1.0.0+ only.
+  'greaterthan_square': const IconData(0xf6a3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for greaterthan_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'greaterthan_square_fill': const IconData(0xf6a4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for grid. Available on cupertino_icons package 1.0.0+ only.
+  'grid': const IconData(0xf6a5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for grid_circle. Available on cupertino_icons package 1.0.0+ only.
+  'grid_circle': const IconData(0xf6a6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for grid_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'grid_circle_fill': const IconData(0xf6a7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for guitars. Available on cupertino_icons package 1.0.0+ only.
+  'guitars': const IconData(0xf6a8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hammer. Available on cupertino_icons package 1.0.0+ only.
+  'hammer': const IconData(0xf6a9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hammer_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hammer_fill': const IconData(0xf6aa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_draw. Available on cupertino_icons package 1.0.0+ only.
+  'hand_draw': const IconData(0xf6ab,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_draw_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hand_draw_fill': const IconData(0xf6ac,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_point_left. Available on cupertino_icons package 1.0.0+ only.
+  'hand_point_left': const IconData(0xf6ad,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_point_left_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hand_point_left_fill': const IconData(0xf6ae,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_point_right. Available on cupertino_icons package 1.0.0+ only.
+  'hand_point_right': const IconData(0xf6af,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_point_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hand_point_right_fill': const IconData(0xf6b0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_raised. Available on cupertino_icons package 1.0.0+ only.
+  'hand_raised': const IconData(0xf6b1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_raised_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hand_raised_fill': const IconData(0xf6b2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_raised_slash. Available on cupertino_icons package 1.0.0+ only.
+  'hand_raised_slash': const IconData(0xf6b3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_raised_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hand_raised_slash_fill': const IconData(0xf6b4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_thumbsdown. Available on cupertino_icons package 1.0.0+ only.
+  'hand_thumbsdown': const IconData(0xf6b5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_thumbsdown_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hand_thumbsdown_fill': const IconData(0xf6b6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_thumbsup. Available on cupertino_icons package 1.0.0+ only.
+  'hand_thumbsup': const IconData(0xf6b7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hand_thumbsup_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hand_thumbsup_fill': const IconData(0xf6b8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hare. Available on cupertino_icons package 1.0.0+ only.
+  'hare': const IconData(0xf6b9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hare_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hare_fill': const IconData(0xf6ba,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for headphones. Available on cupertino_icons package 1.0.0+ only.
+  'headphones': const IconData(0xf6bb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for heart_circle. Available on cupertino_icons package 1.0.0+ only.
+  'heart_circle': const IconData(0xf6bc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for heart_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'heart_circle_fill': const IconData(0xf6bd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for heart_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [heart_solid] which is available in cupertino_icons 0.1.3.
+  'heart_fill': const IconData(0xf443,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for heart_slash. Available on cupertino_icons package 1.0.0+ only.
+  'heart_slash': const IconData(0xf6be,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for heart_slash_circle. Available on cupertino_icons package 1.0.0+ only.
+  'heart_slash_circle': const IconData(0xf6bf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for heart_slash_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'heart_slash_circle_fill': const IconData(0xf6c0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for heart_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'heart_slash_fill': const IconData(0xf6c1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for helm. Available on cupertino_icons package 1.0.0+ only.
+  'helm': const IconData(0xf6c2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hexagon. Available on cupertino_icons package 1.0.0+ only.
+  'hexagon': const IconData(0xf6c3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hexagon_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hexagon_fill': const IconData(0xf6c4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hifispeaker. Available on cupertino_icons package 1.0.0+ only.
+  'hifispeaker': const IconData(0xf6c5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hifispeaker_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hifispeaker_fill': const IconData(0xf6c6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hourglass. Available on cupertino_icons package 1.0.0+ only.
+  'hourglass': const IconData(0xf6c7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hourglass_bottomhalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hourglass_bottomhalf_fill': const IconData(0xf6c8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hourglass_tophalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'hourglass_tophalf_fill': const IconData(0xf6c9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for house. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [home] which is available in cupertino_icons 0.1.3.
+  'house': const IconData(0xf447,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for house_alt. Available on cupertino_icons package 1.0.0+ only.
+  'house_alt': const IconData(0xf8e3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for house_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'house_alt_fill': const IconData(0xf8e4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for house_fill. Available on cupertino_icons package 1.0.0+ only.
+  'house_fill': const IconData(0xf6ca,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for hurricane. Available on cupertino_icons package 1.0.0+ only.
+  'hurricane': const IconData(0xf6cb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for increase_indent. Available on cupertino_icons package 1.0.0+ only.
+  'increase_indent': const IconData(0xf6cc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for increase_quotelevel. Available on cupertino_icons package 1.0.0+ only.
+  'increase_quotelevel': const IconData(0xf6cd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for infinite. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [loop] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [loop_thick] which is available in cupertino_icons 0.1.3.
+  'infinite': const IconData(0xf449,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for info_circle. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [info] which is available in cupertino_icons 0.1.3.
+  'info_circle': const IconData(0xf44c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for info_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'info_circle_fill': const IconData(0xf6cf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for italic. Available on cupertino_icons package 1.0.0+ only.
+  'italic': const IconData(0xf6d0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for keyboard. Available on cupertino_icons package 1.0.0+ only.
+  'keyboard': const IconData(0xf6d1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for keyboard_chevron_compact_down. Available on cupertino_icons package 1.0.0+ only.
+  'keyboard_chevron_compact_down': const IconData(0xf6d2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for largecircle_fill_circle. Available on cupertino_icons package 1.0.0+ only.
+  'largecircle_fill_circle': const IconData(0xf6d3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lasso. Available on cupertino_icons package 1.0.0+ only.
+  'lasso': const IconData(0xf6d4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for layers. Available on cupertino_icons package 1.0.0+ only.
+  'layers': const IconData(0xf8e5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for layers_alt. Available on cupertino_icons package 1.0.0+ only.
+  'layers_alt': const IconData(0xf8e6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for layers_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'layers_alt_fill': const IconData(0xf8e7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for layers_fill. Available on cupertino_icons package 1.0.0+ only.
+  'layers_fill': const IconData(0xf8e8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for leaf_arrow_circlepath. Available on cupertino_icons package 1.0.0+ only.
+  'leaf_arrow_circlepath': const IconData(0xf6d5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lessthan. Available on cupertino_icons package 1.0.0+ only.
+  'lessthan': const IconData(0xf6d6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lessthan_circle. Available on cupertino_icons package 1.0.0+ only.
+  'lessthan_circle': const IconData(0xf6d7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lessthan_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'lessthan_circle_fill': const IconData(0xf6d8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lessthan_square. Available on cupertino_icons package 1.0.0+ only.
+  'lessthan_square': const IconData(0xf6d9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lessthan_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'lessthan_square_fill': const IconData(0xf6da,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for light_max. Available on cupertino_icons package 1.0.0+ only.
+  'light_max': const IconData(0xf6db,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for light_min. Available on cupertino_icons package 1.0.0+ only.
+  'light_min': const IconData(0xf6dc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lightbulb. Available on cupertino_icons package 1.0.0+ only.
+  'lightbulb': const IconData(0xf6dd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lightbulb_fill. Available on cupertino_icons package 1.0.0+ only.
+  'lightbulb_fill': const IconData(0xf6de,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lightbulb_slash. Available on cupertino_icons package 1.0.0+ only.
+  'lightbulb_slash': const IconData(0xf6df,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lightbulb_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'lightbulb_slash_fill': const IconData(0xf6e0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for line_horizontal_3. Available on cupertino_icons package 1.0.0+ only.
+  'line_horizontal_3': const IconData(0xf6e1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for line_horizontal_3_decrease. Available on cupertino_icons package 1.0.0+ only.
+  'line_horizontal_3_decrease': const IconData(0xf6e2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for line_horizontal_3_decrease_circle. Available on cupertino_icons package 1.0.0+ only.
+  'line_horizontal_3_decrease_circle': const IconData(0xf6e3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for line_horizontal_3_decrease_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'line_horizontal_3_decrease_circle_fill': const IconData(0xf6e4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for link. Available on cupertino_icons package 1.0.0+ only.
+  'link': const IconData(0xf6e5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for link_circle. Available on cupertino_icons package 1.0.0+ only.
+  'link_circle': const IconData(0xf6e6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for link_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'link_circle_fill': const IconData(0xf6e7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for list_bullet. Available on cupertino_icons package 1.0.0+ only.
+  'list_bullet': const IconData(0xf6e8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for list_bullet_below_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'list_bullet_below_rectangle': const IconData(0xf6e9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for list_bullet_indent. Available on cupertino_icons package 1.0.0+ only.
+  'list_bullet_indent': const IconData(0xf6ea,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for list_dash. Available on cupertino_icons package 1.0.0+ only.
+  'list_dash': const IconData(0xf6eb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for list_number. Available on cupertino_icons package 1.0.0+ only.
+  'list_number': const IconData(0xf6ec,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for list_number_rtl. Available on cupertino_icons package 1.0.0+ only.
+  'list_number_rtl': const IconData(0xf6ed,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_circle. Available on cupertino_icons package 1.0.0+ only.
+  'location_circle': const IconData(0xf6ef,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'location_circle_fill': const IconData(0xf6f0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_fill. Available on cupertino_icons package 1.0.0+ only.
+  'location_fill': const IconData(0xf6f1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_north. Available on cupertino_icons package 1.0.0+ only.
+  'location_north': const IconData(0xf6f2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_north_fill. Available on cupertino_icons package 1.0.0+ only.
+  'location_north_fill': const IconData(0xf6f3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_north_line. Available on cupertino_icons package 1.0.0+ only.
+  'location_north_line': const IconData(0xf6f4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_north_line_fill. Available on cupertino_icons package 1.0.0+ only.
+  'location_north_line_fill': const IconData(0xf6f5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_slash. Available on cupertino_icons package 1.0.0+ only.
+  'location_slash': const IconData(0xf6f6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for location_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'location_slash_fill': const IconData(0xf6f7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [padlock] which is available in cupertino_icons 0.1.3.
+  'lock': const IconData(0xf4c8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_circle. Available on cupertino_icons package 1.0.0+ only.
+  'lock_circle': const IconData(0xf6f8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'lock_circle_fill': const IconData(0xf6f9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [padlock_solid] which is available in cupertino_icons 0.1.3.
+  'lock_fill': const IconData(0xf4c9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_open. Available on cupertino_icons package 1.0.0+ only.
+  'lock_open': const IconData(0xf6fa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_open_fill. Available on cupertino_icons package 1.0.0+ only.
+  'lock_open_fill': const IconData(0xf6fb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_rotation. Available on cupertino_icons package 1.0.0+ only.
+  'lock_rotation': const IconData(0xf6fc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_rotation_open. Available on cupertino_icons package 1.0.0+ only.
+  'lock_rotation_open': const IconData(0xf6fd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_shield. Available on cupertino_icons package 1.0.0+ only.
+  'lock_shield': const IconData(0xf6fe,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_shield_fill. Available on cupertino_icons package 1.0.0+ only.
+  'lock_shield_fill': const IconData(0xf6ff,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_slash. Available on cupertino_icons package 1.0.0+ only.
+  'lock_slash': const IconData(0xf700,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for lock_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'lock_slash_fill': const IconData(0xf701,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for macwindow. Available on cupertino_icons package 1.0.0+ only.
+  'macwindow': const IconData(0xf702,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for map. Available on cupertino_icons package 1.0.0+ only.
+  'map': const IconData(0xf703,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for map_fill. Available on cupertino_icons package 1.0.0+ only.
+  'map_fill': const IconData(0xf704,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for map_pin. Available on cupertino_icons package 1.0.0+ only.
+  'map_pin': const IconData(0xf705,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for map_pin_ellipse. Available on cupertino_icons package 1.0.0+ only.
+  'map_pin_ellipse': const IconData(0xf706,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for map_pin_slash. Available on cupertino_icons package 1.0.0+ only.
+  'map_pin_slash': const IconData(0xf707,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for memories. Available on cupertino_icons package 1.0.0+ only.
+  'memories': const IconData(0xf708,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for memories_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'memories_badge_minus': const IconData(0xf709,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for memories_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'memories_badge_plus': const IconData(0xf70a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for metronome. Available on cupertino_icons package 1.0.0+ only.
+  'metronome': const IconData(0xf70b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for mic_circle. Available on cupertino_icons package 1.0.0+ only.
+  'mic_circle': const IconData(0xf70c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for mic_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'mic_circle_fill': const IconData(0xf70d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for mic_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [mic_solid] which is available in cupertino_icons 0.1.3.
+  'mic_fill': const IconData(0xf461,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for mic_slash. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [mic_off] which is available in cupertino_icons 0.1.3.
+  'mic_slash': const IconData(0xf45f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for mic_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'mic_slash_fill': const IconData(0xf70e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for minus. Available on cupertino_icons package 1.0.0+ only.
+  'minus': const IconData(0xf70f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for minus_circle. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [minus_circled] which is available in cupertino_icons 0.1.3.
+  'minus_circle': const IconData(0xf463,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for minus_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'minus_circle_fill': const IconData(0xf710,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for minus_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'minus_rectangle': const IconData(0xf711,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for minus_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'minus_rectangle_fill': const IconData(0xf712,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for minus_slash_plus. Available on cupertino_icons package 1.0.0+ only.
+  'minus_slash_plus': const IconData(0xf713,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for minus_square. Available on cupertino_icons package 1.0.0+ only.
+  'minus_square': const IconData(0xf714,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for minus_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'minus_square_fill': const IconData(0xf715,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_dollar. Available on cupertino_icons package 1.0.0+ only.
+  'money_dollar': const IconData(0xf8e9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_dollar_circle. Available on cupertino_icons package 1.0.0+ only.
+  'money_dollar_circle': const IconData(0xf8ea,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_dollar_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'money_dollar_circle_fill': const IconData(0xf8eb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_euro. Available on cupertino_icons package 1.0.0+ only.
+  'money_euro': const IconData(0xf8ec,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_euro_circle. Available on cupertino_icons package 1.0.0+ only.
+  'money_euro_circle': const IconData(0xf8ed,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_euro_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'money_euro_circle_fill': const IconData(0xf8ee,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_pound. Available on cupertino_icons package 1.0.0+ only.
+  'money_pound': const IconData(0xf8ef,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_pound_circle. Available on cupertino_icons package 1.0.0+ only.
+  'money_pound_circle': const IconData(0xf8f0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_pound_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'money_pound_circle_fill': const IconData(0xf8f1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_rubl. Available on cupertino_icons package 1.0.0+ only.
+  'money_rubl': const IconData(0xf8f2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_rubl_circle. Available on cupertino_icons package 1.0.0+ only.
+  'money_rubl_circle': const IconData(0xf8f3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_rubl_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'money_rubl_circle_fill': const IconData(0xf8f4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_yen. Available on cupertino_icons package 1.0.0+ only.
+  'money_yen': const IconData(0xf8f5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_yen_circle. Available on cupertino_icons package 1.0.0+ only.
+  'money_yen_circle': const IconData(0xf8f6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for money_yen_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'money_yen_circle_fill': const IconData(0xf8f7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for moon. Available on cupertino_icons package 1.0.0+ only.
+  'moon': const IconData(0xf716,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for moon_circle. Available on cupertino_icons package 1.0.0+ only.
+  'moon_circle': const IconData(0xf717,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for moon_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'moon_circle_fill': const IconData(0xf718,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for moon_fill. Available on cupertino_icons package 1.0.0+ only.
+  'moon_fill': const IconData(0xf719,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for moon_stars. Available on cupertino_icons package 1.0.0+ only.
+  'moon_stars': const IconData(0xf71a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for moon_stars_fill. Available on cupertino_icons package 1.0.0+ only.
+  'moon_stars_fill': const IconData(0xf71b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for moon_zzz. Available on cupertino_icons package 1.0.0+ only.
+  'moon_zzz': const IconData(0xf71c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for moon_zzz_fill. Available on cupertino_icons package 1.0.0+ only.
+  'moon_zzz_fill': const IconData(0xf71d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for move. Available on cupertino_icons package 1.0.0+ only.
+  'move': const IconData(0xf8f8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for multiply. Available on cupertino_icons package 1.0.0+ only.
+  'multiply': const IconData(0xf71e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for multiply_circle. Available on cupertino_icons package 1.0.0+ only.
+  'multiply_circle': const IconData(0xf71f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for multiply_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'multiply_circle_fill': const IconData(0xf720,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for multiply_square. Available on cupertino_icons package 1.0.0+ only.
+  'multiply_square': const IconData(0xf721,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for multiply_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'multiply_square_fill': const IconData(0xf722,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for music_albums. Available on cupertino_icons package 1.0.0+ only.
+  'music_albums': const IconData(0xf8f9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for music_albums_fill. Available on cupertino_icons package 1.0.0+ only.
+  'music_albums_fill': const IconData(0xf8fa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for music_house. Available on cupertino_icons package 1.0.0+ only.
+  'music_house': const IconData(0xf723,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for music_house_fill. Available on cupertino_icons package 1.0.0+ only.
+  'music_house_fill': const IconData(0xf724,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for music_mic. Available on cupertino_icons package 1.0.0+ only.
+  'music_mic': const IconData(0xf725,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for music_note_2. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [double_music_note] which is available in cupertino_icons 0.1.3.
+  'music_note_2': const IconData(0xf46c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for music_note_list. Available on cupertino_icons package 1.0.0+ only.
+  'music_note_list': const IconData(0xf726,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for nosign. Available on cupertino_icons package 1.0.0+ only.
+  'nosign': const IconData(0xf727,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for number. Available on cupertino_icons package 1.0.0+ only.
+  'number': const IconData(0xf728,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for number_circle. Available on cupertino_icons package 1.0.0+ only.
+  'number_circle': const IconData(0xf729,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for number_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'number_circle_fill': const IconData(0xf72a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for number_square. Available on cupertino_icons package 1.0.0+ only.
+  'number_square': const IconData(0xf72b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for number_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'number_square_fill': const IconData(0xf72c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for option. Available on cupertino_icons package 1.0.0+ only.
+  'option': const IconData(0xf72d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for paintbrush. Available on cupertino_icons package 1.0.0+ only.
+  'paintbrush': const IconData(0xf72e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for paintbrush_fill. Available on cupertino_icons package 1.0.0+ only.
+  'paintbrush_fill': const IconData(0xf72f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pano. Available on cupertino_icons package 1.0.0+ only.
+  'pano': const IconData(0xf730,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pano_fill. Available on cupertino_icons package 1.0.0+ only.
+  'pano_fill': const IconData(0xf731,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for paperclip. Available on cupertino_icons package 1.0.0+ only.
+  'paperclip': const IconData(0xf732,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for paperplane. Available on cupertino_icons package 1.0.0+ only.
+  'paperplane': const IconData(0xf733,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for paperplane_fill. Available on cupertino_icons package 1.0.0+ only.
+  'paperplane_fill': const IconData(0xf734,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for paragraph. Available on cupertino_icons package 1.0.0+ only.
+  'paragraph': const IconData(0xf735,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pause_circle. Available on cupertino_icons package 1.0.0+ only.
+  'pause_circle': const IconData(0xf736,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pause_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'pause_circle_fill': const IconData(0xf737,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pause_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [pause_solid] which is available in cupertino_icons 0.1.3.
+  'pause_fill': const IconData(0xf478,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pause_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'pause_rectangle': const IconData(0xf738,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pause_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'pause_rectangle_fill': const IconData(0xf739,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pencil_circle. Available on cupertino_icons package 1.0.0+ only.
+  'pencil_circle': const IconData(0xf73a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pencil_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'pencil_circle_fill': const IconData(0xf73b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pencil_ellipsis_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'pencil_ellipsis_rectangle': const IconData(0xf73c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pencil_outline. Available on cupertino_icons package 1.0.0+ only.
+  'pencil_outline': const IconData(0xf73d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pencil_slash. Available on cupertino_icons package 1.0.0+ only.
+  'pencil_slash': const IconData(0xf73e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for percent. Available on cupertino_icons package 1.0.0+ only.
+  'percent': const IconData(0xf73f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_2. Available on cupertino_icons package 1.0.0+ only.
+  'person_2': const IconData(0xf740,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_2_alt. Available on cupertino_icons package 1.0.0+ only.
+  'person_2_alt': const IconData(0xf8fb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'person_2_fill': const IconData(0xf741,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_2_square_stack. Available on cupertino_icons package 1.0.0+ only.
+  'person_2_square_stack': const IconData(0xf742,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_2_square_stack_fill. Available on cupertino_icons package 1.0.0+ only.
+  'person_2_square_stack_fill': const IconData(0xf743,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_3. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [group] which is available in cupertino_icons 0.1.3.
+  'person_3': const IconData(0xf47b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_3_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [group_solid] which is available in cupertino_icons 0.1.3.
+  'person_3_fill': const IconData(0xf47c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_alt. Available on cupertino_icons package 1.0.0+ only.
+  'person_alt': const IconData(0xf8fc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_alt_circle. Available on cupertino_icons package 1.0.0+ only.
+  'person_alt_circle': const IconData(0xf8fd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_alt_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'person_alt_circle_fill': const IconData(0xf8fe,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'person_badge_minus': const IconData(0xf744,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_badge_minus_fill. Available on cupertino_icons package 1.0.0+ only.
+  'person_badge_minus_fill': const IconData(0xf745,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [person_add] which is available in cupertino_icons 0.1.3.
+  'person_badge_plus': const IconData(0xf47f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_badge_plus_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [person_add_solid] which is available in cupertino_icons 0.1.3.
+  'person_badge_plus_fill': const IconData(0xf480,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_circle. Available on cupertino_icons package 1.0.0+ only.
+  'person_circle': const IconData(0xf746,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'person_circle_fill': const IconData(0xf747,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [profile_circled] which is available in cupertino_icons 0.1.3.
+  'person_crop_circle': const IconData(0xf419,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_badge_checkmark. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_badge_checkmark': const IconData(0xf748,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_badge_exclam. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_badge_exclam': const IconData(0xf749,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_badge_minus': const IconData(0xf74a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_badge_plus': const IconData(0xf74b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_badge_xmark. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_badge_xmark': const IconData(0xf74c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_fill': const IconData(0xf74d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_fill_badge_checkmark. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_fill_badge_checkmark': const IconData(0xf74e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_fill_badge_exclam. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_fill_badge_exclam': const IconData(0xf74f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_fill_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_fill_badge_minus': const IconData(0xf750,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_fill_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_fill_badge_plus': const IconData(0xf751,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_circle_fill_badge_xmark. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_circle_fill_badge_xmark': const IconData(0xf752,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_rectangle': const IconData(0xf753,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_rectangle_fill': const IconData(0xf754,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_square. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_square': const IconData(0xf755,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_crop_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'person_crop_square_fill': const IconData(0xf756,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for person_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [person_solid] which is available in cupertino_icons 0.1.3.
+  'person_fill': const IconData(0xf47e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for personalhotspot. Available on cupertino_icons package 1.0.0+ only.
+  'personalhotspot': const IconData(0xf757,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for perspective. Available on cupertino_icons package 1.0.0+ only.
+  'perspective': const IconData(0xf758,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_arrow_down_left. Available on cupertino_icons package 1.0.0+ only.
+  'phone_arrow_down_left': const IconData(0xf759,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_arrow_right. Available on cupertino_icons package 1.0.0+ only.
+  'phone_arrow_right': const IconData(0xf75a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_arrow_up_right. Available on cupertino_icons package 1.0.0+ only.
+  'phone_arrow_up_right': const IconData(0xf75b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'phone_badge_plus': const IconData(0xf75c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_circle. Available on cupertino_icons package 1.0.0+ only.
+  'phone_circle': const IconData(0xf75d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'phone_circle_fill': const IconData(0xf75e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_down. Available on cupertino_icons package 1.0.0+ only.
+  'phone_down': const IconData(0xf75f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_down_circle. Available on cupertino_icons package 1.0.0+ only.
+  'phone_down_circle': const IconData(0xf760,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_down_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'phone_down_circle_fill': const IconData(0xf761,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_down_fill. Available on cupertino_icons package 1.0.0+ only.
+  'phone_down_fill': const IconData(0xf762,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [phone_solid] which is available in cupertino_icons 0.1.3.
+  'phone_fill': const IconData(0xf4b9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_fill_arrow_down_left. Available on cupertino_icons package 1.0.0+ only.
+  'phone_fill_arrow_down_left': const IconData(0xf763,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_fill_arrow_right. Available on cupertino_icons package 1.0.0+ only.
+  'phone_fill_arrow_right': const IconData(0xf764,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_fill_arrow_up_right. Available on cupertino_icons package 1.0.0+ only.
+  'phone_fill_arrow_up_right': const IconData(0xf765,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for phone_fill_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'phone_fill_badge_plus': const IconData(0xf766,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for photo. Available on cupertino_icons package 1.0.0+ only.
+  'photo': const IconData(0xf767,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for photo_fill. Available on cupertino_icons package 1.0.0+ only.
+  'photo_fill': const IconData(0xf768,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for photo_fill_on_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'photo_fill_on_rectangle_fill': const IconData(0xf769,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for photo_on_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'photo_on_rectangle': const IconData(0xf76a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for piano. Available on cupertino_icons package 1.0.0+ only.
+  'piano': const IconData(0xf8ff,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pin. Available on cupertino_icons package 1.0.0+ only.
+  'pin': const IconData(0xf76b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pin_fill. Available on cupertino_icons package 1.0.0+ only.
+  'pin_fill': const IconData(0xf76c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pin_slash. Available on cupertino_icons package 1.0.0+ only.
+  'pin_slash': const IconData(0xf76d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for pin_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'pin_slash_fill': const IconData(0xf76e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for placemark. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [location] which is available in cupertino_icons 0.1.3.
+  'placemark': const IconData(0xf455,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for placemark_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [location_solid] which is available in cupertino_icons 0.1.3.
+  'placemark_fill': const IconData(0xf456,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for play. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [play_arrow] which is available in cupertino_icons 0.1.3.
+  'play': const IconData(0xf487,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for play_circle. Available on cupertino_icons package 1.0.0+ only.
+  'play_circle': const IconData(0xf76f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for play_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'play_circle_fill': const IconData(0xf770,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for play_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [play_arrow_solid] which is available in cupertino_icons 0.1.3.
+  'play_fill': const IconData(0xf488,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for play_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'play_rectangle': const IconData(0xf771,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for play_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'play_rectangle_fill': const IconData(0xf772,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for playpause. Available on cupertino_icons package 1.0.0+ only.
+  'playpause': const IconData(0xf773,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for playpause_fill. Available on cupertino_icons package 1.0.0+ only.
+  'playpause_fill': const IconData(0xf774,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [add] which is available in cupertino_icons 0.1.3.
+  'plus': const IconData(0xf489,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_app. Available on cupertino_icons package 1.0.0+ only.
+  'plus_app': const IconData(0xf775,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_app_fill. Available on cupertino_icons package 1.0.0+ only.
+  'plus_app_fill': const IconData(0xf776,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_bubble. Available on cupertino_icons package 1.0.0+ only.
+  'plus_bubble': const IconData(0xf777,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_bubble_fill. Available on cupertino_icons package 1.0.0+ only.
+  'plus_bubble_fill': const IconData(0xf778,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_circle. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [plus_circled] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [add_circled] which is available in cupertino_icons 0.1.3.
+  'plus_circle': const IconData(0xf48a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [add_circled_solid] which is available in cupertino_icons 0.1.3.
+  'plus_circle_fill': const IconData(0xf48b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'plus_rectangle': const IconData(0xf779,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'plus_rectangle_fill': const IconData(0xf77a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_rectangle_fill_on_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'plus_rectangle_fill_on_rectangle_fill': const IconData(0xf77b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_rectangle_on_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'plus_rectangle_on_rectangle': const IconData(0xf77c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_slash_minus. Available on cupertino_icons package 1.0.0+ only.
+  'plus_slash_minus': const IconData(0xf77d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_square. Available on cupertino_icons package 1.0.0+ only.
+  'plus_square': const IconData(0xf77e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'plus_square_fill': const IconData(0xf77f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_square_fill_on_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'plus_square_fill_on_square_fill': const IconData(0xf780,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plus_square_on_square. Available on cupertino_icons package 1.0.0+ only.
+  'plus_square_on_square': const IconData(0xf781,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plusminus. Available on cupertino_icons package 1.0.0+ only.
+  'plusminus': const IconData(0xf782,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plusminus_circle. Available on cupertino_icons package 1.0.0+ only.
+  'plusminus_circle': const IconData(0xf783,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for plusminus_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'plusminus_circle_fill': const IconData(0xf784,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for power. Available on cupertino_icons package 1.0.0+ only.
+  'power': const IconData(0xf785,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for printer. Available on cupertino_icons package 1.0.0+ only.
+  'printer': const IconData(0xf786,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for printer_fill. Available on cupertino_icons package 1.0.0+ only.
+  'printer_fill': const IconData(0xf787,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for projective. Available on cupertino_icons package 1.0.0+ only.
+  'projective': const IconData(0xf788,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for purchased. Available on cupertino_icons package 1.0.0+ only.
+  'purchased': const IconData(0xf789,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for purchased_circle. Available on cupertino_icons package 1.0.0+ only.
+  'purchased_circle': const IconData(0xf78a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for purchased_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'purchased_circle_fill': const IconData(0xf78b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for qrcode. Available on cupertino_icons package 1.0.0+ only.
+  'qrcode': const IconData(0xf78c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for qrcode_viewfinder. Available on cupertino_icons package 1.0.0+ only.
+  'qrcode_viewfinder': const IconData(0xf78d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for question. Available on cupertino_icons package 1.0.0+ only.
+  'question': const IconData(0xf78e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for question_circle. Available on cupertino_icons package 1.0.0+ only.
+  'question_circle': const IconData(0xf78f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for question_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'question_circle_fill': const IconData(0xf790,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for question_diamond. Available on cupertino_icons package 1.0.0+ only.
+  'question_diamond': const IconData(0xf791,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for question_diamond_fill. Available on cupertino_icons package 1.0.0+ only.
+  'question_diamond_fill': const IconData(0xf792,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for question_square. Available on cupertino_icons package 1.0.0+ only.
+  'question_square': const IconData(0xf793,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for question_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'question_square_fill': const IconData(0xf794,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for quote_bubble. Available on cupertino_icons package 1.0.0+ only.
+  'quote_bubble': const IconData(0xf795,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for quote_bubble_fill. Available on cupertino_icons package 1.0.0+ only.
+  'quote_bubble_fill': const IconData(0xf796,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for radiowaves_left. Available on cupertino_icons package 1.0.0+ only.
+  'radiowaves_left': const IconData(0xf797,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for radiowaves_right. Available on cupertino_icons package 1.0.0+ only.
+  'radiowaves_right': const IconData(0xf798,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rays. Available on cupertino_icons package 1.0.0+ only.
+  'rays': const IconData(0xf799,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for recordingtape. Available on cupertino_icons package 1.0.0+ only.
+  'recordingtape': const IconData(0xf79a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle': const IconData(0xf79b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_3_offgrid. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_3_offgrid': const IconData(0xf79c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_3_offgrid_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_3_offgrid_fill': const IconData(0xf79d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_arrow_up_right_arrow_down_left. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_arrow_up_right_arrow_down_left': const IconData(0xf79e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_arrow_up_right_arrow_down_left_slash. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_arrow_up_right_arrow_down_left_slash': const IconData(0xf79f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_badge_checkmark. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_badge_checkmark': const IconData(0xf7a0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_badge_xmark. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_badge_xmark': const IconData(0xf7a1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_compress_vertical. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_compress_vertical': const IconData(0xf7a2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_dock. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_dock': const IconData(0xf7a3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_expand_vertical. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_expand_vertical': const IconData(0xf7a4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_fill': const IconData(0xf7a5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_fill_badge_checkmark. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_fill_badge_checkmark': const IconData(0xf7a6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_fill_badge_xmark. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_fill_badge_xmark': const IconData(0xf7a7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_fill_on_rectangle_angled_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_fill_on_rectangle_angled_fill': const IconData(0xf7a8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_fill_on_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_fill_on_rectangle_fill': const IconData(0xf7a9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_grid_1x2. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_grid_1x2': const IconData(0xf7aa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_grid_1x2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_grid_1x2_fill': const IconData(0xf7ab,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_grid_2x2. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_grid_2x2': const IconData(0xf7ac,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_grid_2x2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_grid_2x2_fill': const IconData(0xf7ad,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_grid_3x2. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_grid_3x2': const IconData(0xf7ae,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_grid_3x2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_grid_3x2_fill': const IconData(0xf7af,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_on_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_on_rectangle': const IconData(0xf7b0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_on_rectangle_angled. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_on_rectangle_angled': const IconData(0xf7b1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_paperclip. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_paperclip': const IconData(0xf7b2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_split_3x1. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_split_3x1': const IconData(0xf7b3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_split_3x1_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_split_3x1_fill': const IconData(0xf7b4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_split_3x3. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_split_3x3': const IconData(0xf7b5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_split_3x3_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_split_3x3_fill': const IconData(0xf7b6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [collections] which is available in cupertino_icons 0.1.3.
+  'rectangle_stack': const IconData(0xf3c9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_stack_badge_minus': const IconData(0xf7b7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_badge_person_crop. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_stack_badge_person_crop': const IconData(0xf7b8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_stack_badge_plus': const IconData(0xf7b9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [collections_solid] which is available in cupertino_icons 0.1.3.
+  'rectangle_stack_fill': const IconData(0xf3ca,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_fill_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_stack_fill_badge_minus': const IconData(0xf7ba,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_fill_badge_person_crop. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_stack_fill_badge_person_crop': const IconData(0xf7bb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_fill_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_stack_fill_badge_plus': const IconData(0xf7bc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_person_crop. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_stack_person_crop': const IconData(0xf7bd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rectangle_stack_person_crop_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rectangle_stack_person_crop_fill': const IconData(0xf7be,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for repeat. Available on cupertino_icons package 1.0.0+ only.
+  'repeat': const IconData(0xf7bf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for repeat_1. Available on cupertino_icons package 1.0.0+ only.
+  'repeat_1': const IconData(0xf7c0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for resize. Available on cupertino_icons package 1.0.0+ only.
+  'resize': const IconData(0xf900,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for resize_h. Available on cupertino_icons package 1.0.0+ only.
+  'resize_h': const IconData(0xf901,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for resize_v. Available on cupertino_icons package 1.0.0+ only.
+  'resize_v': const IconData(0xf902,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for return_icon. Available on cupertino_icons package 1.0.0+ only.
+  'return_icon': const IconData(0xf7c1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rhombus. Available on cupertino_icons package 1.0.0+ only.
+  'rhombus': const IconData(0xf7c2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rhombus_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rhombus_fill': const IconData(0xf7c3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rocket. Available on cupertino_icons package 1.0.0+ only.
+  'rocket': const IconData(0xf903,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rocket_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rocket_fill': const IconData(0xf904,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rosette. Available on cupertino_icons package 1.0.0+ only.
+  'rosette': const IconData(0xf7c4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rotate_left. Available on cupertino_icons package 1.0.0+ only.
+  'rotate_left': const IconData(0xf7c5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rotate_left_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rotate_left_fill': const IconData(0xf7c6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rotate_right. Available on cupertino_icons package 1.0.0+ only.
+  'rotate_right': const IconData(0xf7c7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for rotate_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'rotate_right_fill': const IconData(0xf7c8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for scissors. Available on cupertino_icons package 1.0.0+ only.
+  'scissors': const IconData(0xf7c9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for scissors_alt. Available on cupertino_icons package 1.0.0+ only.
+  'scissors_alt': const IconData(0xf905,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for scope. Available on cupertino_icons package 1.0.0+ only.
+  'scope': const IconData(0xf7ca,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for scribble. Available on cupertino_icons package 1.0.0+ only.
+  'scribble': const IconData(0xf7cb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for search_circle. Available on cupertino_icons package 1.0.0+ only.
+  'search_circle': const IconData(0xf7cc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for search_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'search_circle_fill': const IconData(0xf7cd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for selection_pin_in_out. Available on cupertino_icons package 1.0.0+ only.
+  'selection_pin_in_out': const IconData(0xf7ce,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for shield. Available on cupertino_icons package 1.0.0+ only.
+  'shield': const IconData(0xf7cf,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for shield_fill. Available on cupertino_icons package 1.0.0+ only.
+  'shield_fill': const IconData(0xf7d0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for shield_lefthalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'shield_lefthalf_fill': const IconData(0xf7d1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for shield_slash. Available on cupertino_icons package 1.0.0+ only.
+  'shield_slash': const IconData(0xf7d2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for shield_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'shield_slash_fill': const IconData(0xf7d3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for shift. Available on cupertino_icons package 1.0.0+ only.
+  'shift': const IconData(0xf7d4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for shift_fill. Available on cupertino_icons package 1.0.0+ only.
+  'shift_fill': const IconData(0xf7d5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sidebar_left. Available on cupertino_icons package 1.0.0+ only.
+  'sidebar_left': const IconData(0xf7d6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sidebar_right. Available on cupertino_icons package 1.0.0+ only.
+  'sidebar_right': const IconData(0xf7d7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for signature. Available on cupertino_icons package 1.0.0+ only.
+  'signature': const IconData(0xf7d8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for skew. Available on cupertino_icons package 1.0.0+ only.
+  'skew': const IconData(0xf7d9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for slash_circle. Available on cupertino_icons package 1.0.0+ only.
+  'slash_circle': const IconData(0xf7da,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for slash_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'slash_circle_fill': const IconData(0xf7db,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for slider_horizontal_3. Available on cupertino_icons package 1.0.0+ only.
+  'slider_horizontal_3': const IconData(0xf7dc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for slider_horizontal_below_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'slider_horizontal_below_rectangle': const IconData(0xf7dd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for slowmo. Available on cupertino_icons package 1.0.0+ only.
+  'slowmo': const IconData(0xf7de,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for smallcircle_circle. Available on cupertino_icons package 1.0.0+ only.
+  'smallcircle_circle': const IconData(0xf7df,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for smallcircle_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'smallcircle_circle_fill': const IconData(0xf7e0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for smallcircle_fill_circle. Available on cupertino_icons package 1.0.0+ only.
+  'smallcircle_fill_circle': const IconData(0xf7e1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for smallcircle_fill_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'smallcircle_fill_circle_fill': const IconData(0xf7e2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for smiley. Available on cupertino_icons package 1.0.0+ only.
+  'smiley': const IconData(0xf7e3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for smiley_fill. Available on cupertino_icons package 1.0.0+ only.
+  'smiley_fill': const IconData(0xf7e4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for smoke. Available on cupertino_icons package 1.0.0+ only.
+  'smoke': const IconData(0xf7e5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for smoke_fill. Available on cupertino_icons package 1.0.0+ only.
+  'smoke_fill': const IconData(0xf7e6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for snow. Available on cupertino_icons package 1.0.0+ only.
+  'snow': const IconData(0xf7e7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sort_down. Available on cupertino_icons package 1.0.0+ only.
+  'sort_down': const IconData(0xf906,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sort_down_circle. Available on cupertino_icons package 1.0.0+ only.
+  'sort_down_circle': const IconData(0xf907,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sort_down_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'sort_down_circle_fill': const IconData(0xf908,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sort_up. Available on cupertino_icons package 1.0.0+ only.
+  'sort_up': const IconData(0xf909,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sort_up_circle. Available on cupertino_icons package 1.0.0+ only.
+  'sort_up_circle': const IconData(0xf90a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sort_up_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'sort_up_circle_fill': const IconData(0xf90b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sparkles. Available on cupertino_icons package 1.0.0+ only.
+  'sparkles': const IconData(0xf7e8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker. Available on cupertino_icons package 1.0.0+ only.
+  'speaker': const IconData(0xf7e9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_1. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_1': const IconData(0xf7ea,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_1_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [volume_down] which is available in cupertino_icons 0.1.3.
+  'speaker_1_fill': const IconData(0xf3b7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_2. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_2': const IconData(0xf7eb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_2_fill': const IconData(0xf7ec,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_3. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_3': const IconData(0xf7ed,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_3_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [volume_up] which is available in cupertino_icons 0.1.3.
+  'speaker_3_fill': const IconData(0xf3ba,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [volume_mute] which is available in cupertino_icons 0.1.3.
+  'speaker_fill': const IconData(0xf3b8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_slash. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_slash': const IconData(0xf7ee,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [volume_off] which is available in cupertino_icons 0.1.3.
+  'speaker_slash_fill': const IconData(0xf3b9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_slash_fill_rtl. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_slash_fill_rtl': const IconData(0xf7ef,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_slash_rtl. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_slash_rtl': const IconData(0xf7f0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_zzz. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_zzz': const IconData(0xf7f1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_zzz_fill. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_zzz_fill': const IconData(0xf7f2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_zzz_fill_rtl. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_zzz_fill_rtl': const IconData(0xf7f3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speaker_zzz_rtl. Available on cupertino_icons package 1.0.0+ only.
+  'speaker_zzz_rtl': const IconData(0xf7f4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for speedometer. Available on cupertino_icons package 1.0.0+ only.
+  'speedometer': const IconData(0xf7f5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sportscourt. Available on cupertino_icons package 1.0.0+ only.
+  'sportscourt': const IconData(0xf7f6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sportscourt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'sportscourt_fill': const IconData(0xf7f7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square. Available on cupertino_icons package 1.0.0+ only.
+  'square': const IconData(0xf7f8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_down. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_down': const IconData(0xf7f9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_down_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_down_fill': const IconData(0xf7fa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_down_on_square. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_down_on_square': const IconData(0xf7fb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_down_on_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_down_on_square_fill': const IconData(0xf7fc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_left. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_left': const IconData(0xf90c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_left_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_left_fill': const IconData(0xf90d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_right. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_right': const IconData(0xf90e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_right_fill': const IconData(0xf90f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_up. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [share] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [share_up] which is available in cupertino_icons 0.1.3.
+  'square_arrow_up': const IconData(0xf4ca,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_up_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [share_solid] which is available in cupertino_icons 0.1.3.
+  'square_arrow_up_fill': const IconData(0xf4cb,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_up_on_square. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_up_on_square': const IconData(0xf7fd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_arrow_up_on_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_arrow_up_on_square_fill': const IconData(0xf7fe,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_favorites. Available on cupertino_icons package 1.0.0+ only.
+  'square_favorites': const IconData(0xf910,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_favorites_alt. Available on cupertino_icons package 1.0.0+ only.
+  'square_favorites_alt': const IconData(0xf911,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_favorites_alt_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_favorites_alt_fill': const IconData(0xf912,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_favorites_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_favorites_fill': const IconData(0xf913,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_fill': const IconData(0xf7ff,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_fill_line_vertical_square. Available on cupertino_icons package 1.0.0+ only.
+  'square_fill_line_vertical_square': const IconData(0xf800,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_fill_line_vertical_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_fill_line_vertical_square_fill': const IconData(0xf801,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_fill_on_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_fill_on_circle_fill': const IconData(0xf802,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_fill_on_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_fill_on_square_fill': const IconData(0xf803,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_grid_2x2. Available on cupertino_icons package 1.0.0+ only.
+  'square_grid_2x2': const IconData(0xf804,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_grid_2x2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_grid_2x2_fill': const IconData(0xf805,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_grid_3x2. Available on cupertino_icons package 1.0.0+ only.
+  'square_grid_3x2': const IconData(0xf806,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_grid_3x2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_grid_3x2_fill': const IconData(0xf807,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_grid_4x3_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_grid_4x3_fill': const IconData(0xf808,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_lefthalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_lefthalf_fill': const IconData(0xf809,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_line_vertical_square. Available on cupertino_icons package 1.0.0+ only.
+  'square_line_vertical_square': const IconData(0xf80a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_line_vertical_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_line_vertical_square_fill': const IconData(0xf80b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_list. Available on cupertino_icons package 1.0.0+ only.
+  'square_list': const IconData(0xf914,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_list_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_list_fill': const IconData(0xf915,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_on_circle. Available on cupertino_icons package 1.0.0+ only.
+  'square_on_circle': const IconData(0xf80c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_on_square. Available on cupertino_icons package 1.0.0+ only.
+  'square_on_square': const IconData(0xf80d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_pencil. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [create] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [create_solid] which is available in cupertino_icons 0.1.3.
+  'square_pencil': const IconData(0xf417,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_pencil_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [create] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [create_solid] which is available in cupertino_icons 0.1.3.
+  'square_pencil_fill': const IconData(0xf417,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_righthalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_righthalf_fill': const IconData(0xf80e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_split_1x2. Available on cupertino_icons package 1.0.0+ only.
+  'square_split_1x2': const IconData(0xf80f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_split_1x2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_split_1x2_fill': const IconData(0xf810,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_split_2x1. Available on cupertino_icons package 1.0.0+ only.
+  'square_split_2x1': const IconData(0xf811,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_split_2x1_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_split_2x1_fill': const IconData(0xf812,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_split_2x2. Available on cupertino_icons package 1.0.0+ only.
+  'square_split_2x2': const IconData(0xf813,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_split_2x2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_split_2x2_fill': const IconData(0xf814,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack': const IconData(0xf815,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack_3d_down_dottedline. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack_3d_down_dottedline': const IconData(0xf816,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack_3d_down_right. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack_3d_down_right': const IconData(0xf817,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack_3d_down_right_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack_3d_down_right_fill': const IconData(0xf818,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack_3d_up. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack_3d_up': const IconData(0xf819,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack_3d_up_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack_3d_up_fill': const IconData(0xf81a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack_3d_up_slash. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack_3d_up_slash': const IconData(0xf81b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack_3d_up_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack_3d_up_slash_fill': const IconData(0xf81c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for square_stack_fill. Available on cupertino_icons package 1.0.0+ only.
+  'square_stack_fill': const IconData(0xf81d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for squares_below_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'squares_below_rectangle': const IconData(0xf81e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for star. Available on cupertino_icons package 1.0.0+ only.
+  'star': const IconData(0xf81f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for star_circle. Available on cupertino_icons package 1.0.0+ only.
+  'star_circle': const IconData(0xf820,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for star_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'star_circle_fill': const IconData(0xf821,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for star_fill. Available on cupertino_icons package 1.0.0+ only.
+  'star_fill': const IconData(0xf822,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for star_lefthalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'star_lefthalf_fill': const IconData(0xf823,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for star_slash. Available on cupertino_icons package 1.0.0+ only.
+  'star_slash': const IconData(0xf824,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for star_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'star_slash_fill': const IconData(0xf825,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for staroflife. Available on cupertino_icons package 1.0.0+ only.
+  'staroflife': const IconData(0xf826,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for staroflife_fill. Available on cupertino_icons package 1.0.0+ only.
+  'staroflife_fill': const IconData(0xf827,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for stop. Available on cupertino_icons package 1.0.0+ only.
+  'stop': const IconData(0xf828,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for stop_circle. Available on cupertino_icons package 1.0.0+ only.
+  'stop_circle': const IconData(0xf829,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for stop_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'stop_circle_fill': const IconData(0xf82a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for stop_fill. Available on cupertino_icons package 1.0.0+ only.
+  'stop_fill': const IconData(0xf82b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for stopwatch. Available on cupertino_icons package 1.0.0+ only.
+  'stopwatch': const IconData(0xf82c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for stopwatch_fill. Available on cupertino_icons package 1.0.0+ only.
+  'stopwatch_fill': const IconData(0xf82d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for strikethrough. Available on cupertino_icons package 1.0.0+ only.
+  'strikethrough': const IconData(0xf82e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for suit_club. Available on cupertino_icons package 1.0.0+ only.
+  'suit_club': const IconData(0xf82f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for suit_club_fill. Available on cupertino_icons package 1.0.0+ only.
+  'suit_club_fill': const IconData(0xf830,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for suit_diamond. Available on cupertino_icons package 1.0.0+ only.
+  'suit_diamond': const IconData(0xf831,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for suit_diamond_fill. Available on cupertino_icons package 1.0.0+ only.
+  'suit_diamond_fill': const IconData(0xf832,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for suit_heart. Available on cupertino_icons package 1.0.0+ only.
+  'suit_heart': const IconData(0xf833,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for suit_heart_fill. Available on cupertino_icons package 1.0.0+ only.
+  'suit_heart_fill': const IconData(0xf834,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for suit_spade. Available on cupertino_icons package 1.0.0+ only.
+  'suit_spade': const IconData(0xf835,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for suit_spade_fill. Available on cupertino_icons package 1.0.0+ only.
+  'suit_spade_fill': const IconData(0xf836,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sum. Available on cupertino_icons package 1.0.0+ only.
+  'sum': const IconData(0xf837,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sun_dust. Available on cupertino_icons package 1.0.0+ only.
+  'sun_dust': const IconData(0xf838,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sun_dust_fill. Available on cupertino_icons package 1.0.0+ only.
+  'sun_dust_fill': const IconData(0xf839,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sun_haze. Available on cupertino_icons package 1.0.0+ only.
+  'sun_haze': const IconData(0xf83a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sun_haze_fill. Available on cupertino_icons package 1.0.0+ only.
+  'sun_haze_fill': const IconData(0xf83b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sun_max. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [brightness] which is available in cupertino_icons 0.1.3.
+  'sun_max': const IconData(0xf4b6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sun_max_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [brightness_solid] which is available in cupertino_icons 0.1.3.
+  'sun_max_fill': const IconData(0xf4b7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sun_min. Available on cupertino_icons package 1.0.0+ only.
+  'sun_min': const IconData(0xf83c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sun_min_fill. Available on cupertino_icons package 1.0.0+ only.
+  'sun_min_fill': const IconData(0xf83d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sunrise. Available on cupertino_icons package 1.0.0+ only.
+  'sunrise': const IconData(0xf83e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sunrise_fill. Available on cupertino_icons package 1.0.0+ only.
+  'sunrise_fill': const IconData(0xf83f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sunset. Available on cupertino_icons package 1.0.0+ only.
+  'sunset': const IconData(0xf840,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for sunset_fill. Available on cupertino_icons package 1.0.0+ only.
+  'sunset_fill': const IconData(0xf841,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for t_bubble. Available on cupertino_icons package 1.0.0+ only.
+  't_bubble': const IconData(0xf842,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for t_bubble_fill. Available on cupertino_icons package 1.0.0+ only.
+  't_bubble_fill': const IconData(0xf843,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for table. Available on cupertino_icons package 1.0.0+ only.
+  'table': const IconData(0xf844,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for table_badge_more. Available on cupertino_icons package 1.0.0+ only.
+  'table_badge_more': const IconData(0xf845,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for table_badge_more_fill. Available on cupertino_icons package 1.0.0+ only.
+  'table_badge_more_fill': const IconData(0xf846,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for table_fill. Available on cupertino_icons package 1.0.0+ only.
+  'table_fill': const IconData(0xf847,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tag_circle. Available on cupertino_icons package 1.0.0+ only.
+  'tag_circle': const IconData(0xf848,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tag_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tag_circle_fill': const IconData(0xf849,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tag_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [tag_solid] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [tags_solid] which is available in cupertino_icons 0.1.3.
+  'tag_fill': const IconData(0xf48d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_aligncenter. Available on cupertino_icons package 1.0.0+ only.
+  'text_aligncenter': const IconData(0xf84a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_alignleft. Available on cupertino_icons package 1.0.0+ only.
+  'text_alignleft': const IconData(0xf84b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_alignright. Available on cupertino_icons package 1.0.0+ only.
+  'text_alignright': const IconData(0xf84c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_append. Available on cupertino_icons package 1.0.0+ only.
+  'text_append': const IconData(0xf84d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_badge_checkmark. Available on cupertino_icons package 1.0.0+ only.
+  'text_badge_checkmark': const IconData(0xf84e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'text_badge_minus': const IconData(0xf84f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'text_badge_plus': const IconData(0xf850,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_badge_star. Available on cupertino_icons package 1.0.0+ only.
+  'text_badge_star': const IconData(0xf851,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_badge_xmark. Available on cupertino_icons package 1.0.0+ only.
+  'text_badge_xmark': const IconData(0xf852,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_bubble. Available on cupertino_icons package 1.0.0+ only.
+  'text_bubble': const IconData(0xf853,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_bubble_fill. Available on cupertino_icons package 1.0.0+ only.
+  'text_bubble_fill': const IconData(0xf854,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_cursor. Available on cupertino_icons package 1.0.0+ only.
+  'text_cursor': const IconData(0xf855,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_insert. Available on cupertino_icons package 1.0.0+ only.
+  'text_insert': const IconData(0xf856,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_justify. Available on cupertino_icons package 1.0.0+ only.
+  'text_justify': const IconData(0xf857,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_justifyleft. Available on cupertino_icons package 1.0.0+ only.
+  'text_justifyleft': const IconData(0xf858,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_justifyright. Available on cupertino_icons package 1.0.0+ only.
+  'text_justifyright': const IconData(0xf859,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for text_quote. Available on cupertino_icons package 1.0.0+ only.
+  'text_quote': const IconData(0xf85a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textbox. Available on cupertino_icons package 1.0.0+ only.
+  'textbox': const IconData(0xf85b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textformat. Available on cupertino_icons package 1.0.0+ only.
+  'textformat': const IconData(0xf85c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textformat_123. Available on cupertino_icons package 1.0.0+ only.
+  'textformat_123': const IconData(0xf85d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textformat_abc. Available on cupertino_icons package 1.0.0+ only.
+  'textformat_abc': const IconData(0xf85e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textformat_abc_dottedunderline. Available on cupertino_icons package 1.0.0+ only.
+  'textformat_abc_dottedunderline': const IconData(0xf85f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textformat_alt. Available on cupertino_icons package 1.0.0+ only.
+  'textformat_alt': const IconData(0xf860,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textformat_size. Available on cupertino_icons package 1.0.0+ only.
+  'textformat_size': const IconData(0xf861,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textformat_subscript. Available on cupertino_icons package 1.0.0+ only.
+  'textformat_subscript': const IconData(0xf862,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for textformat_superscript. Available on cupertino_icons package 1.0.0+ only.
+  'textformat_superscript': const IconData(0xf863,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for thermometer. Available on cupertino_icons package 1.0.0+ only.
+  'thermometer': const IconData(0xf864,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for thermometer_snowflake. Available on cupertino_icons package 1.0.0+ only.
+  'thermometer_snowflake': const IconData(0xf865,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for thermometer_sun. Available on cupertino_icons package 1.0.0+ only.
+  'thermometer_sun': const IconData(0xf866,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ticket. Available on cupertino_icons package 1.0.0+ only.
+  'ticket': const IconData(0xf916,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for ticket_fill. Available on cupertino_icons package 1.0.0+ only.
+  'ticket_fill': const IconData(0xf917,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tickets. Available on cupertino_icons package 1.0.0+ only.
+  'tickets': const IconData(0xf918,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tickets_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tickets_fill': const IconData(0xf919,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for timelapse. Available on cupertino_icons package 1.0.0+ only.
+  'timelapse': const IconData(0xf867,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for timer. Available on cupertino_icons package 1.0.0+ only.
+  'timer': const IconData(0xf868,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for timer_fill. Available on cupertino_icons package 1.0.0+ only.
+  'timer_fill': const IconData(0xf91a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for today. Available on cupertino_icons package 1.0.0+ only.
+  'today': const IconData(0xf91b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for today_fill. Available on cupertino_icons package 1.0.0+ only.
+  'today_fill': const IconData(0xf91c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tornado. Available on cupertino_icons package 1.0.0+ only.
+  'tornado': const IconData(0xf869,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tortoise. Available on cupertino_icons package 1.0.0+ only.
+  'tortoise': const IconData(0xf86a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tortoise_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tortoise_fill': const IconData(0xf86b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tram_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tram_fill': const IconData(0xf86c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for trash. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [delete] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [delete_simple] which is available in cupertino_icons 0.1.3.
+  'trash': const IconData(0xf4c4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for trash_circle. Available on cupertino_icons package 1.0.0+ only.
+  'trash_circle': const IconData(0xf86d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for trash_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'trash_circle_fill': const IconData(0xf86e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for trash_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [delete_solid] which is available in cupertino_icons 0.1.3.
+  'trash_fill': const IconData(0xf4c5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for trash_slash. Available on cupertino_icons package 1.0.0+ only.
+  'trash_slash': const IconData(0xf86f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for trash_slash_fill. Available on cupertino_icons package 1.0.0+ only.
+  'trash_slash_fill': const IconData(0xf870,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray. Available on cupertino_icons package 1.0.0+ only.
+  'tray': const IconData(0xf871,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_2. Available on cupertino_icons package 1.0.0+ only.
+  'tray_2': const IconData(0xf872,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_2_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tray_2_fill': const IconData(0xf873,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_arrow_down. Available on cupertino_icons package 1.0.0+ only.
+  'tray_arrow_down': const IconData(0xf874,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_arrow_down_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tray_arrow_down_fill': const IconData(0xf875,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_arrow_up. Available on cupertino_icons package 1.0.0+ only.
+  'tray_arrow_up': const IconData(0xf876,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_arrow_up_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tray_arrow_up_fill': const IconData(0xf877,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tray_fill': const IconData(0xf878,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_full. Available on cupertino_icons package 1.0.0+ only.
+  'tray_full': const IconData(0xf879,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tray_full_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tray_full_fill': const IconData(0xf87a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tree. Available on cupertino_icons package 1.0.0+ only.
+  'tree': const IconData(0xf91d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for triangle. Available on cupertino_icons package 1.0.0+ only.
+  'triangle': const IconData(0xf87b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for triangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'triangle_fill': const IconData(0xf87c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for triangle_lefthalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'triangle_lefthalf_fill': const IconData(0xf87d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for triangle_righthalf_fill. Available on cupertino_icons package 1.0.0+ only.
+  'triangle_righthalf_fill': const IconData(0xf87e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tropicalstorm. Available on cupertino_icons package 1.0.0+ only.
+  'tropicalstorm': const IconData(0xf87f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tuningfork. Available on cupertino_icons package 1.0.0+ only.
+  'tuningfork': const IconData(0xf880,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tv. Available on cupertino_icons package 1.0.0+ only.
+  'tv': const IconData(0xf881,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tv_circle. Available on cupertino_icons package 1.0.0+ only.
+  'tv_circle': const IconData(0xf882,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tv_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tv_circle_fill': const IconData(0xf883,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tv_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tv_fill': const IconData(0xf884,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tv_music_note. Available on cupertino_icons package 1.0.0+ only.
+  'tv_music_note': const IconData(0xf885,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for tv_music_note_fill. Available on cupertino_icons package 1.0.0+ only.
+  'tv_music_note_fill': const IconData(0xf886,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for uiwindow_split_2x1. Available on cupertino_icons package 1.0.0+ only.
+  'uiwindow_split_2x1': const IconData(0xf887,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for umbrella. Available on cupertino_icons package 1.0.0+ only.
+  'umbrella': const IconData(0xf888,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for umbrella_fill. Available on cupertino_icons package 1.0.0+ only.
+  'umbrella_fill': const IconData(0xf889,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for underline. Available on cupertino_icons package 1.0.0+ only.
+  'underline': const IconData(0xf88a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for upload_circle. Available on cupertino_icons package 1.0.0+ only.
+  'upload_circle': const IconData(0xf91e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for upload_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'upload_circle_fill': const IconData(0xf91f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for videocam. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [video_camera] which is available in cupertino_icons 0.1.3.
+  'videocam': const IconData(0xf4cc,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for videocam_circle. Available on cupertino_icons package 1.0.0+ only.
+  'videocam_circle': const IconData(0xf920,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for videocam_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'videocam_circle_fill': const IconData(0xf921,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for videocam_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [video_camera_solid] which is available in cupertino_icons 0.1.3.
+  'videocam_fill': const IconData(0xf4cd,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for view_2d. Available on cupertino_icons package 1.0.0+ only.
+  'view_2d': const IconData(0xf88b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for view_3d. Available on cupertino_icons package 1.0.0+ only.
+  'view_3d': const IconData(0xf88c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for viewfinder. Available on cupertino_icons package 1.0.0+ only.
+  'viewfinder': const IconData(0xf88d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for viewfinder_circle. Available on cupertino_icons package 1.0.0+ only.
+  'viewfinder_circle': const IconData(0xf88e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for viewfinder_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'viewfinder_circle_fill': const IconData(0xf88f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wand_rays. Available on cupertino_icons package 1.0.0+ only.
+  'wand_rays': const IconData(0xf890,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wand_rays_inverse. Available on cupertino_icons package 1.0.0+ only.
+  'wand_rays_inverse': const IconData(0xf891,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wand_stars. Available on cupertino_icons package 1.0.0+ only.
+  'wand_stars': const IconData(0xf892,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wand_stars_inverse. Available on cupertino_icons package 1.0.0+ only.
+  'wand_stars_inverse': const IconData(0xf893,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for waveform. Available on cupertino_icons package 1.0.0+ only.
+  'waveform': const IconData(0xf894,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for waveform_circle. Available on cupertino_icons package 1.0.0+ only.
+  'waveform_circle': const IconData(0xf895,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for waveform_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'waveform_circle_fill': const IconData(0xf896,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for waveform_path. Available on cupertino_icons package 1.0.0+ only.
+  'waveform_path': const IconData(0xf897,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for waveform_path_badge_minus. Available on cupertino_icons package 1.0.0+ only.
+  'waveform_path_badge_minus': const IconData(0xf898,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for waveform_path_badge_plus. Available on cupertino_icons package 1.0.0+ only.
+  'waveform_path_badge_plus': const IconData(0xf899,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for waveform_path_ecg. Available on cupertino_icons package 1.0.0+ only.
+  'waveform_path_ecg': const IconData(0xf89a,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wifi. Available on cupertino_icons package 1.0.0+ only.
+  'wifi': const IconData(0xf89b,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wifi_exclamationmark. Available on cupertino_icons package 1.0.0+ only.
+  'wifi_exclamationmark': const IconData(0xf89c,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wifi_slash. Available on cupertino_icons package 1.0.0+ only.
+  'wifi_slash': const IconData(0xf89d,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wind. Available on cupertino_icons package 1.0.0+ only.
+  'wind': const IconData(0xf89e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wind_snow. Available on cupertino_icons package 1.0.0+ only.
+  'wind_snow': const IconData(0xf89f,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wrench. Available on cupertino_icons package 1.0.0+ only.
+  'wrench': const IconData(0xf8a0,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for wrench_fill. Available on cupertino_icons package 1.0.0+ only.
+  'wrench_fill': const IconData(0xf8a1,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [clear_thick] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [clear] which is available in cupertino_icons 0.1.3.
+  'xmark': const IconData(0xf404,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_circle. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [clear_circled] which is available in cupertino_icons 0.1.3.
+  'xmark_circle': const IconData(0xf405,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_circle_fill. Available on cupertino_icons package 1.0.0+ only.
+  /// This is the same icon as [clear_thick_circled] which is available in cupertino_icons 0.1.3.
+  /// This is the same icon as [clear_circled_solid] which is available in cupertino_icons 0.1.3.
+  'xmark_circle_fill': const IconData(0xf36e,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_octagon. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_octagon': const IconData(0xf8a2,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_octagon_fill. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_octagon_fill': const IconData(0xf8a3,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_rectangle. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_rectangle': const IconData(0xf8a4,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_rectangle_fill. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_rectangle_fill': const IconData(0xf8a5,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_seal. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_seal': const IconData(0xf8a6,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_seal_fill. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_seal_fill': const IconData(0xf8a7,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_shield. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_shield': const IconData(0xf8a8,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_shield_fill. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_shield_fill': const IconData(0xf8a9,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_square. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_square': const IconData(0xf8aa,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for xmark_square_fill. Available on cupertino_icons package 1.0.0+ only.
+  'xmark_square_fill': const IconData(0xf8ab,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for zoom_in. Available on cupertino_icons package 1.0.0+ only.
+  'zoom_in': const IconData(0xf8ac,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for zoom_out. Available on cupertino_icons package 1.0.0+ only.
+  'zoom_out': const IconData(0xf8ad,
+      fontFamily: iconFont, fontPackage: iconFontPackage),
+
+  /// Cupertino icon for zzz. Available on cupertino_icons package 1.0.0+ only.
+  'zzz':
+      const IconData(0xf8ae, fontFamily: iconFont, fontPackage: iconFontPackage)
+  // END GENERATED SF SYMBOLS NAMES
+  // ===========================================================================
+};
 
 Map allicons = {
   'fiveHundredPx': FontAwesomeIcons.fiveHundredPx,

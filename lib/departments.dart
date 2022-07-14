@@ -111,6 +111,50 @@ class _DepartmentsState extends State<Departments> {
   //   }
   // }
 
+  Future iconsdialog({required depiconslist}) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(
+              child: customText(
+                  txt: 'Choose Icon', fsize: 20.0, fweight: FontWeight.w600)),
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: depiconslist.length == 0
+                ? Center(
+                    child: customText(
+                      txt: 'No Icon Found',
+                      fsize: 25.0,
+                      fweight: FontWeight.w700,
+                    ),
+                  )
+                : GridView.builder(
+                    itemCount: depiconslist.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 5.0,
+                            mainAxisSpacing: 5.0),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                depiconslist[index].value,
+                                size: 40.0,
+                                color: Colors.teal,
+                              )));
+                    },
+                  ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -229,12 +273,17 @@ class _DepartmentsState extends State<Departments> {
                             context: context,
                             tiles: [
                               ListTile(
-                                onTap: () {
-                                  var mydep = 'medical';
-                                  var newlist = allicons.keys.where((element) {
-                                    return element.toString().contains(mydep);
+                                onTap: () async {
+                                  var mydep = 'science';
+                                  var newlist =
+                                      allicons.entries.where((element) {
+                                    return element.key
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(mydep);
                                   }).toList();
-                                  print(newlist);
+                                  // print(newlist[0].value);
+                                  iconsdialog(depiconslist: newlist);
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
