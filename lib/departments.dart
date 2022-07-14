@@ -274,34 +274,25 @@ class _DepartmentsState extends State<Departments> {
                             tiles: [
                               ListTile(
                                 onTap: () async {
-                                  var mydep = 'water';
+                                  var mydep = 'computer science';
+                                  var alliconslist = {};
+                                  alliconslist.addAll(allicons);
+                                  alliconslist.addAll(cupertinoicons);
+                                  alliconslist.addAll(lineAwesomeIcons);
                                   var allmatchedicons = [];
-                                  var materialFontAwesomeList =
-                                      allicons.entries.where((element) {
-                                    return element.key
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(mydep);
-                                  }).toList();
-                                  var cupertinolist =
-                                      cupertinoicons.entries.where((element) {
-                                    return element.key
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(mydep);
-                                  }).toList();
-                                  // print(cupertinolist);
-                                  var lineawesomelist =
-                                      lineAwesomeIcons.entries.where((element) {
-                                    return element.key
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(mydep);
-                                  }).toList();
-                                  allmatchedicons
-                                      .addAll(materialFontAwesomeList);
-                                  allmatchedicons.addAll(cupertinolist);
-                                  allmatchedicons.addAll(lineawesomelist);
+                                  for (var str in mydep.split(' ')) {
+                                    if (str != '&' && str.isNotEmpty) {
+                                      allmatchedicons.addAll(
+                                          alliconslist.entries.where((element) {
+                                        return element.key
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(str);
+                                      }).toList());
+                                    }
+                                  }
+
+                                  print(allmatchedicons);
                                   iconsdialog(depiconslist: allmatchedicons);
                                 },
                                 shape: RoundedRectangleBorder(
