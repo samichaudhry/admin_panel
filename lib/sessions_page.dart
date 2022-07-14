@@ -120,52 +120,52 @@ class _sessionpageState extends State<sessionpage> {
     // 'Urdu'
   ];
   Map<String, List<String>> programs = {
-    'Computer Science and IT': <String>[
-      "BSCS",
-      "BSIT",
-      "MIT",
-    ],
-    'Biological Science': <String>[
-      "BS Botonay",
-    ],
-    'Chemistry': <String>[
-      "BS Chemistry",
-      "Msc Chemistry",
-    ],
-    'Physics': <String>[
-      "BS Physics",
-      "Msc Physics",
-    ],
-    'Business Administration': <String>[
-      "BBA",
-      "B.com",
-    ],
-    'Economics': <String>[
-      "BS Economics",
-    ],
-    'Education': <String>[
-      "BS Education",
-      "B.ED",
-    ],
-    'English': <String>[
-      "BS English",
-      "MA English",
-    ],
-    'Mathematics': <String>[
-      "BS Mathematics",
-      "Msc Mathematics",
-    ],
-    'Psychology': <String>[
-      "BS Psychology",
-    ],
-    'Social Work': <String>[
-      "BS Social Work",
-    ],
-    'Sociology': <String>[
-      "BS Sociology",
-    ],
-    'Sports Sciences': <String>["BS Sports Sciences", "MA Sports Sciences"],
-    'Urdu': <String>['BS Urdu', 'MA Urdu'],
+    // 'Computer Science and IT': <String>[
+    //   "BSCS",
+    //   "BSIT",
+    //   "MIT",
+    // ],
+    // 'Biological Science': <String>[
+    //   "BS Botonay",
+    // ],
+    // 'Chemistry': <String>[
+    //   "BS Chemistry",
+    //   "Msc Chemistry",
+    // ],
+    // 'Physics': <String>[
+    //   "BS Physics",
+    //   "Msc Physics",
+    // ],
+    // 'Business Administration': <String>[
+    //   "BBA",
+    //   "B.com",
+    // ],
+    // 'Economics': <String>[
+    //   "BS Economics",
+    // ],
+    // 'Education': <String>[
+    //   "BS Education",
+    //   "B.ED",
+    // ],
+    // 'English': <String>[
+    //   "BS English",
+    //   "MA English",
+    // ],
+    // 'Mathematics': <String>[
+    //   "BS Mathematics",
+    //   "Msc Mathematics",
+    // ],
+    // 'Psychology': <String>[
+    //   "BS Psychology",
+    // ],
+    // 'Social Work': <String>[
+    //   "BS Social Work",
+    // ],
+    // 'Sociology': <String>[
+    //   "BS Sociology",
+    // ],
+    // 'Sports Sciences': <String>["BS Sports Sciences", "MA Sports Sciences"],
+    // 'Urdu': <String>['BS Urdu', 'MA Urdu'],
   };
   List<String> sessions4years = [
     '2018-2022',
@@ -223,6 +223,7 @@ class _sessionpageState extends State<sessionpage> {
     });
     getofferedprograms().then((val) {
       programs = val;
+      print(programs);
     });
   }
 
