@@ -167,6 +167,24 @@ class _sessionpageState extends State<sessionpage> {
     // 'Sports Sciences': <String>["BS Sports Sciences", "MA Sports Sciences"],
     // 'Urdu': <String>['BS Urdu', 'MA Urdu'],
   };
+
+  // Future setprograms() async {
+  //   await FirebaseFirestore.instance
+  //       .collection('departments')
+  //       .get()
+  //       .then((QuerySnapshot deps) {
+  //     for (var dep in deps.docs) {
+  //       FirebaseFirestore.instance
+  //           .collection('programs')
+  //           .doc(dep.id.toString())
+  //           .set({
+  //         'department_name': dep['department_name'],
+  //         'programnames': programs[dep['department_name']],
+  //       }, SetOptions(merge: true));
+  //     }
+  //   });
+  // }
+
   List<String> sessions4years = [
     '2018-2022',
     '2019-2023',
@@ -393,7 +411,7 @@ class _sessionpageState extends State<sessionpage> {
                             left: 19, right: 19, bottom: 10),
                         child: DropdownButtonFormField(
                           value: selectedsession,
-                          items: selectedprogramname.contains('BS')
+                          items: selectedprogramname.startsWith('BS')
                               ? sessions4years
                                   .map((String value) =>
                                       DropdownMenuItem<String>(
