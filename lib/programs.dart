@@ -20,7 +20,7 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
   void initState() {
     super.initState();
     // setdepartmentsdata();
-    customSearchBar = Text(args['dep_name']);
+    customSearchBar = Text(args['dep_name'] + ' Programs');
   }
 
   @override
@@ -35,19 +35,19 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
           color: Colors.white,
         ),
       ),
-      body: StreamBuilder<QuerySnapshot>(
+      body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
               .collection('programs')
               .doc(args['dep_id'])
-              .collection('dep_programs')
               .snapshots(),
           builder: (context, snapshot) {
-            var data = snapshot.data?.docs;
-            var documents = snapshot.data?.docs;
+            var data = snapshot.data!.data() as Map;
+            var documents = data['programnames'];
+            print(documents);
             if (_searchcontroller.text.isNotEmpty) {
-              documents = documents?.where((element) {
+              documents = documents.where((element) {
                 return element
-                    .get('program_name')
+                    // .get('program_name')
                     .toString()
                     .toLowerCase()
                     .startsWith(_searchcontroller.text.toLowerCase());
@@ -63,7 +63,7 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                 child: CircularProgressIndicator(),
               );
             }
-            if (data!.isNotEmpty) {
+            if (snapshot.data!.exists) {
               return CustomScrollView(slivers: [
                 SliverAppBar(
                   title: customSearchBar,
@@ -99,7 +99,7 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                                       controller: _searchcontroller,
                                       cursorColor: Colors.teal,
                                       decoration: const InputDecoration(
-                                        hintText: 'Search by program',
+                                        hintText: 'Search by program name',
                                         border: InputBorder.none,
                                       )),
                                 ),
@@ -107,7 +107,8 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                             );
                           } else {
                             customIcon = const Icon(Icons.search);
-                            customSearchBar = Text(args['dep_name']);
+                            customSearchBar =
+                                Text(args['dep_name'] + ' Programs');
                           }
                         });
                       },
@@ -148,7 +149,7 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
                                 title: Text(
-                                  docsnapshot['program_name'].toString(),
+                                  docsnapshot.toString(),
                                   style: const TextStyle(
                                     fontSize: 17.0,
                                     fontWeight: FontWeight.bold,

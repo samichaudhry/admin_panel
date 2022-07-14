@@ -221,6 +221,9 @@ class _sessionpageState extends State<sessionpage> {
       department = value as List<String>;
       // print(value);
     });
+    getofferedprograms().then((val) {
+      programs = val;
+    });
   }
 
   Future setsessiondata() async {
