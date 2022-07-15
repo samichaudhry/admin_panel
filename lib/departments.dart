@@ -3,7 +3,6 @@ import 'package:admin_panel/iconslist.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Departments extends StatefulWidget {
   const Departments({Key? key}) : super(key: key);
@@ -13,9 +12,11 @@ class Departments extends StatefulWidget {
 }
 
 class _DepartmentsState extends State<Departments> {
+  bool depicon = false;
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('Departments');
   final TextEditingController _searchcontroller = TextEditingController();
+  final TextEditingController _depcontroller = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -100,27 +101,20 @@ class _DepartmentsState extends State<Departments> {
   //   },
   // ];
 
-  // Future setdepartmentsdata() async {
-  //   for (var dep in sessiondata) {
-  //     await FirebaseFirestore.instance.collection('departments').doc().set({
-  //       'department_name': dep['subtitle'],
-  //       'department_icon_code': dep['icon'].codePoint,
-  //       'department_icon_fontfamily': dep['icon'].fontFamily,
-  //       'department_icon_fontpackage': dep['icon'].fontPackage,
-  //     }, SetOptions(merge: true));
-  //   }
-  // }
-
-  Future iconsdialog({required depiconslist}) async {
-    return showDialog(
+  Future iconsheet({required depiconslist}) async {
+    return showModalBottomSheet(
       context: context,
+      elevation: 10,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(
+        return Column(children: [
+          Center(
               child: customText(
-                  txt: 'Choose Icon', fsize: 20.0, fweight: FontWeight.w600)),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
+                  txt: '\nChoose Icon', fsize: 20.0, fweight: FontWeight.w600)),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.48,
             width: MediaQuery.of(context).size.width * 0.85,
             child: depiconslist.length == 0
                 ? Center(
@@ -141,7 +135,9 @@ class _DepartmentsState extends State<Departments> {
                       return Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                               icon: Icon(
                                 depiconslist[index].value,
                                 size: 40.0,
@@ -150,8 +146,98 @@ class _DepartmentsState extends State<Departments> {
                     },
                   ),
           ),
-        );
+        ]);
       },
+    );
+  }
+
+  Widget customtextformfield(
+    icon, {
+    initialvalue,
+    hinttext,
+    controller,
+    validator,
+    onsaved,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
+      child: TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller,
+          validator: validator,
+          onSaved: onsaved,
+          readOnly: false,
+          initialValue: initialvalue,
+          cursorColor: Colors.teal,
+          style: const TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w400,
+          ),
+          decoration: InputDecoration(
+            prefixIcon: Icon(icon),
+            hintText: hinttext,
+            labelStyle: const TextStyle(
+              color: Colors.teal,
+            ),
+            filled: true,
+            // enabled: true,
+            fillColor: Colors.transparent,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(14.0),
+              borderSide: const BorderSide(color: Colors.teal),
+            ),
+          )),
+    );
+  }
+
+  Widget customdailog(
+    title,
+    textfeild,
+    iconbutton,
+    onpressed,
+    button,
+  ) {
+    return AlertDialog(
+      title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
+      actions: [
+        textfeild,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.01,
+        ),
+        depicon
+            ? Center(
+                child: Icon(
+                  Icons.abc,
+                      size: 40.0,
+                      color: Colors.teal,
+                    ))
+            : Center(
+                child: TextButton(
+                    style: TextButton.styleFrom(backgroundColor: Colors.teal),
+                    onPressed: iconbutton,
+                    child: const Text(
+                      'Dep Icon',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                      ),
+                    )),
+              ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.01,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('CANCEL')),
+            MaterialButton(onPressed: onpressed, child: Text(button)),
+          ],
+        ),
+      ],
     );
   }
 
@@ -160,7 +246,47 @@ class _DepartmentsState extends State<Departments> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.teal,
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return customdailog(
+                  'New Department',
+                  customtextformfield(
+                    Icons.edit,
+                    hinttext: 'Department Name',
+                    controller: _depcontroller,
+                    onsaved: (value) {
+                      _depcontroller.text = value!;
+                    },
+                  ),
+                  () async {
+                    var mydep = 'computer science';
+                    var alliconslist = {};
+                    alliconslist.addAll(allicons);
+                    alliconslist.addAll(cupertinoicons);
+                    alliconslist.addAll(lineAwesomeIcons);
+                    var allmatchedicons = [];
+                    for (var str in mydep.split(' ')) {
+                      if (str != '&' && str.isNotEmpty) {
+                        allmatchedicons
+                            .addAll(alliconslist.entries.where((element) {
+                          return element.key
+                              .toString()
+                              .toLowerCase()
+                              .contains(str);
+                        }).toList());
+                      }
+                    }
+
+                    print(allmatchedicons);
+                    iconsheet(depiconslist: allmatchedicons);
+                  },
+                  () {},
+                  'ADD',
+                );
+              });
+        },
         label: customText(txt: 'Department', clr: Colors.white),
         icon: const Icon(
           Icons.add,
@@ -293,7 +419,7 @@ class _DepartmentsState extends State<Departments> {
                                   }
 
                                   print(allmatchedicons);
-                                  iconsdialog(depiconslist: allmatchedicons);
+                                  iconsheet(depiconslist: allmatchedicons);
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
