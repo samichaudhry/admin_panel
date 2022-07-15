@@ -1,8 +1,11 @@
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/iconslist.dart';
+import 'package:admin_panel/programs.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class Departments extends StatefulWidget {
   const Departments({Key? key}) : super(key: key);
@@ -376,9 +379,9 @@ class _DepartmentsState extends State<Departments> {
                       bottomRight: Radius.circular(20),
                     ),
                   ),
-                  // pinned: true,
-                  // floating: true,
-                  // snap: true,
+                  pinned: true,
+                  floating: true,
+                  snap: true,
                   expandedHeight: responsiveHW(context, ht: 12),
                   collapsedHeight: responsiveHW(context, ht: 11),
                 ),
@@ -400,26 +403,41 @@ class _DepartmentsState extends State<Departments> {
                             tiles: [
                               ListTile(
                                 onTap: () async {
-                                  var mydep = 'computer science';
-                                  var alliconslist = {};
-                                  alliconslist.addAll(allicons);
-                                  alliconslist.addAll(cupertinoicons);
-                                  alliconslist.addAll(lineAwesomeIcons);
-                                  var allmatchedicons = [];
-                                  for (var str in mydep.split(' ')) {
-                                    if (str != '&' && str.isNotEmpty) {
-                                      allmatchedicons.addAll(
-                                          alliconslist.entries.where((element) {
-                                        return element.key
-                                            .toString()
-                                            .toLowerCase()
-                                            .contains(str);
-                                      }).toList());
-                                    }
-                                  }
+                                  Get.to(() => const DepartmentPrograms(),
+                                      arguments: {
+                                        'dep_name':
+                                            docsnapshot['department_name']
+                                                .toString(),
+                                        'dep_id': docsnapshot.id.toString(),
+                                        'department_icon_code':
+                                            docsnapshot['department_icon_code'],
+                                        'department_icon_fontfamily':
+                                            docsnapshot[
+                                                'department_icon_fontfamily'],
+                                        'department_icon_fontpackage':
+                                            docsnapshot[
+                                                'department_icon_fontpackage']
+                                      });
+                                  // var mydep = 'computer science';
+                                  // var alliconslist = {};
+                                  // alliconslist.addAll(allicons);
+                                  // alliconslist.addAll(cupertinoicons);
+                                  // alliconslist.addAll(lineAwesomeIcons);
+                                  // var allmatchedicons = [];
+                                  // for (var str in mydep.split(' ')) {
+                                  //   if (str != '&' && str.isNotEmpty) {
+                                  //     allmatchedicons.addAll(
+                                  //         alliconslist.entries.where((element) {
+                                  //       return element.key
+                                  //           .toString()
+                                  //           .toLowerCase()
+                                  //           .contains(str);
+                                  //     }).toList());
+                                  //   }
+                                  // }
 
-                                  print(allmatchedicons);
-                                  iconsheet(depiconslist: allmatchedicons);
+                                  // print(allmatchedicons);
+                                  // iconsdialog(depiconslist: allmatchedicons);
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),

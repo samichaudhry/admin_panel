@@ -37,3 +37,16 @@ Future getprograms() async {
     'programsids': programsavailableids,
   };
 }
+
+Future getofferedprograms() async {
+  Map<String, List<String>> programs = {};
+  await FirebaseFirestore.instance
+      .collection('programs')
+      .get()
+      .then((offeredprograms) {
+    for (var program in offeredprograms.docs) {
+      programs[program['department_name']] = List.from(program['programnames']);
+    }
+  });
+  return programs;
+}
