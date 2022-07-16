@@ -113,6 +113,8 @@ class _DepartmentsState extends State<Departments> {
   //   }
   // }
 
+  Map icondata = {};
+
   Future iconsdialog({required depiconslist}) async {
     return showDialog(
       context: context,
@@ -143,7 +145,14 @@ class _DepartmentsState extends State<Departments> {
                       return Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                // icondata = {
+                                //   'department_icon_code': depiconslist[index].value.codePoint,
+                                //   'department_icon_fontfamily': depiconslist[index].value.fontFamily,
+                                //   'department_icon_fontpackage': depiconslist[index].value.font,
+
+                                // };
+                              },
                               icon: Icon(
                                 depiconslist[index].value,
                                 size: 40.0,
