@@ -116,7 +116,7 @@ class _DepartmentsState extends State<Departments> {
     });
   }
 
-  Future iconsheet({required depiconslist}) async {
+  Future iconsheet({required depiconslist, statesetter}) async {
     return showModalBottomSheet(
       context: context,
       elevation: 10,
@@ -124,66 +124,65 @@ class _DepartmentsState extends State<Departments> {
         borderRadius: BorderRadius.circular(20.0),
       ),
       builder: (BuildContext context) {
-        return Column(children: [
-          Center(
-              child: customText(
-                  txt: '\nChoose Icon', fsize: 20.0, fweight: FontWeight.w600)),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.48,
-            width: MediaQuery.of(context).size.width * 0.85,
-            child: depiconslist.length == 0
-                ? Center(
-                    child: customText(
-                      txt: 'No Icon Found',
-                      fsize: 25.0,
-                      fweight: FontWeight.w700,
+        return StatefulBuilder(builder: (context, innerstate) {
+          return Column(children: [
+            Center(
+                child: customText(
+                    txt: '\nChoose Icon',
+                    fsize: 20.0,
+                    fweight: FontWeight.w600)),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.48,
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: depiconslist.length == 0
+                  ? Center(
+                      child: customText(
+                        txt: 'No Icon Found',
+                        fsize: 25.0,
+                        fweight: FontWeight.w700,
+                      ),
+                    )
+                  : GridView.builder(
+                      itemCount: depiconslist.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 5.0,
+                              mainAxisSpacing: 5.0),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: IconButton(
+                                onPressed: () {
+                                  icondata = {
+                                    'department_icon_code':
+                                        depiconslist[index].value.codePoint,
+                                    'department_icon_fontfamily':
+                                        depiconslist[index].value.fontFamily,
+                                    'department_icon_fontpackage':
+                                        depiconslist[index].value.fontPackage,
+                                  };
+                                  statesetter(() {
+                                    depicon = true;
+                                    Navigator.pop(context);
+                                  });
+                                },
+                                icon: Icon(
+                                  depiconslist[index].value,
+                                  size: 40.0,
+                                  color: Colors.teal,
+                                )));
+                      },
                     ),
-                  )
-                : GridView.builder(
-                    itemCount: depiconslist.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 5.0,
-                            mainAxisSpacing: 5.0),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: IconButton(
-                              onPressed: () {
-                                icondata = {
-                                  'department_icon_code':
-                                      depiconslist[index].value.codePoint,
-                                  'department_icon_fontfamily':
-                                      depiconslist[index].value.fontFamily,
-                                  'department_icon_fontpackage':
-                                      depiconslist[index].value.fontPackage,
-                                };
-                                setState(() {
-                                  depicon = true;
-                                });
-                              },
-                              icon: Icon(
-                                depiconslist[index].value,
-                                size: 40.0,
-                                color: Colors.teal,
-                              )));
-                    },
-                  ),
-          ),
-        ]);
+            ),
+          ]);
+        });
       },
     );
   }
 
-  Widget customtextformfield(
-    icon, {
-    initialvalue,
-    hinttext,
-    controller,
-    validator,
-    onsaved,
-  }) {
+  Widget customtextformfield(icon,
+      {initialvalue, hinttext, controller, validator, onsaved, onchanged}) {
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
       child: TextFormField(
@@ -192,6 +191,7 @@ class _DepartmentsState extends State<Departments> {
           controller: controller,
           validator: validator,
           onSaved: onsaved,
+          onChanged: onchanged,
           readOnly: false,
           initialValue: initialvalue,
           cursorColor: Colors.teal,
@@ -222,6 +222,7 @@ class _DepartmentsState extends State<Departments> {
     iconbutton,
     onpressed,
     button,
+    innersetstate,
   ) {
     return AlertDialog(
       title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
@@ -230,25 +231,37 @@ class _DepartmentsState extends State<Departments> {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.01,
         ),
-        depicon
-            ? Center(
-                child: Icon(
-                Icons.abc,
-                size: 40.0,
-                color: Colors.teal,
-              ))
-            : Center(
-                child: TextButton(
-                    style: TextButton.styleFrom(backgroundColor: Colors.teal),
-                    onPressed: iconbutton,
-                    child: const Text(
-                      'Dep Icon',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
+        _depname.text.isEmpty
+            ? const Center()
+            : depicon
+                ? Center(
+                    child: IconButton(
+                    icon: Icon(
+                      IconData(
+                        icondata['department_icon_code'],
+                        fontFamily: icondata['department_icon_fontfamily'],
+                        fontPackage: icondata['department_icon_fontpackage'],
                       ),
-                    )),
-              ),
+                      size: 40.0,
+                      color: Colors.teal,
+                    ),
+                    onPressed: () {
+                      iconssearcher(innerstate: innersetstate);
+                    },
+                  ))
+                : Center(
+                    child: TextButton(
+                        style:
+                            TextButton.styleFrom(backgroundColor: Colors.teal),
+                        onPressed: iconbutton,
+                        child: const Text(
+                          'Dep Icon',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                          ),
+                        )),
+                  ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.01,
         ),
@@ -267,6 +280,36 @@ class _DepartmentsState extends State<Departments> {
     );
   }
 
+  Future iconssearcher({innerstate}) async {
+    var mydep = _depname.text;
+    var alliconslist = {};
+    alliconslist.addAll(allicons);
+    alliconslist.addAll(cupertinoicons);
+    alliconslist.addAll(lineAwesomeIcons);
+    var allmatchedicons = [];
+    for (var str in mydep.split(' ')) {
+      if (str != '&' && str.isNotEmpty) {
+        allmatchedicons.addAll(alliconslist.entries.where((element) {
+          return element.key.toString().toLowerCase().contains(str);
+        }).toList());
+      }
+    }
+
+    print(allmatchedicons);
+    if (allmatchedicons.isEmpty) {
+      allmatchedicons = [
+        const MapEntry('cast_for_education', Icons.cast_for_education),
+        const MapEntry(
+            'cast_for_education_sharp', Icons.cast_for_education_sharp),
+        const MapEntry('graduationCap', FontAwesomeIcons.graduationCap),
+        const MapEntry('book', FontAwesomeIcons.book),
+      ];
+      iconsheet(depiconslist: allmatchedicons, statesetter: innerstate);
+    } else {
+      iconsheet(depiconslist: allmatchedicons, statesetter: innerstate);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -276,50 +319,40 @@ class _DepartmentsState extends State<Departments> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return customdailog(
-                  'New Department',
-                  customtextformfield(
-                    Icons.edit,
-                    hinttext: 'Department Name',
-                    controller: _depname,
-                    onsaved: (value) {
-                      _depname.text = value!;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Please Enter department Name ";
-                      }
-                    },
-                  ),
-                  () async {
-                    var mydep = 'computer science';
-                    var alliconslist = {};
-                    alliconslist.addAll(allicons);
-                    alliconslist.addAll(cupertinoicons);
-                    alliconslist.addAll(lineAwesomeIcons);
-                    var allmatchedicons = [];
-                    for (var str in mydep.split(' ')) {
-                      if (str != '&' && str.isNotEmpty) {
-                        allmatchedicons
-                            .addAll(alliconslist.entries.where((element) {
-                          return element.key
-                              .toString()
-                              .toLowerCase()
-                              .contains(str);
-                        }).toList());
-                      }
-                    }
-
-                    print(allmatchedicons);
-                    iconsheet(depiconslist: allmatchedicons);
+                return StatefulBuilder(
+                  builder: (context, innersetState) {
+                    return customdailog(
+                      'New Department',
+                      customtextformfield(
+                        Icons.edit,
+                        hinttext: 'Department Name',
+                        controller: _depname,
+                        onsaved: (value) {
+                          _depname.text = value!;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Enter department Name ";
+                          }
+                        },
+                        onchanged: (val) {
+                          print(_depname.text);
+                          innersetState(() {});
+                        },
+                      ),
+                      () async {
+                        iconssearcher(innerstate: innersetState);
+                      },
+                      () {
+                        if (_formkey.currentState!.validate()) {
+                          addDepartment();
+                          Navigator.pop(context);
+                        }
+                      },
+                      'ADD',
+                      innersetState,
+                    );
                   },
-                  () {
-                    if (_formkey.currentState!.validate()) {
-                      addDepartment();
-                      Navigator.pop(context);
-                    }
-                  },
-                  'ADD',
                 );
               });
         },
