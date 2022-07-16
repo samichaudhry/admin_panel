@@ -15,11 +15,13 @@ class Departments extends StatefulWidget {
 }
 
 class _DepartmentsState extends State<Departments> {
+  Map icondata = {};
   bool depicon = false;
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('Departments');
   final TextEditingController _searchcontroller = TextEditingController();
-  final TextEditingController _depcontroller = TextEditingController();
+  final TextEditingController _depname = TextEditingController();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -103,6 +105,16 @@ class _DepartmentsState extends State<Departments> {
   //     'icon': FontAwesomeIcons.globe
   //   },
   // ];
+  Future addDepartment() async {
+    return FirebaseFirestore.instance.collection('departments').doc().set({
+      'department_name': _depname.text,
+      'department_icon_code': '',
+      'department_icon_fontfamily': '',
+      'department_icon_fontpackage': '',
+    }, SetOptions(merge: true)).then((value) {
+      print('added');
+    });
+  }
 
   Future iconsheet({required depiconslist}) async {
     return showModalBottomSheet(
@@ -139,7 +151,17 @@ class _DepartmentsState extends State<Departments> {
                           padding: const EdgeInsets.all(10.0),
                           child: IconButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                icondata = {
+                                  'department_icon_code':
+                                      depiconslist[index].value.codePoint,
+                                  'department_icon_fontfamily':
+                                      depiconslist[index].value.fontFamily,
+                                  'department_icon_fontpackage':
+                                      depiconslist[index].value.fontPackage,
+                                };
+                                setState(() {
+                                  depicon = true;
+                                });
                               },
                               icon: Icon(
                                 depiconslist[index].value,
@@ -165,6 +187,7 @@ class _DepartmentsState extends State<Departments> {
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
       child: TextFormField(
+          key: _formkey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: controller,
           validator: validator,
@@ -210,10 +233,10 @@ class _DepartmentsState extends State<Departments> {
         depicon
             ? Center(
                 child: Icon(
-                  Icons.abc,
-                      size: 40.0,
-                      color: Colors.teal,
-                    ))
+                Icons.abc,
+                size: 40.0,
+                color: Colors.teal,
+              ))
             : Center(
                 child: TextButton(
                     style: TextButton.styleFrom(backgroundColor: Colors.teal),
@@ -258,9 +281,14 @@ class _DepartmentsState extends State<Departments> {
                   customtextformfield(
                     Icons.edit,
                     hinttext: 'Department Name',
-                    controller: _depcontroller,
+                    controller: _depname,
                     onsaved: (value) {
-                      _depcontroller.text = value!;
+                      _depname.text = value!;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please Enter department Name ";
+                      }
                     },
                   ),
                   () async {
@@ -285,7 +313,12 @@ class _DepartmentsState extends State<Departments> {
                     print(allmatchedicons);
                     iconsheet(depiconslist: allmatchedicons);
                   },
-                  () {},
+                  () {
+                    if (_formkey.currentState!.validate()) {
+                      addDepartment();
+                      Navigator.pop(context);
+                    }
+                  },
                   'ADD',
                 );
               });

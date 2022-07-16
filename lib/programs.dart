@@ -15,6 +15,8 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
   Icon customIcon = const Icon(Icons.search);
   Widget? customSearchBar;
   final TextEditingController _searchcontroller = TextEditingController();
+   final TextEditingController _programcontroller = TextEditingController();
+    final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   var args = Get.arguments;
   @override
   void initState() {
@@ -23,12 +25,97 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
     customSearchBar = Text(args['dep_name'] + ' Programs');
   }
 
+   Widget customdailog(
+    title,
+    textfeild,
+    onpressed,
+    button,
+  ) {
+    return AlertDialog(
+      title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
+      actions: [
+        textfeild,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.01,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('CANCEL')),
+            MaterialButton(onPressed: onpressed, child: Text(button)),
+          ],
+        ),
+      ],
+    );
+  }
+
+   Widget customtextformfield(
+    icon, {
+    initialvalue,
+    hinttext,
+    controller,
+    validator,
+    onsaved,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
+      child: TextFormField(
+        key: _formkey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller,
+          validator: validator,
+          onSaved: onsaved,
+          readOnly: false,
+          initialValue: initialvalue,
+          cursorColor: Colors.teal,
+          style: const TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w400,
+          ),
+          decoration: InputDecoration(
+            prefixIcon: Icon(icon),
+            hintText: hinttext,
+            labelStyle: const TextStyle(
+              color: Colors.teal,
+            ),
+            filled: true,
+            // enabled: true,
+            fillColor: Colors.transparent,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(14.0),
+              borderSide: const BorderSide(color: Colors.teal),
+            ),
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.teal,
-        onPressed: () {},
+        onPressed: () {
+          showDialog(context: context, 
+          builder: (BuildContext context) {
+            return customdailog('New Program',
+             customtextformfield(
+                    Icons.edit,
+                    hinttext: 'Program Name',
+                    controller: _programcontroller,
+                    onsaved: (value) {
+                      _programcontroller.text = value!;
+                    }, validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Enter Programs Name ";
+                          }
+                        },
+                  ), (){}, 'ADD');
+          });
+        },
         label: customText(txt: 'Program', clr: Colors.white),
         icon: const Icon(
           Icons.add,
