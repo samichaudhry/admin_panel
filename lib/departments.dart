@@ -1,3 +1,4 @@
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/iconslist.dart';
 import 'package:admin_panel/programs.dart';
@@ -106,13 +107,29 @@ class _DepartmentsState extends State<Departments> {
   //   },
   // ];
   Future addDepartment() async {
+    customdialogcircularprogressindicator('Adding... ');
     return FirebaseFirestore.instance.collection('departments').doc().set({
-      'department_name': _depname.text,
-      'department_icon_code': '',
-      'department_icon_fontfamily': '',
-      'department_icon_fontpackage': '',
+      'department_name': _depname.text.trim(),
+      'department_icon_code': icondata['department_icon_code'],
+      'department_icon_fontfamily': icondata['department_icon_fontfamily'],
+      'department_icon_fontpackage': icondata['department_icon_fontpackage'],
     }, SetOptions(merge: true)).then((value) {
       print('added');
+      Navigator.pop(context);
+      customtoast('Department added');
+    });
+  }
+
+  Future deleteDepartment({required docid}) async {
+    customdialogcircularprogressindicator('Deleting... ');
+    return FirebaseFirestore.instance
+        .collection('departments')
+        .doc(docid)
+        .delete()
+        .then((value) {
+      print('deleted');
+      Navigator.pop(context);
+      customtoast('Department Deleted');
     });
   }
 
@@ -154,15 +171,15 @@ class _DepartmentsState extends State<Departments> {
                             padding: const EdgeInsets.all(10.0),
                             child: IconButton(
                                 onPressed: () {
-                                  icondata = {
-                                    'department_icon_code':
-                                        depiconslist[index].value.codePoint,
-                                    'department_icon_fontfamily':
-                                        depiconslist[index].value.fontFamily,
-                                    'department_icon_fontpackage':
-                                        depiconslist[index].value.fontPackage,
-                                  };
                                   statesetter(() {
+                                    icondata = {
+                                      'department_icon_code':
+                                          depiconslist[index].value.codePoint,
+                                      'department_icon_fontfamily':
+                                          depiconslist[index].value.fontFamily,
+                                      'department_icon_fontpackage':
+                                          depiconslist[index].value.fontPackage,
+                                    };
                                     depicon = true;
                                     Navigator.pop(context);
                                   });
@@ -185,45 +202,47 @@ class _DepartmentsState extends State<Departments> {
       {initialvalue, hinttext, controller, validator, onsaved, onchanged}) {
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
-      child: TextFormField(
-          key: _formkey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          controller: controller,
-          validator: validator,
-          onSaved: onsaved,
-          onChanged: onchanged,
-          readOnly: false,
-          initialValue: initialvalue,
-          cursorColor: Colors.teal,
-          style: const TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w400,
-          ),
-          decoration: InputDecoration(
-            prefixIcon: Icon(icon),
-            hintText: hinttext,
-            labelStyle: const TextStyle(
-              color: Colors.teal,
+      child: Form(
+        key: _formkey,
+        child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            controller: controller,
+            validator: validator,
+            onSaved: onsaved,
+            onChanged: onchanged,
+            readOnly: false,
+            initialValue: initialvalue,
+            cursorColor: Colors.teal,
+            style: const TextStyle(
+              fontSize: 15.0,
+              fontWeight: FontWeight.w400,
             ),
-            filled: true,
-            // enabled: true,
-            fillColor: Colors.transparent,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.0),
-              borderSide: const BorderSide(color: Colors.teal),
-            ),
-          )),
+            decoration: InputDecoration(
+              prefixIcon: Icon(icon),
+              hintText: hinttext,
+              labelStyle: const TextStyle(
+                color: Colors.teal,
+              ),
+              filled: true,
+              // enabled: true,
+              fillColor: Colors.transparent,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14.0),
+                borderSide: const BorderSide(color: Colors.teal),
+              ),
+            )),
+      ),
     );
   }
 
-  Widget customdailog(
+  Widget customdailog({
     title,
     textfeild,
     iconbutton,
     onpressed,
     button,
     innersetstate,
-  ) {
+  }) {
     return AlertDialog(
       title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
       actions: [
@@ -310,20 +329,45 @@ class _DepartmentsState extends State<Departments> {
     }
   }
 
+  Future deletedialog(documentid) async {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to delete this department'),
+        actions: <Widget>[
+          MaterialButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context);
+              deleteDepartment(docid: documentid);
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.teal,
         onPressed: () {
+          depicon = false;
+          _depname.clear();
           showDialog(
               context: context,
               builder: (BuildContext context) {
                 return StatefulBuilder(
                   builder: (context, innersetState) {
                     return customdailog(
-                      'New Department',
-                      customtextformfield(
+                      title: 'New Department',
+                      textfeild: customtextformfield(
                         Icons.edit,
                         hinttext: 'Department Name',
                         controller: _depname,
@@ -340,17 +384,21 @@ class _DepartmentsState extends State<Departments> {
                           innersetState(() {});
                         },
                       ),
-                      () async {
+                      iconbutton: () async {
                         iconssearcher(innerstate: innersetState);
                       },
-                      () {
+                      onpressed: () {
                         if (_formkey.currentState!.validate()) {
-                          addDepartment();
-                          Navigator.pop(context);
+                          if (depicon) {
+                            Navigator.pop(context);
+                            addDepartment();
+                          } else {
+                            customtoast('select icon');
+                          }
                         }
                       },
-                      'ADD',
-                      innersetState,
+                      button: 'ADD',
+                      innersetstate: innersetState,
                     );
                   },
                 );
@@ -468,6 +516,9 @@ class _DepartmentsState extends State<Departments> {
                             context: context,
                             tiles: [
                               ListTile(
+                                onLongPress: () {
+                                  deletedialog(docsnapshot.id.toString());
+                                },
                                 onTap: () async {
                                   Get.to(() => const DepartmentPrograms(),
                                       arguments: {
