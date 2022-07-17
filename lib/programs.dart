@@ -1,3 +1,4 @@
+import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,6 +24,51 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
     super.initState();
     // setdepartmentsdata();
     customSearchBar = Text(args['dep_name'] + ' Programs');
+  }
+
+  Future addprogram() async {
+    customdialogcircularprogressindicator('Adding... ');
+    FirebaseFirestore.instance.collection('programs').doc(args['dep_id']).set({
+      'department_name': args['dep_name'],
+      'programnames': FieldValue.arrayUnion([_programcontroller.text.trim()]),
+    }, SetOptions(merge: true)).then((value) {
+      customtoast('Program added');
+      Navigator.pop(context);
+    });
+  }
+
+  Future deleteprogram({required programName}) async {
+    customdialogcircularprogressindicator('Deleting... ');
+    FirebaseFirestore.instance.collection('programs').doc(args['dep_id']).set({
+      // 'department_name': args['dep_name'],
+      'programnames': FieldValue.arrayRemove([programName]),
+    }, SetOptions(merge: true)).then((value) {
+      customtoast('Program deleted');
+      Navigator.pop(context);
+    });
+  }
+
+  Future deletedialog(programname) async {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to delete this program'),
+        actions: <Widget>[
+          MaterialButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context);
+              deleteprogram(programName: programname);
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget customdailog(
@@ -63,33 +109,35 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
   }) {
     return Padding(
       padding: const EdgeInsets.only(left: 19, right: 19, bottom: 10),
-      child: TextFormField(
-          key: _formkey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          controller: controller,
-          validator: validator,
-          onSaved: onsaved,
-          readOnly: false,
-          initialValue: initialvalue,
-          cursorColor: Colors.teal,
-          style: const TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w400,
-          ),
-          decoration: InputDecoration(
-            prefixIcon: Icon(icon),
-            hintText: hinttext,
-            labelStyle: const TextStyle(
-              color: Colors.teal,
+      child: Form(
+        key: _formkey,
+        child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            controller: controller,
+            validator: validator,
+            onSaved: onsaved,
+            readOnly: false,
+            initialValue: initialvalue,
+            cursorColor: Colors.teal,
+            style: const TextStyle(
+              fontSize: 15.0,
+              fontWeight: FontWeight.w400,
             ),
-            filled: true,
-            // enabled: true,
-            fillColor: Colors.transparent,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.0),
-              borderSide: const BorderSide(color: Colors.teal),
-            ),
-          )),
+            decoration: InputDecoration(
+              prefixIcon: Icon(icon),
+              hintText: hinttext,
+              labelStyle: const TextStyle(
+                color: Colors.teal,
+              ),
+              filled: true,
+              // enabled: true,
+              fillColor: Colors.transparent,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14.0),
+                borderSide: const BorderSide(color: Colors.teal),
+              ),
+            )),
+      ),
     );
   }
 
@@ -116,9 +164,13 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                           return "Please Enter Programs Name ";
                         }
                       },
-                    ),
-                    () {},
-                    'ADD');
+                    ), () {
+                  if (_formkey.currentState!.validate()) {
+                    print(_programcontroller.text.trim());
+                    Navigator.pop(context);
+                    addprogram();
+                  }
+                }, 'ADD');
               });
         },
         label: customText(txt: 'Program', clr: Colors.white),
@@ -133,29 +185,33 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
               .doc(args['dep_id'])
               .snapshots(),
           builder: (context, snapshot) {
-            var data = snapshot.data!.data() as Map;
-            var documents = data['programnames'];
-            print(documents);
-            if (_searchcontroller.text.isNotEmpty) {
-              documents = documents.where((element) {
-                return element
-                    // .get('program_name')
-                    .toString()
-                    .toLowerCase()
-                    .startsWith(_searchcontroller.text.toLowerCase());
-              }).toList();
+            if (!snapshot.hasData) {
+              return Center(
+                child: customText(
+                    txt: 'No Data Available',
+                    fsize: 20.0,
+                    fweight: FontWeight.w600),
+              );
             }
+
             if (snapshot.hasError) {
               return const Center(
                 child: Text('Something Went Wrong'),
               );
             }
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
             if (snapshot.data!.exists) {
+              var data = snapshot.data!.data() as Map;
+              var documents = data['programnames'];
+              print(documents);
+              if (_searchcontroller.text.isNotEmpty) {
+                documents = documents.where((element) {
+                  return element
+                      // .get('program_name')
+                      .toString()
+                      .toLowerCase()
+                      .startsWith(_searchcontroller.text.toLowerCase());
+                }).toList();
+              }
               return CustomScrollView(slivers: [
                 SliverAppBar(
                   title: customSearchBar,
@@ -191,7 +247,7 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                                       controller: _searchcontroller,
                                       cursorColor: Colors.teal,
                                       decoration: const InputDecoration(
-                                        hintText: 'Search by program name',
+                                        hintText: 'Search by program',
                                         border: InputBorder.none,
                                       )),
                                 ),
@@ -214,9 +270,9 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                       bottomRight: Radius.circular(20),
                     ),
                   ),
-                  // pinned: true,
-                  // floating: true,
-                  // snap: true,
+                  pinned: true,
+                  floating: true,
+                  snap: true,
                   expandedHeight: responsiveHW(context, ht: 12),
                   collapsedHeight: responsiveHW(context, ht: 11),
                 ),
@@ -237,6 +293,9 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                             context: context,
                             tiles: [
                               ListTile(
+                                onLongPress: () {
+                                  deletedialog(docsnapshot.toString());
+                                },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
