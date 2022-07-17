@@ -63,44 +63,11 @@ class _SplashScreenState extends State<SplashScreen> {
           Get.to(
             () => const LoginPage(),
           );
-          //   if (FirebaseAuth.instance.currentUser!.emailVerified) {
-          //     FirebaseFirestore.instance
-          //         .collection('users')
-          //         .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-          //         .get()
-          //         .then((DocumentSnapshot ds) {
-          //       if (ds.exists) {
-          //         Navigator.pushReplacement(context,
-          //             MaterialPageRoute(builder: (context) => const HomePage()));
-          //       } else {
-          //         Get.to(
-          //           Editprofile(),
-          //           arguments: [
-          //             {
-          //               'isedit': false,
-          //               'appbartitle': 'Set profile',
-          //               '_displayname': '',
-          //               '_countryname': '',
-          //               '_cityname': '',
-          //               '_profilepic':
-          //                   'https://banner2.cleanpng.com/20180702/juw/kisspng-australia-national-cricket-team-bowling-cricket-5b39ce04df1a32.1401674715305149489138.jpg',
-          //             },
-          //           ],
-          //         );
-          //       }
-          //     });
-          //   } else {
-          //     Navigator.pushReplacement(context,
-          //         MaterialPageRoute(builder: (context) => const verifyemail()));
-          //   }
         } else {
           Get.to(() => const AdminMainPage());
         }
       });
     } else {
-      //  Timer(const Duration(seconds: 4), () async{
-      //  SystemNavigator.pop();
-      //  });
       setState(() {
         isonline = false;
       });
@@ -178,7 +145,7 @@ class _SplashScreenState extends State<SplashScreen> {
             //   height: heightSize * 15 / 100,
             // ),
             const Icon(
-              FontAwesomeIcons.graduationCap,
+              FontAwesomeIcons.userShield,
               size: 50.0,
               color: Colors.teal,
             ),
@@ -186,7 +153,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             Text(
-              "TUB Attendance App",
+              "TU Attendance (Admin)",
               style: TextStyle(
                 fontSize: heightSize * 3 / 100,
                 color: Colors.teal,
