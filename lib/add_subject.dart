@@ -183,7 +183,8 @@ class _AddSubjectState extends State<AddSubject> {
     File file = File(filePath);
     try {
       await FirebaseStorage.instance
-          .ref('images/subject_pictures/${_subjName.text}.png')
+          .ref(
+              'images/subject_pictures/${_subjCode.text.trim()}${_subjName.text.trim()}.png')
           .putFile(file);
     } on firebase_core.FirebaseException catch (e) {
       Get.snackbar('Error occured.', '$e');
@@ -192,7 +193,8 @@ class _AddSubjectState extends State<AddSubject> {
 
   Future<void> downloadURLfunc(subjectName) async {
     String imgurl = await FirebaseStorage.instance
-        .ref('images/subject_pictures/$subjectName.png')
+        .ref(
+            'images/subject_pictures/${_subjCode.text.trim()}${subjectName.toString().trim()}.png')
         .getDownloadURL();
     setState(() {
       downloadImgUrl = imgurl;
