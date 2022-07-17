@@ -47,17 +47,33 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
   }
 
   Future deleteprogram({required programName}) async {
-    print(programName);
+    // print(programName);
+    List templist = [];
     customdialogcircularprogressindicator('Deleting... ');
+    await FirebaseFirestore.instance
+        .collection('programs')
+        .doc(args['dep_id'])
+        .get()
+        .then((depdata) {
+      if (depdata.exists) {
+        // print(depdata['depprograms']);
+        for (var item in depdata['depprograms']) {
+          // print(item);
+          if (item['program_name'] != programName) {
+            // print(item['program_name']);
+            templist.add(item);
+          }
+        }
+        // print(templist);
+      }
+    });
     try {
       FirebaseFirestore.instance
           .collection('programs')
           .doc(args['dep_id'])
           .set({
         // 'department_name': args['dep_name'],
-        'depprograms': FieldValue.arrayRemove([
-          {'program_name': programName}
-        ]),
+        'depprograms': templist,
       }, SetOptions(merge: true));
       customtoast('Program deleted');
       Navigator.pop(context);
@@ -243,12 +259,10 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return Center(
-                child: customText(
-                    txt: 'No Data Available',
-                    fsize: 20.0,
-                    fweight: FontWeight.w600),
-              );
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.teal,
+              ));
             }
 
             if (snapshot.hasError) {
@@ -259,10 +273,9 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
             if (snapshot.data!.exists) {
               var data = snapshot.data!.data() as Map;
               var documents = data['depprograms'];
-              print(documents);
               if (_searchcontroller.text.isNotEmpty) {
                 documents = documents.where((element) {
-                  return element
+                  return element['program_name']
                       // .get('program_name')
                       .toString()
                       .toLowerCase()
@@ -334,56 +347,66 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                   collapsedHeight: responsiveHW(context, ht: 11),
                 ),
                 // SliverStickyHeader(
-                SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    var docsnapshot = documents![index];
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        setState(() {});
-                      },
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 19, right: 19, top: 13),
-                        child: Column(
-                          children: ListTile.divideTiles(
-                            context: context,
-                            tiles: [
-                              ListTile(
-                                onLongPress: () {
-                                  deletedialog(
-                                      docsnapshot['program_name'].toString());
-                                },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0)),
-                                tileColor: Colors.grey[800],
-                                title: Text(
-                                  docsnapshot['program_name'].toString(),
-                                  style: const TextStyle(
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                trailing: Icon(
-                                  IconData(
-                                    args['department_icon_code'],
-                                    fontFamily:
-                                        args['department_icon_fontfamily'],
-                                    fontPackage:
-                                        args['department_icon_fontpackage'],
-                                  ),
-                                  color: Colors.teal,
-                                  size: 33,
-                                ),
-                              ),
-                            ],
-                          ).toList(),
+                documents.isEmpty
+                    ? SliverFillRemaining(
+                        child: Center(
+                          child: customText(
+                              txt: 'No Program Available',
+                              fsize: 22.0,
+                              fweight: FontWeight.w500),
                         ),
-                      ),
-                    );
-                  },
-                  childCount: documents!.length,
-                )),
+                      )
+                    : SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          var docsnapshot = documents![index];
+                          return RefreshIndicator(
+                            onRefresh: () async {
+                              setState(() {});
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 19, right: 19, top: 13),
+                              child: Column(
+                                children: ListTile.divideTiles(
+                                  context: context,
+                                  tiles: [
+                                    ListTile(
+                                      onLongPress: () {
+                                        deletedialog(docsnapshot['program_name']
+                                            .toString());
+                                      },
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      tileColor: Colors.grey[800],
+                                      title: Text(
+                                        docsnapshot['program_name'].toString(),
+                                        style: const TextStyle(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      trailing: Icon(
+                                        IconData(
+                                          args['department_icon_code'],
+                                          fontFamily: args[
+                                              'department_icon_fontfamily'],
+                                          fontPackage: args[
+                                              'department_icon_fontpackage'],
+                                        ),
+                                        color: Colors.teal,
+                                        size: 33,
+                                      ),
+                                    ),
+                                  ],
+                                ).toList(),
+                              ),
+                            ),
+                          );
+                        },
+                        childCount: documents!.length,
+                      )),
                 // ),
               ]);
             } else {

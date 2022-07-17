@@ -122,15 +122,19 @@ class _DepartmentsState extends State<Departments> {
 
   Future deleteDepartment({required docid}) async {
     customdialogcircularprogressindicator('Deleting... ');
-    return FirebaseFirestore.instance
-        .collection('departments')
-        .doc(docid)
-        .delete()
-        .then((value) {
+    try {
+      FirebaseFirestore.instance.collection('departments').doc(docid).delete();
+      await FirebaseFirestore.instance
+          .collection('programs')
+          .doc(docid)
+          .delete();
       print('deleted');
       Navigator.pop(context);
       customtoast('Department Deleted');
-    });
+    } on FirebaseException catch (e) {
+      Navigator.pop(context);
+      customtoast('Error Occured');
+    }
   }
 
   Future iconsheet({required depiconslist, statesetter}) async {
