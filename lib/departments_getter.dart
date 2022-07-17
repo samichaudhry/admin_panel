@@ -39,14 +39,20 @@ Future getprograms() async {
 }
 
 Future getofferedprograms() async {
-  Map<String, List<String>> programs = {};
+  Map<String, List> programs = {};
+  Map programdata = {};
   await FirebaseFirestore.instance
       .collection('programs')
       .get()
       .then((offeredprograms) {
     for (var program in offeredprograms.docs) {
-      programs[program['department_name']] = List.from(program['programnames']);
+      List templist = [];
+      for (var prog in program['depprograms']) {
+        templist.add(prog['program_name']);
+        programdata[prog['program_name']] = prog['duration'];
+      }
+      programs[program['department_name']] = templist;
     }
   });
-  return programs;
+  return [programs, programdata];
 }

@@ -103,6 +103,7 @@ class _sessionpageState extends State<sessionpage> {
   String selectedprogramname = 'Msc';
   String? selectedsession;
   String? selectedprogramtype;
+  Map programsdata = {};
   List<String> department = [
     // 'Computer Science and IT',
     // 'Biological Science',
@@ -119,53 +120,58 @@ class _sessionpageState extends State<sessionpage> {
     // 'Sports Sciences',
     // 'Urdu'
   ];
-  Map<String, List<String>> programs = {
-    // 'Computer Science and IT': <String>[
-    //   "BSCS",
-    //   "BSIT",
-    //   "MIT",
+  Map<String, List> programs = {
+    // 'Computer Science and IT': [
+    //   {'program_name': "BSCS", 'duration': '4 years'},
+    //   {'program_name': "BSIT", 'duration': '4 years'},
+    //   {'program_name': "MIT", 'duration': '2 years'},
     // ],
-    // 'Biological Science': <String>[
-    //   "BS Botonay",
+    // 'Biological Science': [
+    //   {'program_name': "BS Botonay", 'duration': '4 years'},
     // ],
-    // 'Chemistry': <String>[
-    //   "BS Chemistry",
-    //   "Msc Chemistry",
+    // 'Chemistry': [
+    //   {'program_name': "BS Chemistry", 'duration': '4 years'},
+    //   {'program_name': "Msc Chemistry", 'duration': '2 years'},
     // ],
-    // 'Physics': <String>[
-    //   "BS Physics",
-    //   "Msc Physics",
+    // 'Physics': [
+    //   {'program_name': "BS Physics", 'duration': '4 years'},
+    //   {'program_name': "Msc Physics", 'duration': '2 years'},
     // ],
-    // 'Business Administration': <String>[
-    //   "BBA",
-    //   "B.com",
+    // 'Business Administration': [
+    //   {'program_name': "BBA", 'duration': '4 years'},
     // ],
-    // 'Economics': <String>[
-    //   "BS Economics",
+    // 'Economics': [
+    //   {'program_name': "BS Economics", 'duration': '4 years'},
     // ],
-    // 'Education': <String>[
-    //   "BS Education",
-    //   "B.ED",
+    // 'Education': [
+    //   {'program_name': "BS Education", 'duration': '4 years'},
+    //   {'program_name': "B.ED", 'duration': '2 years'},
     // ],
-    // 'English': <String>[
-    //   "BS English",
-    //   "MA English",
+    // 'English': [
+    //   {'program_name': "BS English", 'duration': '4 years'},
+    //   {'program_name': "MA English", 'duration': '2 years'},
     // ],
-    // 'Mathematics': <String>[
-    //   "BS Mathematics",
-    //   "Msc Mathematics",
+    // 'Mathematics': [
+    //   {'program_name': "Msc Mathematics", 'duration': '2 years'},
+    //   {'program_name': "BS Mathematics", 'duration': '4 years'},
     // ],
-    // 'Psychology': <String>[
-    //   "BS Psychology",
+    // 'Psychology': [
+    //   {'program_name': "BS Psychology", 'duration': '4 years'}
     // ],
-    // 'Social Work': <String>[
-    //   "BS Social Work",
+    // 'Social Work': [
+    //   {'program_name': "BS Social Work", 'duration': '4 years'}
     // ],
-    // 'Sociology': <String>[
-    //   "BS Sociology",
+    // 'Sociology': [
+    //   {'program_name': "BS Sociology", 'duration': '4 years'}
     // ],
-    // 'Sports Sciences': <String>["BS Sports Sciences", "MA Sports Sciences"],
-    // 'Urdu': <String>['BS Urdu', 'MA Urdu'],
+    // 'Sports Sciences': [
+    //   {'program_name': "BS Sports Sciences", 'duration': '4 years'},
+    //   {'program_name': "MA Sports Sciences", 'duration': '2 years'}
+    // ],
+    // 'Urdu': [
+    //   {'program_name': 'BS Urdu', 'duration': '4 years'},
+    //   {'program_name': 'MA Urdu', 'duration': '2 years'},
+    // ],
   };
 
   // Future setprograms() async {
@@ -178,8 +184,8 @@ class _sessionpageState extends State<sessionpage> {
   //           .collection('programs')
   //           .doc(dep.id.toString())
   //           .set({
+  //         'depprograms': programs[dep['department_name']],
   //         'department_name': dep['department_name'],
-  //         'programnames': programs[dep['department_name']],
   //       }, SetOptions(merge: true));
   //     }
   //   });
@@ -240,9 +246,14 @@ class _sessionpageState extends State<sessionpage> {
       // print(value);
     });
     getofferedprograms().then((val) {
-      programs = val;
-      print(programs);
+      programs = val[0];
+      programsdata = val[1];
+      // print(val[0]);
+      // print(val[1]);
     });
+    // setprograms().then((value) {
+    //   print('task completed');
+    // });
   }
 
   Future setsessiondata() async {
@@ -411,7 +422,9 @@ class _sessionpageState extends State<sessionpage> {
                             left: 19, right: 19, bottom: 10),
                         child: DropdownButtonFormField(
                           value: selectedsession,
-                          items: selectedprogramname.startsWith('BS')
+                          items: programsdata[selectedprogramname]
+                                  .toString()
+                                  .contains('4')
                               ? sessions4years
                                   .map((String value) =>
                                       DropdownMenuItem<String>(

@@ -2,7 +2,9 @@ import 'package:admin_panel/custom%20widgets/custom_toast.dart';
 import 'package:admin_panel/custom%20widgets/custom_widgets.dart';
 import 'package:admin_panel/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class DepartmentPrograms extends StatefulWidget {
@@ -19,6 +21,8 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
   final TextEditingController _programcontroller = TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   var args = Get.arguments;
+  String? selectedduration;
+  bool isdurationselected = false;
   @override
   void initState() {
     super.initState();
@@ -30,7 +34,12 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
     customdialogcircularprogressindicator('Adding... ');
     FirebaseFirestore.instance.collection('programs').doc(args['dep_id']).set({
       'department_name': args['dep_name'],
-      'programnames': FieldValue.arrayUnion([_programcontroller.text.trim()]),
+      'depprograms': FieldValue.arrayUnion([
+        {
+          'program_name': _programcontroller.text.trim(),
+          'duration': selectedduration
+        }
+      ]),
     }, SetOptions(merge: true)).then((value) {
       customtoast('Program added');
       Navigator.pop(context);
@@ -38,14 +47,24 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
   }
 
   Future deleteprogram({required programName}) async {
+    print(programName);
     customdialogcircularprogressindicator('Deleting... ');
-    FirebaseFirestore.instance.collection('programs').doc(args['dep_id']).set({
-      // 'department_name': args['dep_name'],
-      'programnames': FieldValue.arrayRemove([programName]),
-    }, SetOptions(merge: true)).then((value) {
+    try {
+      FirebaseFirestore.instance
+          .collection('programs')
+          .doc(args['dep_id'])
+          .set({
+        // 'department_name': args['dep_name'],
+        'depprograms': FieldValue.arrayRemove([
+          {'program_name': programName}
+        ]),
+      }, SetOptions(merge: true));
       customtoast('Program deleted');
       Navigator.pop(context);
-    });
+    } on FirebaseException catch (e) {
+      customtoast('Error Occured');
+      Navigator.pop(context);
+    }
   }
 
   Future deletedialog(programname) async {
@@ -73,14 +92,19 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
 
   Widget customdailog(
     title,
-    textfeild,
+    textfeild1,
+    textfeild2,
     onpressed,
     button,
   ) {
     return AlertDialog(
       title: Center(child: customText(txt: title, fweight: FontWeight.w500)),
       actions: [
-        textfeild,
+        textfeild1,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.01,
+        ),
+        textfeild2,
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.01,
         ),
@@ -147,30 +171,63 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.teal,
         onPressed: () {
+          _programcontroller.clear();
+          selectedduration = null;
+          isdurationselected = false;
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return customdailog(
-                    'New Program',
-                    customtextformfield(
-                      Icons.edit,
-                      hinttext: 'Program Name',
-                      controller: _programcontroller,
-                      onsaved: (value) {
-                        _programcontroller.text = value!;
-                      },
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please Enter Programs Name ";
-                        }
-                      },
-                    ), () {
-                  if (_formkey.currentState!.validate()) {
-                    print(_programcontroller.text.trim());
-                    Navigator.pop(context);
-                    addprogram();
-                  }
-                }, 'ADD');
+                return StatefulBuilder(builder: (context, innersetState) {
+                  return customdailog(
+                      'New Program',
+                      customtextformfield(
+                        Icons.edit,
+                        hinttext: 'Program Name',
+                        controller: _programcontroller,
+                        onsaved: (value) {
+                          _programcontroller.text = value!;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Enter Programs Name ";
+                          }
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 19, right: 19, bottom: 10),
+                        child: DropdownButtonFormField(
+                          value: selectedduration,
+                          items: ['2 Years', '4 Years']
+                              .map((value) => DropdownMenuItem<String>(
+                                  value: value, child: Text(value)))
+                              .toList(),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            labelText: 'Program Duration',
+                            prefixIcon:
+                                const Icon(FontAwesomeIcons.barsProgress),
+                          ),
+                          onChanged: (Object? value) {
+                            innersetState(() {
+                              selectedduration = value as String?;
+                              isdurationselected = true;
+                            });
+                          },
+                        ),
+                      ), () {
+                    if (_formkey.currentState!.validate()) {
+                      if (isdurationselected) {
+                        Navigator.pop(context);
+                        addprogram();
+                      } else {
+                        customtoast('Select duration');
+                      }
+                    }
+                  }, 'ADD');
+                });
               });
         },
         label: customText(txt: 'Program', clr: Colors.white),
@@ -201,7 +258,7 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
             }
             if (snapshot.data!.exists) {
               var data = snapshot.data!.data() as Map;
-              var documents = data['programnames'];
+              var documents = data['depprograms'];
               print(documents);
               if (_searchcontroller.text.isNotEmpty) {
                 documents = documents.where((element) {
@@ -294,13 +351,14 @@ class _DepartmentProgramsState extends State<DepartmentPrograms> {
                             tiles: [
                               ListTile(
                                 onLongPress: () {
-                                  deletedialog(docsnapshot.toString());
+                                  deletedialog(
+                                      docsnapshot['program_name'].toString());
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0)),
                                 tileColor: Colors.grey[800],
                                 title: Text(
-                                  docsnapshot.toString(),
+                                  docsnapshot['program_name'].toString(),
                                   style: const TextStyle(
                                     fontSize: 17.0,
                                     fontWeight: FontWeight.bold,
